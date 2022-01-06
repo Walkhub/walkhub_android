@@ -1,6 +1,6 @@
-package com.semicolon.data.remote.request.users
+package com.semicolon.data.remote.response.users
 
-data class UserRegisterResponse(
+data class UserReissueResponse(
     val access_token: String,
     val expired_at: Int,
     val refresh_token: String

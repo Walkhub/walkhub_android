@@ -1,4 +1,4 @@
-package com.semicolon.data.remote.request.users.userInquiryProfile
+package com.semicolon.data.remote.response.users.inquirymypage
 
 data class TitleBadge(
     val id: Int,

@@ -1,9 +1,13 @@
 package com.semicolon.data.remote.api
 
 import com.semicolon.data.remote.request.users.*
-import com.semicolon.data.remote.request.users.inquirymypage.InquiryMypageResponse
-import com.semicolon.data.remote.request.users.inquiryownerbadges.InquiryOwnerBadgesResponse
-import com.semicolon.data.remote.request.users.userInquiryProfile.UserInquiryProfileResponse
+import com.semicolon.data.remote.response.users.FindUserAccountsResponse
+import com.semicolon.data.remote.response.users.UserLoginResponse
+import com.semicolon.data.remote.response.users.UserRegisterResponse
+import com.semicolon.data.remote.response.users.UserReissueResponse
+import com.semicolon.data.remote.response.users.inquirymypage.InquiryMypageResponse
+import com.semicolon.data.remote.response.users.inquiryownerbadges.InquiryOwnerBadgesResponse
+import com.semicolon.data.remote.response.users.userInquiryProfile.UserInquiryProfileResponse
 import retrofit2.http.*
 
 interface UsersAPI {

@@ -1,4 +1,4 @@
-package com.semicolon.data.remote.request.users.inquirymypage
+package com.semicolon.data.remote.response.users.inquirymypage
 
 data class InquiryMypageResponse(
     val birthday: String,

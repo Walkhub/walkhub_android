@@ -1,4 +1,4 @@
-package com.semicolon.data.remote.request.users.userInquiryProfile
+package com.semicolon.data.remote.response.users.userInquiryProfile
 
 data class UserInquiryProfileResponse(
     val `class`: Int,
