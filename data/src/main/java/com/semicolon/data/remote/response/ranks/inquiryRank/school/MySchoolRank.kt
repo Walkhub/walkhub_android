@@ -1,11 +1,11 @@
-package com.semicolon.data.remote.response
+package com.semicolon.data.remote.response.ranks.inquiryRank.school
 
 import com.google.gson.annotations.SerializedName
 
-//check school
-data class SchoolRankList(
+data class MySchoolRank(
     @SerializedName("agency_code") val agencyCode: String,
     @SerializedName("logo_image_url") val logoImageUrl: String,
     @SerializedName("name") val name: String,
+    @SerializedName("rank") val rank: Int,
     @SerializedName("walk_count") val walkCount: Int
 )

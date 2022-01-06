@@ -1,8 +1,8 @@
-package com.semicolon.data.remote.response
+package com.semicolon.data.remote.response.ranks.search.user
 
 import com.google.gson.annotations.SerializedName
 
-data class UserList(
+data class UserInfo(
     @SerializedName("name") val name: String,
     @SerializedName("profile_image_url") val profileImageUrl: String,
     @SerializedName("rank") val rank: Int,

@@ -1,8 +1,9 @@
-package com.semicolon.data.remote.response
+package com.semicolon.data.remote.response.ranks.search.school
 
 import com.google.gson.annotations.SerializedName
 
-data class MySchoolRank(
+//search school
+data class SchoolInfo(
     @SerializedName("agency_code") val agencyCode: String,
     @SerializedName("logo_image_url") val logoImageUrl: String,
     @SerializedName("name") val name: String,
