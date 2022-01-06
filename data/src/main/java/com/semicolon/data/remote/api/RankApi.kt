@@ -14,29 +14,29 @@ import retrofit2.http.Query
 interface RankApi {
     //유저랭킹조회
     @GET("/ranks/users")
-    suspend fun inCheckUserRanks(
+    suspend fun fetchCheckUserRanks(
         @Query("scope") scope: String,
         @Query("dateType") dateType: String,
         @Query("sort") sort: String
-    ) : CheckUserRank
+    ): CheckUserRank
 
     //학교랭킹조회
     @GET("/ranks/schools")
-    suspend fun inCheckSchoolRanks(
+    suspend fun fetchCheckSchoolRanks(
         @Query("dateType") dateType: String,
         @Query("sort") sort: String
-    ) : CheckSchoolRank
+    ): CheckSchoolRank
 
     //유저검색
     @GET("/ranks/search/users")
-    suspend fun inSearchUser(
+    suspend fun fetchSearchUser(
         @Query("name") name: String
-    ) : SearchUser
+    ): SearchUser
 
     //학교검색
     @GET("/ranks/search/schools")
-    suspend fun inSearchSchool(
+    suspend fun fetchSearchSchool(
         @Query("name") name: String
-    ) : SearchSchool
+    ): SearchSchool
 
 }
