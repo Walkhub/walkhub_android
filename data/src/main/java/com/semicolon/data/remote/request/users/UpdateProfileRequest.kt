@@ -1,8 +1,10 @@
 package com.semicolon.data.remote.request.users
 
+import com.google.gson.annotations.SerializedName
+
 data class UpdateProfileRequest(
-    val birthdat: Int,
-    val name: String,
-    val profile_url: String,
-    val sex: String
+    @SerializedName("birthday") val birthday: Int,
+    @SerializedName("name") val name: String,
+    @SerializedName("profile_url") val profileUrl: String,
+    @SerializedName("sex") val sex: String
 )

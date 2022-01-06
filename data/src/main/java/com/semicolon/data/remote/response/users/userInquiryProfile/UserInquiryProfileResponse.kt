@@ -1,10 +1,12 @@
 package com.semicolon.data.remote.response.users.userInquiryProfile
 
+import com.google.gson.annotations.SerializedName
+
 data class UserInquiryProfileResponse(
-    val `class`: Int,
-    val grade: Int,
-    val name: String,
-    val profile_image: String,
-    val school_name: String,
-    val title_badge: TitleBadge
+    @SerializedName("class") val `class`: Int,
+    @SerializedName("grade") val grade: Int,
+    @SerializedName("name") val name: String,
+    @SerializedName("profile_image") val profileImage: String,
+    @SerializedName("school_name") val schoolName: String,
+    @SerializedName("title_badge") val titleBadge: TitleBadge
 )

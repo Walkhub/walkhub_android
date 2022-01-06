@@ -1,5 +1,7 @@
 package com.semicolon.data.remote.response.users
 
+import com.google.gson.annotations.SerializedName
+
 data class FindUserAccountsResponse(
-    val account_id: String
+    @SerializedName("account_id") val accountId: String
 )

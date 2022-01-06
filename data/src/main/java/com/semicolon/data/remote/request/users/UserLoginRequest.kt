@@ -1,8 +1,10 @@
 package com.semicolon.data.remote.request.users
 
+import com.google.gson.annotations.SerializedName
+
 data class UserLoginRequest(
-    val account_id: String,
-    val device_token: String,
-    val password: String,
-    val type: String
+    @SerializedName("account_id") val accountId: String,
+    @SerializedName("device_token") val deviceToken: String,
+    @SerializedName("password") val password: String,
+    @SerializedName("type") val type: String
 )

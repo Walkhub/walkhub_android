@@ -1,6 +1,8 @@
 package com.semicolon.data.remote.request.users
 
+import com.google.gson.annotations.SerializedName
+
 data class InputHealthRequest(
-    val height: Double,
-    val weight: Int
+    @SerializedName("height") val height: Double,
+    @SerializedName("weight") val weight: Int
 )

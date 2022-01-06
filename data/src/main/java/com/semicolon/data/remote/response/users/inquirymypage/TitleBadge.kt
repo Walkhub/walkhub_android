@@ -1,7 +1,9 @@
 package com.semicolon.data.remote.response.users.inquirymypage
 
+import com.google.gson.annotations.SerializedName
+
 data class TitleBadge(
-    val id: Int,
-    val image: String,
-    val name: String
+    @SerializedName("id") val id: Int,
+    @SerializedName("image") val image: String,
+    @SerializedName("name") val name: String
 )
