@@ -15,4 +15,7 @@ interface ChallengeApi {
 
     @POST("challenges/{challenge-id}")
     suspend fun postParticipateChallenge(@Path("challenge-id") challengeId: Long)
+
+    @GET("challenges/{challenge-id}/participants")
+    suspend fun getChallengeParticipants(@Path("challenge-id") challengeId: Long)
 }
