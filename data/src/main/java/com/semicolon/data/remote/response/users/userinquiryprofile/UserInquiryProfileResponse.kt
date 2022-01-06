@@ -1,4 +1,4 @@
-package com.semicolon.data.remote.response.users.userInquiryProfile
+package com.semicolon.data.remote.response.users.userinquiryprofile
 
 import com.google.gson.annotations.SerializedName
 

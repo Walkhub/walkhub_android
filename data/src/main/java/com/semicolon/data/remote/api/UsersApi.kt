@@ -1,40 +1,40 @@
 package com.semicolon.data.remote.api
 
 import com.semicolon.data.remote.request.users.*
-import com.semicolon.data.remote.response.users.FindUserAccountsResponse
-import com.semicolon.data.remote.response.users.UserLoginResponse
-import com.semicolon.data.remote.response.users.UserRegisterResponse
+import com.semicolon.data.remote.response.users.FindUserAccountResponse
+import com.semicolon.data.remote.response.users.UserSignInResponse
+import com.semicolon.data.remote.response.users.UserSignUpResponse
 import com.semicolon.data.remote.response.users.UserReissueResponse
 import com.semicolon.data.remote.response.users.inquirymypage.InquiryMypageResponse
-import com.semicolon.data.remote.response.users.inquiryownerbadges.InquiryOwnerBadgesResponse
-import com.semicolon.data.remote.response.users.userInquiryProfile.UserInquiryProfileResponse
+import com.semicolon.data.remote.response.users.inquiryownbadges.InquiryOwnBadgeResponse
+import com.semicolon.data.remote.response.users.userinquiryprofile.UserInquiryProfileResponse
 import retrofit2.http.*
 
 interface UsersApi {
 
     // 전화번호 인증(회원가입)
     @POST("users/signup/verification-codes")
-    suspend fun verifyPhoneNumberRegister(
-        @Body verifyPhoneNumberRegisterRequest: VerifyPhoneNumberRegisterRequest
-    ) : Unit
+    suspend fun verifyPhoneNumberSignUp(
+        @Body verifyPhoneNumberSignUpRequest: VerifyPhoneNumberSignUpRequest
+    )
 
     // 전화번호 인증(패스워드)
     @POST("users/passwords/verification-codes")
     suspend fun verifyPhoneNumberPassword(
         @Body verifyPhoneNumberPasswordRequest: VerifyPhoneNumberPasswordRequest
-    ) : Unit
+    )
 
     // 유저 회원가입
     @POST("users")
-    suspend fun userRegister(
-        @Body userRegisterReqeust: UserRegisterRequest
-    ) : UserRegisterResponse
+    suspend fun userSignUp(
+        @Body userSignUpRequest: UserSignUpRequest
+    ) : UserSignUpResponse
 
     // 유저 로그인
     @POST("users/auth")
-    suspend fun userLogin(
-        @Body userLoginRequest: UserLoginRequest
-    ) : UserLoginResponse
+    suspend fun userSignIn(
+        @Body userSignInRequest: UserSignInRequest
+    ) : UserSignInResponse
 
     // 토큰 재발급
     @PUT("users/reissue")
@@ -46,12 +46,12 @@ interface UsersApi {
     @PATCH("users/password")
     suspend fun userChangePassword(
         @Body userChangePasswordRequest: UserChangePasswordRequest
-    ) : Unit
+    )
 
 
     // 유저 프로필 조회
     @GET("users/{user-id}")
-    suspend fun userInquiryProfile(
+    suspend fun inquiryUserProfile(
         @Path("user-id") userId: Int
     ) : UserInquiryProfileResponse
 
@@ -62,32 +62,32 @@ interface UsersApi {
 
     // 소유한 뱃지 목록 조회
     @GET("user/{user-id}/badges")
-    suspend fun inquiryOwnerBadges(
+    suspend fun inquiryOwnBadge(
         @Path("user-id") userId: Int
-    ) : InquiryOwnerBadgesResponse
+    ) : InquiryOwnBadgeResponse
 
     // 대표 뱃지 설정
     @PUT("users/badges/{badge-id}")
-    suspend fun settingRepresentativeBadge(
+    suspend fun setRepresentativeBadge(
         @Path("badge-id") badgeId: Int
-    ) : Unit
+    )
 
     // 내 정보 수정
     @PATCH("users")
     suspend fun updateProfile(
         @Body updateProfileRequest: UpdateProfileRequest
-    ) : Unit
+    )
 
     // 유저 아이디 찾기
     @GET("users/accounts/{phone-number}")
-    suspend fun findUserAccounts(
+    suspend fun findUserAccount(
         @Path("phone_number") phoneNumber: String
-    ) : FindUserAccountsResponse
+    ) : FindUserAccountResponse
 
     // 건강 정보 입력
     @PUT("users/health")
     suspend fun inputHealth(
         @Body inputHealthRequest: InputHealthRequest
-    ) : Unit
+    )
 
 }
