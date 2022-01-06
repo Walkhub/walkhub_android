@@ -1,9 +1,11 @@
 package com.semicolon.data.remote.response
 
+import com.google.gson.annotations.SerializedName
+
 data class MyRank(
-    val name: String,
-    val profile_image_url: String,
-    val rank: Int,
-    val user_id: Int,
-    val walk_count: Int
+    @SerializedName("name") val name: String,
+    @SerializedName("profile_image_url") val profileImageUrl: String,
+    @SerializedName("rank") val rank: Int,
+    @SerializedName("user_id") val userId: Int,
+    @SerializedName("walk_count") val walkCount:Int
 )

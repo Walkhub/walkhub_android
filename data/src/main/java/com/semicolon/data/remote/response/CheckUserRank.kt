@@ -1,6 +1,8 @@
 package com.semicolon.data.remote.response
 
+import com.google.gson.annotations.SerializedName
+
 data class CheckUserRank(
-    val my_rank: MyRank,
-    val rank_list: List<Rank>
+    @SerializedName("my_rank") val myRank: MyRank,
+    @SerializedName("rank_list") val rankList: List<Rank>
 )
