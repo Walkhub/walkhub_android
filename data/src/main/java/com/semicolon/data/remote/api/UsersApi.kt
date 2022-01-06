@@ -10,19 +10,19 @@ import com.semicolon.data.remote.response.users.inquiryownerbadges.InquiryOwnerB
 import com.semicolon.data.remote.response.users.userInquiryProfile.UserInquiryProfileResponse
 import retrofit2.http.*
 
-interface UsersAPI {
+interface UsersApi {
 
     // 전화번호 인증(회원가입)
     @POST("users/signup/verification-codes")
     suspend fun verifyPhoneNumberRegister(
         @Body verifyPhoneNumberRegisterRequest: VerifyPhoneNumberRegisterRequest
-    ) : Void
+    ) : Unit
 
     // 전화번호 인증(패스워드)
     @POST("users/passwords/verification-codes")
     suspend fun verifyPhoneNumberPassword(
         @Body verifyPhoneNumberPasswordRequest: VerifyPhoneNumberPasswordRequest
-    ) : Void
+    ) : Unit
 
     // 유저 회원가입
     @POST("users")
@@ -46,42 +46,37 @@ interface UsersAPI {
     @PATCH("users/password")
     suspend fun userChangePassword(
         @Body userChangePasswordRequest: UserChangePasswordRequest
-    ) : Void
+    ) : Unit
 
 
     // 유저 프로필 조회
     @GET("users/{user-id}")
     suspend fun userInquiryProfile(
-        @Header("Authorization") accessToken: String,
         @Path("user-id") userId: Int
     ) : UserInquiryProfileResponse
 
     // 마이 페이지 조회
     @GET("users")
     suspend fun inquiryMypage(
-        @Header("Authorization") accessToken: String
     ) : InquiryMypageResponse
 
     // 소유한 뱃지 목록 조회
     @GET("user/{user-id}/badges")
     suspend fun inquiryOwnerBadges(
-        @Header("Authorization") accessToken: String,
         @Path("user-id") userId: Int
     ) : InquiryOwnerBadgesResponse
 
     // 대표 뱃지 설정
     @PUT("users/badges/{badge-id}")
     suspend fun settingRepresentativeBadge(
-        @Header("Authorization") accessToken: String,
         @Path("badge-id") badgeId: Int
-    ) : Void
+    ) : Unit
 
     // 내 정보 수정
     @PATCH("users")
     suspend fun updateProfile(
-        @Header("Authorization") accessToken: String,
         @Body updateProfileRequest: UpdateProfileRequest
-    ) : Void
+    ) : Unit
 
     // 유저 아이디 찾기
     @GET("users/accounts/{phone-number}")
@@ -92,8 +87,7 @@ interface UsersAPI {
     // 건강 정보 입력
     @PUT("users/health")
     suspend fun inputHealth(
-        @Header("Authorization") accessToken: String,
         @Body inputHealthRequest: InputHealthRequest
-    ) : Void
+    ) : Unit
 
 }
