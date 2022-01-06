@@ -2,6 +2,6 @@ package com.semicolon.data.remote.response
 
 import com.google.gson.annotations.SerializedName
 
-data class TecherAuthCode(
+data class IssuingTeacherAuthCode(
     @SerializedName("code") val code: String
 )

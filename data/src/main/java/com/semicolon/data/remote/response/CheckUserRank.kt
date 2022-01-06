@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 data class CheckUserRank(
     @SerializedName("my_rank") val myRank: MyRank,
-    @SerializedName("rank_list") val rankList: List<Rank>
+    @SerializedName("rank_list") val userRankList: List<UserRankList>
 )
