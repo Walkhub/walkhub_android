@@ -2,6 +2,6 @@ package com.semicolon.domain.param.exercise
 
 import java.io.File
 
-data class FinishExerciseMeasureParam(
+data class FinishMeasureExerciseParam(
     val verifyImage: File?
 )

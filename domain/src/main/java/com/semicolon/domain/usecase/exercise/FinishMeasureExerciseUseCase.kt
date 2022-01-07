@@ -1,13 +1,13 @@
 package com.semicolon.domain.usecase.exercise
 
-import com.semicolon.domain.param.exercise.FinishExerciseMeasureParam
+import com.semicolon.domain.param.exercise.FinishMeasureExerciseParam
 import com.semicolon.domain.repository.ExerciseRepository
 import com.semicolon.domain.usecase.UseCase
 
 class FinishMeasureExerciseUseCase(
     private val exerciseRepository: ExerciseRepository
-) : UseCase<FinishExerciseMeasureParam, Unit>() {
+) : UseCase<FinishMeasureExerciseParam, Unit>() {
 
-    override suspend fun execute(data: FinishExerciseMeasureParam) =
+    override suspend fun execute(data: FinishMeasureExerciseParam) =
         exerciseRepository.finishMeasureExercise(data)
 }

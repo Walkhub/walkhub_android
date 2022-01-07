@@ -1,17 +1,17 @@
 package com.semicolon.domain.repository
 
 import com.semicolon.domain.entity.exercise.DailyExerciseEntity
-import com.semicolon.domain.param.exercise.FinishExerciseMeasureParam
-import com.semicolon.domain.param.exercise.StartExerciseMeasureParam
+import com.semicolon.domain.param.exercise.FinishMeasureExerciseParam
+import com.semicolon.domain.param.exercise.StartMeasureExerciseParam
 import kotlinx.coroutines.flow.Flow
 
 interface ExerciseRepository {
 
     suspend fun fetchDailyExerciseRecord(): Flow<DailyExerciseEntity>
 
-    suspend fun startMeasureExercise(startExerciseMeasureParam: StartExerciseMeasureParam)
+    suspend fun startMeasureExercise(startMeasureExerciseParam: StartMeasureExerciseParam)
 
-    suspend fun finishMeasureExercise(finishExerciseMeasureParam: FinishExerciseMeasureParam)
+    suspend fun finishMeasureExercise(finishMeasureExerciseParam: FinishMeasureExerciseParam)
 
     suspend fun isMeasuring(): Boolean
 
