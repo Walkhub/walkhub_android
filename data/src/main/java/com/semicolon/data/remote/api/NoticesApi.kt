@@ -11,6 +11,6 @@ interface NoticesApi {
 
     @GET("/notices/{notice-id}")
     suspend fun loadNoticeDetail(
-        @Path("notice-id") notice_id: Int
+        @Path("notice-id") noticeId: Int
     ): NoticeDetailResponse
 }
