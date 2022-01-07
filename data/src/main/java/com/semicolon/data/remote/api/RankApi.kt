@@ -1,42 +1,38 @@
 package com.semicolon.data.remote.api
 
-import com.semicolon.data.remote.response.CheckSchoolRank
-import com.semicolon.data.remote.response.CheckUserRank
-import com.semicolon.data.remote.response.SearchSchool
-import com.semicolon.data.remote.response.SearchUser
-import kotlinx.coroutines.flow.Flow
-import retrofit2.Call
-import retrofit2.http.Body
+import com.semicolon.data.remote.response.ranks.inquiryRank.school.SchoolRankResponse
+import com.semicolon.data.remote.response.ranks.inquiryRank.user.UserRankResponse
+import com.semicolon.data.remote.response.ranks.search.school.SearchSchoolResponse
+import com.semicolon.data.remote.response.ranks.search.user.SearchUserResponse
 import retrofit2.http.GET
-import retrofit2.http.Headers
 import retrofit2.http.Query
 
 interface RankApi {
     //유저랭킹조회
     @GET("/ranks/users")
-    suspend fun fetchCheckUserRanks(
+    suspend fun fetchUserRank(
         @Query("scope") scope: String,
         @Query("dateType") dateType: String,
         @Query("sort") sort: String
-    ): CheckUserRank
+    ): UserRankResponse
 
     //학교랭킹조회
     @GET("/ranks/schools")
-    suspend fun fetchCheckSchoolRanks(
+    suspend fun fetchSchoolRank(
         @Query("dateType") dateType: String,
         @Query("sort") sort: String
-    ): CheckSchoolRank
+    ): SchoolRankResponse
 
     //유저검색
     @GET("/ranks/search/users")
-    suspend fun fetchSearchUser(
+    suspend fun searchUser(
         @Query("name") name: String
-    ): SearchUser
+    ): SearchUserResponse
 
     //학교검색
     @GET("/ranks/search/schools")
-    suspend fun fetchSearchSchool(
+    suspend fun searchSchool(
         @Query("name") name: String
-    ): SearchSchool
+    ): SearchSchoolResponse
 
 }
