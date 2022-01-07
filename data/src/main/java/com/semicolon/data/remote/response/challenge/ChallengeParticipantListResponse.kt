@@ -6,7 +6,7 @@ data class ChallengeParticipantListResponse(
     @SerializedName("participant_list") val participantList: List<ChallengeParticipantResponse>
 ) {
     data class ChallengeParticipantResponse(
-        @SerializedName("id") val id: Long,
+        @SerializedName("id") val id: Int,
         @SerializedName("name") val name: String,
         @SerializedName("gcn") val gcn: Int,
         @SerializedName("profile_image_url") val profileImageUrl: String

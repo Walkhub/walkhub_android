@@ -16,7 +16,7 @@ data class ChallengeDetailResponse(
     @SerializedName("writer") val writer: ChallengeWriterResponse
 ) {
     data class ChallengeWriterResponse(
-        @SerializedName("id") val id: Long,
+        @SerializedName("id") val id: Int,
         @SerializedName("name") val name: String,
         @SerializedName("profile_image_url") val profileUrl: String
     )
