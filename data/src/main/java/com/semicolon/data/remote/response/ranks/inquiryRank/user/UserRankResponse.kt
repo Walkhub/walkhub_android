@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class UserRankResponse(
     @SerializedName("my_rank") val myRank: MyRank,
-    @SerializedName("rank_list") val userRank: List<UserRank>
+    @SerializedName("rank_list") val userRankList: List<UserRank>
 ) {
     data class UserRank(
         @SerializedName("name") val name: String,
