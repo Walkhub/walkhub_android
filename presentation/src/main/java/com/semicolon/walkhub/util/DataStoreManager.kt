@@ -20,29 +20,20 @@ class DataStoreManager(private val context : Context) {
     private val idKey = stringPreferencesKey("idKey")
     private val pwKey = stringPreferencesKey("pwKey")
 
-    val getId : Flow<String> = context.dataStore.data
-        .catch { exception ->
-            if (exception is IOException) {
-                emit(emptyPreferences())
-            } else {
-                throw exception
-            }
-        }
-        .map {preferences ->
-            preferences[idKey] ?: ""
-        }
+    val getId : Flow<String> = getData(idKey)
+    val getPw : Flow<String> = getData(pwKey)
 
-    val getPw : Flow<String> = context.dataStore.data
-        .catch { exception ->
-            if (exception is IOException) {
-                emit(emptyPreferences())
-            } else {
-                throw exception
+    fun getData(b : Preferences.Key<String>) : Flow<String> = context.dataStore.data
+            .catch { exception ->
+                if (exception is IOException) {
+                    emit(emptyPreferences())
+                } else {
+                    throw exception
+                }
             }
-        }
-        .map {preferences ->
-            preferences[pwKey] ?: ""
-        }
+            .map { preferences ->
+                preferences[b] ?: ""
+            }
 
     suspend fun setData(id : String, pw: String){
         context.dataStore.edit { preferences ->
