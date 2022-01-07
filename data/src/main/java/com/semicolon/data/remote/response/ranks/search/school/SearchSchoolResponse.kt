@@ -4,12 +4,12 @@ import com.google.gson.annotations.SerializedName
 
 data class SearchSchoolResponse(
     @SerializedName("school_list") val school: List<SchoolInfo>
-){
+) {
     data class SchoolInfo(
         @SerializedName("agency_code") val agencyCode: String,
         @SerializedName("logo_image_url") val logoImageUrl: String,
-        val name: String,
-        val rank: Int,
+        @SerializedName("name") val name: String,
+        @SerializedName("rank") val rank: Int,
         @SerializedName("walk_count") val walkCount: Int
     )
 }

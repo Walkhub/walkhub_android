@@ -9,15 +9,15 @@ data class SchoolRankResponse(
     data class SchoolRank(
         @SerializedName("agency_code") val agencyCode: String,
         @SerializedName("logo_image_url") val logoImageUrl: String,
-        val name: String,
+        @SerializedName("name") val name: String,
         @SerializedName("walk_count") val walkCount: Int
     )
 
     data class MySchoolRank(
         @SerializedName("agency_code") val agencyCode: String,
         @SerializedName("logo_image_url") val logoImageUrl: String,
-        val name: String,
-        val rank: Int,
+        @SerializedName("name") val name: String,
+        @SerializedName("rank") val rank: Int,
         @SerializedName("walk_count") val walkCount: Int
     )
 }
