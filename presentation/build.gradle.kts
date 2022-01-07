@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
+    id("kotlin-android")
 }
 
 android {
@@ -47,6 +48,12 @@ dependencies {
 
     implementation(Dependency.UI.material)
     implementation(Dependency.UI.constraintLayout)
+    implementation("androidx.appcompat:appcompat:1.4.0")
+    implementation("com.google.android.material:material:1.4.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.2")
+
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation("androidx.datastore:datastore-core:1.0.0")
 
     testImplementation(Dependency.Test.junit)
     testImplementation(Dependency.Test.mockito)
