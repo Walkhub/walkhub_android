@@ -9,11 +9,11 @@ interface ExerciseRepository {
 
     suspend fun fetchDailyExerciseRecord(): Flow<DailyExerciseEntity>
 
-    suspend fun startExerciseMeasure(startExerciseMeasureParam: StartExerciseMeasureParam)
+    suspend fun startMeasureExercise(startExerciseMeasureParam: StartExerciseMeasureParam)
 
-    suspend fun finishExerciseMeasure(finishExerciseMeasureParam: FinishExerciseMeasureParam)
+    suspend fun finishMeasureExercise(finishExerciseMeasureParam: FinishExerciseMeasureParam)
 
     suspend fun isMeasuring(): Boolean
 
-    suspend fun startExerciseRecord()
+    suspend fun startRecordExercise()
 }

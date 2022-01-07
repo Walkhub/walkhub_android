@@ -4,10 +4,10 @@ import com.semicolon.domain.param.exercise.StartExerciseMeasureParam
 import com.semicolon.domain.repository.ExerciseRepository
 import com.semicolon.domain.usecase.UseCase
 
-class StartExerciseMeasureUseCase(
+class StartMeasureExerciseUseCase(
     private val exerciseRepository: ExerciseRepository
 ) : UseCase<StartExerciseMeasureParam, Unit>() {
 
     override suspend fun execute(data: StartExerciseMeasureParam) =
-        exerciseRepository.startExerciseMeasure(data)
+        exerciseRepository.startMeasureExercise(data)
 }
