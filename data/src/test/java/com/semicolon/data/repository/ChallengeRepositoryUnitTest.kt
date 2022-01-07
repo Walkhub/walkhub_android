@@ -7,6 +7,7 @@ import com.semicolon.domain.entity.challenge.Challenge
 import com.semicolon.domain.entity.challenge.ChallengeScope
 import com.semicolon.domain.repository.challenge.ChallengeRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
@@ -46,7 +47,7 @@ class ChallengeRepositoryUnitTest {
             .thenReturn(ArrayList<Challenge>().apply {
                 add(testChallenge)
             })
-        val testResult = challengeRepository.fetchChallenges()
+        val testResult = challengeRepository.fetchChallenges().single()
         assert(testResult.size == 1)
     }
 
