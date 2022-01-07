@@ -1,10 +1,8 @@
 package com.semicolon.data.remote.api
 
-import com.semicolon.data.remote.response.notice.noticedetail.NoticeDetailResponse
-import com.semicolon.data.remote.response.notice.noticelist.NoticeListResponse
-import retrofit2.http.Body
+import com.semicolon.data.remote.response.notice.NoticeDetailResponse
+import com.semicolon.data.remote.response.notice.NoticeListResponse
 import retrofit2.http.GET
-import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface NoticesApi {
