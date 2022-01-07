@@ -13,9 +13,8 @@ class ChallengeRemoteDataSourceImpl(private val challengeApi: ChallengeApi): Cha
     override suspend fun fetchChallengeDetail(challengeId: Int): ChallengeDetail =
         challengeApi.getChallengeDetail(challengeId).toEntity()
 
-    override suspend fun postParticipate(challengeId: Int) {
-        TODO("Not yet implemented")
-    }
+    override suspend fun postParticipate(challengeId: Int) =
+        challengeApi.postParticipateChallenge(challengeId)
 
     override suspend fun fetchParticipants(challengeId: Int): List<ChallengeParticipant> {
         TODO("Not yet implemented")
