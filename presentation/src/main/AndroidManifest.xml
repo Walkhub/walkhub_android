@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Walkhub">
         <activity
+            android:name=".ui.UserLoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
