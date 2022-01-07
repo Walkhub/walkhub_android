@@ -15,7 +15,7 @@ data class ChallengeDetail(
     val writer: Writer
 ) {
     data class Writer(
-        val id: Long,
+        val id: Int,
         val name: String,
         val profileImageUrl: String
     )

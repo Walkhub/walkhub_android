@@ -3,7 +3,7 @@ package com.semicolon.domain.entity.challenge
 import java.time.LocalDateTime
 
 data class Challenge(
-    val id: Long,
+    val id: Int,
     val name: String,
     val startAt: LocalDateTime,
     val endAt: LocalDateTime,
