@@ -13,7 +13,6 @@ data class ChallengeDetailResponse(
     @SerializedName("end_at") val endAt: LocalDateTime,
     @SerializedName("scope") val scope: String,
     @SerializedName("participant_count") val participantCount: Int,
-    @SerializedName("isMine") val isMine: Boolean,
     @SerializedName("writer") val writer: ChallengeWriterResponse
 ) {
     data class ChallengeWriterResponse(
