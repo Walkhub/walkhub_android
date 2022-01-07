@@ -7,7 +7,7 @@ data class NoticeListResponse(
 
 ){
     data class NoticeListValue (
-        @SerializedName("id") val noticeId: Int,
+        @SerializedName("id") val noticeId: Long,
         @SerializedName("title") val title: String,
         @SerializedName("created_at") val createdAt: String,
         @SerializedName("writer") val noticeWriter: NoticeWriter
