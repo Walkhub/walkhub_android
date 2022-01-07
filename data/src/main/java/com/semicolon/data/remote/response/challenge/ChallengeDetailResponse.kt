@@ -15,4 +15,10 @@ data class ChallengeDetailResponse(
     @SerializedName("participant_count") val participantCount: Int,
     @SerializedName("isMine") val isMine: Boolean,
     @SerializedName("writer") val writer: ChallengeWriterResponse
-)
+) {
+    data class ChallengeWriterResponse(
+        @SerializedName("id") val id: Long,
+        @SerializedName("name") val name: String,
+        @SerializedName("profile_image_url") val profileUrl: String
+    )
+}
