@@ -9,6 +9,7 @@ object Version {
     const val coreKtx = "1.7.0"
     const val appcompat = "1.4.0"
     const val material = "1.4.0"
+    const val datastore = "1.0.0"
     const val constraintLayout = "2.1.2"
     const val hilt = "2.38.1"
     const val retrofit = "2.9.0"

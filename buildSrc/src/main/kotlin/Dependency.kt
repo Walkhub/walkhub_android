@@ -5,6 +5,12 @@ object Dependency {
     const val androidKtx = "androidx.activity:activity-ktx:${Version.androidKtx}"
     const val fragmentKtx = "androidx.fragment:fragment-ktx:${Version.fragmentKtx}"
 
+    object DataStore {
+        const val datastorePreferences = "androidx.datastore:datastore-preferences:${Version.datastore}"
+        const val datastoreCore =
+            "androidx.datastore:datastore-core:${Version.datastore}"
+    }
+
     object UI {
         const val material = "com.google.android.material:material:${Version.material}"
         const val constraintLayout =
