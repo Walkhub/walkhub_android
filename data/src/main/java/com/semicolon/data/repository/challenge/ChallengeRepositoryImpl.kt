@@ -4,8 +4,11 @@ import com.semicolon.domain.entity.challenge.Challenge
 import com.semicolon.domain.entity.challenge.ChallengeDetail
 import com.semicolon.domain.entity.challenge.ChallengeParticipant
 import com.semicolon.domain.repository.challenge.ChallengeRepository
+import javax.inject.Inject
 
-class ChallengeRepositoryImpl: ChallengeRepository {
+class ChallengeRepositoryImpl @Inject constructor(
+
+): ChallengeRepository {
     override suspend fun fetchChallenges(): List<Challenge> {
         TODO("Not yet implemented")
     }
