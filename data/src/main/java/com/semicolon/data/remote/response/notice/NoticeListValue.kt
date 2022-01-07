@@ -1,4 +1,4 @@
-package com.semicolon.data.remote.response.notice.noticelist
+package com.semicolon.data.remote.response.notice
 
 import com.google.gson.annotations.SerializedName
 
