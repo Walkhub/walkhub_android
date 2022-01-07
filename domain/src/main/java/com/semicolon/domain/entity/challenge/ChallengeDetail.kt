@@ -12,7 +12,6 @@ data class ChallengeDetail(
     val endAt: LocalDateTime,
     val scope: ChallengeScope,
     val participantCount: Int,
-    val isMyChallenge: Boolean,
     val writer: Writer
 ) {
     data class Writer(
