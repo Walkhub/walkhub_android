@@ -3,6 +3,7 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("kotlin-android")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
