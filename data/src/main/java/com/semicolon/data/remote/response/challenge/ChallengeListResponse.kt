@@ -16,17 +16,18 @@ data class ChallengeListResponse(
         @SerializedName("image_url") val imageUrl: String,
         @SerializedName("scope") val scope: String
     )
+
+    fun ChallengeResponse.toEntity(): Challenge =
+        Challenge(
+            id = id,
+            name = name,
+            startAt = startAt,
+            endAt = endAt,
+            imageUrl = imageUrl,
+            scope = scope.toChallengeScope()
+        )
 }
 
 fun ChallengeListResponse.toEntity(): List<Challenge> =
     challengeList.map { it.toEntity() }
 
-fun ChallengeListResponse.ChallengeResponse.toEntity(): Challenge =
-    Challenge(
-        id = id,
-        name = name,
-        startAt = startAt,
-        endAt = endAt,
-        imageUrl = imageUrl,
-        scope = scope.toChallengeScope()
-    )
