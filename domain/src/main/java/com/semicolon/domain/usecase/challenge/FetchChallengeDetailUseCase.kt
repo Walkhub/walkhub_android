@@ -5,7 +5,7 @@ import com.semicolon.domain.repository.challenge.ChallengeRepository
 import com.semicolon.domain.usecase.UseCase
 import kotlinx.coroutines.flow.Flow
 
-class GetChallengeDetailUseCase(private val challengeRepository: ChallengeRepository) :
+class FetchChallengeDetailUseCase(private val challengeRepository: ChallengeRepository) :
     UseCase<Int, Flow<ChallengeDetailEntity>>() {
     override suspend fun execute(data: Int): Flow<ChallengeDetailEntity> =
         challengeRepository.fetchChallengeDetail(data)
