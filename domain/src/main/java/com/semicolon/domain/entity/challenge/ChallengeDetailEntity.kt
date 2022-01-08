@@ -13,9 +13,9 @@ data class ChallengeDetailEntity(
     val endAt: LocalDateTime,
     val scope: ChallengeScope,
     val participantCount: Int,
-    val writer: Writer
+    val writerEntity: WriterEntity
 ) {
-    data class Writer(
+    data class WriterEntity(
         val id: Int,
         val name: String,
         val profileImageUrl: String
