@@ -12,11 +12,17 @@ interface ChallengeApi {
     suspend fun getChallenges(): ChallengeListResponse
 
     @GET("challenges/{challenge-id}")
-    suspend fun getChallengeDetail(@Path("challenge-id") challengeId: Int): ChallengeDetailResponse
+    suspend fun getChallengeDetail(
+        @Path("challenge-id") challengeId: Int
+    ): ChallengeDetailResponse
 
     @POST("challenges/{challenge-id}")
-    suspend fun postParticipateChallenge(@Path("challenge-id") challengeId: Int)
+    suspend fun postParticipateChallenge(
+        @Path("challenge-id") challengeId: Int
+    )
 
     @GET("challenges/{challenge-id}/participants")
-    suspend fun getChallengeParticipants(@Path("challenge-id") challengeId: Int): ChallengeParticipantListResponse
+    suspend fun getChallengeParticipants(
+        @Path("challenge-id") challengeId: Int
+    ): ChallengeParticipantListResponse
 }

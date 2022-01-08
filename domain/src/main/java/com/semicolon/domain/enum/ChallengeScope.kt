@@ -1,4 +1,4 @@
-package com.semicolon.domain.entity.challenge
+package com.semicolon.domain.enum
 
 enum class ChallengeScope {
     ALL,

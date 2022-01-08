@@ -1,6 +1,6 @@
 package com.semicolon.domain.entity.challenge
 
-data class ChallengeParticipant(
+data class ChallengeParticipantEntity(
     val id: Int,
     val name: String,
     val gcn: Int,
