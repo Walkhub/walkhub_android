@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 class FetchChallengesUseCase(private val challengeRepository: ChallengeRepository) :
     UseCase<Unit, Flow<List<ChallengeEntity>>>() {
+
     override suspend fun execute(data: Unit): Flow<List<ChallengeEntity>> =
         challengeRepository.fetchChallenges()
 }
