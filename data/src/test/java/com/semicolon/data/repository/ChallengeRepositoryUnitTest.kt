@@ -47,9 +47,14 @@ class ChallengeRepositoryUnitTest {
             .thenReturn(ArrayList<ChallengeEntity>().apply {
                 add(testChallenge)
             })
-        `when`(challengeLocalDataSource)
-        val testResult = challengeRepository.fetchChallenges().single()
-        assert(testResult.size == 1)
+        `when`(challengeLocalDataSource.fetchChallenges())
+            .thenReturn(ArrayList<ChallengeEntity>().apply {
+                add(testChallenge)
+            })
+        
+        challengeRepository.fetchChallenges().collect {
+            assert(it.size == 1)
+        }
     }
 
 }
