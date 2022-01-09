@@ -33,7 +33,4 @@ dependencies {
     implementation(Dependency.Coroutine.core)
 
     implementation(Dependency.DI.inject)
-
-    implementation(Dependency.Network.okhttp)
-
 }
