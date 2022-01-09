@@ -1,4 +1,4 @@
-package com.semicolon.data.local.datasource
+package com.semicolon.data.local.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
