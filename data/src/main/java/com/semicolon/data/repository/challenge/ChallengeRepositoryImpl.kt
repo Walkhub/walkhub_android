@@ -18,6 +18,9 @@ class ChallengeRepositoryImpl @Inject constructor(
     override suspend fun fetchChallenges(): Flow<List<ChallengeEntity>> =
         OfflineCacheUtil<List<ChallengeEntity>>()
             .remoteData { challengeRemoteDateSource.fetchChallenges() }
+            .localData { challengeLocalDataSource.fetchChallenges() }
+            .compareData { localData, remoteData -> localData.containsAll(remoteData) }
+            .doOnNeedRefresh { challengeLocalDataSource.saveChallenges(it) }
             .createFlow()
 
 
