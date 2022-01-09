@@ -1,8 +1,8 @@
 package com.semicolon.data.remote.response.challenge
 
 import com.google.gson.annotations.SerializedName
-import com.semicolon.domain.entity.challenge.ChallengeDetail
-import com.semicolon.domain.entity.challenge.toChallengeScope
+import com.semicolon.domain.entity.challenge.ChallengeDetailEntity
+import com.semicolon.domain.enum.toChallengeScope
 import java.time.LocalDateTime
 
 data class ChallengeDetailResponse(
@@ -25,7 +25,7 @@ data class ChallengeDetailResponse(
 }
 
 fun ChallengeDetailResponse.toEntity() =
-    ChallengeDetail(
+    ChallengeDetailEntity(
         name = name,
         content = content,
         goal = goal,
@@ -35,11 +35,11 @@ fun ChallengeDetailResponse.toEntity() =
         endAt = endAt,
         scope = scope.toChallengeScope(),
         participantCount = participantCount,
-        writer = writer.toEntity()
+        writerEntity = writer.toEntity()
     )
 
 fun ChallengeDetailResponse.ChallengeWriterResponse.toEntity() =
-    ChallengeDetail.Writer(
+    ChallengeDetailEntity.WriterEntity(
         id = id,
         name = name,
         profileImageUrl = profileUrl
