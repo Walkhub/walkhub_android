@@ -1,7 +1,7 @@
 package com.semicolon.data.remote.response.challenge
 
 import com.google.gson.annotations.SerializedName
-import com.semicolon.domain.entity.challenge.ChallengeParticipant
+import com.semicolon.domain.entity.challenge.ChallengeParticipantEntity
 
 data class ChallengeParticipantListResponse(
     @SerializedName("participant_list") val participantList: List<ChallengeParticipantResponse>
@@ -14,7 +14,7 @@ data class ChallengeParticipantListResponse(
     )
 
     fun ChallengeParticipantResponse.toEntity() =
-        ChallengeParticipant(
+        ChallengeParticipantEntity(
             id = id,
             name = name,
             gcn = gcn,

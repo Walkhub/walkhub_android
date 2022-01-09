@@ -1,8 +1,8 @@
 package com.semicolon.data.remote.response.challenge
 
 import com.google.gson.annotations.SerializedName
-import com.semicolon.domain.entity.challenge.Challenge
-import com.semicolon.domain.entity.challenge.toChallengeScope
+import com.semicolon.domain.entity.challenge.ChallengeEntity
+import com.semicolon.domain.enum.toChallengeScope
 import java.time.LocalDateTime
 
 data class ChallengeListResponse(
@@ -17,8 +17,8 @@ data class ChallengeListResponse(
         @SerializedName("scope") val scope: String
     )
 
-    fun ChallengeResponse.toEntity(): Challenge =
-        Challenge(
+    fun ChallengeResponse.toEntity(): ChallengeEntity =
+        ChallengeEntity(
             id = id,
             name = name,
             startAt = startAt,
@@ -28,6 +28,6 @@ data class ChallengeListResponse(
         )
 }
 
-fun ChallengeListResponse.toEntity(): List<Challenge> =
+fun ChallengeListResponse.toEntity(): List<ChallengeEntity> =
     challengeList.map { it.toEntity() }
 
