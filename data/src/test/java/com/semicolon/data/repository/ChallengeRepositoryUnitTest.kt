@@ -51,7 +51,7 @@ class ChallengeRepositoryUnitTest {
             .thenReturn(ArrayList<ChallengeEntity>().apply {
                 add(testChallenge)
             })
-        
+
         challengeRepository.fetchChallenges().collect {
             assert(it.size == 1)
         }
