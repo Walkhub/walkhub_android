@@ -3,8 +3,8 @@ package com.semicolon.data.repository
 import com.semicolon.data.datasource.challenge.local.ChallengeLocalDataSource
 import com.semicolon.data.datasource.challenge.remote.ChallengeRemoteDateSource
 import com.semicolon.data.repository.challenge.ChallengeRepositoryImpl
-import com.semicolon.domain.entity.challenge.Challenge
-import com.semicolon.domain.entity.challenge.ChallengeScope
+import com.semicolon.domain.entity.challenge.ChallengeEntity
+import com.semicolon.domain.enum.ChallengeScope
 import com.semicolon.domain.repository.challenge.ChallengeRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.single
@@ -35,7 +35,7 @@ class ChallengeRepositoryUnitTest {
 
     @Test
     fun `첼린지 목록 읽어오기 성공`(): Unit = runBlocking {
-        val testChallenge = Challenge(
+        val testChallenge = ChallengeEntity(
             12,
             "challenge",
             LocalDateTime.MIN,
@@ -44,9 +44,10 @@ class ChallengeRepositoryUnitTest {
             ChallengeScope.ALL
         )
         `when`(challengeRemoteDateSource.fetchChallenges())
-            .thenReturn(ArrayList<Challenge>().apply {
+            .thenReturn(ArrayList<ChallengeEntity>().apply {
                 add(testChallenge)
             })
+        `when`(challengeLocalDataSource)
         val testResult = challengeRepository.fetchChallenges().single()
         assert(testResult.size == 1)
     }
