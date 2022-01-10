@@ -6,6 +6,8 @@ import com.semicolon.data.datasource.challenge.local.ChallengeLocalDataSourceImp
 import com.semicolon.data.datasource.challenge.remote.ChallengeRemoteDateSource
 import com.semicolon.data.datasource.challenge.remote.ChallengeRemoteDateSourceImpl
 import com.semicolon.data.local.database.challenge.ChallengeDao
+import com.semicolon.data.local.database.challenge.entity.ChallengeDBEntity
+import com.semicolon.data.local.database.challenge.entity.toEntity
 import com.semicolon.data.remote.api.ChallengeApi
 import com.semicolon.data.remote.response.challenge.ChallengeListResponse
 import com.semicolon.data.remote.response.challenge.toEntity
@@ -41,8 +43,8 @@ class ChallengeDatasourceUnitTest : BaseTest() {
                     ChallengeListResponse.ChallengeResponse(
                         12,
                         "도전!",
-                        Date.from(Instant.MIN),
-                        Date.from(Instant.MAX),
+                        Date.from(Instant.now()),
+                        Date.from(Instant.now()),
                         "https://image",
                         "ALL"
                     )
@@ -60,7 +62,23 @@ class ChallengeDatasourceUnitTest : BaseTest() {
     @Test
     fun `LocalDatasource 챌린지 가져오기 성공`() {
         runBlocking {
+            val challengeListMock = ArrayList<ChallengeDBEntity>().apply {
+                add(
+                    ChallengeDBEntity(
+                        12,
+                        "도전!",
+                        Date.from(Instant.now()),
+                        Date.from(Instant.now()),
+                        "https://image",
+                        "ALL"
+                    )
+                )
+            }
+            `when`(challengeDao.fetchChallenges())
+                .thenReturn(challengeListMock)
 
+            val testValue = challengeLocalDataSource.fetchChallenges()
+            assert(testValue == challengeListMock.toEntity())
         }
     }
 }
