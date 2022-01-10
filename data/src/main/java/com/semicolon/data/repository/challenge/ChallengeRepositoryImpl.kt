@@ -39,6 +39,6 @@ class ChallengeRepositoryImpl @Inject constructor(
             .createFlow()
 
     override suspend fun postParticipateChallenge(id: Int) {
-        TODO("Not yet implemented")
+        challengeRemoteDateSource.postParticipate(id)
     }
 }
