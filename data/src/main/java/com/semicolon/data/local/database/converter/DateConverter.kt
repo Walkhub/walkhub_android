@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.util.*
 
-class DateTimeConverter {
+class DateConverter {
 
     @TypeConverter
     fun dataTimeToString(localDateTime: LocalDateTime?): String? =
