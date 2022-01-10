@@ -1,4 +1,4 @@
-package com.semicolon.data.local.database.challenge.entity
+package com.semicolon.data.local.entity.challenge
 
 import androidx.room.Embedded
 import androidx.room.Relation
