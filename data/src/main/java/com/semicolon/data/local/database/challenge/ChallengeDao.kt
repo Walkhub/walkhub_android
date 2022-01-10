@@ -10,8 +10,8 @@ import com.semicolon.data.local.database.challenge.entity.ChallengeDatabaseEntit
 interface ChallengeDao {
 
     @Query("SELECT * FROM challenge")
-    fun fetchChallenges(): List<ChallengeDatabaseEntity>
+    suspend fun fetchChallenges(): List<ChallengeDatabaseEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun saveChallenges(challenges: List<ChallengeDatabaseEntity>)
+    suspend fun saveChallenges(challenges: List<ChallengeDatabaseEntity>)
 }

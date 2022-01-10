@@ -1,15 +1,16 @@
 package com.semicolon.data.local.database.converter
 
 import androidx.room.TypeConverter
+import com.google.gson.Gson
+import com.semicolon.domain.enum.ChallengeScope
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
 import java.util.*
 
 class DateConverter {
 
     @TypeConverter
-    fun dataTimeToString(localDateTime: LocalDateTime?): String? =
-        localDateTime?.toString()
+    fun dataTimeToString(date: Date?): String? =
+        date?.toString()
 
     @TypeConverter
     fun stringToDate(string: String?): Date? =
