@@ -16,7 +16,7 @@ data class ChallengeDetailDbEntity(
     var writerImageUrl: String
 )
 
-fun ChallengeDetailEntity.toDBEntity(id: Int) =
+fun ChallengeDetailEntity.toDbEntity(id: Int) =
     ChallengeDetailDbEntity(
         id = id,
         content = content,

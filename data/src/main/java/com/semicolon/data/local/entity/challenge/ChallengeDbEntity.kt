@@ -30,7 +30,7 @@ fun ChallengeDbEntity.toEntity() =
 fun List<ChallengeDbEntity>.toEntity() =
     map { it.toEntity() }
 
-fun ChallengeEntity.toDatabaseEntity() =
+fun ChallengeEntity.toDbEntity() =
     ChallengeDbEntity(
         id = id,
         name = name,
@@ -40,5 +40,5 @@ fun ChallengeEntity.toDatabaseEntity() =
         scope = scope.toScopeString()
     )
 
-fun List<ChallengeEntity>.toDatabaseEntity() =
-    map { it.toDatabaseEntity() }
+fun List<ChallengeEntity>.toDbEntity() =
+    map { it.toDbEntity() }

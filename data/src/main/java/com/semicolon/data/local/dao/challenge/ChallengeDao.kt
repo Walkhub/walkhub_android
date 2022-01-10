@@ -4,6 +4,7 @@ import androidx.room.*
 import com.semicolon.data.local.entity.challenge.ChallengeAndDetail
 import com.semicolon.data.local.entity.challenge.ChallengeDbEntity
 import com.semicolon.data.local.entity.challenge.ChallengeDetailDbEntity
+import com.semicolon.data.local.entity.challenge.ChallengeParticipantDbEntity
 
 @Dao
 interface ChallengeDao {
@@ -20,4 +21,10 @@ interface ChallengeDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveChallengeDetail(challengeDetail: ChallengeDetailDbEntity)
+
+    @Query("SELECT * FROM challenge_participants WHERE challengeId = :challengeId")
+    suspend fun fetchParticipants(challengeId: Int): List<ChallengeParticipantDbEntity>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun saveParticipants(participants: List<ChallengeParticipantDbEntity>)
 }
