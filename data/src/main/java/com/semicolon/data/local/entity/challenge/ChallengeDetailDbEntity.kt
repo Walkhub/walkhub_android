@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.semicolon.domain.entity.challenge.ChallengeDetailEntity
 
 @Entity
-data class ChallengeDetailDBEntity(
+data class ChallengeDetailDbEntity(
     @PrimaryKey var id: Int,
     var content: String,
     var goal: Int,
@@ -17,7 +17,7 @@ data class ChallengeDetailDBEntity(
 )
 
 fun ChallengeDetailEntity.toDBEntity(id: Int) =
-    ChallengeDetailDBEntity(
+    ChallengeDetailDbEntity(
         id = id,
         content = content,
         goal = goal,

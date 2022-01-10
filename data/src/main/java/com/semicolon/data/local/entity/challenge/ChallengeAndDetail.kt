@@ -7,12 +7,12 @@ import com.semicolon.domain.enum.toChallengeScope
 
 data class ChallengeAndDetail(
 
-    @Embedded val challenge: ChallengeDBEntity,
+    @Embedded val challenge: ChallengeDbEntity,
     @Relation(
         parentColumn = "id",
         entityColumn = "id"
     )
-    val detail: ChallengeDetailDBEntity
+    val detail: ChallengeDetailDbEntity
 )
 
 fun ChallengeAndDetail.toEntity() =
