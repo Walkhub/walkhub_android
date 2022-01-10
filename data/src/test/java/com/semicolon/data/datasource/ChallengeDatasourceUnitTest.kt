@@ -36,7 +36,7 @@ class ChallengeDatasourceUnitTest : BaseTest() {
     }
 
     @Test
-    fun `RemoteDatasource 챌린지 가저오기 성공`() {
+    fun `RemoteDatasource fetchChallenges Success`() {
         runBlocking {
             val challengeListMock = ArrayList<ChallengeListResponse.ChallengeResponse>().apply {
                 add(
@@ -60,7 +60,7 @@ class ChallengeDatasourceUnitTest : BaseTest() {
     }
 
     @Test
-    fun `LocalDatasource 챌린지 가져오기 성공`() {
+    fun `LocalDatasource fetchChallenges Success`() {
         runBlocking {
             val challengeListMock = ArrayList<ChallengeDBEntity>().apply {
                 add(
@@ -81,4 +81,6 @@ class ChallengeDatasourceUnitTest : BaseTest() {
             assert(testValue == challengeListMock.toEntity())
         }
     }
+
+
 }

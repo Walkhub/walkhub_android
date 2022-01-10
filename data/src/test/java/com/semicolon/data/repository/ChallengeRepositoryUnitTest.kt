@@ -12,7 +12,6 @@ import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import java.time.Instant
-import java.time.LocalDateTime
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -31,7 +30,7 @@ class ChallengeRepositoryUnitTest : BaseTest(){
     }
 
     @Test
-    fun `첼린지 목록 읽어오기 성공`(): Unit = runBlocking {
+    fun `Fetch Challenges Success`(): Unit = runBlocking {
         val testChallenge = ChallengeEntity(
             12,
             "challenge",
