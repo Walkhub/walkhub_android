@@ -50,4 +50,8 @@ object Dependency {
     object Lifecycle {
         const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.lifecycle}"
     }
+
+    object ThreeTenABP {
+        const val threeTenAbp = "com.jakewharton.threetenabp:threetenabp:${Version.threeTenAbp}"
+    }
 }
