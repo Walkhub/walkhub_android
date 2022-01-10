@@ -1,9 +1,9 @@
-package com.semicolon.data.local.database.challenge
+package com.semicolon.data.local.dao.challenge
 
 import androidx.room.*
-import com.semicolon.data.local.database.challenge.entity.ChallengeAndDetail
-import com.semicolon.data.local.database.challenge.entity.ChallengeDBEntity
-import com.semicolon.data.local.database.challenge.entity.ChallengeDetailDBEntity
+import com.semicolon.data.local.entity.challenge.ChallengeAndDetail
+import com.semicolon.data.local.entity.challenge.ChallengeDBEntity
+import com.semicolon.data.local.entity.challenge.ChallengeDetailDBEntity
 
 @Dao
 interface ChallengeDao {

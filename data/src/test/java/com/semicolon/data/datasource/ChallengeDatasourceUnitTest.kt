@@ -5,9 +5,9 @@ import com.semicolon.data.datasource.challenge.local.ChallengeLocalDataSource
 import com.semicolon.data.datasource.challenge.local.ChallengeLocalDataSourceImpl
 import com.semicolon.data.datasource.challenge.remote.ChallengeRemoteDateSource
 import com.semicolon.data.datasource.challenge.remote.ChallengeRemoteDateSourceImpl
-import com.semicolon.data.local.database.challenge.ChallengeDao
-import com.semicolon.data.local.database.challenge.entity.ChallengeDBEntity
-import com.semicolon.data.local.database.challenge.entity.toEntity
+import com.semicolon.data.local.dao.challenge.ChallengeDao
+import com.semicolon.data.local.dao.challenge.entity.ChallengeDBEntity
+import com.semicolon.data.local.dao.challenge.entity.toEntity
 import com.semicolon.data.remote.api.ChallengeApi
 import com.semicolon.data.remote.response.challenge.ChallengeListResponse
 import com.semicolon.data.remote.response.challenge.toEntity

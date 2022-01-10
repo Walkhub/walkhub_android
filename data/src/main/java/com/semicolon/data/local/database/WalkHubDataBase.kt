@@ -3,9 +3,9 @@ package com.semicolon.data.local.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.semicolon.data.local.database.challenge.ChallengeDao
-import com.semicolon.data.local.database.challenge.entity.ChallengeDBEntity
-import com.semicolon.data.local.database.challenge.entity.ChallengeDetailDBEntity
+import com.semicolon.data.local.dao.challenge.ChallengeDao
+import com.semicolon.data.local.dao.challenge.entity.ChallengeDBEntity
+import com.semicolon.data.local.dao.challenge.entity.ChallengeDetailDBEntity
 import com.semicolon.data.local.database.converter.DateConverter
 
 @Database(
