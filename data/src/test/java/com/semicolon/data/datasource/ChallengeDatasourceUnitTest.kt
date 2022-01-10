@@ -1,6 +1,5 @@
 package com.semicolon.data.datasource
 
-import com.google.gson.annotations.SerializedName
 import com.semicolon.data.BaseTest
 import com.semicolon.data.datasource.challenge.local.ChallengeLocalDataSource
 import com.semicolon.data.datasource.challenge.local.ChallengeLocalDataSourceImpl
@@ -14,7 +13,9 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
-import java.time.LocalDateTime
+import java.time.Instant
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ChallengeDatasourceUnitTest : BaseTest() {
     @Mock
@@ -40,8 +41,8 @@ class ChallengeDatasourceUnitTest : BaseTest() {
                     ChallengeListResponse.ChallengeResponse(
                         12,
                         "도전!",
-                        LocalDateTime.MIN,
-                        LocalDateTime.MAX,
+                        Date.from(Instant.MIN),
+                        Date.from(Instant.MAX),
                         "https://image",
                         "ALL"
                     )

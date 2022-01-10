@@ -11,7 +11,10 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
+import java.time.Instant
 import java.time.LocalDateTime
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ChallengeRepositoryUnitTest : BaseTest(){
     @Mock
@@ -32,8 +35,8 @@ class ChallengeRepositoryUnitTest : BaseTest(){
         val testChallenge = ChallengeEntity(
             12,
             "challenge",
-            LocalDateTime.MIN,
-            LocalDateTime.MAX,
+            Date.from(Instant.MIN),
+            Date.from(Instant.MAX),
             "https://image",
             ChallengeScope.ALL
         )
