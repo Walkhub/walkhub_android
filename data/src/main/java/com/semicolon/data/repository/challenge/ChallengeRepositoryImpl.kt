@@ -24,9 +24,12 @@ class ChallengeRepositoryImpl @Inject constructor(
             .createFlow()
 
 
-    override suspend fun fetchChallengeDetail(id: Int): Flow<ChallengeDetailEntity> {
-        TODO("Not yet implemented")
-    }
+    override suspend fun fetchChallengeDetail(id: Int): Flow<ChallengeDetailEntity> =
+        OfflineCacheUtil<ChallengeDetailEntity>()
+            .remoteData { challengeRemoteDateSource.fetchChallengeDetail(id) }
+            .localData { challengeLocalDataSource.fetchChallengeDetail(id) }
+            .doOnNeedRefresh { challengeLocalDataSource.saveChallengeDetail(id, it) }
+            .createFlow()
 
     override suspend fun fetchChallengeParticipants(id: Int): Flow<List<ChallengeParticipantEntity>> {
         TODO("Not yet implemented")
