@@ -8,7 +8,7 @@ import com.semicolon.domain.enum.toScopeString
 import java.util.*
 
 @Entity(tableName = "challenge")
-data class ChallengeDatabaseEntity(
+data class ChallengeDBEntity(
     @PrimaryKey var id: Int,
     var name: String,
     var startAt: Date,
@@ -17,7 +17,7 @@ data class ChallengeDatabaseEntity(
     var scope: String
 )
 
-fun ChallengeDatabaseEntity.toEntity() =
+fun ChallengeDBEntity.toEntity() =
     ChallengeEntity(
         id = id,
         name = name,
@@ -27,11 +27,11 @@ fun ChallengeDatabaseEntity.toEntity() =
         scope = scope.toChallengeScope()
     )
 
-fun List<ChallengeDatabaseEntity>.toEntity() =
+fun List<ChallengeDBEntity>.toEntity() =
     map { it.toEntity() }
 
 fun ChallengeEntity.toDatabaseEntity() =
-    ChallengeDatabaseEntity(
+    ChallengeDBEntity(
         id = id,
         name = name,
         startAt = startAt,

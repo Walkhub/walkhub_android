@@ -1,25 +1,23 @@
 package com.semicolon.data.local.database.challenge
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import com.semicolon.data.local.database.challenge.entity.ChallengeDatabaseEntity
-import com.semicolon.data.local.database.challenge.entity.ChallengeDetailDatabaseEntity
-import com.semicolon.data.local.database.challenge.entity.ChallengeDetailJoinEntity
+import androidx.room.*
+import com.semicolon.data.local.database.challenge.entity.ChallengeAndDetail
+import com.semicolon.data.local.database.challenge.entity.ChallengeDBEntity
+import com.semicolon.data.local.database.challenge.entity.ChallengeDetailDBEntity
 
 @Dao
 interface ChallengeDao {
 
     @Query("SELECT * FROM challenge")
-    suspend fun fetchChallenges(): List<ChallengeDatabaseEntity>
+    suspend fun fetchChallenges(): List<ChallengeDBEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun saveChallenges(challenges: List<ChallengeDatabaseEntity>)
+    suspend fun saveChallenges(challenges: List<ChallengeDBEntity>)
 
-    @Query("SELECT * FROM challenge A JOIN challenge_detail B WHERE A.id = B.id")
-    suspend fun fetchChallengeDetail(): ChallengeDetailJoinEntity
+    @Transaction
+    @Query("SELECT * FROM challenge WHERE id = :challengeId")
+    suspend fun fetchChallengeDetail(challengeId: Int): ChallengeAndDetail
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun saveChallengeDetail(challengeDetail: ChallengeDetailDatabaseEntity)
+    suspend fun saveChallengeDetail(challengeDetail: ChallengeDetailDBEntity)
 }
