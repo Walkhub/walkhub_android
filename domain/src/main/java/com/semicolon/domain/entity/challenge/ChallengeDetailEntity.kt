@@ -1,7 +1,7 @@
 package com.semicolon.domain.entity.challenge
 
 import com.semicolon.domain.enum.ChallengeScope
-import java.time.LocalDateTime
+import java.util.*
 
 data class ChallengeDetailEntity(
     val name: String,
@@ -9,8 +9,8 @@ data class ChallengeDetailEntity(
     val goal: Int,
     val award: String,
     val imageUrl: String,
-    val startAt: LocalDateTime,
-    val endAt: LocalDateTime,
+    val startAt: Date,
+    val endAt: Date,
     val scope: ChallengeScope,
     val participantCount: Int,
     val writerEntity: WriterEntity

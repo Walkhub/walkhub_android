@@ -4,14 +4,14 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.semicolon.domain.entity.challenge.ChallengeEntity
 import com.semicolon.domain.enum.ChallengeScope
-import java.time.LocalDateTime
+import java.util.*
 
 @Entity(tableName = "challenge")
 data class ChallengeDatabaseEntity(
     @PrimaryKey val id: Int,
     val name: String,
-    val startAt: LocalDateTime,
-    val endAt: LocalDateTime,
+    val startAt: Date,
+    val endAt: Date,
     val imageUrl: String,
     val scope: ChallengeScope
 )

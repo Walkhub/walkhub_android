@@ -1,13 +1,13 @@
 package com.semicolon.domain.entity.challenge
 
 import com.semicolon.domain.enum.ChallengeScope
-import java.time.LocalDateTime
+import java.util.*
 
 data class ChallengeEntity(
     val id: Int,
     val name: String,
-    val startAt: LocalDateTime,
-    val endAt: LocalDateTime,
+    val startAt: Date,
+    val endAt: Date,
     val imageUrl: String,
     val scope: ChallengeScope
 )
