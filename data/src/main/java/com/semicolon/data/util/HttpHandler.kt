@@ -16,8 +16,29 @@ class HttpHandler<T> {
     private var onServerError: (code: Int) -> Throwable = { ServerException() }
     private var onOtherHttpStatusCode: (code: Int, message: String) -> Throwable = { _, _ -> UnknownException() }
 
-    fun httpRequest(httpRequest: suspend () -> T): HttpHandler<T> =
+    fun httpRequest(httpRequest: suspend () -> T) =
         this.apply { this.httpRequest = httpRequest }
+
+    fun onBadRequest(onBadRequest: (message: String) -> Throwable) =
+        this.apply { this.onBadRequest = onBadRequest }
+
+    fun onUnauthorized(onUnauthorized: (message: String) -> Throwable) =
+        this.apply { this.onUnauthorized = onUnauthorized }
+
+    fun onForbidden(onForbidden: (message: String) -> Throwable) =
+        this.apply { this.onForbidden = onForbidden }
+
+    fun onNotFound(onNotFound: (message: String) -> Throwable) =
+        this.apply { this.onNotFound = onNotFound }
+
+    fun onConflict(onConflict: (message: String) -> Throwable) =
+        this.apply { this.onConflict = onConflict }
+
+    fun onServerError(onServerError: (code: Int) -> Throwable) =
+        this.apply { this.onServerError = onServerError }
+
+    fun onOtherHttpStatusCode(onOtherHttpStatusCode: (code: Int, message: String) -> Throwable) =
+        this.apply { this.onOtherHttpStatusCode = onOtherHttpStatusCode }
 
     suspend fun sendRequest(): T =
         try {
