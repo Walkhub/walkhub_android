@@ -23,7 +23,6 @@ class ChallengeRepositoryImpl @Inject constructor(
             .doOnNeedRefresh { challengeLocalDataSource.saveChallenges(it) }
             .createFlow()
 
-
     override suspend fun fetchChallengeDetail(id: Int): Flow<ChallengeDetailEntity> =
         OfflineCacheUtil<ChallengeDetailEntity>()
             .remoteData { challengeRemoteDateSource.fetchChallengeDetail(id) }
