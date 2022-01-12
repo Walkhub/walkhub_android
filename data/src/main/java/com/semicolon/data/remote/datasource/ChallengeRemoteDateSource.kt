@@ -1,4 +1,4 @@
-package com.semicolon.data.remote.datasource.challenge
+package com.semicolon.data.remote.datasource
 
 import com.semicolon.domain.entity.challenge.*
 

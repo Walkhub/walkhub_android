@@ -1,7 +1,7 @@
 package com.semicolon.data.repository.challenge
 
-import com.semicolon.data.local.datasource.challenge.ChallengeLocalDataSource
-import com.semicolon.data.remote.datasource.challenge.ChallengeRemoteDateSource
+import com.semicolon.data.local.datasource.ChallengeLocalDataSource
+import com.semicolon.data.remote.datasource.ChallengeRemoteDateSource
 import com.semicolon.data.util.OfflineCacheUtil
 import com.semicolon.domain.entity.challenge.ChallengeDetailEntity
 import com.semicolon.domain.entity.challenge.ChallengeEntity

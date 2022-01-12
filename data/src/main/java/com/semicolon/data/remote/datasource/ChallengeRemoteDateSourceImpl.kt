@@ -1,7 +1,6 @@
-package com.semicolon.data.remote.datasource.challenge
+package com.semicolon.data.remote.datasource
 
 import com.semicolon.data.remote.api.ChallengeApi
-import com.semicolon.data.remote.datasource.challenge.ChallengeRemoteDateSource
 import com.semicolon.data.remote.response.challenge.toEntity
 import com.semicolon.domain.entity.challenge.*
 import javax.inject.Inject
