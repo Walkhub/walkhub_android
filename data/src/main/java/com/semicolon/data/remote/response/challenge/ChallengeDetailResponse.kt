@@ -1,6 +1,7 @@
 package com.semicolon.data.remote.response.challenge
 
 import com.google.gson.annotations.SerializedName
+import com.semicolon.data.util.toLocalDateTime
 import com.semicolon.domain.entity.challenge.ChallengeDetailEntity
 import com.semicolon.domain.enum.toChallengeScope
 import java.util.*
@@ -11,8 +12,8 @@ data class ChallengeDetailResponse(
     @SerializedName("goal") val goal: Int,
     @SerializedName("award") val award: String,
     @SerializedName("image_url") val imageUrl: String,
-    @SerializedName("start_at") val startAt: Date,
-    @SerializedName("end_at") val endAt: Date,
+    @SerializedName("start_at") val startAt: String,
+    @SerializedName("end_at") val endAt: String,
     @SerializedName("scope") val scope: String,
     @SerializedName("participant_count") val participantCount: Int,
     @SerializedName("writer") val writer: ChallengeWriterResponse
@@ -31,8 +32,8 @@ fun ChallengeDetailResponse.toEntity() =
         goal = goal,
         award = award,
         imageUrl = imageUrl,
-        startAt = startAt,
-        endAt = endAt,
+        startAt = startAt.toLocalDateTime(),
+        endAt = endAt.toLocalDateTime(),
         scope = scope.toChallengeScope(),
         participantCount = participantCount,
         writerEntity = writer.toEntity()

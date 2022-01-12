@@ -2,6 +2,7 @@ package com.semicolon.data.local.entity.challenge
 
 import androidx.room.Embedded
 import androidx.room.Relation
+import com.semicolon.data.util.toLocalDateTime
 import com.semicolon.domain.entity.challenge.ChallengeDetailEntity
 import com.semicolon.domain.enum.toChallengeScope
 
@@ -22,8 +23,8 @@ fun ChallengeAndDetail.toEntity() =
         goal = detail.goal,
         award = detail.award,
         imageUrl = challenge.imageUrl,
-        startAt = challenge.startAt,
-        endAt = challenge.endAt,
+        startAt = challenge.startAt.toLocalDateTime(),
+        endAt = challenge.endAt.toLocalDateTime(),
         scope = challenge.scope.toChallengeScope(),
         participantCount = detail.participantCount,
         writerEntity = ChallengeDetailEntity.WriterEntity(
