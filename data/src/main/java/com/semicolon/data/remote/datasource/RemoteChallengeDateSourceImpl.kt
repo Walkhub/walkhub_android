@@ -5,9 +5,9 @@ import com.semicolon.data.remote.response.challenge.toEntity
 import com.semicolon.domain.entity.challenge.*
 import javax.inject.Inject
 
-class ChallengeRemoteDateSourceImpl @Inject constructor(
+class RemoteChallengeDateSourceImpl @Inject constructor(
     private val challengeApi: ChallengeApi
-) : ChallengeRemoteDateSource {
+) : RemoteChallengeDateSource {
     override suspend fun fetchChallenges(): List<ChallengeEntity> =
         challengeApi.getChallenges().toEntity()
 

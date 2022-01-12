@@ -8,9 +8,9 @@ import com.semicolon.domain.entity.challenge.ChallengeEntity
 import com.semicolon.domain.entity.challenge.ChallengeParticipantEntity
 import javax.inject.Inject
 
-class ChallengeLocalDataSourceImpl @Inject constructor(
+class LocalChallengeDataSourceImpl @Inject constructor(
     private val challengeDao: ChallengeDao
-): ChallengeLocalDataSource {
+): LocalChallengeDataSource {
 
     override suspend fun fetchChallenges(): List<ChallengeEntity> =
         challengeDao.fetchChallenges().toEntity()

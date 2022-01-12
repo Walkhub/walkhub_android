@@ -2,7 +2,7 @@ package com.semicolon.data.remote.datasource
 
 import com.semicolon.domain.entity.challenge.*
 
-interface ChallengeRemoteDateSource {
+interface RemoteChallengeDateSource {
     suspend fun fetchChallenges(): List<ChallengeEntity>
 
     suspend fun fetchChallengeDetail(challengeId: Int): ChallengeDetailEntity

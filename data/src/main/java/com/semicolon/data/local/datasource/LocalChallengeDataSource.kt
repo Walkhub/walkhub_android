@@ -4,7 +4,7 @@ import com.semicolon.domain.entity.challenge.ChallengeDetailEntity
 import com.semicolon.domain.entity.challenge.ChallengeEntity
 import com.semicolon.domain.entity.challenge.ChallengeParticipantEntity
 
-interface ChallengeLocalDataSource {
+interface LocalChallengeDataSource {
 
     suspend fun fetchChallenges(): List<ChallengeEntity>
 
