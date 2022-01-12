@@ -8,12 +8,12 @@ import com.semicolon.domain.enum.toChallengeScope
 
 data class ChallengeAndDetail(
 
-    @Embedded val challenge: ChallengeDbEntity,
+    @Embedded val challenge: ChallengeRoomEntity,
     @Relation(
         parentColumn = "id",
         entityColumn = "id"
     )
-    val detail: ChallengeDetailDbEntity
+    val detail: ChallengeDetailRoomEntity
 )
 
 fun ChallengeAndDetail.toEntity() =

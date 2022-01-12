@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.semicolon.domain.entity.challenge.ChallengeParticipantEntity
 
 @Entity(tableName = "challenge_participants")
-data class ChallengeParticipantDbEntity(
+data class ChallengeParticipantRoomEntity(
     @PrimaryKey var id: Int,
     var name: String,
     var gcn: Int,
@@ -13,7 +13,7 @@ data class ChallengeParticipantDbEntity(
     var challengeId: Int
 )
 
-fun ChallengeParticipantDbEntity.toEntity() =
+fun ChallengeParticipantRoomEntity.toEntity() =
     ChallengeParticipantEntity(
         id = id,
         name = name,
@@ -21,11 +21,11 @@ fun ChallengeParticipantDbEntity.toEntity() =
         profileImageUrl = profileImageUrl
     )
 
-fun List<ChallengeParticipantDbEntity>.toEntity() =
+fun List<ChallengeParticipantRoomEntity>.toEntity() =
     map { it.toEntity() }
 
 fun ChallengeParticipantEntity.toDbEntity(challengeId: Int) =
-    ChallengeParticipantDbEntity(
+    ChallengeParticipantRoomEntity(
         id = id,
         name = name,
         gcn = gcn,

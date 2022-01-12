@@ -1,7 +1,7 @@
 package com.semicolon.data.repository.challenge
 
-import com.semicolon.data.local.datasource.ChallengeLocalDataSource
-import com.semicolon.data.remote.datasource.ChallengeRemoteDateSource
+import com.semicolon.data.local.datasource.LocalChallengeDataSource
+import com.semicolon.data.remote.datasource.RemoteChallengeDateSource
 import com.semicolon.data.util.OfflineCacheUtil
 import com.semicolon.domain.entity.challenge.ChallengeDetailEntity
 import com.semicolon.domain.entity.challenge.ChallengeEntity
@@ -11,33 +11,33 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class ChallengeRepositoryImpl @Inject constructor(
-    private val challengeLocalDataSource: ChallengeLocalDataSource,
-    private val challengeRemoteDateSource: ChallengeRemoteDateSource
+    private val localChallengeDataSource: LocalChallengeDataSource,
+    private val remoteChallengeDateSource: RemoteChallengeDateSource
 ) : ChallengeRepository {
 
     override suspend fun fetchChallenges(): Flow<List<ChallengeEntity>> =
         OfflineCacheUtil<List<ChallengeEntity>>()
-            .remoteData { challengeRemoteDateSource.fetchChallenges() }
-            .localData { challengeLocalDataSource.fetchChallenges() }
+            .remoteData { remoteChallengeDateSource.fetchChallenges() }
+            .localData { localChallengeDataSource.fetchChallenges() }
             .compareData { localData, remoteData -> localData.containsAll(remoteData) }
-            .doOnNeedRefresh { challengeLocalDataSource.saveChallenges(it) }
+            .doOnNeedRefresh { localChallengeDataSource.saveChallenges(it) }
             .createFlow()
 
     override suspend fun fetchChallengeDetail(id: Int): Flow<ChallengeDetailEntity> =
         OfflineCacheUtil<ChallengeDetailEntity>()
-            .remoteData { challengeRemoteDateSource.fetchChallengeDetail(id) }
-            .localData { challengeLocalDataSource.fetchChallengeDetail(id) }
-            .doOnNeedRefresh { challengeLocalDataSource.saveChallengeDetail(id, it) }
+            .remoteData { remoteChallengeDateSource.fetchChallengeDetail(id) }
+            .localData { localChallengeDataSource.fetchChallengeDetail(id) }
+            .doOnNeedRefresh { localChallengeDataSource.saveChallengeDetail(id, it) }
             .createFlow()
 
     override suspend fun fetchChallengeParticipants(id: Int): Flow<List<ChallengeParticipantEntity>> =
         OfflineCacheUtil<List<ChallengeParticipantEntity>>()
-            .remoteData { challengeRemoteDateSource.fetchParticipants(id) }
-            .localData { challengeLocalDataSource.fetchParticipants(id) }
-            .doOnNeedRefresh { challengeLocalDataSource.saveParticipants(id, it) }
+            .remoteData { remoteChallengeDateSource.fetchParticipants(id) }
+            .localData { localChallengeDataSource.fetchParticipants(id) }
+            .doOnNeedRefresh { localChallengeDataSource.saveParticipants(id, it) }
             .createFlow()
 
     override suspend fun postParticipateChallenge(id: Int) {
-        challengeRemoteDateSource.postParticipate(id)
+        remoteChallengeDateSource.postParticipate(id)
     }
 }
