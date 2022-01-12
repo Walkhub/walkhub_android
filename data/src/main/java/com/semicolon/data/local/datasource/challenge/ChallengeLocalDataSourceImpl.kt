@@ -1,4 +1,4 @@
-package com.semicolon.data.datasource.challenge.local
+package com.semicolon.data.local.datasource.challenge
 
 import com.semicolon.data.local.dao.challenge.ChallengeDao
 import com.semicolon.data.local.entity.challenge.toDbEntity
