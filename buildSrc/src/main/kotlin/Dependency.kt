@@ -50,4 +50,9 @@ object Dependency {
     object Lifecycle {
         const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.lifecycle}"
     }
+
+    object GooglePlayService {
+        const val fitness = "com.google.android.gms:play-services-fitness:${Version.googleFit}"
+        const val auth = "com.google.android.gms:play-services-auth:${Version.googleAuth}"
+    }
 }

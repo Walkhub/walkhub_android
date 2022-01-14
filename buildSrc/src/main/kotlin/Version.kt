@@ -17,4 +17,6 @@ object Version {
     const val lifecycle = "2.4.0"
     const val androidKtx = "1.4.0"
     const val fragmentKtx = "1.4.0"
+    const val googleFit = "21.0.1"
+    const val googleAuth = "20.0.1"
 }
