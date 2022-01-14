@@ -47,4 +47,5 @@ dependencies {
     implementation(Dependency.DI.inject)
 
     implementation(Dependency.GooglePlayService.fitness)
+    implementation(Dependency.GooglePlayService.auth)
 }
