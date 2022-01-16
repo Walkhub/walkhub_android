@@ -37,7 +37,7 @@ class ChallengeRepositoryImpl @Inject constructor(
             .doOnNeedRefresh { localChallengeDataSource.saveParticipants(id, it) }
             .createFlow()
 
-    override suspend fun postParticipateChallenge(id: Int) {
+    override suspend fun postParticipateChallenge(id: Int) =
         remoteChallengeDateSource.postParticipate(id)
-    }
+
 }
