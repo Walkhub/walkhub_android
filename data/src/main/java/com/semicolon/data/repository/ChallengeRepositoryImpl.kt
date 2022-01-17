@@ -1,4 +1,4 @@
-package com.semicolon.data.repository.challenge
+package com.semicolon.data.repository
 
 import com.semicolon.data.local.datasource.LocalChallengeDataSource
 import com.semicolon.data.remote.datasource.RemoteChallengeDateSource
@@ -6,7 +6,7 @@ import com.semicolon.data.util.OfflineCacheUtil
 import com.semicolon.domain.entity.challenge.ChallengeDetailEntity
 import com.semicolon.domain.entity.challenge.ChallengeEntity
 import com.semicolon.domain.entity.challenge.ChallengeParticipantEntity
-import com.semicolon.domain.repository.challenge.ChallengeRepository
+import com.semicolon.domain.repository.ChallengeRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

@@ -1,6 +1,6 @@
 package com.semicolon.data.local.datasource
 
-import com.semicolon.data.local.dao.challenge.ChallengeDao
+import com.semicolon.data.local.dao.ChallengeDao
 import com.semicolon.data.local.entity.challenge.toDbEntity
 import com.semicolon.data.local.entity.challenge.toEntity
 import com.semicolon.domain.entity.challenge.ChallengeDetailEntity

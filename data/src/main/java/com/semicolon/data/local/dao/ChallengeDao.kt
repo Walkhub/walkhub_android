@@ -1,4 +1,4 @@
-package com.semicolon.data.local.dao.challenge
+package com.semicolon.data.local.dao
 
 import androidx.room.*
 import com.semicolon.data.local.entity.challenge.ChallengeAndDetail
