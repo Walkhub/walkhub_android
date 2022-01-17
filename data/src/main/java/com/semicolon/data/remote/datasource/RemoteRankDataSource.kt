@@ -7,7 +7,7 @@ import com.semicolon.data.remote.response.ranks.search.user.SearchUserResponse
 import retrofit2.http.Query
 
 
-interface RemoteCheckRank {
+interface RemoteRankDataSource {
 
     suspend fun fetchUserRank(scope: String, dataType: String, sort: String): UserRankResponse
 
