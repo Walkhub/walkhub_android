@@ -1,7 +1,7 @@
 package com.semicolon.domain.entity.challenge
 
 import com.semicolon.domain.enum.ChallengeScope
-import java.time.LocalDateTime
+import org.threeten.bp.LocalDateTime
 
 data class ChallengeDetailEntity(
     val name: String,

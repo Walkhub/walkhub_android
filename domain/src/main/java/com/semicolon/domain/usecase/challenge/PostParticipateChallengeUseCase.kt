@@ -1,6 +1,6 @@
 package com.semicolon.domain.usecase.challenge
 
-import com.semicolon.domain.repository.challenge.ChallengeRepository
+import com.semicolon.domain.repository.ChallengeRepository
 import com.semicolon.domain.usecase.UseCase
 import javax.inject.Inject
 
