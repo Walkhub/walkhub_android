@@ -10,7 +10,7 @@ import com.semicolon.data.remote.response.users.inquiryownbadges.InquiryOwnBadge
 import com.semicolon.data.remote.response.users.userinquiryprofile.UserInquiryProfileResponse
 import retrofit2.http.*
 
-interface UsersApi {
+interface UserApi {
 
     // 전화번호 인증(회원가입)
     @POST("users/signup/verification-codes")
