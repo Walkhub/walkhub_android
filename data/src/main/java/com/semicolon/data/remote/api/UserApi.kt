@@ -18,12 +18,6 @@ interface UserApi {
         @Body verifyPhoneNumberSignUpRequest: VerifyPhoneNumberSignUpRequest
     )
 
-    // 전화번호 인증(패스워드)
-    @POST("users/passwords/verification-codes")
-    suspend fun verifyPhoneNumberPassword(
-        @Body verifyPhoneNumberPasswordRequest: VerifyPhoneNumberPasswordRequest
-    )
-
     // 유저 회원가입
     @POST("users")
     suspend fun userSignUp(
