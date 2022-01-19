@@ -9,4 +9,10 @@ data class UserInquiryProfileResponse(
     @SerializedName("profile_image") val profileImage: String,
     @SerializedName("school_name") val schoolName: String,
     @SerializedName("title_badge") val titleBadge: TitleBadge
-)
+) {
+    data class TitleBadge(
+        @SerializedName("id") val id: Int,
+        @SerializedName("image") val image: String,
+        @SerializedName("name") val name: String
+    )
+}

@@ -14,4 +14,10 @@ data class InquiryMypageResponse(
     @SerializedName("sex") val sex: String,
     @SerializedName("title_badge") val titleBadge: TitleBadge,
     @SerializedName("weight") val weight: Int
-)
+) {
+    data class TitleBadge(
+        @SerializedName("id") val id: Int,
+        @SerializedName("image") val image: String,
+        @SerializedName("name") val name: String
+    )
+}
