@@ -22,19 +22,19 @@ interface UserApi {
     @POST("users")
     suspend fun userSignUp(
         @Body userSignUpRequest: UserSignUpRequest
-    ) : UserSignUpResponse
+    ): UserSignUpResponse
 
     // 유저 로그인
     @POST("users/auth")
     suspend fun userSignIn(
         @Body userSignInRequest: UserSignInRequest
-    ) : UserSignInResponse
+    ): UserSignInResponse
 
     // 토큰 재발급
     @PUT("users/reissue")
     suspend fun userReissue(
         @Header("x-refresh-token") refreshToken: String
-    ) : UserReissueResponse
+    ): UserReissueResponse
 
     // 유저 비밀번호 변경
     @PATCH("users/password")
@@ -42,23 +42,22 @@ interface UserApi {
         @Body userChangePasswordRequest: UserChangePasswordRequest
     )
 
-
     // 유저 프로필 조회
     @GET("users/{user-id}")
     suspend fun inquiryUserProfile(
         @Path("user-id") userId: Int
-    ) : UserInquiryProfileResponse
+    ): UserInquiryProfileResponse
 
     // 마이 페이지 조회
     @GET("users")
     suspend fun inquiryMypage(
-    ) : InquiryMypageResponse
+    ): InquiryMypageResponse
 
     // 소유한 뱃지 목록 조회
     @GET("user/{user-id}/badges")
     suspend fun inquiryOwnBadge(
         @Path("user-id") userId: Int
-    ) : InquiryOwnBadgeResponse
+    ): InquiryOwnBadgeResponse
 
     // 대표 뱃지 설정
     @PUT("users/badges/{badge-id}")
@@ -76,7 +75,7 @@ interface UserApi {
     @GET("users/accounts/{phone-number}")
     suspend fun findUserAccount(
         @Path("phone_number") phoneNumber: String
-    ) : FindUserAccountResponse
+    ): FindUserAccountResponse
 
     // 건강 정보 입력
     @PUT("users/health")

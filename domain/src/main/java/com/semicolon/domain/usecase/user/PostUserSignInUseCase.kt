@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class PostUserSignInUseCase @Inject constructor(
     private val userRepository: UserRepository
-): UseCase<PostUserSignInParam, Unit>() {
+) : UseCase<PostUserSignInParam, Unit>() {
 
     override suspend fun execute(data: PostUserSignInParam) {
         userRepository.postUserSignIn(data)
