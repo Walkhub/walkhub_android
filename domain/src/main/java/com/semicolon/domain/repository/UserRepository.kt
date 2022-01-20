@@ -17,7 +17,4 @@ interface UserRepository {
         postUserSignUpParam: PostUserSignUpParam
     )
 
-    suspend fun postUserSignIn(
-        postUserSignInParam: PostUserSignInParam
-    )
 }

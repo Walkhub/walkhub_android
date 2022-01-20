@@ -6,6 +6,7 @@ import com.semicolon.data.remote.request.users.UserSignInRequest
 import com.semicolon.data.remote.request.users.UserSignUpRequest
 import com.semicolon.data.remote.request.users.VerifyPhoneNumberSignUpRequest
 import com.semicolon.data.remote.response.users.UserSignInResponse
+import com.semicolon.domain.entity.users.UserSignInEntity
 import com.semicolon.domain.param.user.PostUserSignInParam
 import com.semicolon.domain.param.user.PostUserSignUpParam
 import com.semicolon.domain.param.user.VerifyPhoneNumberSignUpParam
@@ -27,13 +28,6 @@ class UserRepositoryImpl @Inject constructor(
         postUserSignUpParam: PostUserSignUpParam
     ) = remoteChallengeDateSource.postUserSignUp(postUserSignUpParam.toRequest())
 
-    override suspend fun postUserSignIn(
-        postUserSignInParam: PostUserSignInParam
-    ): Flow<UserSignInResponse> =
-        flow {
-            emit(remoteChallengeDateSource.postUserSignIn(postUserSignInParam.toRequest()))
-        }
-
 
     fun VerifyPhoneNumberSignUpParam.toRequest() =
         VerifyPhoneNumberSignUpRequest(
@@ -47,12 +41,5 @@ class UserRepositoryImpl @Inject constructor(
             name = name,
             phoneNumber = phoneNumber,
             authCode = authCode
-        )
-
-    fun PostUserSignInParam.toRequest() =
-        UserSignInRequest(
-            accountId = accountId,
-            password = password,
-            deviceToken = deviceToken
         )
 }
