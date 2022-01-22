@@ -1,7 +1,6 @@
 package com.semicolon.data.remote.response.users
 
 import com.google.gson.annotations.SerializedName
-import java.time.LocalDateTime
 
 data class UserReissueResponse(
     @SerializedName("access_token") val accessToken: String,
