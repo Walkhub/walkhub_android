@@ -9,6 +9,9 @@ import com.semicolon.domain.entity.exercise.DailyExerciseEntity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.ZoneId
 import javax.inject.Inject
 
 class LocalExerciseDataSourceImpl @Inject constructor(
@@ -19,8 +22,8 @@ class LocalExerciseDataSourceImpl @Inject constructor(
         flow {
             repeat(Int.MAX_VALUE) {
                 delay(1000)
-                val startTime: Long = 0 // TODO("나중에 할거야")
-                val endTime: Long = 0 // TODO("이거도 나중에 할거야")
+                val startTime = LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toEpochSecond()
+                val endTime = LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond()
                 val data = fitnessDataStorage.fetchExerciseRecord(
                     startTimeAsMilli = startTime,
                     endTimeAsMilli = endTime
