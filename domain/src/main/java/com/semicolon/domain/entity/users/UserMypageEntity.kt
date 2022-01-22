@@ -2,7 +2,7 @@ package com.semicolon.domain.entity.users
 
 data class UserMypageEntity(
     val birthday: String,
-    val `class`: Int,
+    val classRoom : Int,
     val grade: Int,
     val height: Double,
     val id: Int,

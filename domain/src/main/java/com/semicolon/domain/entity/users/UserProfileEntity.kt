@@ -1,6 +1,6 @@
 package com.semicolon.domain.entity.users
 data class UserProfileEntity(
-    val `class`: Int,
+    val classRoom : Int,
     val grade: Int,
     val name: String,
     val profileImage: String,

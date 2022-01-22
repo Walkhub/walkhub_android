@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class InquiryMypageResponse(
     @SerializedName("birthday") val birthday: String,
-    @SerializedName("class") val `class`: Int,
+    @SerializedName("class") val classRoom: Int,
     @SerializedName("grade") val grade: Int,
     @SerializedName("height") val height: Double,
     @SerializedName("id") val id: Int,
