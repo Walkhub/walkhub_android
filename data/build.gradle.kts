@@ -51,4 +51,6 @@ dependencies {
 
     implementation(Dependency.DI.hiltAndroid)
     kapt(Dependency.DI.hiltCompiler)
+
+    implementation(Dependency.ThreeTenAndroidBackport.threeTenAbp)
 }

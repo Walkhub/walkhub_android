@@ -19,4 +19,5 @@ object Version {
     const val fragmentKtx = "1.4.0"
     const val googleFit = "21.0.1"
     const val googleAuth = "20.0.1"
+    const val threeTenAbp = "1.3.1"
 }

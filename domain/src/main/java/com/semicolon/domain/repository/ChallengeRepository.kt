@@ -1,4 +1,4 @@
-package com.semicolon.domain.repository.challenge
+package com.semicolon.domain.repository
 
 import com.semicolon.domain.entity.challenge.ChallengeEntity
 import com.semicolon.domain.entity.challenge.ChallengeDetailEntity
