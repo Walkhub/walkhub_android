@@ -1,7 +1,6 @@
 package com.semicolon.data.remote.response.school
 
 import com.google.gson.annotations.SerializedName
-import com.semicolon.data.remote.response.ranks.search.school.SearchSchoolResponse
 
 data class SearchSchoolResponse(
     @SerializedName("school_list") val schoolList: List<SchoolInfo>
