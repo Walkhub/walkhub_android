@@ -1,4 +1,4 @@
-package com.semicolon.data.remote.response.images
+package com.semicolon.data.remote.response.image
 
 import com.google.gson.annotations.SerializedName
 
