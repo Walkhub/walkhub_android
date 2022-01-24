@@ -1,6 +1,6 @@
 package com.semicolon.data.remote.api
 
-import com.semicolon.data.remote.response.images.ImagesResponse
+import com.semicolon.data.remote.response.image.ImagesResponse
 import okhttp3.MultipartBody
 import retrofit2.http.Multipart
 import retrofit2.http.POST

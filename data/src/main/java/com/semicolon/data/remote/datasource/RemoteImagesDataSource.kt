@@ -1,8 +1,7 @@
-package com.semicolon.data.remote.datasource.images
+package com.semicolon.data.remote.datasource
 
-import com.semicolon.data.remote.response.images.ImagesResponse
+import com.semicolon.data.remote.response.image.ImagesResponse
 import okhttp3.MultipartBody
-import java.io.File
 
 interface RemoteImagesDataSource {
 
