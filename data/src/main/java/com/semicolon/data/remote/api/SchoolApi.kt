@@ -6,7 +6,7 @@ import retrofit2.http.Query
 
 interface SchoolApi {
 
-    @GET("schools/search/schools")
+    @GET("schools/search")
     fun searchSchool(
         @Query("name") name: String
     ): SearchSchoolResponse
