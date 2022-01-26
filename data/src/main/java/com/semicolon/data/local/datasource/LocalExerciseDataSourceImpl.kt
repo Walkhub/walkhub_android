@@ -4,6 +4,7 @@ import com.google.android.gms.fitness.data.DataType
 import com.google.android.gms.fitness.data.Field
 import com.semicolon.data.local.entity.exercise.LocationRecordEntity
 import com.semicolon.data.local.entity.exercise.WalkRecordEntity
+import com.semicolon.data.local.param.PeriodParam
 import com.semicolon.data.local.storage.FitnessDataStorage
 import com.semicolon.domain.entity.exercise.DailyExerciseEntity
 import kotlinx.coroutines.delay
@@ -22,11 +23,14 @@ class LocalExerciseDataSourceImpl @Inject constructor(
         flow {
             repeat(Int.MAX_VALUE) {
                 delay(1000)
-                val startTime = LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toEpochSecond()
+                val startTime =
+                    LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toEpochSecond()
                 val endTime = LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond()
                 val data = fitnessDataStorage.fetchExerciseRecord(
-                    startTimeAsMilli = startTime,
-                    endTimeAsMilli = endTime
+                    PeriodParam(
+                        startTimeAsMilli = startTime,
+                        endTimeAsMilli = endTime
+                    )
                 )
                 emit(
                     DailyExerciseEntity(
@@ -43,11 +47,8 @@ class LocalExerciseDataSourceImpl @Inject constructor(
             }
         }
 
-    override suspend fun fetchLocationRecord(
-        startTimeAsMilli: Long,
-        endTimeAsMilli: Long
-    ): List<LocationRecordEntity> {
-        val data = fitnessDataStorage.fetchLocationRecord(startTimeAsMilli, endTimeAsMilli)
+    override suspend fun fetchLocationRecord(periodParam: PeriodParam): List<LocationRecordEntity> {
+        val data = fitnessDataStorage.fetchLocationRecord(periodParam)
         return data.result.getDataSet(DataType.TYPE_LOCATION_SAMPLE).dataPoints.map {
             val latitude = it.getValue(Field.FIELD_LATITUDE).asString().toDouble()
             val longitude = it.getValue(Field.FIELD_LONGITUDE).asString().toDouble()
@@ -55,11 +56,8 @@ class LocalExerciseDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun fetchWalkRecord(
-        startTimeAsMilli: Long,
-        endTimeAsMilli: Long
-    ): WalkRecordEntity {
-        val data = fitnessDataStorage.fetchExerciseRecord(startTimeAsMilli, endTimeAsMilli)
+    override suspend fun fetchWalkRecord(periodParam: PeriodParam): WalkRecordEntity {
+        val data = fitnessDataStorage.fetchExerciseRecord(periodParam)
         return WalkRecordEntity(
             traveledDistanceAsMeter = data.result.getDataSet(DataType.AGGREGATE_STEP_COUNT_DELTA).dataPoints[0]
                 .getValue(Field.FIELD_STEPS).asInt(),

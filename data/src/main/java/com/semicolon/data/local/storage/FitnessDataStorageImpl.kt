@@ -8,6 +8,7 @@ import com.google.android.gms.fitness.data.DataType
 import com.google.android.gms.fitness.request.DataReadRequest
 import com.google.android.gms.fitness.result.DataReadResponse
 import com.google.android.gms.tasks.Task
+import com.semicolon.data.local.param.PeriodParam
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.concurrent.TimeUnit
 
@@ -25,10 +26,7 @@ class FitnessDataStorageImpl(
             .build()
     }
 
-    override suspend fun fetchExerciseRecord(
-        startTimeAsMilli: Long,
-        endTimeAsMilli: Long
-    ): Task<DataReadResponse> =
+    override suspend fun fetchExerciseRecord(periodParam: PeriodParam): Task<DataReadResponse> =
         Fitness.getHistoryClient(context, getGoogleAccount())
             .readData(
                 DataReadRequest.Builder()
@@ -36,32 +34,38 @@ class FitnessDataStorageImpl(
                     .aggregate(DataType.AGGREGATE_MOVE_MINUTES)
                     .aggregate(DataType.AGGREGATE_DISTANCE_DELTA)
                     .aggregate(DataType.AGGREGATE_CALORIES_EXPENDED)
-                    .setTimeRange(startTimeAsMilli, endTimeAsMilli, TimeUnit.SECONDS)
+                    .setTimeRange(
+                        periodParam.startTimeAsMilli,
+                        periodParam.endTimeAsMilli,
+                        TimeUnit.SECONDS
+                    )
                     .build()
             )
 
-    override suspend fun fetchLocationRecord(
-        startTimeAsMilli: Long,
-        endTimeAsMilli: Long
-    ): Task<DataReadResponse> =
+    override suspend fun fetchLocationRecord(periodParam: PeriodParam): Task<DataReadResponse> =
         Fitness.getHistoryClient(context, getGoogleAccount())
             .readData(
                 DataReadRequest.Builder()
                     .aggregate(DataType.TYPE_LOCATION_SAMPLE)
-                    .setTimeRange(startTimeAsMilli, endTimeAsMilli, TimeUnit.SECONDS)
+                    .setTimeRange(
+                        periodParam.startTimeAsMilli,
+                        periodParam.endTimeAsMilli,
+                        TimeUnit.SECONDS
+                    )
                     .build()
             )
 
-    override suspend fun fetchWalkRecord(
-        startTimeAsMilli: Long,
-        endTimeAsMilli: Long
-    ): Task<DataReadResponse> =
+    override suspend fun fetchWalkRecord(periodParam: PeriodParam): Task<DataReadResponse> =
         Fitness.getHistoryClient(context, getGoogleAccount())
             .readData(
                 DataReadRequest.Builder()
                     .aggregate(DataType.AGGREGATE_STEP_COUNT_DELTA)
                     .aggregate(DataType.AGGREGATE_DISTANCE_DELTA)
-                    .setTimeRange(startTimeAsMilli, endTimeAsMilli, TimeUnit.SECONDS)
+                    .setTimeRange(
+                        periodParam.startTimeAsMilli,
+                        periodParam.endTimeAsMilli,
+                        TimeUnit.SECONDS
+                    )
                     .build()
             )
 
