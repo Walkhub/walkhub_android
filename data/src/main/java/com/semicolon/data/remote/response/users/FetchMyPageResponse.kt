@@ -1,8 +1,9 @@
 package com.semicolon.data.remote.response.users
 
 import com.google.gson.annotations.SerializedName
+import com.semicolon.domain.entity.users.UserMyPageEntity
 
-data class FetchMypageResponse(
+data class FetchMyPageResponse(
     @SerializedName("birthday") val birthday: String,
     @SerializedName("class") val classRoom: Int,
     @SerializedName("grade") val grade: Int,
@@ -21,3 +22,25 @@ data class FetchMypageResponse(
         @SerializedName("name") val name: String
     )
 }
+
+fun FetchMyPageResponse.TitleBadge.toEntity() =
+    UserMyPageEntity.TitleBadge(
+        id = id,
+        image = image,
+        name = name
+    )
+
+fun FetchMyPageResponse.toEntity() =
+    UserMyPageEntity(
+        birthday = birthday,
+        classRoom = classRoom,
+        grade = grade,
+        height = height,
+        id = id,
+        name = name,
+        profileImage = profileImage,
+        schoolName = schoolName,
+        sex = sex,
+        titleBadge = titleBadge.toEntity(),
+        weight = weight
+    )
