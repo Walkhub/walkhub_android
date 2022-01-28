@@ -1,8 +1,9 @@
-package com.semicolon.data.remote.response.users.userinquiryprofile
+package com.semicolon.data.remote.response.users
 
 import com.google.gson.annotations.SerializedName
+import com.semicolon.domain.entity.users.UserProfileEntity
 
-data class InquiryUserProfileResponse(
+data class FetchUserProfileResponse(
     @SerializedName("class") val classRoom : Int,
     @SerializedName("grade") val grade: Int,
     @SerializedName("name") val name: String,
@@ -16,3 +17,20 @@ data class InquiryUserProfileResponse(
         @SerializedName("name") val name: String
     )
 }
+
+fun FetchUserProfileResponse.TitleBadge.toEntity() =
+    UserProfileEntity.TitleBadge(
+        id = id,
+        image = image,
+        name = name
+    )
+
+fun FetchUserProfileResponse.toEntity() =
+    UserProfileEntity(
+        classRoom = classRoom,
+        grade = grade,
+        name = name,
+        profileImage = profileImage,
+        schoolName = schoolName,
+        titleBadge = titleBadge.toEntity()
+    )
