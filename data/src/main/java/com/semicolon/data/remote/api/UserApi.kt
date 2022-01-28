@@ -5,7 +5,7 @@ import com.semicolon.data.remote.response.users.FindUserAccountResponse
 import com.semicolon.data.remote.response.users.UserSignInResponse
 import com.semicolon.data.remote.response.users.UserSignUpResponse
 import com.semicolon.data.remote.response.users.UserReissueResponse
-import com.semicolon.data.remote.response.users.FetchMypageResponse
+import com.semicolon.data.remote.response.users.FetchMyPageResponse
 import com.semicolon.data.remote.response.users.FetchOwnBadgeResponse
 import com.semicolon.data.remote.response.users.FetchUserProfileResponse
 import retrofit2.http.*
@@ -50,8 +50,8 @@ interface UserApi {
 
     // 마이 페이지 조회
     @GET("users")
-    suspend fun fetchMypage(
-    ): FetchMypageResponse
+    suspend fun fetchMyPage(
+    ): FetchMyPageResponse
 
     // 소유한 뱃지 목록 조회
     @GET("user/{user-id}/badges")

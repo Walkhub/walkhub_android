@@ -1,6 +1,6 @@
 package com.semicolon.domain.repository
 
-import com.semicolon.domain.entity.users.UserMypageEntity
+import com.semicolon.domain.entity.users.UserMyPageEntity
 import com.semicolon.domain.entity.users.UserProfileEntity
 import com.semicolon.domain.entity.users.UserSignInEntity
 import com.semicolon.domain.param.user.PatchUserChangePasswordParam
@@ -30,6 +30,6 @@ interface UserRepository {
         userId: Int
     ) : Flow<UserProfileEntity>
 
-    suspend fun fetchMypage(
-    ) : Flow<UserMypageEntity>
+    suspend fun fetchMyPage(
+    ) : Flow<UserMyPageEntity>
 }
