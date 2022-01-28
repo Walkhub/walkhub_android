@@ -1,8 +1,8 @@
-package com.semicolon.data.remote.response.users.inquiryownbadges
+package com.semicolon.data.remote.response.users
 
 import com.google.gson.annotations.SerializedName
 
-data class InquiryOwnBadgeResponse(
+data class FetchOwnBadgeResponse(
     @SerializedName("badge_list") val badgeList: List<Badge>
 ) {
     data class Badge(

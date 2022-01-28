@@ -5,9 +5,9 @@ import com.semicolon.data.remote.response.users.FindUserAccountResponse
 import com.semicolon.data.remote.response.users.UserSignInResponse
 import com.semicolon.data.remote.response.users.UserSignUpResponse
 import com.semicolon.data.remote.response.users.UserReissueResponse
-import com.semicolon.data.remote.response.users.inquirymypage.InquiryMypageResponse
-import com.semicolon.data.remote.response.users.inquiryownbadges.InquiryOwnBadgeResponse
-import com.semicolon.data.remote.response.users.userinquiryprofile.UserInquiryProfileResponse
+import com.semicolon.data.remote.response.users.FetchMypageResponse
+import com.semicolon.data.remote.response.users.FetchOwnBadgeResponse
+import com.semicolon.data.remote.response.users.FetchUserProfileResponse
 import retrofit2.http.*
 
 interface UserApi {
@@ -44,20 +44,20 @@ interface UserApi {
 
     // 유저 프로필 조회
     @GET("users/{user-id}")
-    suspend fun inquiryUserProfile(
+    suspend fun fetchUserProfile(
         @Path("user-id") userId: Int
-    ): UserInquiryProfileResponse
+    ): FetchUserProfileResponse
 
     // 마이 페이지 조회
     @GET("users")
-    suspend fun inquiryMypage(
-    ): InquiryMypageResponse
+    suspend fun fetchMypage(
+    ): FetchMypageResponse
 
     // 소유한 뱃지 목록 조회
     @GET("user/{user-id}/badges")
-    suspend fun inquiryOwnBadge(
+    suspend fun fetchOwnBadge(
         @Path("user-id") userId: Int
-    ): InquiryOwnBadgeResponse
+    ): FetchOwnBadgeResponse
 
     // 대표 뱃지 설정
     @PUT("users/badges/{badge-id}")
