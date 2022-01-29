@@ -5,7 +5,7 @@ import com.semicolon.domain.entity.notice.NoticeEntity
 import kotlinx.coroutines.flow.Flow
 
 interface NoticeRepository{
-    suspend fun loadNoticeList(): Flow<List<NoticeEntity>>
+    suspend fun loadNoticeList(data: Int): Flow<List<NoticeEntity>>
 
-    suspend fun loadNoticeDetail(): Flow<NoticeDetailEntity>
+    suspend fun loadNoticeDetail(data: Int): Flow<NoticeDetailEntity>
 }
