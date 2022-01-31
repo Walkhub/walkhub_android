@@ -1,25 +1,25 @@
 package com.semicolon.data.background.worker
 
 import android.content.Context
+import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.semicolon.data.local.datasource.LocalExerciseDataSource
 import com.semicolon.data.remote.datasource.RemoteExerciseDataSource
 import com.semicolon.data.remote.request.exercise.SaveDailyExerciseRequest
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.first
 import org.threeten.bp.LocalDate
 import java.lang.Exception
-import javax.inject.Inject
 
-class SynchronizeExerciseWorker(
-    context: Context, params: WorkerParameters
+@HiltWorker
+class SynchronizeExerciseWorker @AssistedInject constructor(
+    @Assisted context: Context,
+    @Assisted params: WorkerParameters,
+    private val localExerciseDataSource: LocalExerciseDataSource,
+    private val remoteExerciseDataSource: RemoteExerciseDataSource
 ) : CoroutineWorker(context, params) {
-
-    @Inject
-    lateinit var localExerciseDataSource: LocalExerciseDataSource
-
-    @Inject
-    lateinit var remoteExerciseDataSource: RemoteExerciseDataSource
 
     override suspend fun doWork(): Result =
         try {
