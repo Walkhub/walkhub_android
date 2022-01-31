@@ -68,4 +68,7 @@ dependencies {
     implementation(Dependency.Coroutine.android)
 
     implementation(Dependency.Lifecycle.viewModel)
+
+    implementation(Dependency.WorkManager.ktx)
+    implementation(Dependency.WorkManager.hiltExtension)
 }

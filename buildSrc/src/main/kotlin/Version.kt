@@ -21,4 +21,5 @@ object Version {
     const val googleAuth = "20.0.1"
     const val threeTenAbp = "1.3.1"
     const val workManager = "2.7.1"
+    const val workManagerHiltExtension = "1.0.0"
 }
