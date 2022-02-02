@@ -59,4 +59,9 @@ object Dependency {
     object ThreeTenAndroidBackport {
         const val threeTenAbp = "com.jakewharton.threetenabp:threetenabp:${Version.threeTenAbp}"
     }
+
+    object WorkManager {
+        const val ktx = "androidx.work:work-runtime-ktx:${Version.workManager}"
+        const val hiltExtension = "androidx.hilt:hilt-work:${Version.workManagerHiltExtension}"
+    }
 }

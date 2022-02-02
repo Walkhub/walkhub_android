@@ -1,5 +1,6 @@
 plugins {
     id("com.android.application")
+    id("dagger.hilt.android.plugin")
     kotlin("android")
     kotlin("kapt")
 }
@@ -68,4 +69,7 @@ dependencies {
     implementation(Dependency.Coroutine.android)
 
     implementation(Dependency.Lifecycle.viewModel)
+
+    implementation(Dependency.WorkManager.ktx)
+    implementation(Dependency.WorkManager.hiltExtension)
 }

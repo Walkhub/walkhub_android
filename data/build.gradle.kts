@@ -53,4 +53,7 @@ dependencies {
     kapt(Dependency.DI.hiltCompiler)
 
     implementation(Dependency.ThreeTenAndroidBackport.threeTenAbp)
+
+    implementation(Dependency.WorkManager.ktx)
+    implementation(Dependency.WorkManager.hiltExtension)
 }
