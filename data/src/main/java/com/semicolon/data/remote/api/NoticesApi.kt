@@ -5,5 +5,5 @@ import retrofit2.http.GET
 
 interface NoticesApi {
     @GET("/notices/list")
-    suspend fun loadNoticeList(): NoticeListResponse
+    suspend fun fetchNoticeList(): NoticeListResponse
 }

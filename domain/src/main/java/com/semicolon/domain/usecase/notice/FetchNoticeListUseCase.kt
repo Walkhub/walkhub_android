@@ -13,5 +13,5 @@ class FetchNoticeListUseCase @Inject constructor(
 ) : UseCase<NoticeType, Flow<List<NoticeEntity>>>() {
 
     override suspend fun execute(data: NoticeType): Flow<List<NoticeEntity>> =
-        noticeRepository.loadNoticeList(data)
+        noticeRepository.FetchNoticeList(data)
 }
