@@ -5,6 +5,8 @@ import com.semicolon.data.remote.request.users.UserChangePasswordRequest
 import com.semicolon.data.remote.request.users.UserSignInRequest
 import com.semicolon.data.remote.request.users.UserSignUpRequest
 import com.semicolon.data.remote.request.users.VerifyPhoneNumberSignUpRequest
+import com.semicolon.data.remote.response.users.FetchMyPageResponse
+import com.semicolon.data.remote.response.users.FetchOwnBadgeResponse
 import com.semicolon.data.remote.response.users.FetchUserProfileResponse
 import com.semicolon.data.remote.response.users.UserSignInResponse
 import com.semicolon.data.util.HttpHandler
@@ -38,9 +40,20 @@ class RemoteUserDataSourceImpl @Inject constructor(
         .httpRequest { userApi.userChangePassword(userChangePasswordRequest) }
         .sendRequest()
 
+    override suspend fun fetchMyPage(): FetchMyPageResponse =
+        HttpHandler<FetchMyPageResponse>()
+        .httpRequest { userApi.fetchMyPage() }
+        .sendRequest()
+
     override suspend fun fetchUserProfile(
         userId: Int
     ) = HttpHandler<FetchUserProfileResponse>()
         .httpRequest { userApi.fetchUserProfile(userId) }
+        .sendRequest()
+
+    override suspend fun fetchUserOwnBadge(
+        userId: Int
+    ) = HttpHandler<FetchOwnBadgeResponse>()
+        .httpRequest { userApi.fetchOwnBadge(userId) }
         .sendRequest()
 }
