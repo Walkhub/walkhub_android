@@ -9,8 +9,8 @@ data class UserProfileEntity(
     val titleBadge: TitleBadge
 ) {
     data class TitleBadge(
-        val id: Int,
-        val image: String,
-        val name: String
+        val badgeId: Int,
+        val badgeImage: String,
+        val badgeName: String
     )
 }

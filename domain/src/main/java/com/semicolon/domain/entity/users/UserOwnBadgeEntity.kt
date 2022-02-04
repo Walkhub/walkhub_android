@@ -4,8 +4,8 @@ data class UserOwnBadgeEntity(
     val badgeList: List<Badge>
 ) {
     data class Badge(
-        val id: Int,
-        val image: String,
-        val name: String
+        val badgeId: Int,
+        val badgeImage: String,
+        val badgeName: String
     )
 }

@@ -14,8 +14,8 @@ data class UserMyPageEntity(
     val weight: Int
 ) {
     data class TitleBadge(
-        val id: Int,
-        val image: String,
-        val name: String
+        val badgeId: Int,
+        val badgeImage: String,
+        val badgeName: String
     )
 }

@@ -1,5 +1,6 @@
 package com.semicolon.data.local.entity.user
 
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.semicolon.domain.entity.users.UserMyPageEntity
@@ -10,26 +11,26 @@ data class UserMyPageRoomEntity(
     val classRoom: Int,
     val grade: Int,
     val height: Double,
-    @PrimaryKey val id: Int = 0,
+    @PrimaryKey val id: Int,
     val name: String,
     val profileImage: String,
     val schoolName: String,
     val sex: String,
-    val titleBadge: TitleBadge,
+    @Embedded val titleBadge: TitleBadge,
     val weight: Int
 ) {
     data class TitleBadge(
-        val id: Int,
-        val image: String,
-        val name: String
+        val badgeId: Int,
+        val badgeImage: String,
+        val badgeName: String
     )
 }
 
 fun UserMyPageRoomEntity.TitleBadge.toEntity() =
     UserMyPageEntity.TitleBadge(
-        id = id,
-        image = image,
-        name = name
+        badgeId = badgeId,
+        badgeImage = badgeImage,
+        badgeName = badgeName
     )
 
 fun UserMyPageRoomEntity.toEntity() =
@@ -49,9 +50,9 @@ fun UserMyPageRoomEntity.toEntity() =
 
 fun UserMyPageEntity.TitleBadge.toDbEntity() =
     UserMyPageRoomEntity.TitleBadge(
-        id = id,
-        image = image,
-        name = name
+        badgeId = badgeId,
+        badgeImage = badgeImage,
+        badgeName = badgeName
     )
 
 fun UserMyPageEntity.toDbEntity() =
