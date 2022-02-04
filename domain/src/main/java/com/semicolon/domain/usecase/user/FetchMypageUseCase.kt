@@ -9,7 +9,7 @@ class FetchMypageUseCase @Inject constructor(
 ) : UseCase<Unit, Unit>() {
 
     override suspend fun execute(data: Unit) {
-        userRepository.fetchMypage()
+        userRepository.fetchMyPage()
     }
 
 }
