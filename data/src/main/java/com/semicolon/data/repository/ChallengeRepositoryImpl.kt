@@ -2,6 +2,7 @@ package com.semicolon.data.repository
 
 import com.semicolon.data.local.datasource.LocalChallengeDataSource
 import com.semicolon.data.remote.datasource.RemoteChallengeDateSource
+import com.semicolon.data.remote.response.challenge.toEntity
 import com.semicolon.data.util.OfflineCacheUtil
 import com.semicolon.domain.entity.challenge.ChallengeDetailEntity
 import com.semicolon.domain.entity.challenge.ChallengeEntity
@@ -17,7 +18,7 @@ class ChallengeRepositoryImpl @Inject constructor(
 
     override suspend fun fetchChallenges(): Flow<List<ChallengeEntity>> =
         OfflineCacheUtil<List<ChallengeEntity>>()
-            .remoteData { remoteChallengeDateSource.fetchChallenges() }
+            .remoteData { remoteChallengeDateSource.fetchChallenges().toEntity() }
             .localData { localChallengeDataSource.fetchChallenges() }
             .compareData { localData, remoteData -> localData.containsAll(remoteData) }
             .doOnNeedRefresh { localChallengeDataSource.saveChallenges(it) }
@@ -25,14 +26,14 @@ class ChallengeRepositoryImpl @Inject constructor(
 
     override suspend fun fetchChallengeDetail(id: Int): Flow<ChallengeDetailEntity> =
         OfflineCacheUtil<ChallengeDetailEntity>()
-            .remoteData { remoteChallengeDateSource.fetchChallengeDetail(id) }
+            .remoteData { remoteChallengeDateSource.fetchChallengeDetail(id).toEntity() }
             .localData { localChallengeDataSource.fetchChallengeDetail(id) }
             .doOnNeedRefresh { localChallengeDataSource.saveChallengeDetail(id, it) }
             .createFlow()
 
     override suspend fun fetchChallengeParticipants(id: Int): Flow<List<ChallengeParticipantEntity>> =
         OfflineCacheUtil<List<ChallengeParticipantEntity>>()
-            .remoteData { remoteChallengeDateSource.fetchParticipants(id) }
+            .remoteData { remoteChallengeDateSource.fetchParticipants(id).toEntity() }
             .localData { localChallengeDataSource.fetchParticipants(id) }
             .doOnNeedRefresh { localChallengeDataSource.saveParticipants(id, it) }
             .createFlow()
