@@ -28,7 +28,7 @@ class LocalUserDataSourceImpl @Inject constructor(
     override suspend fun fetchUserOwnBadge(userId: Int): UserOwnBadgeEntity =
         userDao.fetchUserOwnBadge(userId).toEntity()
 
-    override suspend fun insertUserOwnBadge(id: Int, userOwnBadgeEntity: UserOwnBadgeEntity) {
-        userDao.insertUserOwnBadge(userOwnBadgeEntity.toDbEntity(id))
+    override suspend fun insertUserOwnBadge(userOwnBadgeEntity: UserOwnBadgeEntity) {
+        userDao.insertUserOwnBadge(userOwnBadgeEntity.toDbEntity())
     }
 }

@@ -7,7 +7,7 @@ import com.semicolon.domain.entity.users.UserOwnBadgeEntity
 
 @Entity(tableName = "ownBadge")
 data class UserOwnBadgeRoomEntity(
-    @PrimaryKey (autoGenerate = true) val id: Int,
+    @PrimaryKey (autoGenerate = true) var id: Int = 0,
     @SerializedName("badge_list") val badgeList: List<Badge>
 ) {
     data class Badge(
