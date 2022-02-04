@@ -1,7 +1,6 @@
 package com.semicolon.data.repository
 
 import com.semicolon.data.local.datasource.LocalUserDataSource
-import com.semicolon.data.local.entity.user.toDbEntity
 import com.semicolon.data.remote.datasource.RemoteUserDataSource
 import com.semicolon.data.remote.request.users.UserChangePasswordRequest
 import com.semicolon.data.remote.request.users.UserSignInRequest
@@ -9,8 +8,8 @@ import com.semicolon.data.remote.request.users.UserSignUpRequest
 import com.semicolon.data.remote.request.users.VerifyPhoneNumberSignUpRequest
 import com.semicolon.data.remote.response.users.toEntity
 import com.semicolon.data.util.OfflineCacheUtil
-import com.semicolon.domain.entity.challenge.ChallengeDetailEntity
 import com.semicolon.domain.entity.users.UserMyPageEntity
+import com.semicolon.domain.entity.users.UserOwnBadgeEntity
 import com.semicolon.domain.entity.users.UserProfileEntity
 import com.semicolon.domain.entity.users.UserSignInEntity
 import com.semicolon.domain.param.user.PatchUserChangePasswordParam
@@ -52,9 +51,19 @@ class UserRepositoryImpl @Inject constructor(
             .doOnNeedRefresh { localUserDataSource.insertUserMyPage(it) }
             .createFlow()
 
-    override suspend fun fetchUserProfile(userId: Int): Flow<UserProfileEntity> {
-        TODO("Not yet implemented")
-    }
+    override suspend fun fetchUserOwnBadge(userId: Int): Flow<UserOwnBadgeEntity> =
+        OfflineCacheUtil<UserOwnBadgeEntity>()
+            .remoteData { remoteUserDateSource.fetchUserOwnBadge(userId).toEntity() }
+            .localData { localUserDataSource.fetchUserOwnBadge(userId) }
+            .doOnNeedRefresh { localUserDataSource.insertUserOwnBadge(userId, it) }
+            .createFlow()
+
+    override suspend fun fetchUserProfile(userId: Int): Flow<UserProfileEntity> =
+        OfflineCacheUtil<UserProfileEntity>()
+            .remoteData { remoteUserDateSource.fetchUserProfile(userId).toEntity() }
+            .localData { localUserDataSource.fetchUserProfile(userId) }
+            .doOnNeedRefresh { localUserDataSource.insertUserProfile(userId, it) }
+            .createFlow()
 
     fun VerifyPhoneNumberSignUpParam.toRequest() =
         VerifyPhoneNumberSignUpRequest(
