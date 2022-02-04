@@ -18,4 +18,5 @@ object Version {
     const val androidKtx = "1.4.0"
     const val fragmentKtx = "1.4.0"
     const val threeTenAbp = "1.3.1"
+    const val moshi = "1.12.0"
 }
