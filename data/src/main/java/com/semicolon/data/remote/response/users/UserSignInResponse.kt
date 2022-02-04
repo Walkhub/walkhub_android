@@ -11,7 +11,5 @@ data class UserSignInResponse(
 
 fun UserSignInResponse.toEntity() =
     UserSignInEntity(
-        accessToken = accessToken,
-        expiredAt = expiredAt,
-        refreshToken = refreshToken
+        expiredAt = expiredAt
     )
