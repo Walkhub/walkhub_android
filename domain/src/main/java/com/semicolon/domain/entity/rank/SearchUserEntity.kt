@@ -1,0 +1,15 @@
+package com.semicolon.domain.entity.rank
+
+data class SearchUserEntity(
+    val userList: List<UserInfo>
+) {
+    data class UserInfo(
+        val classNum: Int,
+        val grade: Int,
+        val name: String,
+        val profileImageUrl: String,
+        val rank: Int,
+        val userId: Int,
+        val walkCount: Int
+    )
+}
