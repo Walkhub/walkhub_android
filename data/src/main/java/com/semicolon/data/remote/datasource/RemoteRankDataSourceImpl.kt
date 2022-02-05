@@ -2,6 +2,7 @@ package com.semicolon.data.remote.datasource
 
 
 import com.semicolon.data.remote.api.RankApi
+import com.semicolon.data.remote.response.ranks.OurSchoolUserRankResponse
 import com.semicolon.data.remote.response.ranks.inquiryRank.school.SchoolRankResponse
 import com.semicolon.data.remote.response.ranks.inquiryRank.user.UserRankResponse
 import com.semicolon.data.remote.response.ranks.search.school.SearchSchoolResponse
@@ -13,30 +14,46 @@ class RemoteRankDataSourceImpl @Inject constructor(
     private val rankApi: RankApi
 ) : RemoteRankDataSource {
 
-    override suspend fun fetchUserRank(
-        scope: String,
-        dataType: String,
-        sort: String
-    ): UserRankResponse = HttpHandler<UserRankResponse>()
-        .httpRequest { rankApi.fetchUserRank(scope, dataType, sort) }
-        .sendRequest()
-
-
-    override suspend fun fetchSchoolRank(dateType: String, sort: String): SchoolRankResponse =
+    override suspend fun fetchSchoolRank(dateType: String): SchoolRankResponse =
         HttpHandler<SchoolRankResponse>()
-            .httpRequest { rankApi.fetchSchoolRank(dateType, sort) }
-            .sendRequest()
-
-
-    override suspend fun searchUser(name: String): SearchUserResponse =
-        HttpHandler<SearchUserResponse>()
-            .httpRequest { rankApi.searchUser(name) }
+            .httpRequest { rankApi.fetchSchoolRank(dateType) }
             .sendRequest()
 
     override suspend fun searchSchool(name: String): SearchSchoolResponse =
         HttpHandler<SearchSchoolResponse>()
             .httpRequest { rankApi.searchSchool(name) }
             .sendRequest()
+
+
+    override suspend fun fetchUserRank(
+        agencyCode: String,
+        scope: String,
+        dateType: String,
+    ): UserRankResponse = HttpHandler<UserRankResponse>()
+        .httpRequest { rankApi.fetchUserRank(scope, dateType, agencyCode) }
+        .sendRequest()
+
+    override suspend fun fetchOurSchoolUserRank(
+        scope: String,
+        dateType: String
+    ): OurSchoolUserRankResponse =
+        HttpHandler<OurSchoolUserRankResponse>()
+            .httpRequest { rankApi.fetchOurSchoolUserRank(scope, dateType) }
+            .sendRequest()
+
+
+    override suspend fun searchUser(
+        name: String,
+        scope: String,
+        agencyCode: String,
+        grade: Int,
+        classNum: Int
+    ): SearchUserResponse =
+        HttpHandler<SearchUserResponse>()
+            .httpRequest { rankApi.searchUser(name, scope, agencyCode, grade, classNum) }
+            .sendRequest()
+
+
 }
 
 
