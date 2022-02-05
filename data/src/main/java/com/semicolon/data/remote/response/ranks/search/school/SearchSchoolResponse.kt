@@ -8,8 +8,8 @@ data class SearchSchoolResponse(
     data class SchoolInfo(
         @SerializedName("agency_code") val agencyCode: String,
         @SerializedName("logo_image_url") val logoImageUrl: String,
-        @SerializedName("name") val name: String,
         @SerializedName("rank") val rank: Int,
+        @SerializedName("school_name") val schoolName: String,
         @SerializedName("walk_count") val walkCount: Int
     )
 }
