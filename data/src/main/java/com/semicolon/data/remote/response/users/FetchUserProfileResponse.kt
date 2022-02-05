@@ -12,17 +12,17 @@ data class FetchUserProfileResponse(
     @SerializedName("title_badge") val titleBadge: TitleBadge
 ) {
     data class TitleBadge(
-        @SerializedName("id") val id: Int,
-        @SerializedName("image") val image: String,
-        @SerializedName("name") val name: String
+        @SerializedName("id") val badgeId: Int,
+        @SerializedName("image") val badgeImage: String,
+        @SerializedName("name") val badgeName: String
     )
 }
 
 fun FetchUserProfileResponse.TitleBadge.toEntity() =
     UserProfileEntity.TitleBadge(
-        id = id,
-        image = image,
-        name = name
+        badgeId = badgeId,
+        badgeImage = badgeImage,
+        badgeName = badgeName
     )
 
 fun FetchUserProfileResponse.toEntity() =

@@ -7,16 +7,16 @@ data class FetchOwnBadgeResponse(
     @SerializedName("badge_list") val badgeList: List<Badge>
 ) {
     data class Badge(
-        @SerializedName("id") val id: Int,
-        @SerializedName("image") val image: String,
-        @SerializedName("name") val name: String
+        @SerializedName("id") val badgeId: Int,
+        @SerializedName("image") val badgeImage: String,
+        @SerializedName("name") val badgeName: String
     )
 
     fun Badge.toEntity() =
         UserOwnBadgeEntity.Badge(
-            id = id,
-            image = image,
-            name = name
+            badgeId = badgeId,
+            badgeImage = badgeImage,
+            badgeName = badgeName
         )
 }
 

@@ -17,17 +17,17 @@ data class FetchMyPageResponse(
     @SerializedName("weight") val weight: Int
 ) {
     data class TitleBadge(
-        @SerializedName("id") val id: Int,
-        @SerializedName("image") val image: String,
-        @SerializedName("name") val name: String
+        @SerializedName("id") val badgeId: Int,
+        @SerializedName("image") val badgeImage: String,
+        @SerializedName("name") val badgeName: String
     )
 }
 
 fun FetchMyPageResponse.TitleBadge.toEntity() =
     UserMyPageEntity.TitleBadge(
-        id = id,
-        image = image,
-        name = name
+        badgeId = badgeId,
+        badgeImage = badgeImage,
+        badgeName = badgeName
     )
 
 fun FetchMyPageResponse.toEntity() =
