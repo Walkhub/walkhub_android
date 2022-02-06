@@ -11,5 +11,4 @@ class PatchUserHealthUseCase @Inject constructor(
 
     override suspend fun execute(data: PatchUserHealthParam) =
         userRepository.patchUserHealth(data)
-
 }

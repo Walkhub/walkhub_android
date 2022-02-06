@@ -11,5 +11,4 @@ class UpdateProfileUseCase @Inject constructor(
 
     override suspend fun execute(data: UpdateProfileParam) =
         userRepository.updateProfile(data)
-
 }

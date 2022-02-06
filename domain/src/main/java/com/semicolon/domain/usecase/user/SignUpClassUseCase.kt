@@ -11,5 +11,4 @@ class SignUpClassUseCase @Inject constructor(
 
     override suspend fun execute(data: SignUpClassParam) =
         userRepository.signUpClass(data)
-
 }

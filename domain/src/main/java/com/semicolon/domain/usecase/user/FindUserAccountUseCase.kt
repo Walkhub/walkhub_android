@@ -12,5 +12,4 @@ class FindUserAccountUseCase @Inject constructor(
 
     override suspend fun execute(phoneNumber: String): Flow<FindUserAccountEntity> =
         userRepository.findUserAccount(phoneNumber)
-
 }

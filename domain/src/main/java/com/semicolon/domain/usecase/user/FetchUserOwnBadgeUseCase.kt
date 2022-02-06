@@ -12,5 +12,4 @@ class FetchUserOwnBadgeUseCase @Inject constructor(
 
     override suspend fun execute(userId: Int): Flow<UserOwnBadgeEntity> =
         userRepository.fetchUserOwnBadge(userId)
-
 }

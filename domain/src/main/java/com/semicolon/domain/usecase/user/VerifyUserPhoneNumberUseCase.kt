@@ -9,8 +9,6 @@ class VerifyUserPhoneNumberUseCase @Inject constructor(
     private val userRepository: UserRepository
 ) : UseCase<VerifyPhoneNumberSignUpParam, Unit>() {
 
-    override suspend fun execute(data: VerifyPhoneNumberSignUpParam) {
+    override suspend fun execute(data: VerifyPhoneNumberSignUpParam) =
         userRepository.verifyUserPhoneNumber(data)
-    }
-
 }

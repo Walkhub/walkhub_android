@@ -10,5 +10,4 @@ class SetBadgeUseCase @Inject constructor(
 
     override suspend fun execute(badgeId: Int) =
         userRepository.setBadge(badgeId)
-
 }

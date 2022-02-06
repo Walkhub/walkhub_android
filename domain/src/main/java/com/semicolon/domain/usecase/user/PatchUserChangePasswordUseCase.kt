@@ -9,8 +9,6 @@ class PatchUserChangePasswordUseCase @Inject constructor(
     private val userRepository: UserRepository
 ) : UseCase<PatchUserChangePasswordParam, Unit>() {
 
-    override suspend fun execute(data: PatchUserChangePasswordParam) {
+    override suspend fun execute(data: PatchUserChangePasswordParam) =
         userRepository.patchUserChangePassword(data)
-    }
-
 }

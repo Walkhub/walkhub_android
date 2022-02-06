@@ -13,5 +13,4 @@ class PostUserSignInUseCase @Inject constructor(
 
     override suspend fun execute(data: PostUserSignInParam): Flow<UserSignInEntity> =
         userRepository.postUserSignIn(data)
-
 }
