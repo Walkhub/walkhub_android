@@ -61,6 +61,11 @@ object Dependency {
         const val threeTenAbp = "com.jakewharton.threetenabp:threetenabp:${Version.threeTenAbp}"
     }
 
+    object Moshi {
+        const val moshi = "com.squareup.moshi:moshi:${Version.moshi}"
+        const val moshiCompiler = "com.squareup.moshi:moshi-kotlin-codegen:${Version.moshi}"
+    }
+
     object WorkManager {
         const val ktx = "androidx.work:work-runtime-ktx:${Version.workManager}"
         const val hiltExtension = "androidx.hilt:hilt-work:${Version.workManagerHiltExtension}"
