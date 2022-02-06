@@ -9,8 +9,8 @@ import javax.inject.Inject
 
 class FetchSchoolRankUseCase @Inject constructor(
     private val rankRepository: RankRepository
-) : UseCase<String, Flow<SchoolRankEntity>>() {
+) : UseCase<DateType, Flow<SchoolRankEntity>>() {
 
-    override suspend fun execute(data: String): Flow<SchoolRankEntity> =
+    override suspend fun execute(data: DateType): Flow<SchoolRankEntity> =
         rankRepository.fetchSchoolRank(data)
 }
