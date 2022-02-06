@@ -2,8 +2,6 @@ package com.semicolon.data.remote.datasource
 
 import com.semicolon.data.remote.request.users.*
 import com.semicolon.data.remote.response.users.*
-import retrofit2.http.Body
-import retrofit2.http.Path
 
 interface RemoteUserDataSource {
     suspend fun verifyUserPhoneNumber(
