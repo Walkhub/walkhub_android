@@ -45,6 +45,7 @@ object Dependency {
     object LocalStorage {
         const val room = "androidx.room:room-ktx:${Version.room}"
         const val roomCompiler = "androidx.room:room-compiler:${Version.room}"
+        const val sharedPreference = "androidx.preference:preference-ktx:${Version.sharedPreference}"
     }
 
     object Lifecycle {

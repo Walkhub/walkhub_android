@@ -56,4 +56,6 @@ dependencies {
 
     implementation(Dependency.WorkManager.ktx)
     implementation(Dependency.WorkManager.hiltExtension)
+
+    implementation(Dependency.LocalStorage.sharedPreference)
 }
