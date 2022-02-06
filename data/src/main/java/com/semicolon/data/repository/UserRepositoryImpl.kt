@@ -2,20 +2,11 @@ package com.semicolon.data.repository
 
 import com.semicolon.data.local.datasource.LocalUserDataSource
 import com.semicolon.data.remote.datasource.RemoteUserDataSource
-import com.semicolon.data.remote.request.users.UserChangePasswordRequest
-import com.semicolon.data.remote.request.users.UserSignInRequest
-import com.semicolon.data.remote.request.users.UserSignUpRequest
-import com.semicolon.data.remote.request.users.VerifyPhoneNumberSignUpRequest
+import com.semicolon.data.remote.request.users.*
 import com.semicolon.data.remote.response.users.toEntity
 import com.semicolon.data.util.OfflineCacheUtil
-import com.semicolon.domain.entity.users.UserMyPageEntity
-import com.semicolon.domain.entity.users.UserOwnBadgeEntity
-import com.semicolon.domain.entity.users.UserProfileEntity
-import com.semicolon.domain.entity.users.UserSignInEntity
-import com.semicolon.domain.param.user.PatchUserChangePasswordParam
-import com.semicolon.domain.param.user.PostUserSignInParam
-import com.semicolon.domain.param.user.PostUserSignUpParam
-import com.semicolon.domain.param.user.VerifyPhoneNumberSignUpParam
+import com.semicolon.domain.entity.users.*
+import com.semicolon.domain.param.user.*
 import com.semicolon.domain.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -58,12 +49,57 @@ class UserRepositoryImpl @Inject constructor(
             .doOnNeedRefresh { localUserDataSource.insertUserOwnBadge(it) }
             .createFlow()
 
+    override suspend fun setBadge(badgeId: Int) =
+        remoteUserDateSource.setBadge(badgeId)
+
+    override suspend fun updateProfile(updateProfileParam: UpdateProfileParam) =
+        remoteUserDateSource.updateProfile(updateProfileParam.toRequest())
+
+    override suspend fun findUserAccount(phoneNumber: String): Flow<FindUserAccountEntity> =
+        flow {
+            emit(remoteUserDateSource.findUserAccount(phoneNumber).toEntity())
+        }
+
+    override suspend fun patchUserHealth(patchUserHealthParam: PatchUserHealthParam) =
+        remoteUserDateSource.patchUserHealth(patchUserHealthParam.toRequest())
+
+    override suspend fun signUpClass(signUpClassParam: SignUpClassParam) =
+        remoteUserDateSource.signUpClass(
+            signUpClassParam.agencyCode,
+            signUpClassParam.grade,
+            signUpClassParam.classRoom,
+            signUpClassParam.toRequest()
+        )
+
+    override suspend fun patchSchool(agencyCode: String) =
+        remoteUserDateSource.patchSchool(agencyCode)
+
     override suspend fun fetchUserProfile(userId: Int): Flow<UserProfileEntity> =
         OfflineCacheUtil<UserProfileEntity>()
             .remoteData { remoteUserDateSource.fetchUserProfile(userId).toEntity() }
             .localData { localUserDataSource.fetchUserProfile(userId) }
             .doOnNeedRefresh { localUserDataSource.insertUserProfile(userId, it) }
             .createFlow()
+
+    fun SignUpClassParam.toRequest() =
+        SignUpClassRequest(
+            classCode = classCode,
+            number = number
+        )
+
+    fun PatchUserHealthParam.toRequest() =
+        PatchUserHealthRequest(
+            height = height,
+            weight = weight
+        )
+
+    fun UpdateProfileParam.toRequest() =
+        UpdateProfileRequest(
+            birthday = birthday,
+            name = name,
+            profileUrl = profileUrl,
+            sex = sex
+        )
 
     fun VerifyPhoneNumberSignUpParam.toRequest() =
         VerifyPhoneNumberSignUpRequest(
