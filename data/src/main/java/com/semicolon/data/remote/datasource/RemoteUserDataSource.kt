@@ -1,13 +1,9 @@
 package com.semicolon.data.remote.datasource
 
-import com.semicolon.data.remote.request.users.UserChangePasswordRequest
-import com.semicolon.data.remote.request.users.UserSignInRequest
-import com.semicolon.data.remote.request.users.UserSignUpRequest
-import com.semicolon.data.remote.request.users.VerifyPhoneNumberSignUpRequest
-import com.semicolon.data.remote.response.users.FetchMyPageResponse
-import com.semicolon.data.remote.response.users.FetchOwnBadgeResponse
-import com.semicolon.data.remote.response.users.UserSignInResponse
-import com.semicolon.data.remote.response.users.FetchUserProfileResponse
+import com.semicolon.data.remote.request.users.*
+import com.semicolon.data.remote.response.users.*
+import retrofit2.http.Body
+import retrofit2.http.Path
 
 interface RemoteUserDataSource {
     suspend fun verifyUserPhoneNumber(
@@ -20,19 +16,46 @@ interface RemoteUserDataSource {
 
     suspend fun postUserSignIn(
         userSignInRequest: UserSignInRequest
-    ) : UserSignInResponse
+    ): UserSignInResponse
 
     suspend fun patchUserChangePassword(
         userChangePasswordRequest: UserChangePasswordRequest
     )
 
-    suspend fun fetchMyPage() : FetchMyPageResponse
+    suspend fun fetchMyPage(): FetchMyPageResponse
 
     suspend fun fetchUserProfile(
         userId: Int
-    ) : FetchUserProfileResponse
+    ): FetchUserProfileResponse
 
     suspend fun fetchUserOwnBadge(
         userId: Int
-    ) : FetchOwnBadgeResponse
+    ): FetchOwnBadgeResponse
+
+    suspend fun setBadge(
+        badgeId: Int
+    )
+
+    suspend fun updateProfile(
+        updateProfileRequest: UpdateProfileRequest
+    )
+
+    suspend fun findUserAccount(
+        phoneNumber: String
+    ): FindUserAccountResponse
+
+    suspend fun patchUserHealth(
+        patchUserHealthRequest: PatchUserHealthRequest
+    )
+
+    suspend fun signUpClass(
+        agencyCode: String,
+        grade: Int,
+        classRoom: Int,
+        signUpClassRequest: SignUpClassRequest
+    )
+
+    suspend fun patchSchool(
+        agencyCode: String
+    )
 }
