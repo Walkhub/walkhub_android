@@ -49,5 +49,16 @@ dependencies {
 
     implementation(Dependency.DI.inject)
 
+    implementation(Dependency.GooglePlayService.fitness)
+    implementation(Dependency.GooglePlayService.auth)
+
+    implementation(Dependency.DI.hiltAndroid)
+    kapt(Dependency.DI.hiltCompiler)
+
     implementation(Dependency.ThreeTenAndroidBackport.threeTenAbp)
+
+    implementation(Dependency.WorkManager.ktx)
+    implementation(Dependency.WorkManager.hiltExtension)
+
+    implementation(Dependency.LocalStorage.sharedPreference)
 }

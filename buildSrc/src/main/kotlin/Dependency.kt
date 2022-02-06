@@ -45,10 +45,16 @@ object Dependency {
     object LocalStorage {
         const val room = "androidx.room:room-ktx:${Version.room}"
         const val roomCompiler = "androidx.room:room-compiler:${Version.room}"
+        const val sharedPreference = "androidx.preference:preference-ktx:${Version.sharedPreference}"
     }
 
     object Lifecycle {
         const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.lifecycle}"
+    }
+
+    object GooglePlayService {
+        const val fitness = "com.google.android.gms:play-services-fitness:${Version.googleFit}"
+        const val auth = "com.google.android.gms:play-services-auth:${Version.googleAuth}"
     }
 
     object ThreeTenAndroidBackport {
@@ -58,5 +64,9 @@ object Dependency {
     object Moshi {
         const val moshi = "com.squareup.moshi:moshi:${Version.moshi}"
         const val moshiCompiler = "com.squareup.moshi:moshi-kotlin-codegen:${Version.moshi}"
+
+    object WorkManager {
+        const val ktx = "androidx.work:work-runtime-ktx:${Version.workManager}"
+        const val hiltExtension = "androidx.hilt:hilt-work:${Version.workManagerHiltExtension}"
     }
 }
