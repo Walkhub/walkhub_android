@@ -1,11 +1,9 @@
 package com.semicolon.domain.repository
 
-import com.semicolon.domain.entity.notice.NoticeDetailEntity
 import com.semicolon.domain.entity.notice.NoticeEntity
+import com.semicolon.domain.enum.NoticeType
 import kotlinx.coroutines.flow.Flow
 
-interface NoticeRepository{
-    suspend fun loadNoticeList(): Flow<List<NoticeEntity>>
-
-    suspend fun loadNoticeDetail(): Flow<NoticeDetailEntity>
+interface NoticeRepository {
+    suspend fun fetchNoticeList(noticeType: NoticeType): Flow<List<NoticeEntity>>
 }
