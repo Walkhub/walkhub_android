@@ -1,6 +1,5 @@
 package com.semicolon.domain.usecase.rank
 
-import com.semicolon.domain.entity.rank.SearchSchoolEntity
 import com.semicolon.domain.entity.rank.SearchUserEntity
 import com.semicolon.domain.param.rank.SearchUserParam
 import com.semicolon.domain.repository.RankRepository
