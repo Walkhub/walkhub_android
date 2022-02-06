@@ -55,7 +55,7 @@ class UserRepositoryImpl @Inject constructor(
         OfflineCacheUtil<UserOwnBadgeEntity>()
             .remoteData { remoteUserDateSource.fetchUserOwnBadge(userId).toEntity() }
             .localData { localUserDataSource.fetchUserOwnBadge(userId) }
-            .doOnNeedRefresh { localUserDataSource.insertUserOwnBadge(userId, it) }
+            .doOnNeedRefresh { localUserDataSource.insertUserOwnBadge(it) }
             .createFlow()
 
     override suspend fun fetchUserProfile(userId: Int): Flow<UserProfileEntity> =
