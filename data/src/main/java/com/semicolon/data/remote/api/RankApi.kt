@@ -5,6 +5,7 @@ import com.semicolon.data.remote.response.ranks.inquiryRank.school.SchoolRankRes
 import com.semicolon.data.remote.response.ranks.inquiryRank.user.UserRankResponse
 import com.semicolon.data.remote.response.ranks.search.school.SearchSchoolResponse
 import com.semicolon.data.remote.response.ranks.search.user.SearchUserResponse
+import com.semicolon.domain.enum.RankScope
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -18,7 +19,7 @@ interface RankApi {
     ): SchoolRankResponse
 
     //학교검색
-    @GET("/ranks/schools/search?name={school-name}")
+    @GET("/ranks/schools/search")
     suspend fun searchSchool(
         @Query("name") name: String
     ): SearchSchoolResponse
