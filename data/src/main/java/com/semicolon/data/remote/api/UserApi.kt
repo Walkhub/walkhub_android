@@ -79,8 +79,21 @@ interface UserApi {
 
     // 건강 정보 입력
     @PUT("users/health")
-    suspend fun inputHealth(
-        @Body inputHealthRequest: InputHealthRequest
+    suspend fun patchUserHealth(
+        @Body patchUserHealthRequest: PatchUserHealthRequest
     )
 
+    // 반 가입하기
+    @POST("users/classes/{agency-code}/{grade}/{class}")
+    suspend fun signUpClass(
+        @Path("agency-code") agencyCode: String,
+        @Path("grade") grade: Int,
+        @Path("class") classRoom: Int,
+        @Body signUpClassRequest: SignUpClassRequest
+    )
+
+    // 학교 정보 수
+    suspend fun patchSchool(
+        @Body agency_code: String
+    )
 }
