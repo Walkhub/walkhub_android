@@ -11,7 +11,6 @@ class PostUserSignInUseCase @Inject constructor(
     private val userRepository: UserRepository
 ) : UseCase<PostUserSignInParam, Flow<UserSignInEntity>>() {
 
-    override suspend fun execute(data: PostUserSignInParam) : Flow<UserSignInEntity> =
+    override suspend fun execute(data: PostUserSignInParam): Flow<UserSignInEntity> =
         userRepository.postUserSignIn(data)
-
 }
