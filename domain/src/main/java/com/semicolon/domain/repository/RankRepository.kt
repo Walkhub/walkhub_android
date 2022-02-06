@@ -1,19 +1,20 @@
 package com.semicolon.domain.repository
 
-import com.semicolon.domain.entity.rank.OurSchoolUserRankEntity
-import com.semicolon.domain.entity.rank.SchoolRankEntity
-import com.semicolon.domain.entity.rank.SearchSchoolEntity
-import com.semicolon.domain.entity.rank.UserRankEntity
+import com.semicolon.domain.entity.rank.*
+import com.semicolon.domain.enum.DateType
+import com.semicolon.domain.param.rank.FetchOurSchoolUserRankParam
+import com.semicolon.domain.param.rank.FetchUserRankParam
+import com.semicolon.domain.param.rank.SearchUserParam
 import kotlinx.coroutines.flow.Flow
 
 interface RankRepository {
-    suspend fun fetchSchoolRank(dateType: String): Flow<SchoolRankEntity>
+    suspend fun fetchSchoolRank(dateType: DateType): Flow<SchoolRankEntity>
 
     suspend fun searchSchool(name: String): Flow<SearchSchoolEntity>
 
-    suspend fun fetchUserRank(agencyCode:String, scope: String, dateType: String): Flow<UserRankEntity>
+    suspend fun fetchUserRank(fetchUserRankParam: FetchUserRankParam): Flow<UserRankEntity>
 
-    suspend fun fetchOurSchoolUserRank(scope: String, dateType: String): Flow<OurSchoolUserRankEntity>
+    suspend fun fetchOurSchoolUserRank(fetchOurSchoolUserRankParam: FetchOurSchoolUserRankParam): Flow<OurSchoolUserRankEntity>
 
-    suspend fun searchUser(name: String, scope: String, agencyCode: String, grade:Int, classNum:Int): Flow<UserRankEntity>
+    suspend fun searchUser(searchUserParam: SearchUserParam): Flow<SearchUserEntity>
 }
