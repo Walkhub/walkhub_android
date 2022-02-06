@@ -28,7 +28,6 @@ interface RankApi {
     @GET("/ranks/users/{agency-code}")
     suspend fun fetchUserRank(
         @Path("agency-code") agencyCode: String,
-
         @Query("scope") scope: String,
         @Query("dateType") dateType: String
     ): UserRankResponse
