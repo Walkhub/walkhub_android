@@ -31,6 +31,9 @@ android {
 dependencies {
     implementation(project(":domain"))
 
+    implementation(Dependency.Moshi.moshi)
+    kapt(Dependency.Moshi.moshiCompiler)
+
     testImplementation(Dependency.Test.junit)
     testImplementation(Dependency.Test.mockito)
     androidTestImplementation(Dependency.Test.androidJunit)
@@ -56,4 +59,6 @@ dependencies {
 
     implementation(Dependency.WorkManager.ktx)
     implementation(Dependency.WorkManager.hiltExtension)
+
+    implementation(Dependency.LocalStorage.sharedPreference)
 }

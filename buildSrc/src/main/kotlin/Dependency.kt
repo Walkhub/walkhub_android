@@ -45,6 +45,7 @@ object Dependency {
     object LocalStorage {
         const val room = "androidx.room:room-ktx:${Version.room}"
         const val roomCompiler = "androidx.room:room-compiler:${Version.room}"
+        const val sharedPreference = "androidx.preference:preference-ktx:${Version.sharedPreference}"
     }
 
     object Lifecycle {
@@ -58,6 +59,11 @@ object Dependency {
 
     object ThreeTenAndroidBackport {
         const val threeTenAbp = "com.jakewharton.threetenabp:threetenabp:${Version.threeTenAbp}"
+    }
+
+    object Moshi {
+        const val moshi = "com.squareup.moshi:moshi:${Version.moshi}"
+        const val moshiCompiler = "com.squareup.moshi:moshi-kotlin-codegen:${Version.moshi}"
     }
 
     object WorkManager {
