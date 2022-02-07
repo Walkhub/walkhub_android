@@ -1,20 +1,29 @@
 package com.semicolon.data.repository
 
+import android.content.Context
 import com.semicolon.data.local.datasource.LocalUserDataSource
+import com.semicolon.data.local.pref.SharedPreferencesManager
 import com.semicolon.data.remote.datasource.RemoteUserDataSource
 import com.semicolon.data.remote.request.users.*
+import com.semicolon.data.remote.response.users.UserReissueResponse
+import com.semicolon.data.remote.response.users.UserSignInResponse
 import com.semicolon.data.remote.response.users.toEntity
+import com.semicolon.data.util.HttpHandler
 import com.semicolon.data.util.OfflineCacheUtil
 import com.semicolon.domain.entity.users.*
+import com.semicolon.domain.exception.basic.NoInternetException
+import com.semicolon.domain.exception.basic.UnauthorizedException
 import com.semicolon.domain.param.user.*
 import com.semicolon.domain.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
+import kotlin.coroutines.coroutineContext
 
 class UserRepositoryImpl @Inject constructor(
     private val localUserDataSource: LocalUserDataSource,
-    private val remoteUserDateSource: RemoteUserDataSource
+    private val remoteUserDateSource: RemoteUserDataSource,
+    private val sharedPreferencesManager: SharedPreferencesManager
 ) : UserRepository {
 
     override suspend fun verifyUserPhoneNumber(
@@ -28,6 +37,7 @@ class UserRepositoryImpl @Inject constructor(
     override suspend fun postUserSignIn(
         postUserSignInParam: PostUserSignInParam
     ): Flow<UserSignInEntity> = flow {
+        saveAccount(postUserSignInParam)
         emit(remoteUserDateSource.postUserSignIn(postUserSignInParam.toRequest()).toEntity())
     }
 
@@ -73,6 +83,25 @@ class UserRepositoryImpl @Inject constructor(
 
     override suspend fun patchSchool(agencyCode: String) =
         remoteUserDateSource.patchSchool(agencyCode)
+
+    override suspend fun autoLogin(): Flow<UserSignInEntity> =
+        flow {
+            emit(
+                remoteUserDateSource.postUserSignIn(
+                    UserSignInRequest(
+                        sharedPreferencesManager.getId(),
+                        sharedPreferencesManager.getPw(),
+                        sharedPreferencesManager.getDeviceToken()
+                    )
+                ).toEntity()
+            )
+        }
+
+    fun saveAccount(userSignInParam: PostUserSignInParam) {
+        sharedPreferencesManager.saveId(userSignInParam.accountId)
+        sharedPreferencesManager.savePw(userSignInParam.password)
+        sharedPreferencesManager.saveDeviceToken(userSignInParam.deviceToken)
+    }
 
     override suspend fun fetchUserProfile(userId: Int): Flow<UserProfileEntity> =
         OfflineCacheUtil<UserProfileEntity>()

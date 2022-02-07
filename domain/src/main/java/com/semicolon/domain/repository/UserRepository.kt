@@ -55,4 +55,6 @@ interface UserRepository {
     suspend fun patchSchool(
         agencyCode: String
     )
+
+    suspend fun autoLogin() : Flow<UserSignInEntity>
 }
