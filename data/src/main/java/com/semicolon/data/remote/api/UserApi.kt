@@ -5,12 +5,12 @@ import com.semicolon.data.remote.response.users.FindUserAccountResponse
 import com.semicolon.data.remote.response.users.UserSignInResponse
 import com.semicolon.data.remote.response.users.UserSignUpResponse
 import com.semicolon.data.remote.response.users.UserReissueResponse
-import com.semicolon.data.remote.response.users.inquirymypage.InquiryMypageResponse
-import com.semicolon.data.remote.response.users.inquiryownbadges.InquiryOwnBadgeResponse
-import com.semicolon.data.remote.response.users.userinquiryprofile.UserInquiryProfileResponse
+import com.semicolon.data.remote.response.users.FetchMyPageResponse
+import com.semicolon.data.remote.response.users.FetchOwnBadgeResponse
+import com.semicolon.data.remote.response.users.FetchUserProfileResponse
 import retrofit2.http.*
 
-interface UsersApi {
+interface UserApi {
 
     // 전화번호 인증(회원가입)
     @POST("users/signup/verification-codes")
@@ -18,29 +18,23 @@ interface UsersApi {
         @Body verifyPhoneNumberSignUpRequest: VerifyPhoneNumberSignUpRequest
     )
 
-    // 전화번호 인증(패스워드)
-    @POST("users/passwords/verification-codes")
-    suspend fun verifyPhoneNumberPassword(
-        @Body verifyPhoneNumberPasswordRequest: VerifyPhoneNumberPasswordRequest
-    )
-
     // 유저 회원가입
     @POST("users")
     suspend fun userSignUp(
         @Body userSignUpRequest: UserSignUpRequest
-    ) : UserSignUpResponse
+    ): UserSignUpResponse
 
     // 유저 로그인
     @POST("users/auth")
     suspend fun userSignIn(
         @Body userSignInRequest: UserSignInRequest
-    ) : UserSignInResponse
+    ): UserSignInResponse
 
     // 토큰 재발급
     @PUT("users/reissue")
     suspend fun userReissue(
         @Header("x-refresh-token") refreshToken: String
-    ) : UserReissueResponse
+    ): UserReissueResponse
 
     // 유저 비밀번호 변경
     @PATCH("users/password")
@@ -48,23 +42,22 @@ interface UsersApi {
         @Body userChangePasswordRequest: UserChangePasswordRequest
     )
 
-
     // 유저 프로필 조회
     @GET("users/{user-id}")
-    suspend fun inquiryUserProfile(
+    suspend fun fetchUserProfile(
         @Path("user-id") userId: Int
-    ) : UserInquiryProfileResponse
+    ): FetchUserProfileResponse
 
     // 마이 페이지 조회
     @GET("users")
-    suspend fun inquiryMypage(
-    ) : InquiryMypageResponse
+    suspend fun fetchMyPage(
+    ): FetchMyPageResponse
 
     // 소유한 뱃지 목록 조회
     @GET("user/{user-id}/badges")
-    suspend fun inquiryOwnBadge(
+    suspend fun fetchOwnBadge(
         @Path("user-id") userId: Int
-    ) : InquiryOwnBadgeResponse
+    ): FetchOwnBadgeResponse
 
     // 대표 뱃지 설정
     @PUT("users/badges/{badge-id}")
@@ -82,12 +75,25 @@ interface UsersApi {
     @GET("users/accounts/{phone-number}")
     suspend fun findUserAccount(
         @Path("phone_number") phoneNumber: String
-    ) : FindUserAccountResponse
+    ): FindUserAccountResponse
 
     // 건강 정보 입력
     @PUT("users/health")
-    suspend fun inputHealth(
-        @Body inputHealthRequest: InputHealthRequest
+    suspend fun patchUserHealth(
+        @Body patchUserHealthRequest: PatchUserHealthRequest
     )
 
+    // 반 가입하기
+    @POST("users/classes/{agency-code}/{grade}/{class}")
+    suspend fun signUpClass(
+        @Path("agency-code") agencyCode: String,
+        @Path("grade") grade: Int,
+        @Path("class") classRoom: Int,
+        @Body signUpClassRequest: SignUpClassRequest
+    )
+
+    // 학교 정보 수
+    suspend fun patchSchool(
+        @Body agency_code: String
+    )
 }

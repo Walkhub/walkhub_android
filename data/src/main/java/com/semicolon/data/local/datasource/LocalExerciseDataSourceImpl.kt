@@ -5,6 +5,7 @@ import com.google.android.gms.fitness.data.Field
 import com.semicolon.data.local.entity.exercise.LocationRecordEntity
 import com.semicolon.data.local.entity.exercise.WalkRecordEntity
 import com.semicolon.data.local.param.PeriodParam
+import com.semicolon.data.local.storage.ExerciseInfoDataStorage
 import com.semicolon.data.local.storage.FitnessDataStorage
 import com.semicolon.domain.entity.exercise.DailyExerciseEntity
 import kotlinx.coroutines.delay
@@ -16,7 +17,8 @@ import org.threeten.bp.ZoneId
 import javax.inject.Inject
 
 class LocalExerciseDataSourceImpl @Inject constructor(
-    private val fitnessDataStorage: FitnessDataStorage
+    private val fitnessDataStorage: FitnessDataStorage,
+    private val exerciseInfoDataStorage: ExerciseInfoDataStorage
 ) : LocalExerciseDataSource {
 
     override suspend fun fetchDailyExerciseRecordAsFlow(): Flow<DailyExerciseEntity> =
@@ -62,7 +64,30 @@ class LocalExerciseDataSourceImpl @Inject constructor(
             traveledDistanceAsMeter = data.result.getDataSet(DataType.AGGREGATE_STEP_COUNT_DELTA).dataPoints[0]
                 .getValue(Field.FIELD_STEPS).asInt(),
             walkCount = data.result.getDataSet(DataType.AGGREGATE_DISTANCE_DELTA).dataPoints[0]
-                .getValue(Field.FIELD_DISTANCE).asInt()
+                .getValue(Field.FIELD_DISTANCE).asInt(),
+            burnedKilocalories = data.result.getDataSet(DataType.AGGREGATE_STEP_COUNT_DELTA).dataPoints[0]
+                .getValue(Field.FIELD_CALORIES).asFloat()
         )
+    }
+
+    override suspend fun fetchStartTime(): Long =
+        exerciseInfoDataStorage.fetchStartTime()
+
+    override suspend fun fetchExerciseId(): Int =
+        exerciseInfoDataStorage.fetchExerciseId()
+
+    override suspend fun isMeasuring(): Boolean =
+        exerciseInfoDataStorage.isMeasuring()
+
+    override suspend fun startMeasuring(startTimeAsMilli: Long, exerciseId: Int) {
+        exerciseInfoDataStorage.run {
+            setExerciseId(exerciseId)
+            setStartTime(startTimeAsMilli)
+            setIsMeasuring(true)
+        }
+    }
+
+    override suspend fun finishMeasuring() {
+        exerciseInfoDataStorage.setIsMeasuring(false)
     }
 }
