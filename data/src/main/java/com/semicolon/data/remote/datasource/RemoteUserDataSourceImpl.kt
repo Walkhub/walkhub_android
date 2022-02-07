@@ -84,4 +84,9 @@ class RemoteUserDataSourceImpl @Inject constructor(
         HttpHandler<Unit>()
             .httpRequest { userApi.patchSchool(agencyCode) }
             .sendRequest()
+
+    override suspend fun userReissue(refreshToken: String): UserReissueResponse =
+        HttpHandler<UserReissueResponse>()
+            .httpRequest { userApi.userReissue(refreshToken) }
+            .sendRequest()
 }
