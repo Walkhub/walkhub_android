@@ -2,8 +2,8 @@ package com.semicolon.data.local.converter
 
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
+import com.semicolon.data.local.entity.notice.NoticeListRoomEntity
 import com.semicolon.data.local.entity.user.UserOwnBadgeRoomEntity
-import com.semicolon.domain.entity.users.UserMyPageEntity
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
@@ -25,6 +25,20 @@ class BadgeListTypeConverter(
         val listType = Types.newParameterizedType(List::class.java, UserOwnBadgeRoomEntity.Badge::class.java)
         val adapter: JsonAdapter<List<UserOwnBadgeRoomEntity.Badge>> = moshi.adapter(listType)
         return adapter.toJson(type)
+    }
+
+}
+
+@ProvidedTypeConverter
+class NoticeListTypeConverter(
+    private val moshi: Moshi
+) {
+
+    @TypeConverter
+    fun fromStringToNotice(value: String): List<NoticeListRoomEntity>? {
+        val listType = Types.newParameterizedType(List::class.java, NoticeListRoomEntity::class.java)
+        val adapter: JsonAdapter<List<NoticeListRoomEntity>> = moshi.adapter(listType)
+        return adapter.fromJson(value)
     }
 
 }
