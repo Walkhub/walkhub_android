@@ -15,6 +15,6 @@ class SchoolRepositoryImpl @Inject constructor(
 ) : SchoolRepository {
     override suspend fun searchSchool(name: String): Flow<List<SearchSchoolEntity>> =
         flow {
-            schoolDataSource.searchSchool(name).toListEntity()
+            emit(schoolDataSource.searchSchool(name).toListEntity())
         }
 }
