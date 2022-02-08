@@ -98,9 +98,11 @@ class UserRepositoryImpl @Inject constructor(
     }
 
     suspend fun saveAccount(userSignInParam: PostUserSignInParam) {
-        localUserDataSource.setId(userSignInParam.accountId)
-        localUserDataSource.setPw(userSignInParam.password)
-        localUserDataSource.setDeviceToken(userSignInParam.deviceToken)
+        localUserDataSource.apply {
+            setId(userSignInParam.accountId)
+            setPw(userSignInParam.password)
+            setDeviceToken(userSignInParam.deviceToken)
+        }
     }
 
     override suspend fun fetchUserProfile(userId: Int): Flow<UserProfileEntity> =
