@@ -5,6 +5,7 @@ import com.semicolon.domain.entity.users.UserOwnBadgeEntity
 import com.semicolon.domain.entity.users.UserProfileEntity
 
 interface LocalUserDataSource {
+
     suspend fun fetchUserMyPage(): UserMyPageEntity
     suspend fun insertUserMyPage(userMyPageEntity: UserMyPageEntity)
 
@@ -13,4 +14,21 @@ interface LocalUserDataSource {
 
     suspend fun fetchUserOwnBadge(userId: Int): UserOwnBadgeEntity
     suspend fun insertUserOwnBadge(userOwnBadgeEntity: UserOwnBadgeEntity)
+
+    suspend fun setAccessToken(token: String)
+    suspend fun fetchAccessToken(): String
+    suspend fun clearAccessToken()
+
+    suspend fun setRefreshToken(token: String)
+    suspend fun fetchRefreshToken(): String
+    suspend fun clearRefreshToken()
+
+    suspend fun setDeviceToken(deviceToken: String)
+    suspend fun fetchDeviceToken(): String
+
+    suspend fun setId(id: String)
+    suspend fun fetchId(): String
+
+    suspend fun setPw(pw: String)
+    suspend fun fetchPw(): String
 }
