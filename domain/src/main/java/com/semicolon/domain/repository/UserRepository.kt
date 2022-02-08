@@ -15,7 +15,7 @@ interface UserRepository {
 
     suspend fun postUserSignIn(
         postUserSignInParam: PostUserSignInParam
-    ) : Flow<UserSignInEntity>
+    )
 
     suspend fun patchUserChangePassword(
         patchUserChangePasswordParam: PatchUserChangePasswordParam
@@ -56,5 +56,5 @@ interface UserRepository {
         agencyCode: String
     )
 
-    suspend fun autoLogin() : Flow<UserSignInEntity>
+    suspend fun autoLogin()
 }
