@@ -1,6 +1,6 @@
 package com.semicolon.domain.entity.rank
 
-class SchoolRankEntity(
+data class SchoolRankEntity(
     val mySchoolRank: MySchoolRank,
     val schoolRankList: List<SchoolRank>
 ) {
