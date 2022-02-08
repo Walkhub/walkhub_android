@@ -7,6 +7,7 @@ import com.semicolon.data.local.storage.AuthDataStorage
 import com.semicolon.domain.entity.users.UserMyPageEntity
 import com.semicolon.domain.entity.users.UserOwnBadgeEntity
 import com.semicolon.domain.entity.users.UserProfileEntity
+import org.threeten.bp.LocalDateTime
 import javax.inject.Inject
 
 class LocalUserDataSourceImpl @Inject constructor(
@@ -56,6 +57,13 @@ class LocalUserDataSourceImpl @Inject constructor(
     override suspend fun clearRefreshToken() {
         authDataStorage.clearRefreshToken()
     }
+
+    override suspend fun setExpiredAt(localDateTime: LocalDateTime) {
+        authDataStorage.setExpiredAt(localDateTime)
+    }
+
+    override suspend fun fetchExpiredAt(): LocalDateTime =
+        authDataStorage.fetchExpiredAt()
 
     override suspend fun setDeviceToken(deviceToken: String) {
         authDataStorage.setDeviceToken(deviceToken)

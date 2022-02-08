@@ -6,13 +6,16 @@ import com.semicolon.data.local.storage.AuthDataStorageImpl.Key.ACCESS_TOKEN
 import com.semicolon.data.local.storage.AuthDataStorageImpl.Key.ACCOUNT_ID
 import com.semicolon.data.local.storage.AuthDataStorageImpl.Key.ACCOUNT_PASSWORD
 import com.semicolon.data.local.storage.AuthDataStorageImpl.Key.DEVICE_TOKEN
+import com.semicolon.data.local.storage.AuthDataStorageImpl.Key.EXPIRED_AT
 import com.semicolon.data.local.storage.AuthDataStorageImpl.Key.REFRESH_TOKEN
+import com.semicolon.data.util.toLocalDateTime
 import dagger.hilt.android.qualifiers.ApplicationContext
+import org.threeten.bp.LocalDateTime
 import javax.inject.Inject
 
 class AuthDataStorageImpl @Inject constructor(
     @ApplicationContext private val context: Context
-): AuthDataStorage {
+) : AuthDataStorage {
 
     override fun setAccessToken(token: String) {
         getSharedPreference().edit().let {
@@ -47,6 +50,16 @@ class AuthDataStorageImpl @Inject constructor(
             it.apply()
         }
     }
+
+    override fun setExpiredAt(localDateTime: LocalDateTime) {
+        getSharedPreference().edit().let {
+            it.putString(EXPIRED_AT, localDateTime.toString())
+            it.apply()
+        }
+    }
+
+    override fun fetchExpiredAt(): LocalDateTime =
+        getSharedPreference().getString(EXPIRED_AT, "empty")?.toLocalDateTime()!!
 
     override fun setDeviceToken(deviceToken: String) {
         getSharedPreference().edit().let {
@@ -85,6 +98,7 @@ class AuthDataStorageImpl @Inject constructor(
     private object Key {
         const val ACCESS_TOKEN = "ACCESS_TOKEN"
         const val REFRESH_TOKEN = "REFRESH_TOKEN"
+        const val EXPIRED_AT = "EXPIRED_AT"
         const val DEVICE_TOKEN = "DEVICE_TOKEN"
         const val ACCOUNT_ID = "ACCOUNT_ID"
         const val ACCOUNT_PASSWORD = "ACCOUNT_PASSWORD"

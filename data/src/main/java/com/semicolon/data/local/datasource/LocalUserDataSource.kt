@@ -3,6 +3,7 @@ package com.semicolon.data.local.datasource
 import com.semicolon.domain.entity.users.UserMyPageEntity
 import com.semicolon.domain.entity.users.UserOwnBadgeEntity
 import com.semicolon.domain.entity.users.UserProfileEntity
+import org.threeten.bp.LocalDateTime
 
 interface LocalUserDataSource {
 
@@ -22,6 +23,9 @@ interface LocalUserDataSource {
     suspend fun setRefreshToken(token: String)
     suspend fun fetchRefreshToken(): String
     suspend fun clearRefreshToken()
+
+    suspend fun setExpiredAt(localDateTime: LocalDateTime)
+    suspend fun fetchExpiredAt(): LocalDateTime
 
     suspend fun setDeviceToken(deviceToken: String)
     suspend fun fetchDeviceToken(): String

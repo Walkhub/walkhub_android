@@ -2,6 +2,7 @@ package com.semicolon.data.local.storage
 
 import android.content.Context
 import android.content.SharedPreferences
+import org.threeten.bp.LocalDateTime
 
 interface AuthDataStorage {
 
@@ -12,6 +13,9 @@ interface AuthDataStorage {
     fun setRefreshToken(token: String)
     fun fetchRefreshToken(): String
     fun clearRefreshToken()
+
+    fun setExpiredAt(localDateTime: LocalDateTime)
+    fun fetchExpiredAt(): LocalDateTime
 
     fun setDeviceToken(deviceToken: String)
     fun fetchDeviceToken(): String
