@@ -18,8 +18,8 @@ abstract class BaseActivity<B: ViewDataBinding> (
 
         binding = DataBindingUtil.setContentView(this, layoutId)
         binding.lifecycleOwner = this
-
-        observeEvent()
+        
+        initView()
     }
 
     fun showShortToast(msg: String) {
@@ -30,5 +30,5 @@ abstract class BaseActivity<B: ViewDataBinding> (
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
     }
 
-    abstract fun observeEvent()
+    abstract fun initView()
 }
