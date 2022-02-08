@@ -24,7 +24,7 @@ interface LocalUserDataSource {
     suspend fun fetchRefreshToken(): String
     suspend fun clearRefreshToken()
 
-    suspend fun setExpiredAt(localDateTime: LocalDateTime)
+    suspend fun setExpiredAt(localDateTime: String)
     suspend fun fetchExpiredAt(): LocalDateTime
 
     suspend fun setDeviceToken(deviceToken: String)

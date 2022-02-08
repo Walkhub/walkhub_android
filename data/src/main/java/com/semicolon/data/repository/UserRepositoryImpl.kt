@@ -6,6 +6,7 @@ import com.semicolon.data.remote.request.users.*
 import com.semicolon.data.remote.response.users.UserSignInResponse
 import com.semicolon.data.remote.response.users.toEntity
 import com.semicolon.data.util.OfflineCacheUtil
+import com.semicolon.data.util.toLocalDateTime
 import com.semicolon.domain.entity.users.*
 import com.semicolon.domain.param.user.*
 import com.semicolon.domain.repository.UserRepository
@@ -91,8 +92,8 @@ class UserRepositoryImpl @Inject constructor(
     suspend fun saveToken(userSignInResponse: UserSignInResponse) {
         localUserDataSource.apply {
             setAccessToken(userSignInResponse.accessToken)
-            setAccessToken(userSignInResponse.refreshToken)
-            setAccessToken(userSignInResponse.expiredAt)
+            setRefreshToken(userSignInResponse.refreshToken)
+            setExpiredAt(userSignInResponse.expiredAt)
         }
     }
 

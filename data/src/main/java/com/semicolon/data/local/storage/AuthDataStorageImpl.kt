@@ -51,9 +51,9 @@ class AuthDataStorageImpl @Inject constructor(
         }
     }
 
-    override fun setExpiredAt(localDateTime: LocalDateTime) {
+    override fun setExpiredAt(localDateTime: String) {
         getSharedPreference().edit().let {
-            it.putString(EXPIRED_AT, localDateTime.toString())
+            it.putString(EXPIRED_AT, localDateTime)
             it.apply()
         }
     }

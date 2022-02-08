@@ -14,7 +14,7 @@ interface AuthDataStorage {
     fun fetchRefreshToken(): String
     fun clearRefreshToken()
 
-    fun setExpiredAt(localDateTime: LocalDateTime)
+    fun setExpiredAt(localDateTime: String)
     fun fetchExpiredAt(): LocalDateTime
 
     fun setDeviceToken(deviceToken: String)

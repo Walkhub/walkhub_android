@@ -58,7 +58,7 @@ class LocalUserDataSourceImpl @Inject constructor(
         authDataStorage.clearRefreshToken()
     }
 
-    override suspend fun setExpiredAt(localDateTime: LocalDateTime) {
+    override suspend fun setExpiredAt(localDateTime: String) {
         authDataStorage.setExpiredAt(localDateTime)
     }
 
