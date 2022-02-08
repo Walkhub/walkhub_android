@@ -56,4 +56,8 @@ interface RemoteUserDataSource {
     suspend fun patchSchool(
         agencyCode: String
     )
+
+    suspend fun userReissue(
+        refreshToken: String
+    ): UserReissueResponse
 }
