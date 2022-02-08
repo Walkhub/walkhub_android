@@ -1,11 +1,10 @@
 package com.semicolon.domain.repository
 
-import com.semicolon.domain.entity.notice.NoticeEntity
-import com.semicolon.domain.entity.notification.NotificationListEntity
+import com.semicolon.domain.entity.notification.NotificationEntity
 import kotlinx.coroutines.flow.Flow
 
 interface NotificationRepository {
-    suspend fun fetchNotificationList(): Flow<List<NotificationListEntity>>
+    suspend fun fetchNotificationList(): Flow<List<NotificationEntity>>
 
-    suspend fun patchNotificationIsRead(data: Int)
+    suspend fun readNotification(notificationId: Int)
 }
