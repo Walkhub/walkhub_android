@@ -1,7 +1,6 @@
 package com.semicolon.data.remote.datasource
 
 import com.semicolon.data.remote.api.NotificationApi
-import com.semicolon.data.remote.response.challenge.ChallengeListResponse
 import com.semicolon.data.remote.response.notification.NotificationListResponse
 import com.semicolon.data.util.HttpHandler
 import javax.inject.Inject
