@@ -5,5 +5,7 @@ import com.semicolon.domain.entity.notification.NotificationListEntity
 import kotlinx.coroutines.flow.Flow
 
 interface NotificationRepository {
-    suspend fun loadNotificationList(): Flow<List<NotificationListEntity>>
+    suspend fun fetchNotificationList(): Flow<List<NotificationListEntity>>
+
+    suspend fun patchNotificationIsRead(data: Int)
 }
