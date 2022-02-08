@@ -22,8 +22,7 @@ import kotlin.coroutines.coroutineContext
 
 class UserRepositoryImpl @Inject constructor(
     private val localUserDataSource: LocalUserDataSource,
-    private val remoteUserDateSource: RemoteUserDataSource,
-    private val sharedPreferencesManager: SharedPreferencesManager
+    private val remoteUserDateSource: RemoteUserDataSource
 ) : UserRepository {
 
     override suspend fun verifyUserPhoneNumber(
@@ -89,18 +88,18 @@ class UserRepositoryImpl @Inject constructor(
             emit(
                 remoteUserDateSource.postUserSignIn(
                     UserSignInRequest(
-                        sharedPreferencesManager.getId(),
-                        sharedPreferencesManager.getPw(),
-                        sharedPreferencesManager.getDeviceToken()
+                        localUserDataSource.fetchId(),
+                        localUserDataSource.fetchPw(),
+                        localUserDataSource.fetchDeviceToken()
                     )
                 ).toEntity()
             )
         }
 
-    fun saveAccount(userSignInParam: PostUserSignInParam) {
-        sharedPreferencesManager.saveId(userSignInParam.accountId)
-        sharedPreferencesManager.savePw(userSignInParam.password)
-        sharedPreferencesManager.saveDeviceToken(userSignInParam.deviceToken)
+    suspend fun saveAccount(userSignInParam: PostUserSignInParam) {
+        localUserDataSource.setId(userSignInParam.accountId)
+        localUserDataSource.setPw(userSignInParam.password)
+        localUserDataSource.setDeviceToken(userSignInParam.deviceToken)
     }
 
     override suspend fun fetchUserProfile(userId: Int): Flow<UserProfileEntity> =
