@@ -19,38 +19,38 @@ class RemoteRankDataSourceImpl @Inject constructor(
             .httpRequest { rankApi.fetchSchoolRank(dateType) }
             .sendRequest()
 
-    override suspend fun searchSchool(name: String): SearchSchoolResponse =
+    override suspend fun searchSchool(name: String, moreDateType: String): SearchSchoolResponse =
         HttpHandler<SearchSchoolResponse>()
-            .httpRequest { rankApi.searchSchool(name) }
+            .httpRequest { rankApi.searchSchool(name, moreDateType) }
             .sendRequest()
 
 
     override suspend fun fetchUserRank(
-        agencyCode: String,
+        schoolId: Int,
         scope: String,
-        dateType: String,
+        moreDateType: String,
     ): UserRankResponse = HttpHandler<UserRankResponse>()
-        .httpRequest { rankApi.fetchUserRank(scope, dateType, agencyCode) }
+        .httpRequest { rankApi.fetchUserRank(schoolId ,scope, moreDateType) }
         .sendRequest()
 
     override suspend fun fetchOurSchoolUserRank(
         scope: String,
-        dateType: String
+        moreDateType: String
     ): OurSchoolUserRankResponse =
         HttpHandler<OurSchoolUserRankResponse>()
-            .httpRequest { rankApi.fetchOurSchoolUserRank(scope, dateType) }
+            .httpRequest { rankApi.fetchOurSchoolUserRank(scope, moreDateType) }
             .sendRequest()
 
 
     override suspend fun searchUser(
         name: String,
         scope: String,
-        agencyCode: String,
+        moreDateType: String,
         grade: Int,
         classNum: Int
     ): SearchUserResponse =
         HttpHandler<SearchUserResponse>()
-            .httpRequest { rankApi.searchUser(name, scope, agencyCode, grade, classNum) }
+            .httpRequest { rankApi.searchUser(name, scope, moreDateType, grade, classNum) }
             .sendRequest()
 
 
