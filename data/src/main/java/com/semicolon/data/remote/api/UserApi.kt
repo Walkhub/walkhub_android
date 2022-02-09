@@ -12,88 +12,75 @@ import retrofit2.http.*
 
 interface UserApi {
 
-    // 전화번호 인증(회원가입)
-    @POST("users/signup/verification-codes")
-    suspend fun verifyPhoneNumberSignUp(
-        @Body verifyPhoneNumberSignUpRequest: VerifyPhoneNumberSignUpRequest
+    // 반 가입하기 o
+    @POST("users/classes/{group-id}")
+    suspend fun signUpClass(
+        @Path("group-id") groupId: Int,
+        @Body signUpClassRequest: SignUpClassRequest
     )
 
-    // 유저 회원가입
-    @POST("users")
-    suspend fun userSignUp(
-        @Body userSignUpRequest: UserSignUpRequest
-    ): UserSignUpResponse
-
-    // 유저 로그인
-    @POST("users/auth")
-    suspend fun userSignIn(
-        @Body userSignInRequest: UserSignInRequest
-    ): UserSignInResponse
-
-    // 토큰 재발급
-    @PUT("users/reissue")
+    // 토큰 재발급 o
+    @PATCH("users/token")
     suspend fun userReissue(
-        @Header("x-refresh-token") refreshToken: String
+        @Header("Refresh-Token") refreshToken: String
     ): UserReissueResponse
 
-    // 유저 비밀번호 변경
-    @PATCH("users/password")
-    suspend fun userChangePassword(
-        @Body userChangePasswordRequest: UserChangePasswordRequest
+    // 건강 정보 입력 o
+    @PATCH("users/health")
+    suspend fun patchUserHealth(
+        @Body patchUserHealthRequest: PatchUserHealthRequest
     )
 
-    // 유저 프로필 조회
-    @GET("users/{user-id}")
-    suspend fun fetchUserProfile(
-        @Path("user-id") userId: Int
-    ): FetchUserProfileResponse
-
-    // 마이 페이지 조회
-    @GET("users")
-    suspend fun fetchMyPage(
-    ): FetchMyPageResponse
-
-    // 소유한 뱃지 목록 조회
-    @GET("user/{user-id}/badges")
-    suspend fun fetchOwnBadge(
-        @Path("user-id") userId: Int
-    ): FetchOwnBadgeResponse
-
-    // 대표 뱃지 설정
-    @PUT("users/badges/{badge-id}")
-    suspend fun setRepresentativeBadge(
-        @Path("badge-id") badgeId: Int
-    )
-
-    // 내 정보 수정
+    // 내 정보 수정 o
     @PATCH("users")
     suspend fun updateProfile(
         @Body updateProfileRequest: UpdateProfileRequest
     )
 
-    // 유저 아이디 찾기
+    // 학교 정보 수정 o
+    @PATCH("users/school")
+    suspend fun patchSchool(
+        @Body schoolId: Int
+    )
+
+    // 유저 아이디 찾기 o
     @GET("users/accounts/{phone-number}")
     suspend fun findUserAccount(
         @Path("phone_number") phoneNumber: String
     ): FindUserAccountResponse
 
-    // 건강 정보 입력
-    @PUT("users/health")
-    suspend fun patchUserHealth(
-        @Body patchUserHealthRequest: PatchUserHealthRequest
+    // 유저 프로필 조회 o
+    @GET("users/{user-id}")
+    suspend fun fetchUserProfile(
+        @Path("user-id") userId: Int
+    ): FetchUserProfileResponse
+
+    // 마이 페이지 조회 o
+    @GET("users")
+    suspend fun fetchMyPage(
+    ): FetchMyPageResponse
+
+    // 유저 비밀번호 변경 o
+    @PATCH("users/password")
+    suspend fun userChangePassword(
+        @Body userChangePasswordRequest: UserChangePasswordRequest
     )
 
-    // 반 가입하기
-    @POST("users/classes/{agency-code}/{grade}/{class}")
-    suspend fun signUpClass(
-        @Path("agency-code") agencyCode: String,
-        @Path("grade") grade: Int,
-        @Path("class") classRoom: Int,
-        @Body signUpClassRequest: SignUpClassRequest
+    // 유저 로그인 o
+    @POST("users/token")
+    suspend fun userSignIn(
+        @Body userSignInRequest: UserSignInRequest
+    ): UserSignInResponse
+
+    // 전화번호 인증 o
+    @POST("users/verification-codes")
+    suspend fun verifyPhoneNumberSignUp(
+        @Body verifyPhoneNumberSignUpRequest: VerifyPhoneNumberSignUpRequest
     )
 
-    // 학교 정보 수
-    suspend fun patchSchool(
-        @Body agency_code: String
-    )
+    // 유저 회원가입 o
+    @POST("users")
+    suspend fun userSignUp(
+        @Body userSignUpRequest: UserSignUpRequest
+    ): UserSignUpResponse
 }
