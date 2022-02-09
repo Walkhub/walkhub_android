@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Walkhub</string>
+    <string name="title_home">홈</string>
+    <string name="title_Hub">허브</string>
+    <string name="title_challenge">챌린지</string>
+    <string name="title_profile">프로필</string>
 </resources>
