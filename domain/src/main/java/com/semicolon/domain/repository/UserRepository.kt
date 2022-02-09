@@ -53,7 +53,7 @@ interface UserRepository {
     )
 
     suspend fun patchSchool(
-        agencyCode: String
+        schoolId: Int
     )
 
     suspend fun autoLogin()
