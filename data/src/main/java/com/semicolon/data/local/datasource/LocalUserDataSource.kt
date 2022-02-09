@@ -11,7 +11,7 @@ interface LocalUserDataSource {
     suspend fun insertUserMyPage(userMyPageEntity: UserMyPageEntity)
 
     suspend fun fetchUserProfile(userId: Int): UserProfileEntity
-    suspend fun insertUserProfile(id: Int, userMyProfileEntity: UserProfileEntity)
+    suspend fun insertUserProfile(userMyProfileEntity: UserProfileEntity)
 
     suspend fun fetchUserOwnBadge(userId: Int): UserOwnBadgeEntity
     suspend fun insertUserOwnBadge(userOwnBadgeEntity: UserOwnBadgeEntity)

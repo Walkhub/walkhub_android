@@ -17,16 +17,10 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUserMyPage(userMyPageRoomEntity: UserMyPageRoomEntity)
 
-    @Query("SELECT * FROM userProfile WHERE id = :userId")
+    @Query("SELECT * FROM userProfile WHERE userId = :userId")
     suspend fun fetchUserProfile(userId: Int) : UserProfileRoomEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUserProfile(userUserProfileRoomEntity: UserProfileRoomEntity)
-
-    @Query("SELECT * FROM ownBadge WHERE id = :userId")
-    suspend fun fetchUserOwnBadge(userId: Int) : UserOwnBadgeRoomEntity
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertUserOwnBadge(userOwnBadgeRoomEntity: UserOwnBadgeRoomEntity)
 
 }
