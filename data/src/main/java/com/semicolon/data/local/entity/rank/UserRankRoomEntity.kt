@@ -2,6 +2,7 @@ package com.semicolon.data.local.entity.rank
 
 import androidx.room.Embedded
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.semicolon.domain.entity.rank.UserRankEntity
 
 @Entity(tableName = "userRank")
@@ -14,7 +15,7 @@ data class UserRankRoomEntity(
         val name: String,
         val profileImageUrl: String,
         val rank: Int,
-        val userId: Int,
+        @PrimaryKey val userId: Int,
         val walkCount: Int
     )
 
