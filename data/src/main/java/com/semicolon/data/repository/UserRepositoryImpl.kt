@@ -3,8 +3,10 @@ package com.semicolon.data.repository
 import com.semicolon.data.local.datasource.LocalUserDataSource
 import com.semicolon.data.remote.datasource.RemoteUserDataSource
 import com.semicolon.data.remote.request.users.*
+import com.semicolon.data.remote.response.users.UserSignInResponse
 import com.semicolon.data.remote.response.users.toEntity
 import com.semicolon.data.util.OfflineCacheUtil
+import com.semicolon.data.util.toLocalDateTime
 import com.semicolon.domain.entity.users.*
 import com.semicolon.domain.param.user.*
 import com.semicolon.domain.repository.UserRepository
@@ -27,8 +29,11 @@ class UserRepositoryImpl @Inject constructor(
 
     override suspend fun postUserSignIn(
         postUserSignInParam: PostUserSignInParam
-    ): Flow<UserSignInEntity> = flow {
-        emit(remoteUserDateSource.postUserSignIn(postUserSignInParam.toRequest()).toEntity())
+    ) {
+        val response = remoteUserDateSource.postUserSignIn(postUserSignInParam.toRequest())
+
+        saveAccount(postUserSignInParam)
+        saveToken(response)
     }
 
     override suspend fun patchUserChangePassword(
@@ -73,6 +78,32 @@ class UserRepositoryImpl @Inject constructor(
 
     override suspend fun patchSchool(agencyCode: String) =
         remoteUserDateSource.patchSchool(agencyCode)
+
+    override suspend fun autoLogin() {
+        remoteUserDateSource.postUserSignIn(
+            UserSignInRequest(
+                localUserDataSource.fetchId(),
+                localUserDataSource.fetchPw(),
+                localUserDataSource.fetchDeviceToken()
+            )
+        )
+    }
+
+    suspend fun saveToken(userSignInResponse: UserSignInResponse) {
+        localUserDataSource.apply {
+            setAccessToken(userSignInResponse.accessToken)
+            setRefreshToken(userSignInResponse.refreshToken)
+            setExpiredAt(userSignInResponse.expiredAt)
+        }
+    }
+
+    suspend fun saveAccount(userSignInParam: PostUserSignInParam) {
+        localUserDataSource.apply {
+            setId(userSignInParam.accountId)
+            setPw(userSignInParam.password)
+            setDeviceToken(userSignInParam.deviceToken)
+        }
+    }
 
     override suspend fun fetchUserProfile(userId: Int): Flow<UserProfileEntity> =
         OfflineCacheUtil<UserProfileEntity>()

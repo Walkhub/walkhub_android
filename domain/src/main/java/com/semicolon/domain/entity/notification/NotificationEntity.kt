@@ -1,6 +1,6 @@
 package com.semicolon.domain.entity.notification
 
-data class NotificationListEntity(
+data class NotificationEntity(
     val notificationId: Int,
     val title: String,
     val content: String,
