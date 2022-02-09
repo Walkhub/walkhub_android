@@ -66,6 +66,11 @@ object Dependency {
         const val moshiCompiler = "com.squareup.moshi:moshi-kotlin-codegen:${Version.moshi}"
     }
 
+    object Navigation {
+        const val navigationFragment = "androidx.navigation:navigation-fragment-ktx:${Version.navigation}"
+        const val navigationUi = "androidx.navigation:navigation-ui-ktx:${Version.navigation}"
+    }
+
     object WorkManager {
         const val ktx = "androidx.work:work-runtime-ktx:${Version.workManager}"
         const val hiltExtension = "androidx.hilt:hilt-work:${Version.workManagerHiltExtension}"
