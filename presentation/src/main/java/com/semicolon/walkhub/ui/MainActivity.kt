@@ -16,7 +16,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
         super.onCreate(savedInstanceState)
     }
 
-    private fun initBottomNavBar() {
+    private fun initBottomNav() {
         val navController =
             supportFragmentManager.findFragmentById(R.id.navHostFragmentActivityMain)?.findNavController()
         val nav = binding.bottomNav as BottomNavigationView
@@ -26,6 +26,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
     }
 
     override fun initView() {
-        initBottomNavBar()
+        initBottomNav()
     }
 }
