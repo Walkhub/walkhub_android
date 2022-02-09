@@ -47,16 +47,6 @@ class UserRepositoryImpl @Inject constructor(
             .doOnNeedRefresh { localUserDataSource.insertUserMyPage(it) }
             .createFlow()
 
-    override suspend fun fetchUserOwnBadge(userId: Int): Flow<UserOwnBadgeEntity> =
-        OfflineCacheUtil<UserOwnBadgeEntity>()
-            .remoteData { remoteUserDateSource.fetchUserOwnBadge(userId).toEntity() }
-            .localData { localUserDataSource.fetchUserOwnBadge(userId) }
-            .doOnNeedRefresh { localUserDataSource.insertUserOwnBadge(it) }
-            .createFlow()
-
-    override suspend fun setBadge(badgeId: Int) =
-        remoteUserDateSource.setBadge(badgeId)
-
     override suspend fun updateProfile(updateProfileParam: UpdateProfileParam) =
         remoteUserDateSource.updateProfile(updateProfileParam.toRequest())
 
@@ -70,14 +60,12 @@ class UserRepositoryImpl @Inject constructor(
 
     override suspend fun signUpClass(signUpClassParam: SignUpClassParam) =
         remoteUserDateSource.signUpClass(
-            signUpClassParam.agencyCode,
-            signUpClassParam.grade,
-            signUpClassParam.classRoom,
+            signUpClassParam.group_id,
             signUpClassParam.toRequest()
         )
 
-    override suspend fun patchSchool(agencyCode: String) =
-        remoteUserDateSource.patchSchool(agencyCode)
+    override suspend fun patchSchool(schoolId: Int) =
+        remoteUserDateSource.patchSchool(schoolId)
 
     override suspend fun autoLogin() {
         remoteUserDateSource.postUserSignIn(
@@ -89,7 +77,7 @@ class UserRepositoryImpl @Inject constructor(
         )
     }
 
-    suspend fun saveToken(userSignInResponse: UserSignInResponse) {
+    private suspend fun saveToken(userSignInResponse: UserSignInResponse) {
         localUserDataSource.apply {
             setAccessToken(userSignInResponse.accessToken)
             setRefreshToken(userSignInResponse.refreshToken)
@@ -97,7 +85,7 @@ class UserRepositoryImpl @Inject constructor(
         }
     }
 
-    suspend fun saveAccount(userSignInParam: PostUserSignInParam) {
+    private suspend fun saveAccount(userSignInParam: PostUserSignInParam) {
         localUserDataSource.apply {
             setId(userSignInParam.accountId)
             setPw(userSignInParam.password)
@@ -109,7 +97,7 @@ class UserRepositoryImpl @Inject constructor(
         OfflineCacheUtil<UserProfileEntity>()
             .remoteData { remoteUserDateSource.fetchUserProfile(userId).toEntity() }
             .localData { localUserDataSource.fetchUserProfile(userId) }
-            .doOnNeedRefresh { localUserDataSource.insertUserProfile(userId, it) }
+            .doOnNeedRefresh { localUserDataSource.insertUserProfile(it) }
             .createFlow()
 
     fun SignUpClassParam.toRequest() =
@@ -126,9 +114,8 @@ class UserRepositoryImpl @Inject constructor(
 
     fun UpdateProfileParam.toRequest() =
         UpdateProfileRequest(
-            birthday = birthday,
             name = name,
-            profileUrl = profileUrl,
+            profileImageUrl = profileImageUrl,
             sex = sex
         )
 
@@ -143,7 +130,8 @@ class UserRepositoryImpl @Inject constructor(
             password = password,
             name = name,
             phoneNumber = phoneNumber,
-            authCode = authCode
+            authCode = authCode,
+            schoolName = schoolName
         )
 
     fun PostUserSignInParam.toRequest() =
