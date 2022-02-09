@@ -5,7 +5,6 @@ import com.semicolon.data.local.entity.user.toDbEntity
 import com.semicolon.data.local.entity.user.toEntity
 import com.semicolon.data.local.storage.AuthDataStorage
 import com.semicolon.domain.entity.users.UserMyPageEntity
-import com.semicolon.domain.entity.users.UserOwnBadgeEntity
 import com.semicolon.domain.entity.users.UserProfileEntity
 import org.threeten.bp.LocalDateTime
 import javax.inject.Inject

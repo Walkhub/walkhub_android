@@ -28,14 +28,6 @@ interface UserRepository {
     suspend fun fetchMyPage(
     ) : Flow<UserMyPageEntity>
 
-    suspend fun fetchUserOwnBadge(
-        userId: Int
-    ) : Flow<UserOwnBadgeEntity>
-
-    suspend fun setBadge(
-        badgeId: Int
-    )
-
     suspend fun updateProfile(
         updateProfileParam: UpdateProfileParam
     )

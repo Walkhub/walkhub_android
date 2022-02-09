@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.semicolon.data.local.entity.user.UserMyPageRoomEntity
-import com.semicolon.data.local.entity.user.UserOwnBadgeRoomEntity
 import com.semicolon.data.local.entity.user.UserProfileRoomEntity
 
 @Dao

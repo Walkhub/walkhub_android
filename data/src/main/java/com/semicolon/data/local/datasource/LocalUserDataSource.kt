@@ -1,7 +1,6 @@
 package com.semicolon.data.local.datasource
 
 import com.semicolon.domain.entity.users.UserMyPageEntity
-import com.semicolon.domain.entity.users.UserOwnBadgeEntity
 import com.semicolon.domain.entity.users.UserProfileEntity
 import org.threeten.bp.LocalDateTime
 
@@ -12,9 +11,6 @@ interface LocalUserDataSource {
 
     suspend fun fetchUserProfile(userId: Int): UserProfileEntity
     suspend fun insertUserProfile(userMyProfileEntity: UserProfileEntity)
-
-    suspend fun fetchUserOwnBadge(userId: Int): UserOwnBadgeEntity
-    suspend fun insertUserOwnBadge(userOwnBadgeEntity: UserOwnBadgeEntity)
 
     suspend fun setAccessToken(token: String)
     suspend fun fetchAccessToken(): String

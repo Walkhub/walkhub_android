@@ -6,7 +6,6 @@ import com.semicolon.data.remote.response.users.UserSignInResponse
 import com.semicolon.data.remote.response.users.UserSignUpResponse
 import com.semicolon.data.remote.response.users.UserReissueResponse
 import com.semicolon.data.remote.response.users.FetchMyPageResponse
-import com.semicolon.data.remote.response.users.FetchOwnBadgeResponse
 import com.semicolon.data.remote.response.users.FetchUserProfileResponse
 import retrofit2.http.*
 
