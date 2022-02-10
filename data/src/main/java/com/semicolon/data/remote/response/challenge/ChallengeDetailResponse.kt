@@ -9,12 +9,15 @@ import java.util.*
 data class ChallengeDetailResponse(
     @SerializedName("name") val name: String,
     @SerializedName("content") val content: String,
-    @SerializedName("goal") val goal: Int,
     @SerializedName("award") val award: String,
     @SerializedName("image_url") val imageUrl: String,
     @SerializedName("start_at") val startAt: String,
     @SerializedName("end_at") val endAt: String,
-    @SerializedName("scope") val scope: String,
+    @SerializedName("goal") val goal: Int,
+    @SerializedName("goal_scope") val goalScope: String,
+    @SerializedName("goal_type") val goalType: String,
+    @SerializedName("user_scope") val userScope: String,
+    @SerializedName("isMine") val isMine: Boolean,
     @SerializedName("participant_count") val participantCount: Int,
     @SerializedName("writer") val writer: ChallengeWriterResponse
 ) {
