@@ -30,7 +30,6 @@ interface ExerciseApi {
 
     @PUT("exercises")
     suspend fun saveDailyExercise(
-        @Query("date") date: String,
         @Body saveDailyExerciseRequest: SaveDailyExerciseRequest
     )
 

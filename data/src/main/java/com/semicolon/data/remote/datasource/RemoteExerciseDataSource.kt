@@ -25,7 +25,6 @@ interface RemoteExerciseDataSource {
     )
 
     suspend fun saveDailyExercise(
-        date: String,
         saveDailyExerciseRequest: SaveDailyExerciseRequest
     )
 

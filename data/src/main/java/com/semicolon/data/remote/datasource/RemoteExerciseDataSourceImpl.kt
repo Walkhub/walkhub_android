@@ -36,10 +36,9 @@ class RemoteExerciseDataSourceImpl @Inject constructor(
         .sendRequest()
 
     override suspend fun saveDailyExercise(
-        date: String,
         saveDailyExerciseRequest: SaveDailyExerciseRequest
     ) = HttpHandler<Unit>()
-        .httpRequest { exerciseApi.saveDailyExercise(date, saveDailyExerciseRequest) }
+        .httpRequest { exerciseApi.saveDailyExercise(saveDailyExerciseRequest) }
         .sendRequest()
 
     override suspend fun fetchExerciseRecordList(): ExerciseRecordListResponse =
