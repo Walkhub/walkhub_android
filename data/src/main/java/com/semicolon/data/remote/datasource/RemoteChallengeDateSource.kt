@@ -12,4 +12,6 @@ interface RemoteChallengeDateSource {
     suspend fun postParticipate(challengeId: Int)
 
     suspend fun fetchParticipants(challengeId: Int): ChallengeParticipantListResponse
+
+    suspend fun fetchMyChallenges(): ChallengeListResponse
 }
