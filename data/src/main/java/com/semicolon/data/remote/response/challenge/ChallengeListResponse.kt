@@ -14,7 +14,9 @@ data class ChallengeListResponse(
         @SerializedName("start_at") val startAt: String,
         @SerializedName("end_at") val endAt: String,
         @SerializedName("image_url") val imageUrl: String,
-        @SerializedName("scope") val scope: String
+        @SerializedName("user_scope") val userScope: String,
+        @SerializedName("goal_scope") val goalScope: String,
+        @SerializedName("goal_type") val goalType: String
     )
 
     fun ChallengeResponse.toEntity(): ChallengeEntity =
