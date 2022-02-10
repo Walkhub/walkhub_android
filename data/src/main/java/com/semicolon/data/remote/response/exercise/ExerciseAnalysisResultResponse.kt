@@ -1,6 +1,7 @@
 package com.semicolon.data.remote.response.exercise
 
 import com.google.gson.annotations.SerializedName
+import com.semicolon.domain.entity.exercise.ExerciseAnalysisResultEntity
 
 data class ExerciseAnalysisResultResponse(
     @SerializedName("level_id") val levelId: Int,
@@ -11,3 +12,14 @@ data class ExerciseAnalysisResultResponse(
     @SerializedName("distance") val distanceAsKiloMeter: Float,
     @SerializedName("walk_time") val walkTimeAsMinute: Int
 )
+
+fun ExerciseAnalysisResultResponse.toEntity() =
+    ExerciseAnalysisResultEntity(
+        levelId = levelId,
+        walkCountList = walkCountList,
+        dailyWalkCountGoal = dailyWalkCountGoal,
+        walkCount = walkCount,
+        calories = calories,
+        distanceAsKiloMeter = distanceAsKiloMeter,
+        walkTimeAsMinute = walkTimeAsMinute
+    )
