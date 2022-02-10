@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.semicolon.data.util.toLocalDateTime
 import com.semicolon.domain.entity.challenge.ChallengeEntity
-import com.semicolon.domain.enum.toChallengeScope
+import com.semicolon.domain.enum.toUserScope
 import com.semicolon.domain.enum.toScopeString
 
 @Entity(tableName = "challenge")
@@ -24,7 +24,7 @@ fun ChallengeRoomEntity.toEntity() =
         startAt = startAt.toLocalDateTime(),
         endAt = endAt.toLocalDateTime(),
         imageUrl = imageUrl,
-        scope = scope.toChallengeScope()
+        scope = scope.toUserScope()
     )
 
 fun List<ChallengeRoomEntity>.toEntity() =

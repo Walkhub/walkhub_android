@@ -3,8 +3,9 @@ package com.semicolon.data.remote.response.challenge
 import com.google.gson.annotations.SerializedName
 import com.semicolon.data.util.toLocalDateTime
 import com.semicolon.domain.entity.challenge.ChallengeDetailEntity
-import com.semicolon.domain.enum.toChallengeScope
-import java.util.*
+import com.semicolon.domain.enum.toGoalScope
+import com.semicolon.domain.enum.toGoalType
+import com.semicolon.domain.enum.toUserScope
 
 data class ChallengeDetailResponse(
     @SerializedName("name") val name: String,
@@ -33,11 +34,14 @@ fun ChallengeDetailResponse.toEntity() =
         name = name,
         content = content,
         goal = goal,
+        goalType = goalType.toGoalType(),
+        goalScope = goalScope.toGoalScope(),
+        userScope = userScope.toUserScope(),
         award = award,
         imageUrl = imageUrl,
         startAt = startAt.toLocalDateTime(),
         endAt = endAt.toLocalDateTime(),
-        scope = scope.toChallengeScope(),
+        isMine = isMine,
         participantCount = participantCount,
         writerEntity = writer.toEntity()
     )

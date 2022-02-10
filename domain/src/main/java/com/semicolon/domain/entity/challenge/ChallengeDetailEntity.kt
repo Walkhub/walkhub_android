@@ -1,17 +1,17 @@
 package com.semicolon.domain.entity.challenge
 
-import com.semicolon.domain.enum.GoalScope
-import com.semicolon.domain.enum.GoalType
-import com.semicolon.domain.enum.UserScope
+import com.semicolon.domain.enum.ChallengeGoalType
+import com.semicolon.domain.enum.ChallengeGoalScope
+import com.semicolon.domain.enum.ChallengeUserScope
 import org.threeten.bp.LocalDateTime
 
 data class ChallengeDetailEntity(
     val name: String,
     val content: String,
     val goal: Int,
-    val goalType: GoalType,
-    val goalScope: GoalScope,
-    val userScope: UserScope,
+    val goalType: ChallengeGoalType,
+    val goalScope: ChallengeGoalScope,
+    val userScope: ChallengeUserScope,
     val award: String,
     val imageUrl: String,
     val startAt: LocalDateTime,
