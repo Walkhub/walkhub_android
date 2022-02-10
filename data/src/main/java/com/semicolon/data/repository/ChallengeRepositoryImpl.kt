@@ -9,6 +9,7 @@ import com.semicolon.domain.entity.challenge.ChallengeEntity
 import com.semicolon.domain.entity.challenge.ChallengeParticipantEntity
 import com.semicolon.domain.repository.ChallengeRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class ChallengeRepositoryImpl @Inject constructor(
@@ -41,4 +42,8 @@ class ChallengeRepositoryImpl @Inject constructor(
     override suspend fun postParticipateChallenge(id: Int) =
         remoteChallengeDateSource.postParticipate(id)
 
+    override suspend fun fetchMyChallenges(): Flow<List<ChallengeEntity>> =
+        flow {
+            emit(remoteChallengeDateSource.fetchMyChallenges().toEntity())
+        }
 }
