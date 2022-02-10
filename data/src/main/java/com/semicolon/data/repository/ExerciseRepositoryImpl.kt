@@ -9,6 +9,8 @@ import com.semicolon.data.remote.request.exercise.FinishMeasureExerciseRequest
 import com.semicolon.data.remote.request.exercise.toRequest
 import com.semicolon.data.util.toMultipart
 import com.semicolon.domain.entity.exercise.DailyExerciseEntity
+import com.semicolon.domain.entity.exercise.ExerciseAnalysisResultEntity
+import com.semicolon.domain.entity.exercise.ExerciseRecordEntity
 import com.semicolon.domain.param.exercise.FinishMeasureExerciseParam
 import com.semicolon.domain.param.exercise.StartMeasureExerciseParam
 import com.semicolon.domain.repository.ExerciseRepository
@@ -79,4 +81,12 @@ class ExerciseRepositoryImpl @Inject constructor(
 
     override suspend fun startRecordExercise() =
         exerciseBackgroundTask.synchronizeExerciseRecord(1, TimeUnit.HOURS)
+
+    override suspend fun fetchExerciseRecordList(): Flow<List<ExerciseRecordEntity>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun fetchExerciseAnalysisResult(): Flow<ExerciseAnalysisResultEntity> {
+        TODO("Not yet implemented")
+    }
 }
