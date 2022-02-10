@@ -4,7 +4,9 @@ import com.semicolon.data.remote.request.exercise.FinishMeasureExerciseRequest
 import com.semicolon.data.remote.request.exercise.SaveDailyExerciseRequest
 import com.semicolon.data.remote.request.exercise.SendLocationRecordsRequest
 import com.semicolon.data.remote.request.exercise.StartMeasureExerciseRequest
+import com.semicolon.data.remote.response.exercise.ExerciseAnalysisResultResponse
 import com.semicolon.data.remote.response.exercise.ExerciseIdResponse
+import com.semicolon.data.remote.response.exercise.ExerciseRecordListResponse
 import retrofit2.http.*
 
 interface ExerciseApi {
@@ -20,7 +22,7 @@ interface ExerciseApi {
         @Body finishMeasureExerciseRequest: FinishMeasureExerciseRequest
     )
 
-    @POST("locations/{exerciseId}")
+    @POST("exercises/locations/{exerciseId}")
     suspend fun sendLocationRecords(
         @Path("exerciseId") exerciseId: Int,
         @Body sendLocationRecordsRequest: SendLocationRecordsRequest
@@ -31,4 +33,10 @@ interface ExerciseApi {
         @Query("date") date: String,
         @Body saveDailyExerciseRequest: SaveDailyExerciseRequest
     )
+
+    @GET("exercises/list")
+    suspend fun fetchExerciseRecordList(): ExerciseRecordListResponse
+
+    @GET("exercises/analysis")
+    suspend fun fetchExerciseAnalysisResult(): ExerciseAnalysisResultResponse
 }
