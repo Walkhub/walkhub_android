@@ -41,4 +41,8 @@ class ChallengeRepositoryImpl @Inject constructor(
     override suspend fun postParticipateChallenge(id: Int) =
         remoteChallengeDateSource.postParticipate(id)
 
+    override suspend fun fetchMyChallenges(): Flow<List<ChallengeEntity>> {
+        TODO("Not yet implemented")
+    }
+
 }

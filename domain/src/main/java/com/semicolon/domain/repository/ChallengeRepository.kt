@@ -13,4 +13,6 @@ interface ChallengeRepository {
     suspend fun fetchChallengeParticipants(id: Int): Flow<List<ChallengeParticipantEntity>>
 
     suspend fun postParticipateChallenge(id: Int)
+
+    suspend fun fetchMyChallenges(): Flow<List<ChallengeEntity>>
 }
