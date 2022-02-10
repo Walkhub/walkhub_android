@@ -17,7 +17,6 @@ data class ChallengeParticipantListResponse(
         ChallengeParticipantEntity(
             id = id,
             name = name,
-            gcn = gcn,
             profileImageUrl = profileImageUrl
         )
 }

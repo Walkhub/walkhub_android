@@ -3,6 +3,9 @@ package com.semicolon.data.remote.response.challenge
 import com.google.gson.annotations.SerializedName
 import com.semicolon.data.util.toLocalDateTime
 import com.semicolon.domain.entity.challenge.ChallengeEntity
+import com.semicolon.domain.enum.toGoalScope
+import com.semicolon.domain.enum.toGoalType
+import com.semicolon.domain.enum.toUserScope
 
 data class ChallengeListResponse(
     @SerializedName("challenge_list") val challengeList: List<ChallengeResponse>
@@ -25,7 +28,9 @@ data class ChallengeListResponse(
             startAt = startAt.toLocalDateTime(),
             endAt = endAt.toLocalDateTime(),
             imageUrl = imageUrl,
-            scope = scope.toChallengeScope()
+            goalScope = goalScope.toGoalScope(),
+            goalType = goalType.toGoalType(),
+            userScope = userScope.toUserScope()
         )
 }
 
