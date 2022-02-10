@@ -12,3 +12,10 @@ fun String.toGoalScope() =
         "DAY" -> ChallengeGoalScope.DAY
         else -> ChallengeGoalScope.ETC
     }
+
+fun ChallengeGoalScope.toScopeString() =
+    when(this) {
+        ChallengeGoalScope.ALL -> "ALL"
+        ChallengeGoalScope.DAY -> "DAY"
+        ChallengeGoalScope.ETC -> "ETC"
+    }
