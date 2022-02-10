@@ -8,25 +8,25 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.semicolon.walkhub.ui.home.HomeFragment"
-        android:label="@string/title_home"
+        android:label="홈"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_hub"
         android:name="com.semicolon.walkhub.ui.hub.HubFragment"
-        android:label="@string/title_Hub"
+        android:label="허브"
         tools:layout="@layout/fragment_hub" />
 
     <fragment
         android:id="@+id/navigation_challenge"
         android:name="com.semicolon.walkhub.ui.challenge.ChallengeFragment"
-        android:label="@string/title_challenge"
+        android:label="챌린지"
         tools:layout="@layout/fragment_challenge" />
 
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.semicolon.walkhub.ui.profile.ProfileFragment"
-        android:label="@string/title_profile"
+        android:label="프로필"
         tools:layout="@layout/fragment_profile" />
 
 </navigation>
