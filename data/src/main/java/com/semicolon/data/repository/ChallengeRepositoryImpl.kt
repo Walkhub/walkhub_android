@@ -46,5 +46,4 @@ class ChallengeRepositoryImpl @Inject constructor(
         flow {
             emit(remoteChallengeDateSource.fetchMyChallenges().toEntity())
         }
-    
 }
