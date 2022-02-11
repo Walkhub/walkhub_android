@@ -77,12 +77,16 @@ class ChallengeRemoteDatasourceUnitTest {
 
             assert(testResult)
         }
-
     }
 
     @Test
     fun testPostParticipate() {
-
+        runBlocking {
+            whenever(challengeApi.postParticipateChallenge(12)).thenReturn(Unit)
+            val datasource = remoteChallengeDatasource.postParticipate(12)
+            val testResult = datasource == Unit
+            assert(testResult)
+        }
     }
 
     @Test
