@@ -25,4 +25,6 @@ object Version {
     const val workManager = "2.7.1"
     const val workManagerHiltExtension = "1.0.0"
     const val sharedPreference = "1.1.1"
+    const val mockitoKotlin = "2.2.0"
+    const val mockitoInline = "2.21.0"
 }
