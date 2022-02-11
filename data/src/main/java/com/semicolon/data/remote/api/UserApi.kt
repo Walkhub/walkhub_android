@@ -7,9 +7,9 @@ import retrofit2.http.*
 interface UserApi {
 
     // 반 가입하기 o
-    @POST("users/classes/{group-id}")
+    @POST("users/classes/{section_id}")
     suspend fun signUpClass(
-        @Path("group-id") groupId: Int,
+        @Path("section_id") groupId: Int,
         @Body signUpClassRequest: SignUpClassRequest
     )
 
@@ -34,7 +34,7 @@ interface UserApi {
     // 학교 정보 수정 o
     @PATCH("users/school")
     suspend fun patchSchool(
-        @Body schoolId: Int
+        @Body school_id: Int
     )
 
     // 유저 아이디 찾기 o
