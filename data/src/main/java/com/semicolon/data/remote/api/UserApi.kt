@@ -7,7 +7,7 @@ import retrofit2.http.*
 interface UserApi {
 
     // 반 가입하기 o
-    @POST("users/classes/{section_id}")
+    @POST("users/classes/{section-id}")
     suspend fun signUpClass(
         @Path("section_id") groupId: Int,
         @Body signUpClassRequest: SignUpClassRequest
