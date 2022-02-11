@@ -7,6 +7,7 @@ import com.semicolon.domain.entity.rank.OurSchoolUserRankEntity
 
 @Entity(tableName = "ourschoolUserRank")
 data class OurSchoolUserRankRoomEntity(
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @Embedded val myRanking: Ranking,
     @Embedded val rankingList: List<Ranking>
 ) {
@@ -16,7 +17,7 @@ data class OurSchoolUserRankRoomEntity(
         val name: String,
         val profileImageUrl: String,
         val ranking: Int,
-        @PrimaryKey val userId: Int,
+        val userId: Int,
         val walkCount: Int
     )
 

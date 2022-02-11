@@ -2,10 +2,12 @@ package com.semicolon.data.local.entity.rank
 
 import androidx.room.Embedded
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.semicolon.domain.entity.rank.SchoolRankEntity
 
 @Entity(tableName = "schoolRank")
 data class SchoolRankRoomEntity(
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @Embedded val mySchoolRank: MySchoolRank,
     @Embedded val schoolRankList: List<SchoolRank>
 ) {

@@ -7,6 +7,7 @@ import com.semicolon.domain.entity.rank.SearchUserEntity
 
 @Entity(tableName = "searchUser")
 data class SearchUserRoomEntity(
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @Embedded val userList: List<UserInfo>
 ) {
     data class UserInfo(
@@ -15,7 +16,7 @@ data class SearchUserRoomEntity(
         val name: String,
         val profileImageUrl: String,
         val rank: Int,
-        @PrimaryKey val userId: Int,
+        val userId: Int,
         val walkCount: Int
     )
 
