@@ -4,8 +4,10 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.semicolon.data.local.entity.user.FetchCaloriesLevelRoomEntity
 import com.semicolon.data.local.entity.user.UserMyPageRoomEntity
 import com.semicolon.data.local.entity.user.UserProfileRoomEntity
+import com.semicolon.domain.entity.users.FetchCaloriesLevelEntity
 
 @Dao
 interface UserDao {
@@ -21,5 +23,11 @@ interface UserDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUserProfile(userUserProfileRoomEntity: UserProfileRoomEntity)
+
+    @Query("SELECT * FROM caloriesLevel")
+    suspend fun fetchCaloriesLevelList(): FetchCaloriesLevelRoomEntity
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertCaloriesLevelList(insertCaloriesLevelRoomEntity: FetchCaloriesLevelRoomEntity)
 
 }
