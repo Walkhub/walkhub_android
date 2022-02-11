@@ -1,26 +1,19 @@
 package com.semicolon.data.datasource
 
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.whenever
 import com.semicolon.data.remote.api.ChallengeApi
 import com.semicolon.data.remote.datasource.RemoteChallengeDateSource
 import com.semicolon.data.remote.datasource.RemoteChallengeDateSourceImpl
 import com.semicolon.data.remote.response.challenge.ChallengeListResponse
 import kotlinx.coroutines.runBlocking
-import org.junit.Before
 import org.junit.Test
-import org.mockito.Mock
-import org.mockito.Mockito.`when`
 
 class ChallengeRemoteDatasourceUnitTest {
 
-    @Mock
-    private lateinit var challengeApi: ChallengeApi
+    private val challengeApi = mock<ChallengeApi>()
 
-    private lateinit var remoteChallengeDatasource: RemoteChallengeDateSource
-
-    @Before
-    fun init() {
-        remoteChallengeDatasource = RemoteChallengeDateSourceImpl(challengeApi)
-    }
+    private val remoteChallengeDatasource: RemoteChallengeDateSource = RemoteChallengeDateSourceImpl(challengeApi)
 
     @Test
     fun testFetchChallenges() {
@@ -40,7 +33,7 @@ class ChallengeRemoteDatasourceUnitTest {
         val challengeResponse = ChallengeListResponse(challengeList)
 
         runBlocking {
-            `when`(challengeApi.getChallenges()).thenReturn(
+            whenever(challengeApi.getChallenges()).thenReturn(
                 challengeResponse
             )
 
