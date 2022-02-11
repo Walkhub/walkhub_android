@@ -5,8 +5,8 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.semicolon.data.remote.api.SchoolApi
 import com.semicolon.data.remote.datasource.RemoteSchoolDataSourceImpl
 import com.semicolon.data.remote.response.school.SearchSchoolResponse
-import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class RemoteSchoolDataSourceTest {
