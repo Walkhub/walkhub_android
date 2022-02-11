@@ -1,12 +1,7 @@
 package com.semicolon.data.remote.api
 
 import com.semicolon.data.remote.request.users.*
-import com.semicolon.data.remote.response.users.FindUserAccountResponse
-import com.semicolon.data.remote.response.users.UserSignInResponse
-import com.semicolon.data.remote.response.users.UserSignUpResponse
-import com.semicolon.data.remote.response.users.UserReissueResponse
-import com.semicolon.data.remote.response.users.FetchMyPageResponse
-import com.semicolon.data.remote.response.users.FetchUserProfileResponse
+import com.semicolon.data.remote.response.users.*
 import retrofit2.http.*
 
 interface UserApi {
@@ -82,4 +77,14 @@ interface UserApi {
     suspend fun userSignUp(
         @Body userSignUpRequest: UserSignUpRequest
     ): UserSignUpResponse
+
+    // 하루 목표 걸음 수 변경
+    @PATCH("users/goal")
+    suspend fun patchDailyWalkGoal(
+        @Body patchDailyWalkGoalRequest: PatchDailyWalkGoalRequest
+    )
+
+    // 칼로리 레벨 목록 조회
+    @GET("users/levels/list")
+    suspend fun fetchCaloriesLevelList(): FetchCaloriesLevelResponse
 }
