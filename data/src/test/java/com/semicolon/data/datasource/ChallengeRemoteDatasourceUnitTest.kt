@@ -8,8 +8,8 @@ import com.semicolon.data.remote.datasource.RemoteChallengeDateSourceImpl
 import com.semicolon.data.remote.response.challenge.ChallengeDetailResponse
 import com.semicolon.data.remote.response.challenge.ChallengeListResponse
 import com.semicolon.data.remote.response.challenge.ChallengeParticipantListResponse
-import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class ChallengeRemoteDatasourceUnitTest {
