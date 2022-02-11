@@ -1,5 +1,6 @@
 package com.semicolon.data.local.datasource
 
+import com.semicolon.domain.entity.users.FetchCaloriesLevelEntity
 import com.semicolon.domain.entity.users.UserMyPageEntity
 import com.semicolon.domain.entity.users.UserProfileEntity
 import org.threeten.bp.LocalDateTime
@@ -11,6 +12,9 @@ interface LocalUserDataSource {
 
     suspend fun fetchUserProfile(userId: Int): UserProfileEntity
     suspend fun insertUserProfile(userMyProfileEntity: UserProfileEntity)
+
+    suspend fun fetchCaloriesLevelList(): FetchCaloriesLevelEntity
+    suspend fun insertCaloriesLevelList(fetchCaloriesLevelEntity: FetchCaloriesLevelEntity)
 
     suspend fun setAccessToken(token: String)
     suspend fun fetchAccessToken(): String

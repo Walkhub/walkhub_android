@@ -4,6 +4,7 @@ import com.semicolon.data.local.dao.UserDao
 import com.semicolon.data.local.entity.user.toDbEntity
 import com.semicolon.data.local.entity.user.toEntity
 import com.semicolon.data.local.storage.AuthDataStorage
+import com.semicolon.domain.entity.users.FetchCaloriesLevelEntity
 import com.semicolon.domain.entity.users.UserMyPageEntity
 import com.semicolon.domain.entity.users.UserProfileEntity
 import org.threeten.bp.LocalDateTime
@@ -26,6 +27,13 @@ class LocalUserDataSourceImpl @Inject constructor(
 
     override suspend fun insertUserProfile(userMyProfileEntity: UserProfileEntity) {
         userDao.insertUserProfile(userMyProfileEntity.toDbEntity())
+    }
+
+    override suspend fun fetchCaloriesLevelList(): FetchCaloriesLevelEntity =
+        userDao.fetchCaloriesLevelList().toEntity()
+
+    override suspend fun insertCaloriesLevelList(fetchCaloriesLevelEntity: FetchCaloriesLevelEntity) {
+        userDao.insertCaloriesLevelList(fetchCaloriesLevelEntity.toDbEntity())
     }
 
     override suspend fun setAccessToken(token: String) {
