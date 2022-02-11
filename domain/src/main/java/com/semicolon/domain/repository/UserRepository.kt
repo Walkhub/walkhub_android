@@ -49,4 +49,10 @@ interface UserRepository {
     )
 
     suspend fun autoLogin()
+
+    suspend fun patchDailyWalkGoal(
+        patchDailyWalkGoalParam: PatchDailyWalkGoalParam
+    )
+
+    suspend fun fetchCaloriesLevel() : Flow<FetchCaloriesLevelEntity>
 }

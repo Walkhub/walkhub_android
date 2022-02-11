@@ -86,6 +86,17 @@ class UserRepositoryImpl @Inject constructor(
         )
     }
 
+    override suspend fun patchDailyWalkGoal(patchDailyWalkGoalParam: PatchDailyWalkGoalParam) {
+        remoteUserDateSource.patchDailyWalkGoal(patchDailyWalkGoalParam.toRequest())
+    }
+
+    override suspend fun fetchCaloriesLevel(): Flow<FetchCaloriesLevelEntity> =
+        OfflineCacheUtil<FetchCaloriesLevelEntity>()
+            .remoteData { remoteUserDateSource.fetchCaloriesLevelList().toEntity() }
+            .localData { localUserDataSource.fetchCaloriesLevelList() }
+            .doOnNeedRefresh { localUserDataSource.insertCaloriesLevelList(it) }
+            .createFlow()
+
     private suspend fun saveToken(userSignInResponse: UserSignInResponse) {
         localUserDataSource.apply {
             setAccessToken(userSignInResponse.accessToken)
@@ -108,6 +119,11 @@ class UserRepositoryImpl @Inject constructor(
             .localData { localUserDataSource.fetchUserProfile(userId) }
             .doOnNeedRefresh { localUserDataSource.insertUserProfile(it) }
             .createFlow()
+
+    fun PatchDailyWalkGoalParam.toRequest() =
+        PatchDailyWalkGoalRequest(
+            dailyWalkCountGoal = dailyWalkCountGoal
+        )
 
     fun SignUpClassParam.toRequest() =
         SignUpClassRequest(
