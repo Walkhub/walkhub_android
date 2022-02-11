@@ -7,6 +7,7 @@ import com.semicolon.data.remote.datasource.RemoteChallengeDateSource
 import com.semicolon.data.remote.datasource.RemoteChallengeDateSourceImpl
 import com.semicolon.data.remote.response.challenge.ChallengeDetailResponse
 import com.semicolon.data.remote.response.challenge.ChallengeListResponse
+import com.semicolon.data.remote.response.challenge.ChallengeParticipantListResponse
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
@@ -89,8 +90,19 @@ class ChallengeRemoteDatasourceUnitTest {
 
     @Test
     fun testFetchParticipants() {
+        val participantList = listOf(
+            ChallengeParticipantListResponse.ChallengeParticipantResponse(
+                10, "김재원", "https://testImageUrl"
+            )
+        )
+        val participantListResponse = ChallengeParticipantListResponse(1, participantList)
+        
         runBlocking {
-
+            whenever(challengeApi.getChallengeParticipants(12)).thenReturn(
+                participantListResponse
+            )
+            val datasource = remoteChallengeDatasource.fetchParticipants(12)
+            assertEquals(datasource, participantListResponse)
         }
     }
 
