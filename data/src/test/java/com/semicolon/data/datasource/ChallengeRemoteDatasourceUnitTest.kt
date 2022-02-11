@@ -19,23 +19,23 @@ class ChallengeRemoteDatasourceUnitTest {
     private val remoteChallengeDatasource: RemoteChallengeDateSource =
         RemoteChallengeDateSourceImpl(challengeApi)
 
+    private val challengeList = listOf(
+        ChallengeListResponse.ChallengeResponse(
+            1,
+            "삼천보걷기",
+            "2022/2/12T12:14:00",
+            "2022/2/17T12:14:00",
+            "https://testImageUrl",
+            "ALL",
+            "ALL",
+            "WALK"
+        )
+    )
+
+    private val challengeResponse = ChallengeListResponse(challengeList)
+
     @Test
     fun testFetchChallenges() {
-        val challengeList = listOf(
-            ChallengeListResponse.ChallengeResponse(
-                1,
-                "삼천보걷기",
-                "2022/2/12T12:14:00",
-                "2022/2/17T12:14:00",
-                "https://testImageUrl",
-                "ALL",
-                "ALL",
-                "WALK"
-            )
-        )
-
-        val challengeResponse = ChallengeListResponse(challengeList)
-
         runBlocking {
             whenever(challengeApi.getChallenges()).thenReturn(
                 challengeResponse
@@ -96,7 +96,7 @@ class ChallengeRemoteDatasourceUnitTest {
             )
         )
         val participantListResponse = ChallengeParticipantListResponse(1, participantList)
-        
+
         runBlocking {
             whenever(challengeApi.getChallengeParticipants(12)).thenReturn(
                 participantListResponse
@@ -108,6 +108,13 @@ class ChallengeRemoteDatasourceUnitTest {
 
     @Test
     fun testFetchMyChallenges() {
+        runBlocking {
+            whenever(challengeApi.getMyChallenges()).thenReturn(
+                challengeResponse
+            )
+            val datasourceValue = remoteChallengeDatasource.fetchMyChallenges()
 
+            assertEquals(datasourceValue, challengeResponse)
+        }
     }
 }
