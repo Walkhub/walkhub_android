@@ -226,7 +226,15 @@ class LocalUserDataSourceUnitTest {
 
     @Test
     fun testFetchDeviceToken() {
+        val deviceToken = "device_token"
+        runBlocking {
+            whenever(authDataStorage.fetchDeviceToken()).thenReturn(
+                deviceToken
+            )
 
+            val dataSourceResult = localUserDataSource.fetchDeviceToken()
+            assertEquals(dataSourceResult, deviceToken)
+        }
     }
 
     @Test
