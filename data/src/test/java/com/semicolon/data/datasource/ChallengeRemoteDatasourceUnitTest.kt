@@ -67,13 +67,14 @@ class ChallengeRemoteDatasourceUnitTest {
                 "http://testImageUrl"
             )
         )
+        val challengeId = 12
 
         runBlocking {
-            whenever(challengeApi.getChallengeDetail(12)).thenReturn(
+            whenever(challengeApi.getChallengeDetail(challengeId)).thenReturn(
                 challengeDetailResponse
             )
 
-            val challengeDataSource = remoteChallengeDatasource.fetchChallengeDetail(12)
+            val challengeDataSource = remoteChallengeDatasource.fetchChallengeDetail(challengeId)
 
             assertEquals(challengeDataSource, challengeDetailResponse)
         }
@@ -81,9 +82,11 @@ class ChallengeRemoteDatasourceUnitTest {
 
     @Test
     fun testPostParticipate() {
+        val challengeId = 12
         runBlocking {
-            whenever(challengeApi.postParticipateChallenge(12)).thenReturn(Unit)
-            val datasource = remoteChallengeDatasource.postParticipate(12)
+            whenever(challengeApi.postParticipateChallenge(challengeId)).thenReturn(Unit)
+
+            val datasource = remoteChallengeDatasource.postParticipate(challengeId)
             assertEquals(datasource, Unit)
         }
     }
@@ -96,12 +99,12 @@ class ChallengeRemoteDatasourceUnitTest {
             )
         )
         val participantListResponse = ChallengeParticipantListResponse(1, participantList)
-
+        val challengeId = 12
         runBlocking {
-            whenever(challengeApi.getChallengeParticipants(12)).thenReturn(
+            whenever(challengeApi.getChallengeParticipants(challengeId)).thenReturn(
                 participantListResponse
             )
-            val datasource = remoteChallengeDatasource.fetchParticipants(12)
+            val datasource = remoteChallengeDatasource.fetchParticipants(challengeId)
             assertEquals(datasource, participantListResponse)
         }
     }
