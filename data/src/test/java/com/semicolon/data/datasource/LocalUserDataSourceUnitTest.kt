@@ -48,4 +48,99 @@ class LocalUserDataSourceUnitTest {
             assertEquals(dataSourceResult, myPageEntity)
         }
     }
+
+    @Test
+    fun testInsertUserMyPage() {
+
+    }
+
+    @Test
+    fun testFetchUserProfile() {
+
+    }
+
+    @Test
+    fun testInsertUserProfile() {
+
+    }
+
+    @Test
+    fun testFetchCaloriesLevelList() {
+
+    }
+
+    @Test
+    fun testInsertCaloriesLevelList() {
+
+    }
+
+    @Test
+    fun testSetAccessToken() {
+
+    }
+
+    @Test
+    fun testFetchAccessToken() {
+
+    }
+
+    @Test
+    fun testClearAccessToken() {
+
+    }
+
+    @Test
+    fun testSetRefreshToken() {
+
+    }
+
+    @Test
+    fun testFetchRefreshToken() {
+
+    }
+
+    @Test
+    fun testClearRefreshToken() {
+
+    }
+
+    @Test
+    fun testSetExpiredAt() {
+
+    }
+
+    @Test
+    fun testFetchExpiredAt(){
+
+    }
+
+    @Test
+    fun testSetDeviceToken() {
+
+    }
+
+    @Test
+    fun testFetchDeviceToken() {
+
+    }
+
+    @Test
+    fun testSetId() {
+
+    }
+
+    @Test
+    fun testFetchId() {
+
+    }
+
+    @Test
+    fun testSetPw() {
+
+    }
+
+    @Test
+    fun testFetchPw() {
+
+    }
 }
