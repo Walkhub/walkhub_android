@@ -6,10 +6,7 @@ import com.semicolon.data.remote.api.UserApi
 import com.semicolon.data.remote.datasource.RemoteUserDataSource
 import com.semicolon.data.remote.datasource.RemoteUserDataSourceImpl
 import com.semicolon.data.remote.request.users.*
-import com.semicolon.data.remote.response.users.FetchCaloriesLevelResponse
-import com.semicolon.data.remote.response.users.FetchMyPageResponse
-import com.semicolon.data.remote.response.users.FetchUserProfileResponse
-import com.semicolon.data.remote.response.users.UserSignInResponse
+import com.semicolon.data.remote.response.users.*
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -201,7 +198,16 @@ class RemoteUserDataSourceUnitTest {
 
     @Test
     fun testFindUserAccount() {
+        val phoneNumber = "010-0000-0000"
+        val response = FindUserAccountResponse("12")
+        runBlocking {
+            whenever(userApi.findUserAccount(phoneNumber)).thenReturn(
+                response
+            )
 
+            val dataSourceResult = remoteUserDataSource.findUserAccount(phoneNumber)
+            assertEquals(response, dataSourceResult)
+        }
     }
 
     @Test
