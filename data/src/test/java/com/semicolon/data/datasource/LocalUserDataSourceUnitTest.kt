@@ -248,7 +248,15 @@ class LocalUserDataSourceUnitTest {
 
     @Test
     fun testFetchId() {
+        val id = "id"
+        runBlocking {
+            whenever(authDataStorage.fetchId()).thenReturn(
+                id
+            )
 
+            val dataSourceResult = localUserDataSource.fetchId()
+            assertEquals(dataSourceResult, id)
+        }
     }
 
     @Test
