@@ -25,23 +25,23 @@ class ChallengeRepositoryUnitTest {
         remoteChallengeDataSource
     )
 
+    private val challengeEntity = ChallengeEntity(
+        12,
+        "삼천보걷기",
+        LocalDateTime.MIN,
+        LocalDateTime.MAX,
+        "https://testImageUrl",
+        ChallengeUserScope.ALL,
+        ChallengeGoalScope.ALL,
+        ChallengeGoalType.ETC
+    )
+
+    private val challengeList = listOf(
+        challengeEntity
+    )
+
     @Test
     fun testFetchChallenges() {
-        val challengeId = 12
-        val challengeEntity = ChallengeEntity(
-            challengeId,
-            "삼천보걷기",
-            LocalDateTime.MIN,
-            LocalDateTime.MAX,
-            "https://testImageUrl",
-            ChallengeUserScope.ALL,
-            ChallengeGoalScope.ALL,
-            ChallengeGoalType.ETC
-        )
-        val challengeList = listOf(
-            challengeEntity
-        )
-
         runBlocking {
             whenever(localChallengeDateSource.fetchChallenges()).thenReturn(
                 challengeList
@@ -127,6 +127,20 @@ class ChallengeRepositoryUnitTest {
         runBlocking {
             val repositoryResult = challengeRepository.postParticipateChallenge(challengeId)
             assertEquals(repositoryResult, Unit)
+        }
+    }
+
+    @Test
+    fun testFetchMyChallenges() {
+        runBlocking {
+            whenever(remoteChallengeDataSource.fetchMyChallenges()).thenReturn(
+                challengeList
+            )
+
+            val repositoryResult = challengeRepository.fetchMyChallenges()
+            repositoryResult.collect {
+                assertEquals(it, challengeList)
+            }
         }
     }
 }
