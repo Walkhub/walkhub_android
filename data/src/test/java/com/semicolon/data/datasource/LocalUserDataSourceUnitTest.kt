@@ -157,7 +157,10 @@ class LocalUserDataSourceUnitTest {
 
     @Test
     fun testClearAccessToken() {
-
+        runBlocking {
+            val dataSourceResult = localUserDataSource.clearAccessToken()
+            assertEquals(dataSourceResult, Unit)
+        }
     }
 
     @Test
