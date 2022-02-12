@@ -5,6 +5,9 @@ import androidx.room.TypeConverter
 import com.google.gson.annotations.JsonAdapter
 import com.semicolon.data.local.entity.rank.*
 import java.sql.Types
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
 
 
 @ProvidedTypeConverter
