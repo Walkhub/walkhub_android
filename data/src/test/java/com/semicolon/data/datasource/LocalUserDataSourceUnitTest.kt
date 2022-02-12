@@ -217,7 +217,11 @@ class LocalUserDataSourceUnitTest {
 
     @Test
     fun testSetDeviceToken() {
-
+        val deviceToken = "device_token"
+        runBlocking {
+            val dataSourceResult = localUserDataSource.setDeviceToken(deviceToken)
+            assertEquals(dataSourceResult, Unit)
+        }
     }
 
     @Test
