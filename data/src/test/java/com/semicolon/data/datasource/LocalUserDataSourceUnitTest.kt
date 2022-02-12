@@ -174,7 +174,15 @@ class LocalUserDataSourceUnitTest {
 
     @Test
     fun testFetchRefreshToken() {
+        val refreshToken = "refresh_token"
+        runBlocking {
+            whenever(authDataStorage.fetchRefreshToken()).thenReturn(
+                refreshToken
+            )
 
+            val dataSourceResult = localUserDataSource.fetchRefreshToken()
+            assertEquals(dataSourceResult, refreshToken)
+        }
     }
 
     @Test
