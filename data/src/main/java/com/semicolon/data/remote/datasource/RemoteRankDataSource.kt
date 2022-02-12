@@ -5,7 +5,6 @@ import com.semicolon.data.remote.response.ranks.inquiryRank.school.SchoolRankRes
 import com.semicolon.data.remote.response.ranks.inquiryRank.user.UserRankResponse
 import com.semicolon.data.remote.response.ranks.search.school.SearchSchoolResponse
 import com.semicolon.data.remote.response.ranks.search.user.SearchUserResponse
-import com.semicolon.domain.enum.MoreDateType
 
 
 interface RemoteRankDataSource {
