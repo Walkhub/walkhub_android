@@ -42,5 +42,4 @@ class LocalRankDataSourceImpl @Inject constructor(
     override suspend fun insertSearchUser(searchUser: SearchUserEntity) {
         rankDao.insertSearchUser(searchUser.toDbEntity())
     }
-
 }
