@@ -7,6 +7,7 @@ import com.semicolon.data.local.datasource.LocalUserDataSourceImpl
 import com.semicolon.data.local.entity.user.toDbEntity
 import com.semicolon.data.local.storage.AuthDataStorage
 import com.semicolon.domain.entity.users.UserMyPageEntity
+import com.semicolon.domain.entity.users.UserProfileEntity
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -19,26 +20,44 @@ class LocalUserDataSourceUnitTest {
 
     private val localUserDataSource = LocalUserDataSourceImpl(userDao, authDataStorage)
 
+    private val myPageEntity = UserMyPageEntity(
+        13,
+        "김재원",
+        "https://testImageUrl",
+        "대덕소프트웨어마이스터고",
+        3,
+        2,
+        UserMyPageEntity.TitleBadge(
+            14,
+            "뱃지",
+            "https://testImageUrl"
+        ),
+        UserMyPageEntity.Level(
+            "레벨",
+            "https://testImageUrl"
+        )
+    )
+
+    private val userProfileEntity = UserProfileEntity(
+        13,
+        "김재원",
+        "https://testImageUrl",
+        "대덕소프트웨어마이스터고",
+        3,
+        2,
+        UserProfileEntity.TitleBadge(
+            14,
+            "뱃지",
+            "https://testImageUrl"
+        ),
+        UserProfileEntity.Level(
+            "레벨",
+            "https://testImageUrl"
+        )
+    )
+
     @Test
     fun testFetchUserMyPage() {
-        val myPageEntity = UserMyPageEntity(
-            13,
-            "김재원",
-            "https://testImageUrl",
-            "대덕소프트웨어마이스터고",
-            3,
-            2,
-            UserMyPageEntity.TitleBadge(
-                14,
-                "뱃지",
-                "https://testImageUrl"
-            ),
-            UserMyPageEntity.Level(
-                "레벨",
-                "https://testImageUrl"
-            )
-        )
-
         runBlocking {
             whenever(userDao.fetchUserMyPage()).thenReturn(
                 myPageEntity.toDbEntity()
@@ -51,17 +70,31 @@ class LocalUserDataSourceUnitTest {
 
     @Test
     fun testInsertUserMyPage() {
-
+        runBlocking {
+            val dataSourceResult = localUserDataSource.insertUserMyPage(myPageEntity)
+            assertEquals(dataSourceResult, Unit)
+        }
     }
 
     @Test
     fun testFetchUserProfile() {
+        val userId = 12
+        runBlocking {
+            whenever(userDao.fetchUserProfile(userId)).thenReturn(
+                userProfileEntity.toDbEntity()
+            )
 
+            val dataSourceResult = localUserDataSource.fetchUserProfile(userId)
+            assertEquals(dataSourceResult, userProfileEntity)
+        }
     }
 
     @Test
     fun testInsertUserProfile() {
-
+        runBlocking {
+            val dataSourceResult = localUserDataSource.insertUserMyPage(myPageEntity)
+            assertEquals(dataSourceResult, Unit)
+        }
     }
 
     @Test
