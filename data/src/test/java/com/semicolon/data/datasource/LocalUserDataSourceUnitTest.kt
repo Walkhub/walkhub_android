@@ -195,7 +195,10 @@ class LocalUserDataSourceUnitTest {
 
     @Test
     fun testSetExpiredAt() {
-
+        runBlocking {
+            val dataSourceResult = localUserDataSource.setExpiredAt("2020-12-2T12:12")
+            assertEquals(dataSourceResult, Unit)
+        }
     }
 
     @Test
