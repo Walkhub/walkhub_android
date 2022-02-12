@@ -239,7 +239,11 @@ class LocalUserDataSourceUnitTest {
 
     @Test
     fun testSetId() {
-
+        val id = "id"
+        runBlocking {
+            val dataSourceResult = localUserDataSource.setId(id)
+            assertEquals(dataSourceResult, Unit)
+        }
     }
 
     @Test
