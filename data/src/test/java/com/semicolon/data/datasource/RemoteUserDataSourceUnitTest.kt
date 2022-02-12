@@ -212,7 +212,14 @@ class RemoteUserDataSourceUnitTest {
 
     @Test
     fun testPatchUserHealth() {
-
+        val request = PatchUserHealthRequest(
+            182.2,
+            80
+        )
+        runBlocking {
+            val dataSourceResult = remoteUserDataSource.patchUserHealth(request)
+            assertEquals(Unit, dataSourceResult)
+        }
     }
 
     @Test
