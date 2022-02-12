@@ -187,7 +187,10 @@ class LocalUserDataSourceUnitTest {
 
     @Test
     fun testClearRefreshToken() {
-
+        runBlocking {
+            val dataSourceResult = localUserDataSource.clearRefreshToken()
+            assertEquals(dataSourceResult, Unit)
+        }
     }
 
     @Test
