@@ -17,28 +17,28 @@ interface RankDao {
     suspend fun insertOurSchoolUserRank(ourSchoolUserRanks: OurSchoolUserRankRoomEntity)
 
 
-    @Query("SELECT * FROM UserRank")
+    @Query("SELECT * FROM userRank")
     suspend fun fetchUserRank(): UserRankRoomEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUserRank(userRank: UserRankRoomEntity)
 
 
-    @Query("SELECT * FROM SchoolRank")
+    @Query("SELECT * FROM schoolRank")
     suspend fun fetchSchoolRank(): SchoolRankRoomEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSchoolRank(schoolRank: SchoolRankRoomEntity)
 
 
-    @Query("SELECT * FROM SearchUser")
+    @Query("SELECT * FROM searchUser")
     suspend fun searchUser(): SearchUserRoomEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSearchUser(searchUser: SearchUserRoomEntity)
 
 
-    @Query("SELECT * FROM SearchSchool")
+    @Query("SELECT * FROM searchSchool")
     suspend fun searchSchool(): SearchSchoolRoomEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
