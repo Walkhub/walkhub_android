@@ -22,6 +22,17 @@ class RemoteUserDataSourceImpl @Inject constructor(
         .httpRequest { userApi.userSignUp(userSignUpRequest) }
         .sendRequest()
 
+    override suspend fun patchDailyWalkGoal(
+        patchDailyWalkGoalRequest: PatchDailyWalkGoalRequest
+    ) = HttpHandler<Unit>()
+        .httpRequest { userApi.patchDailyWalkGoal(patchDailyWalkGoalRequest) }
+        .sendRequest()
+
+    override suspend fun fetchCaloriesLevelList(): FetchCaloriesLevelResponse =
+        HttpHandler<FetchCaloriesLevelResponse>()
+        .httpRequest { userApi.fetchCaloriesLevelList() }
+        .sendRequest()
+
     override suspend fun postUserSignIn(
         userSignInRequest: UserSignInRequest
     ) = HttpHandler<UserSignInResponse>()
@@ -44,26 +55,20 @@ class RemoteUserDataSourceImpl @Inject constructor(
             .httpRequest { userApi.fetchUserProfile(userId) }
             .sendRequest()
 
-    override suspend fun fetchUserOwnBadge(userId: Int) =
-        HttpHandler<FetchOwnBadgeResponse>()
-            .httpRequest { userApi.fetchOwnBadge(userId) }
-            .sendRequest()
-
-    override suspend fun setBadge(badgeId: Int) =
-        HttpHandler<Unit>()
-            .httpRequest { userApi.setRepresentativeBadge(badgeId) }
-            .sendRequest()
-
     override suspend fun updateProfile(updateProfileRequest: UpdateProfileRequest) =
         HttpHandler<Unit>()
             .httpRequest { userApi.updateProfile(updateProfileRequest) }
+            .sendRequest()
+
+    override suspend fun patchSchool(schoolId: Int) =
+        HttpHandler<Unit>()
+            .httpRequest { userApi.patchSchool(schoolId) }
             .sendRequest()
 
     override suspend fun findUserAccount(phoneNumber: String): FindUserAccountResponse =
         HttpHandler<FindUserAccountResponse>()
             .httpRequest { userApi.findUserAccount(phoneNumber) }
             .sendRequest()
-
 
     override suspend fun patchUserHealth(
         patchUserHealthRequest: PatchUserHealthRequest
@@ -72,18 +77,10 @@ class RemoteUserDataSourceImpl @Inject constructor(
         .sendRequest()
 
     override suspend fun signUpClass(
-        agencyCode: String,
-        grade: Int,
-        classRoom: Int,
-        signUpClassRequest: SignUpClassRequest
+        groupId: Int, signUpClassRequest: SignUpClassRequest
     ) = HttpHandler<Unit>()
-        .httpRequest { userApi.signUpClass(agencyCode, grade, classRoom, signUpClassRequest) }
+        .httpRequest { userApi.signUpClass(groupId, signUpClassRequest) }
         .sendRequest()
-
-    override suspend fun patchSchool(agencyCode: String) =
-        HttpHandler<Unit>()
-            .httpRequest { userApi.patchSchool(agencyCode) }
-            .sendRequest()
 
     override suspend fun userReissue(refreshToken: String): UserReissueResponse =
         HttpHandler<UserReissueResponse>()
