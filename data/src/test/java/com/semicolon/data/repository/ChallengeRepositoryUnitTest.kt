@@ -6,10 +6,12 @@ import com.semicolon.data.local.datasource.LocalChallengeDataSource
 import com.semicolon.data.remote.datasource.RemoteChallengeDateSource
 import com.semicolon.domain.entity.challenge.ChallengeDetailEntity
 import com.semicolon.domain.entity.challenge.ChallengeEntity
+import com.semicolon.domain.entity.challenge.ChallengeParticipantEntity
 import com.semicolon.domain.enum.ChallengeGoalScope
 import com.semicolon.domain.enum.ChallengeGoalType
 import com.semicolon.domain.enum.ChallengeUserScope
 import com.semicolon.domain.repository.ChallengeRepository
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -92,4 +94,33 @@ class ChallengeRepositoryUnitTest {
             }
         }
     }
+
+    @Test
+    fun testFetchChallengeParticipants() {
+        val challengeId = 12
+        val participantEntity = ChallengeParticipantEntity(
+            13,
+            "김재원",
+            "https://testImageUrl"
+        )
+        val participantList = listOf(
+            participantEntity
+        )
+
+        runBlocking {
+            whenever(localChallengeDateSource.fetchParticipants(challengeId)).thenReturn(
+                participantList
+            )
+            whenever(remoteChallengeDataSource.fetchParticipants(challengeId)).thenReturn(
+                participantList
+            )
+
+            val repositoryResult = challengeRepository.fetchChallengeParticipants(challengeId)
+            repositoryResult.collect {
+                assertEquals(it, participantList)
+            }
+        }
+    }
+
+    
 }
