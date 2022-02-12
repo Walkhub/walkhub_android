@@ -6,6 +6,7 @@ import com.semicolon.data.local.dao.UserDao
 import com.semicolon.data.local.datasource.LocalUserDataSourceImpl
 import com.semicolon.data.local.entity.user.toDbEntity
 import com.semicolon.data.local.storage.AuthDataStorage
+import com.semicolon.domain.entity.users.FetchCaloriesLevelEntity
 import com.semicolon.domain.entity.users.UserMyPageEntity
 import com.semicolon.domain.entity.users.UserProfileEntity
 import kotlinx.coroutines.runBlocking
@@ -99,7 +100,27 @@ class LocalUserDataSourceUnitTest {
 
     @Test
     fun testFetchCaloriesLevelList() {
+        val fetchCaloriesLevelEntity = FetchCaloriesLevelEntity(
+            listOf(
+                FetchCaloriesLevelEntity.CaloriesLevel(
+                    1000,
+                    "https://testImageUrl",
+                    "커피",
+                    2,
+                    20,
+                    "성공",
+                    "R"
+                )
+            )
+        )
+        runBlocking {
+            whenever(userDao.fetchCaloriesLevelList()).thenReturn(
+                fetchCaloriesLevelEntity.toDbEntity()
+            )
 
+            val dataSourceResult = localUserDataSource.fetchCaloriesLevelList()
+            assertEquals(dataSourceResult, fetchCaloriesLevelEntity)
+        }
     }
 
     @Test
@@ -143,7 +164,7 @@ class LocalUserDataSourceUnitTest {
     }
 
     @Test
-    fun testFetchExpiredAt(){
+    fun testFetchExpiredAt() {
 
     }
 
