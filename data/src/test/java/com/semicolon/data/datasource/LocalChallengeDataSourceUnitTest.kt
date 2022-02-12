@@ -88,6 +88,7 @@ class LocalChallengeDataSourceUnitTest {
             whenever(challengeDao.fetchChallengeDetail(challengeId)).thenReturn(
                 challengeAndDetail
             )
+            
             val dataSource = localChallengeDataSource.fetchChallengeDetail(challengeId)
             assertEquals(dataSource, challengeAndDetail.toEntity())
         }
