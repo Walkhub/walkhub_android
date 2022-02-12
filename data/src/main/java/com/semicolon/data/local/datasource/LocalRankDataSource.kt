@@ -1,7 +1,6 @@
 package com.semicolon.data.local.datasource
 
 
-import com.semicolon.data.local.entity.rank.*
 import com.semicolon.domain.entity.rank.*
 
 interface LocalRankDataSource {
