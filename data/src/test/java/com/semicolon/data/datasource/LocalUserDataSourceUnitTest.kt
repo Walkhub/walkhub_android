@@ -12,6 +12,7 @@ import com.semicolon.domain.entity.users.UserProfileEntity
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import org.threeten.bp.LocalDateTime
 
 class LocalUserDataSourceUnitTest {
 
@@ -203,7 +204,15 @@ class LocalUserDataSourceUnitTest {
 
     @Test
     fun testFetchExpiredAt() {
+        val expiredAt = LocalDateTime.MAX
+        runBlocking {
+            whenever(authDataStorage.fetchExpiredAt()).thenReturn(
+                expiredAt
+            )
 
+            val dataSourceResult = localUserDataSource.fetchExpiredAt()
+            assertEquals(dataSourceResult, expiredAt)
+        }
     }
 
     @Test
