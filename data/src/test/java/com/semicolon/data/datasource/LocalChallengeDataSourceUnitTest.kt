@@ -9,9 +9,14 @@ import com.semicolon.data.local.entity.challenge.ChallengeAndDetail
 import com.semicolon.data.local.entity.challenge.ChallengeDetailRoomEntity
 import com.semicolon.data.local.entity.challenge.ChallengeRoomEntity
 import com.semicolon.data.local.entity.challenge.toEntity
+import com.semicolon.domain.entity.challenge.ChallengeDetailEntity
+import com.semicolon.domain.enum.ChallengeGoalScope
+import com.semicolon.domain.enum.ChallengeGoalType
+import com.semicolon.domain.enum.ChallengeUserScope
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import org.threeten.bp.LocalDateTime
 
 class LocalChallengeDataSourceUnitTest {
 
@@ -35,6 +40,21 @@ class LocalChallengeDataSourceUnitTest {
         challengeRoomEntity
     )
 
+    private val challengeDetailRoomEntity = ChallengeDetailRoomEntity(
+        12,
+        "삼천보걷기",
+        3000,
+        "ALL",
+        "ALL",
+        "ALL",
+        "수행평가 만점",
+        false,
+        10,
+        13,
+        "김재원",
+        "https://testImageUrl"
+    )
+
     @Test
     fun testFetchChallenges() {
         runBlocking {
@@ -55,20 +75,7 @@ class LocalChallengeDataSourceUnitTest {
 
     @Test
     fun testFetchChallengeDetail() {
-        val challengeDetailRoomEntity = ChallengeDetailRoomEntity(
-            12,
-            "삼천보걷기",
-            3000,
-            "ALL",
-            "ALL",
-            "ALL",
-            "수행평가 만점",
-            false,
-            10,
-            13,
-            "김재원",
-            "https://testImageUrl"
-        )
+
         val challengeAndDetail = ChallengeAndDetail(
             challengeRoomEntity,
             challengeDetailRoomEntity
@@ -84,7 +91,29 @@ class LocalChallengeDataSourceUnitTest {
 
     @Test
     fun testSaveChallengeDetail() {
-
+        val challengeDetailEntity = ChallengeDetailEntity(
+            "삼천보 걷기",
+            "삼천보걷기가 목표입니다.",
+            3000,
+            ChallengeGoalType.ETC,
+            ChallengeGoalScope.ALL,
+            ChallengeUserScope.ALL,
+            "수행평가 만점",
+            "https://testImageUrl",
+            LocalDateTime.MIN,
+            LocalDateTime.MAX,
+            false,
+            10,
+            ChallengeDetailEntity.WriterEntity(
+                13,
+                "김재원",
+                "https://testImageUrl"
+            )
+        )
+        runBlocking {
+            val dataSource = localChallengeDataSource.saveChallengeDetail(12, challengeDetailEntity)
+            assertEquals(dataSource, Unit)
+        }
     }
 
     @Test
