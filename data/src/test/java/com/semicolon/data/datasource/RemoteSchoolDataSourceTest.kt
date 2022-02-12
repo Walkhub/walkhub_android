@@ -17,19 +17,20 @@ class RemoteSchoolDataSourceTest {
 
     @Test
     fun testRemoteSchoolDataSource() {
+        val schoolName = "my school"
         val data = SearchSchoolResponse(
             listOf(
                 SearchSchoolResponse.SchoolInfo(
                     "code",
-                    "my school",
-                    "image "
+                    schoolName,
+                    "image"
                 )
             )
         )
-        
+
         runBlocking {
-            whenever(remoteSchoolDataSource.searchSchool("my school")).thenReturn(data)
-            assertEquals(remoteSchoolDataSource.searchSchool("my school"), data)
+            whenever(remoteSchoolDataSource.searchSchool(schoolName)).thenReturn(data)
+            assertEquals(remoteSchoolDataSource.searchSchool(schoolName), data)
         }
 
     }
