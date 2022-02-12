@@ -8,6 +8,7 @@ import com.semicolon.data.remote.datasource.RemoteUserDataSourceImpl
 import com.semicolon.data.remote.request.users.*
 import com.semicolon.data.remote.response.users.FetchCaloriesLevelResponse
 import com.semicolon.data.remote.response.users.FetchMyPageResponse
+import com.semicolon.data.remote.response.users.FetchUserProfileResponse
 import com.semicolon.data.remote.response.users.UserSignInResponse
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -117,7 +118,7 @@ class RemoteUserDataSourceUnitTest {
 
     @Test
     fun testFetchMyPage() {
-        val myPageResult = FetchMyPageResponse(
+        val myPageResponse = FetchMyPageResponse(
             13,
             "김재원",
             "https://testImageUrl",
@@ -137,17 +138,43 @@ class RemoteUserDataSourceUnitTest {
 
         runBlocking {
             whenever(userApi.fetchMyPage()).thenReturn(
-                myPageResult
+                myPageResponse
             )
 
             val dataSourceResult = remoteUserDataSource.fetchMyPage()
-            assertEquals(myPageResult, dataSourceResult)
+            assertEquals(myPageResponse, dataSourceResult)
         }
     }
 
     @Test
     fun testFetchUserProfile() {
+        val userId = 12
+        val userProfile = FetchUserProfileResponse(
+            13,
+            "김재원",
+            "https://testImageUrl",
+            "대덕소프트웨어마이스터고",
+            3,
+            2,
+            FetchUserProfileResponse.TitleBadge(
+                14,
+                "뱃지",
+                "https://testImageUrl"
+            ),
+            FetchUserProfileResponse.Level(
+                "레벨",
+                "https://testImageUrl"
+            )
+        )
 
+        runBlocking {
+            whenever(userApi.fetchUserProfile(userId)).thenReturn(
+                userProfile
+            )
+
+            val dataSourceResult = remoteUserDataSource.fetchUserProfile(userId)
+            assertEquals(userProfile, dataSourceResult)
+        }
     }
 
     @Test
