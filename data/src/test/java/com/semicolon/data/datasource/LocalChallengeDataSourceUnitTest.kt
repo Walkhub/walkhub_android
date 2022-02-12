@@ -52,6 +52,13 @@ class LocalChallengeDataSourceUnitTest {
         "https://testImageUrl"
     )
 
+    private val participantRoomEntity = ChallengeParticipantRoomEntity(
+        13,
+        "김재원",
+        "https://testImageUrl",
+        12
+    )
+
     @Test
     fun testFetchChallenges() {
         runBlocking {
@@ -117,14 +124,8 @@ class LocalChallengeDataSourceUnitTest {
     @Test
     fun testFetchParticipants() {
         val challengeId = 12
-        val participantEntity = ChallengeParticipantRoomEntity(
-            13,
-            "김재원",
-            "https://testImageUrl",
-            challengeId
-        )
         val participantList = listOf(
-            participantEntity
+            participantRoomEntity
         )
         runBlocking {
             whenever(challengeDao.fetchParticipants(challengeId)).thenReturn(
@@ -138,6 +139,13 @@ class LocalChallengeDataSourceUnitTest {
 
     @Test
     fun testSaveParticipants() {
-
+        val challengeId = 12
+        val participantList = listOf(
+            participantRoomEntity.toEntity()
+        )
+        runBlocking {
+            val dataSource = localChallengeDataSource.saveParticipants(challengeId, participantList)
+            assertEquals(dataSource, Unit)
+        }
     }
 }
