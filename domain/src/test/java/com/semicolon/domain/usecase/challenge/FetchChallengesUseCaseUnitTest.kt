@@ -7,7 +7,6 @@ import com.semicolon.domain.enum.ChallengeGoalScope
 import com.semicolon.domain.enum.ChallengeGoalType
 import com.semicolon.domain.enum.ChallengeUserScope
 import com.semicolon.domain.repository.ChallengeRepository
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
