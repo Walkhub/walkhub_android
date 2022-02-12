@@ -165,7 +165,11 @@ class LocalUserDataSourceUnitTest {
 
     @Test
     fun testSetRefreshToken() {
-
+        val refreshToken = "refresh_token"
+        runBlocking {
+            val dataSourceResult = localUserDataSource.setRefreshToken(refreshToken)
+            assertEquals(dataSourceResult, Unit)
+        }
     }
 
     @Test
