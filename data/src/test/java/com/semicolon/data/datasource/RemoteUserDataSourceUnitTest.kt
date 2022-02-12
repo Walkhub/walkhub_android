@@ -5,10 +5,7 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.semicolon.data.remote.api.UserApi
 import com.semicolon.data.remote.datasource.RemoteUserDataSource
 import com.semicolon.data.remote.datasource.RemoteUserDataSourceImpl
-import com.semicolon.data.remote.request.users.PatchDailyWalkGoalRequest
-import com.semicolon.data.remote.request.users.UserSignInRequest
-import com.semicolon.data.remote.request.users.UserSignUpRequest
-import com.semicolon.data.remote.request.users.VerifyPhoneNumberSignUpRequest
+import com.semicolon.data.remote.request.users.*
 import com.semicolon.data.remote.response.users.FetchCaloriesLevelResponse
 import com.semicolon.data.remote.response.users.UserSignInResponse
 import kotlinx.coroutines.runBlocking
@@ -105,7 +102,16 @@ class RemoteUserDataSourceUnitTest {
 
     @Test
     fun testPatchUserChangePassword() {
-
+        val request = UserChangePasswordRequest(
+            "13",
+            "010-0000-0000",
+            "abc",
+            "newPassword"
+        )
+        runBlocking {
+            val dataSourceResult = remoteUserDataSource.patchUserChangePassword(request)
+            assertEquals(Unit, dataSourceResult)
+        }
     }
 
     @Test
