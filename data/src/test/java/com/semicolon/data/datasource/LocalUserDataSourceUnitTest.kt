@@ -80,7 +80,7 @@ class LocalUserDataSourceUnitTest {
             )
 
             val dataSourceResult = localUserDataSource.fetchUserMyPage()
-            assertEquals(dataSourceResult, myPageEntity)
+            assertEquals(myPageEntity, dataSourceResult)
         }
     }
 
@@ -88,7 +88,7 @@ class LocalUserDataSourceUnitTest {
     fun testInsertUserMyPage() {
         runBlocking {
             val dataSourceResult = localUserDataSource.insertUserMyPage(myPageEntity)
-            assertEquals(dataSourceResult, Unit)
+            assertEquals(Unit, dataSourceResult)
         }
     }
 
@@ -101,7 +101,7 @@ class LocalUserDataSourceUnitTest {
             )
 
             val dataSourceResult = localUserDataSource.fetchUserProfile(userId)
-            assertEquals(dataSourceResult, userProfileEntity)
+            assertEquals(userProfileEntity, dataSourceResult)
         }
     }
 
@@ -109,7 +109,7 @@ class LocalUserDataSourceUnitTest {
     fun testInsertUserProfile() {
         runBlocking {
             val dataSourceResult = localUserDataSource.insertUserMyPage(myPageEntity)
-            assertEquals(dataSourceResult, Unit)
+            assertEquals(Unit, dataSourceResult)
         }
     }
 
@@ -121,7 +121,7 @@ class LocalUserDataSourceUnitTest {
             )
 
             val dataSourceResult = localUserDataSource.fetchCaloriesLevelList()
-            assertEquals(dataSourceResult, fetchCaloriesLevelEntity)
+            assertEquals(fetchCaloriesLevelEntity, dataSourceResult)
         }
     }
 
@@ -131,7 +131,7 @@ class LocalUserDataSourceUnitTest {
             val dataSourceResult = localUserDataSource.insertCaloriesLevelList(
                 fetchCaloriesLevelEntity
             )
-            assertEquals(dataSourceResult, Unit)
+            assertEquals(Unit, dataSourceResult)
         }
     }
 
@@ -139,7 +139,7 @@ class LocalUserDataSourceUnitTest {
     fun testSetAccessToken() {
         runBlocking {
             val dataSourceResult = localUserDataSource.setAccessToken("access_token")
-            assertEquals(dataSourceResult, Unit)
+            assertEquals(Unit, dataSourceResult)
         }
     }
 
@@ -152,7 +152,7 @@ class LocalUserDataSourceUnitTest {
             )
 
             val dataSourceResult = localUserDataSource.fetchAccessToken()
-            assertEquals(dataSourceResult, accessToken)
+            assertEquals(accessToken, dataSourceResult)
         }
     }
 
@@ -160,7 +160,7 @@ class LocalUserDataSourceUnitTest {
     fun testClearAccessToken() {
         runBlocking {
             val dataSourceResult = localUserDataSource.clearAccessToken()
-            assertEquals(dataSourceResult, Unit)
+            assertEquals(Unit, dataSourceResult)
         }
     }
 
@@ -169,7 +169,7 @@ class LocalUserDataSourceUnitTest {
         val refreshToken = "refresh_token"
         runBlocking {
             val dataSourceResult = localUserDataSource.setRefreshToken(refreshToken)
-            assertEquals(dataSourceResult, Unit)
+            assertEquals(Unit, dataSourceResult)
         }
     }
 
@@ -182,7 +182,7 @@ class LocalUserDataSourceUnitTest {
             )
 
             val dataSourceResult = localUserDataSource.fetchRefreshToken()
-            assertEquals(dataSourceResult, refreshToken)
+            assertEquals(refreshToken, dataSourceResult)
         }
     }
 
@@ -190,7 +190,7 @@ class LocalUserDataSourceUnitTest {
     fun testClearRefreshToken() {
         runBlocking {
             val dataSourceResult = localUserDataSource.clearRefreshToken()
-            assertEquals(dataSourceResult, Unit)
+            assertEquals(Unit, dataSourceResult)
         }
     }
 
@@ -198,7 +198,7 @@ class LocalUserDataSourceUnitTest {
     fun testSetExpiredAt() {
         runBlocking {
             val dataSourceResult = localUserDataSource.setExpiredAt("2020-12-2T12:12")
-            assertEquals(dataSourceResult, Unit)
+            assertEquals(Unit, dataSourceResult)
         }
     }
 
@@ -211,7 +211,7 @@ class LocalUserDataSourceUnitTest {
             )
 
             val dataSourceResult = localUserDataSource.fetchExpiredAt()
-            assertEquals(dataSourceResult, expiredAt)
+            assertEquals(expiredAt, dataSourceResult)
         }
     }
 
@@ -220,7 +220,7 @@ class LocalUserDataSourceUnitTest {
         val deviceToken = "device_token"
         runBlocking {
             val dataSourceResult = localUserDataSource.setDeviceToken(deviceToken)
-            assertEquals(dataSourceResult, Unit)
+            assertEquals(Unit, dataSourceResult)
         }
     }
 
@@ -233,7 +233,7 @@ class LocalUserDataSourceUnitTest {
             )
 
             val dataSourceResult = localUserDataSource.fetchDeviceToken()
-            assertEquals(dataSourceResult, deviceToken)
+            assertEquals(deviceToken, dataSourceResult)
         }
     }
 
@@ -242,7 +242,7 @@ class LocalUserDataSourceUnitTest {
         val id = "id"
         runBlocking {
             val dataSourceResult = localUserDataSource.setId(id)
-            assertEquals(dataSourceResult, Unit)
+            assertEquals(Unit, dataSourceResult)
         }
     }
 
@@ -255,7 +255,7 @@ class LocalUserDataSourceUnitTest {
             )
 
             val dataSourceResult = localUserDataSource.fetchId()
-            assertEquals(dataSourceResult, id)
+            assertEquals(id, dataSourceResult)
         }
     }
 
@@ -264,7 +264,7 @@ class LocalUserDataSourceUnitTest {
         val password = "password"
         runBlocking {
             val dataSourceResult = localUserDataSource.setPw(password)
-            assertEquals(dataSourceResult, Unit)
+            assertEquals(Unit, dataSourceResult)
         }
     }
 
@@ -277,7 +277,7 @@ class LocalUserDataSourceUnitTest {
             )
 
             val dataSourceResult = localUserDataSource.fetchPw()
-            assertEquals(dataSourceResult, password)
+            assertEquals(password, dataSourceResult)
         }
     }
 }

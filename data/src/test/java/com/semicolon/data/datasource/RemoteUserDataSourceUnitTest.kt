@@ -1,11 +1,16 @@
 package com.semicolon.data.datasource
 
 import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.whenever
 import com.semicolon.data.remote.api.UserApi
+import com.semicolon.data.remote.datasource.RemoteUserDataSource
 import com.semicolon.data.remote.datasource.RemoteUserDataSourceImpl
 import com.semicolon.data.remote.request.users.PatchDailyWalkGoalRequest
+import com.semicolon.data.remote.request.users.UserSignInRequest
 import com.semicolon.data.remote.request.users.UserSignUpRequest
 import com.semicolon.data.remote.request.users.VerifyPhoneNumberSignUpRequest
+import com.semicolon.data.remote.response.users.FetchCaloriesLevelResponse
+import com.semicolon.data.remote.response.users.UserSignInResponse
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -14,16 +19,16 @@ class RemoteUserDataSourceUnitTest {
 
     private val userApi = mock<UserApi>()
 
-    private val remoteUserDataSource = RemoteUserDataSourceImpl(userApi)
+    private val remoteUserDataSource: RemoteUserDataSource = RemoteUserDataSourceImpl(userApi)
 
     @Test
     fun testVerifyUserPhoneNumber() {
-         val request = VerifyPhoneNumberSignUpRequest(
-             "010-0000-0000"
-         )
+        val request = VerifyPhoneNumberSignUpRequest(
+            "010-0000-0000"
+        )
         runBlocking {
             val dataSourceResult = remoteUserDataSource.verifyUserPhoneNumber(request)
-            assertEquals(dataSourceResult, Unit)
+            assertEquals(Unit, dataSourceResult)
         }
     }
 
@@ -39,7 +44,7 @@ class RemoteUserDataSourceUnitTest {
         )
         runBlocking {
             val dataSourceResult = remoteUserDataSource.postUserSignUp(request)
-            assertEquals(dataSourceResult, Unit)
+            assertEquals(Unit, dataSourceResult)
         }
     }
 
@@ -48,18 +53,54 @@ class RemoteUserDataSourceUnitTest {
         val request = PatchDailyWalkGoalRequest(3000)
         runBlocking {
             val dataSourceResult = remoteUserDataSource.patchDailyWalkGoal(request)
-            assertEquals(dataSourceResult, Unit)
+            assertEquals(Unit, dataSourceResult)
         }
     }
 
     @Test
     fun testFetchCaloriesLevelList() {
+        val fetchCaloriesLevelResponse = FetchCaloriesLevelResponse(
+            listOf(
+                FetchCaloriesLevelResponse.CaloriesLevel(
+                    1000,
+                    "https://testImageUrl",
+                    "커피",
+                    2,
+                    20,
+                    "성공",
+                    "R"
+                )
+            )
+        )
+        runBlocking {
+            whenever(userApi.fetchCaloriesLevelList()).thenReturn(
+                fetchCaloriesLevelResponse
+            )
 
+            val dataSourceResult = remoteUserDataSource.fetchCaloriesLevelList()
+            assertEquals(fetchCaloriesLevelResponse, dataSourceResult)
+        }
     }
 
     @Test
     fun testPostUserSignIn() {
-
+        val request = UserSignInRequest(
+            "13",
+            "password",
+            "device_token"
+        )
+        val response = UserSignInResponse(
+            "accessToken",
+            "2020-12-12-T10:12",
+            "refreshToken"
+        )
+        runBlocking {
+            whenever(userApi.userSignIn(request)).thenReturn(
+                response
+            )
+            val dataSourceResult = remoteUserDataSource.postUserSignIn(request)
+            assertEquals(response, dataSourceResult)
+        }
     }
 
     @Test
