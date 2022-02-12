@@ -7,6 +7,7 @@ import com.semicolon.data.remote.datasource.RemoteUserDataSource
 import com.semicolon.data.remote.datasource.RemoteUserDataSourceImpl
 import com.semicolon.data.remote.request.users.*
 import com.semicolon.data.remote.response.users.FetchCaloriesLevelResponse
+import com.semicolon.data.remote.response.users.FetchMyPageResponse
 import com.semicolon.data.remote.response.users.UserSignInResponse
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -116,7 +117,32 @@ class RemoteUserDataSourceUnitTest {
 
     @Test
     fun testFetchMyPage() {
+        val myPageResult = FetchMyPageResponse(
+            13,
+            "김재원",
+            "https://testImageUrl",
+            "대덕소프트웨어마이스터고",
+            3,
+            2,
+            FetchMyPageResponse.TitleBadge(
+                14,
+                "뱃지",
+                "https://testImageUrl"
+            ),
+            FetchMyPageResponse.Level(
+                "레벨",
+                "https://testImageUrl"
+            )
+        )
 
+        runBlocking {
+            whenever(userApi.fetchMyPage()).thenReturn(
+                myPageResult
+            )
+
+            val dataSourceResult = remoteUserDataSource.fetchMyPage()
+            assertEquals(myPageResult, dataSourceResult)
+        }
     }
 
     @Test
