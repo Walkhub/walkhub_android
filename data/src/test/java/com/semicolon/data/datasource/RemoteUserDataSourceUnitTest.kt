@@ -3,6 +3,7 @@ package com.semicolon.data.datasource
 import com.nhaarman.mockitokotlin2.mock
 import com.semicolon.data.remote.api.UserApi
 import com.semicolon.data.remote.datasource.RemoteUserDataSourceImpl
+import com.semicolon.data.remote.request.users.PatchDailyWalkGoalRequest
 import com.semicolon.data.remote.request.users.UserSignUpRequest
 import com.semicolon.data.remote.request.users.VerifyPhoneNumberSignUpRequest
 import kotlinx.coroutines.runBlocking
@@ -44,7 +45,11 @@ class RemoteUserDataSourceUnitTest {
 
     @Test
     fun testPatchDailyWalkGoal() {
-
+        val request = PatchDailyWalkGoalRequest(3000)
+        runBlocking {
+            val dataSourceResult = remoteUserDataSource.patchDailyWalkGoal(request)
+            assertEquals(dataSourceResult, Unit)
+        }
     }
 
     @Test
