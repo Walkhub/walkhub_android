@@ -33,7 +33,7 @@ class RemoteSchoolDataSourceUnitTest {
             whenever(schoolApi.searchSchool(schoolName)).thenReturn(searchSchoolResponse)
 
             val dataSourceResult = remoteSchoolDataSource.searchSchool(schoolName)
-            assertEquals(dataSourceResult, searchSchoolResponse.toListEntity())
+            assertEquals(searchSchoolResponse.toListEntity(),dataSourceResult)
         }
     }
 }
