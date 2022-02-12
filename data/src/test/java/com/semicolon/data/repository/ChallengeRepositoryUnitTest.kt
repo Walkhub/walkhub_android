@@ -9,7 +9,9 @@ import com.semicolon.domain.enum.ChallengeGoalScope
 import com.semicolon.domain.enum.ChallengeGoalType
 import com.semicolon.domain.enum.ChallengeUserScope
 import com.semicolon.domain.repository.ChallengeRepository
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.threeten.bp.LocalDateTime
 
@@ -43,10 +45,15 @@ class ChallengeRepositoryUnitTest {
             whenever(localChallengeDateSource.fetchChallenges()).thenReturn(
                 challengeList
             )
-
             whenever(remoteChallengeDataSource.fetchChallenges()).thenReturn(
                 challengeList
             )
+
+            val repositoryResult = challengeRepository.fetchChallenges()
+            val assertChallengesFlow = flow {
+                emit(challengeList)
+            }
+            assertEquals(repositoryResult, assertChallengesFlow)
         }
     }
 }
