@@ -4,4 +4,6 @@ import com.semicolon.domain.entity.notice.NoticeEntity
 
 interface LocalNoticeDataSource {
     suspend fun fetchNoticeList(): List<NoticeEntity>
+
+    suspend fun saveNoticeList(list: List<NoticeEntity>): List<NoticeEntity>
 }
