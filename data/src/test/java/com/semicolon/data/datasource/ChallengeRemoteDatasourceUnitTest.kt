@@ -76,7 +76,6 @@ class ChallengeRemoteDatasourceUnitTest {
             )
 
             val challengeDataSource = remoteChallengeDatasource.fetchChallengeDetail(challengeId)
-
             assertEquals(challengeDataSource, challengeDetailResponse.toEntity())
         }
     }
@@ -87,8 +86,8 @@ class ChallengeRemoteDatasourceUnitTest {
         runBlocking {
             whenever(challengeApi.postParticipateChallenge(challengeId)).thenReturn(Unit)
 
-            val datasource = remoteChallengeDatasource.postParticipate(challengeId)
-            assertEquals(datasource, Unit)
+            val datasourceResult = remoteChallengeDatasource.postParticipate(challengeId)
+            assertEquals(datasourceResult, Unit)
         }
     }
 
@@ -105,8 +104,9 @@ class ChallengeRemoteDatasourceUnitTest {
             whenever(challengeApi.getChallengeParticipants(challengeId)).thenReturn(
                 participantListResponse
             )
-            val datasource = remoteChallengeDatasource.fetchParticipants(challengeId)
-            assertEquals(datasource, participantListResponse.toEntity())
+
+            val datasourceResult = remoteChallengeDatasource.fetchParticipants(challengeId)
+            assertEquals(datasourceResult, participantListResponse.toEntity())
         }
     }
 
@@ -116,9 +116,9 @@ class ChallengeRemoteDatasourceUnitTest {
             whenever(challengeApi.getMyChallenges()).thenReturn(
                 challengeResponse
             )
-            val datasourceValue = remoteChallengeDatasource.fetchMyChallenges()
 
-            assertEquals(datasourceValue, challengeResponse.toEntity())
+            val datasourceResult = remoteChallengeDatasource.fetchMyChallenges()
+            assertEquals(datasourceResult, challengeResponse.toEntity())
         }
     }
 }
