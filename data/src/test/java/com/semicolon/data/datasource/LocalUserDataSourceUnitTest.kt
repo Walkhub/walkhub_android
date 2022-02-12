@@ -57,6 +57,20 @@ class LocalUserDataSourceUnitTest {
         )
     )
 
+    private val fetchCaloriesLevelEntity = FetchCaloriesLevelEntity(
+        listOf(
+            FetchCaloriesLevelEntity.CaloriesLevel(
+                1000,
+                "https://testImageUrl",
+                "커피",
+                2,
+                20,
+                "성공",
+                "R"
+            )
+        )
+    )
+
     @Test
     fun testFetchUserMyPage() {
         runBlocking {
@@ -100,19 +114,6 @@ class LocalUserDataSourceUnitTest {
 
     @Test
     fun testFetchCaloriesLevelList() {
-        val fetchCaloriesLevelEntity = FetchCaloriesLevelEntity(
-            listOf(
-                FetchCaloriesLevelEntity.CaloriesLevel(
-                    1000,
-                    "https://testImageUrl",
-                    "커피",
-                    2,
-                    20,
-                    "성공",
-                    "R"
-                )
-            )
-        )
         runBlocking {
             whenever(userDao.fetchCaloriesLevelList()).thenReturn(
                 fetchCaloriesLevelEntity.toDbEntity()
@@ -125,7 +126,12 @@ class LocalUserDataSourceUnitTest {
 
     @Test
     fun testInsertCaloriesLevelList() {
-
+        runBlocking {
+            val dataSourceResult = localUserDataSource.insertCaloriesLevelList(
+                fetchCaloriesLevelEntity
+            )
+            assertEquals(dataSourceResult, Unit)
+        }
     }
 
     @Test
