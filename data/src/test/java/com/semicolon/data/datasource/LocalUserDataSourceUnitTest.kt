@@ -136,12 +136,23 @@ class LocalUserDataSourceUnitTest {
 
     @Test
     fun testSetAccessToken() {
-
+        runBlocking {
+            val dataSourceResult = localUserDataSource.setAccessToken("access_token")
+            assertEquals(dataSourceResult, Unit)
+        }
     }
 
     @Test
     fun testFetchAccessToken() {
+        val accessToken = "access_token"
+        runBlocking {
+            whenever(authDataStorage.fetchAccessToken()).thenReturn(
+                accessToken
+            )
 
+            val dataSourceResult = localUserDataSource.fetchAccessToken()
+            assertEquals(dataSourceResult, accessToken)
+        }
     }
 
     @Test
