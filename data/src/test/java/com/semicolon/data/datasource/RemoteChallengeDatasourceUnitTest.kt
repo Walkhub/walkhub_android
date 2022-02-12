@@ -13,7 +13,7 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-class ChallengeRemoteDatasourceUnitTest {
+class RemoteChallengeDatasourceUnitTest {
 
     private val challengeApi = mock<ChallengeApi>()
 
