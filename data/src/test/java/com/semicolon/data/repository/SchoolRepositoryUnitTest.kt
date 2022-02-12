@@ -31,7 +31,7 @@ class SchoolRepositoryUnitTest {
 
             val repositoryResult = schoolRepository.searchSchool(schoolName)
             repositoryResult.collect {
-                assertEquals(it,searchSchoolResponse)
+                assertEquals(searchSchoolResponse,it)
             }
         }
     }
