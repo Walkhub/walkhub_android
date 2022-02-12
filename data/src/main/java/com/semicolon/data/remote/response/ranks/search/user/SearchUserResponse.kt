@@ -1,6 +1,7 @@
 package com.semicolon.data.remote.response.ranks.search.user
 
 import com.google.gson.annotations.SerializedName
+import com.semicolon.domain.entity.rank.SearchUserEntity
 
 data class SearchUserResponse(
     @SerializedName("user_list") val userList: List<UserInfo>
@@ -14,4 +15,20 @@ data class SearchUserResponse(
         @SerializedName("user_id") val userId: Int,
         @SerializedName("walk_count") val walkCount: Int
     )
+
+    fun UserInfo.toEntity() =
+        SearchUserEntity.UserInfo(
+            classNum = classNum,
+            grade = grade,
+            name = name,
+            profileImageUrl = profileImageUrl,
+            rank = rank,
+            userId = userId,
+            walkCount = walkCount
+        )
 }
+
+fun SearchUserResponse.toEntity() =
+    SearchUserEntity(
+        userList = userList.map { it.toEntity() }
+    )

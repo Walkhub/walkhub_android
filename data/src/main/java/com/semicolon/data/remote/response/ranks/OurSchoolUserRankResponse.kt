@@ -1,6 +1,7 @@
 package com.semicolon.data.remote.response.ranks
 
 import com.google.gson.annotations.SerializedName
+import com.semicolon.domain.entity.rank.OurSchoolUserRankEntity
 
 data class OurSchoolUserRankResponse(
     @SerializedName("my_ranking") val myRanking: Ranking,
@@ -16,4 +17,21 @@ data class OurSchoolUserRankResponse(
         @SerializedName("user_id") val userId: Int,
         @SerializedName("walk_count") val walkCount: Int
     )
+
+    fun Ranking.toEntity() =
+        OurSchoolUserRankEntity.Ranking(
+            classNum = classNum,
+            grade = grade,
+            name = name,
+            profileImageUrl = profileImageUrl,
+            ranking = ranking,
+            userId = userId,
+            walkCount = walkCount
+        )
 }
+
+fun OurSchoolUserRankResponse.toEntity() =
+    OurSchoolUserRankEntity(
+        myRanking = myRanking.toEntity(),
+        rankingList = rankingList.map { it.toEntity() }
+    )
