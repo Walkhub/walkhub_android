@@ -236,6 +236,18 @@ class RemoteUserDataSourceUnitTest {
 
     @Test
     fun testUserReissue() {
+        val refreshToken = "refreshToken"
+        val response = UserReissueResponse(
+            "accessToken",
+            "2020-12-12T12:14"
+        )
+        runBlocking {
+            whenever(userApi.userReissue(refreshToken)).thenReturn(
+                response
+            )
 
+            val dataSourceResult = remoteUserDataSource.userReissue(refreshToken)
+            assertEquals(response , dataSourceResult)
+        }
     }
 }
