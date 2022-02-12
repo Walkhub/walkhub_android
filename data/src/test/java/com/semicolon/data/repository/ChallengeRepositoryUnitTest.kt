@@ -4,6 +4,7 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import com.semicolon.data.local.datasource.LocalChallengeDataSource
 import com.semicolon.data.remote.datasource.RemoteChallengeDateSource
+import com.semicolon.domain.entity.challenge.ChallengeDetailEntity
 import com.semicolon.domain.entity.challenge.ChallengeEntity
 import com.semicolon.domain.enum.ChallengeGoalScope
 import com.semicolon.domain.enum.ChallengeGoalType
@@ -51,6 +52,43 @@ class ChallengeRepositoryUnitTest {
             val repositoryResult = challengeRepository.fetchChallenges()
             repositoryResult.collect {
                 assertEquals(it, challengeList)
+            }
+        }
+    }
+
+    @Test
+    fun testFetchChallengeDetail() {
+        val challengeId = 12
+        val challengeDetailEntity = ChallengeDetailEntity(
+            "삼천보걷기",
+            "삼천보 겉기가 목표입니다",
+            3000,
+            ChallengeGoalType.ETC,
+            ChallengeGoalScope.ALL,
+            ChallengeUserScope.ALL,
+            "수행평가 만점",
+            "https://testImageUrl",
+            LocalDateTime.MIN,
+            LocalDateTime.MAX,
+            false,
+            10,
+            ChallengeDetailEntity.WriterEntity(
+                13,
+                "김재원",
+                "https://testImageUrl"
+            )
+        )
+        runBlocking {
+            whenever(localChallengeDateSource.fetchChallengeDetail(challengeId)).thenReturn(
+                challengeDetailEntity
+            )
+            whenever(remoteChallengeDataSource.fetchChallengeDetail(challengeId)).thenReturn(
+                challengeDetailEntity
+            )
+
+            val repositoryResultFlow = challengeRepository.fetchChallengeDetail(challengeId)
+            repositoryResultFlow.collect {
+                assertEquals(it, challengeDetailEntity)
             }
         }
     }
