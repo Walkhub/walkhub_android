@@ -37,7 +37,7 @@ class SearchSchoolUseCaseUnitTest {
 
             val useCaseResult = searchSchoolUseCase.execute(schoolName)
             useCaseResult.collect {
-                assertEquals(it, searchSchoolResponse)
+                assertEquals(searchSchoolResponse,it)
             }
         }
     }
