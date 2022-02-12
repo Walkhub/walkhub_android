@@ -3,6 +3,7 @@ package com.semicolon.data.datasource
 import com.nhaarman.mockitokotlin2.mock
 import com.semicolon.data.remote.api.UserApi
 import com.semicolon.data.remote.datasource.RemoteUserDataSourceImpl
+import com.semicolon.data.remote.request.users.UserSignUpRequest
 import com.semicolon.data.remote.request.users.VerifyPhoneNumberSignUpRequest
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -27,7 +28,18 @@ class RemoteUserDataSourceUnitTest {
 
     @Test
     fun testPostUserSignUp() {
-
+        val request = UserSignUpRequest(
+            "13",
+            "password",
+            "김재원",
+            "010-0000-0000",
+            "abc",
+            "대덕소프트웨어마이스터고"
+        )
+        runBlocking {
+            val dataSourceResult = remoteUserDataSource.postUserSignUp(request)
+            assertEquals(dataSourceResult, Unit)
+        }
     }
 
     @Test
