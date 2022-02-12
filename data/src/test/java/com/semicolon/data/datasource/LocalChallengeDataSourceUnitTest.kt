@@ -78,7 +78,7 @@ class LocalChallengeDataSourceUnitTest {
                 challengeAndDetail
             )
             val dataSource = localChallengeDataSource.fetchChallengeDetail(12)
-            assertEquals(dataSource, challengeAndDetail)
+            assertEquals(dataSource, challengeAndDetail.toEntity())
         }
     }
 
