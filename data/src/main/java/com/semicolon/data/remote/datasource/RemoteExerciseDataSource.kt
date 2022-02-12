@@ -4,7 +4,9 @@ import com.semicolon.data.remote.request.exercise.FinishMeasureExerciseRequest
 import com.semicolon.data.remote.request.exercise.SaveDailyExerciseRequest
 import com.semicolon.data.remote.request.exercise.SendLocationRecordsRequest
 import com.semicolon.data.remote.request.exercise.StartMeasureExerciseRequest
+import com.semicolon.data.remote.response.exercise.ExerciseAnalysisResultResponse
 import com.semicolon.data.remote.response.exercise.ExerciseIdResponse
+import com.semicolon.data.remote.response.exercise.ExerciseRecordListResponse
 
 interface RemoteExerciseDataSource {
 
@@ -23,7 +25,10 @@ interface RemoteExerciseDataSource {
     )
 
     suspend fun saveDailyExercise(
-        date: String,
         saveDailyExerciseRequest: SaveDailyExerciseRequest
     )
+
+    suspend fun fetchExerciseRecordList(): ExerciseRecordListResponse
+
+    suspend fun fetchExerciseAnalysisResult(): ExerciseAnalysisResultResponse
 }
