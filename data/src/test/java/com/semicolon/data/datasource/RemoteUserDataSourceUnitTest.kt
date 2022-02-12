@@ -224,7 +224,14 @@ class RemoteUserDataSourceUnitTest {
 
     @Test
     fun testSignUpClass() {
-
+        val request = SignUpClassRequest(
+            "abc",
+            3202
+        )
+        runBlocking {
+            val dataSourceResult = remoteUserDataSource.signUpClass(request.number, request)
+            assertEquals(Unit, dataSourceResult)
+        }
     }
 
     @Test
