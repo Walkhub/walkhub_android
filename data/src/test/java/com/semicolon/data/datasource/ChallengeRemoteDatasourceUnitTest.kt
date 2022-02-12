@@ -8,6 +8,7 @@ import com.semicolon.data.remote.datasource.RemoteChallengeDateSourceImpl
 import com.semicolon.data.remote.response.challenge.ChallengeDetailResponse
 import com.semicolon.data.remote.response.challenge.ChallengeListResponse
 import com.semicolon.data.remote.response.challenge.ChallengeParticipantListResponse
+import com.semicolon.data.remote.response.challenge.toEntity
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -23,8 +24,8 @@ class ChallengeRemoteDatasourceUnitTest {
         ChallengeListResponse.ChallengeResponse(
             1,
             "삼천보걷기",
-            "2022/2/12T12:14:00",
-            "2022/2/17T12:14:00",
+            "2022-12-12T12:12",
+            "2022-12-17T12:12",
             "https://testImageUrl",
             "ALL",
             "ALL",
@@ -42,7 +43,7 @@ class ChallengeRemoteDatasourceUnitTest {
             )
             val datasourceValue = remoteChallengeDatasource.fetchChallenges()
 
-            assertEquals(datasourceValue, challengeResponse)
+            assertEquals(datasourceValue, challengeResponse.toEntity())
         }
     }
 
@@ -53,8 +54,8 @@ class ChallengeRemoteDatasourceUnitTest {
             "삼천보걷기가 목표입니다",
             "수행평가 만점",
             "http://testImageUrl",
-            "2022/2/12T12:14:00",
-            "2022/2/17T12:14:00",
+            "2022-12-12T12:12",
+            "2022-12-17T12:12",
             3000,
             "WALK",
             "ALL",
@@ -76,7 +77,7 @@ class ChallengeRemoteDatasourceUnitTest {
 
             val challengeDataSource = remoteChallengeDatasource.fetchChallengeDetail(challengeId)
 
-            assertEquals(challengeDataSource, challengeDetailResponse)
+            assertEquals(challengeDataSource, challengeDetailResponse.toEntity())
         }
     }
 
@@ -105,7 +106,7 @@ class ChallengeRemoteDatasourceUnitTest {
                 participantListResponse
             )
             val datasource = remoteChallengeDatasource.fetchParticipants(challengeId)
-            assertEquals(datasource, participantListResponse)
+            assertEquals(datasource, participantListResponse.toEntity())
         }
     }
 
@@ -117,7 +118,7 @@ class ChallengeRemoteDatasourceUnitTest {
             )
             val datasourceValue = remoteChallengeDatasource.fetchMyChallenges()
 
-            assertEquals(datasourceValue, challengeResponse)
+            assertEquals(datasourceValue, challengeResponse.toEntity())
         }
     }
 }
