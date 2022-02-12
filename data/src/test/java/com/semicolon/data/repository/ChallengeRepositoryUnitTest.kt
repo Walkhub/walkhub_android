@@ -11,7 +11,6 @@ import com.semicolon.domain.enum.ChallengeGoalScope
 import com.semicolon.domain.enum.ChallengeGoalType
 import com.semicolon.domain.enum.ChallengeUserScope
 import com.semicolon.domain.repository.ChallengeRepository
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -122,5 +121,12 @@ class ChallengeRepositoryUnitTest {
         }
     }
 
-    
+    @Test
+    fun testPostParticipateChallenge() {
+        val challengeId = 12
+        runBlocking {
+            val repositoryResult = challengeRepository.postParticipateChallenge(challengeId)
+            assertEquals(repositoryResult, Unit)
+        }
+    }
 }
