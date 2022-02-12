@@ -261,11 +261,23 @@ class LocalUserDataSourceUnitTest {
 
     @Test
     fun testSetPw() {
-
+        val password = "password"
+        runBlocking {
+            val dataSourceResult = localUserDataSource.setPw(password)
+            assertEquals(dataSourceResult, Unit)
+        }
     }
 
     @Test
     fun testFetchPw() {
+        val password = "password"
+        runBlocking {
+            whenever(authDataStorage.fetchPw()).thenReturn(
+                password
+            )
 
+            val dataSourceResult = localUserDataSource.fetchPw()
+            assertEquals(dataSourceResult, password)
+        }
     }
 }
