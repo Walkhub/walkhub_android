@@ -5,10 +5,7 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.semicolon.data.local.dao.ChallengeDao
 import com.semicolon.data.local.datasource.LocalChallengeDataSource
 import com.semicolon.data.local.datasource.LocalChallengeDataSourceImpl
-import com.semicolon.data.local.entity.challenge.ChallengeAndDetail
-import com.semicolon.data.local.entity.challenge.ChallengeDetailRoomEntity
-import com.semicolon.data.local.entity.challenge.ChallengeRoomEntity
-import com.semicolon.data.local.entity.challenge.toEntity
+import com.semicolon.data.local.entity.challenge.*
 import com.semicolon.domain.entity.challenge.ChallengeDetailEntity
 import com.semicolon.domain.enum.ChallengeGoalScope
 import com.semicolon.domain.enum.ChallengeGoalType
@@ -75,16 +72,16 @@ class LocalChallengeDataSourceUnitTest {
 
     @Test
     fun testFetchChallengeDetail() {
-
+        val challengeId = 12
         val challengeAndDetail = ChallengeAndDetail(
             challengeRoomEntity,
             challengeDetailRoomEntity
         )
         runBlocking {
-            whenever(challengeDao.fetchChallengeDetail(12)).thenReturn(
+            whenever(challengeDao.fetchChallengeDetail(challengeId)).thenReturn(
                 challengeAndDetail
             )
-            val dataSource = localChallengeDataSource.fetchChallengeDetail(12)
+            val dataSource = localChallengeDataSource.fetchChallengeDetail(challengeId)
             assertEquals(dataSource, challengeAndDetail.toEntity())
         }
     }
@@ -110,15 +107,33 @@ class LocalChallengeDataSourceUnitTest {
                 "https://testImageUrl"
             )
         )
+        val challengeId = 12
         runBlocking {
-            val dataSource = localChallengeDataSource.saveChallengeDetail(12, challengeDetailEntity)
+            val dataSource = localChallengeDataSource.saveChallengeDetail(challengeId, challengeDetailEntity)
             assertEquals(dataSource, Unit)
         }
     }
 
     @Test
     fun testFetchParticipants() {
+        val challengeId = 12
+        val participantEntity = ChallengeParticipantRoomEntity(
+            13,
+            "김재원",
+            "https://testImageUrl",
+            challengeId
+        )
+        val participantList = listOf(
+            participantEntity
+        )
+        runBlocking {
+            whenever(challengeDao.fetchParticipants(challengeId)).thenReturn(
+                participantList
+            )
 
+            val dataSource = localChallengeDataSource.fetchParticipants(challengeId)
+            assertEquals(dataSource, participantList.toEntity())
+        }
     }
 
     @Test
