@@ -52,7 +52,7 @@ class ChallengeRepositoryUnitTest {
 
             val repositoryResult = challengeRepository.fetchChallenges()
             repositoryResult.collect {
-                assertEquals(it, challengeList)
+                assertEquals(challengeList, it)
             }
         }
     }
@@ -89,7 +89,7 @@ class ChallengeRepositoryUnitTest {
 
             val repositoryResultFlow = challengeRepository.fetchChallengeDetail(challengeId)
             repositoryResultFlow.collect {
-                assertEquals(it, challengeDetailEntity)
+                assertEquals(challengeDetailEntity, it)
             }
         }
     }
@@ -116,7 +116,7 @@ class ChallengeRepositoryUnitTest {
 
             val repositoryResult = challengeRepository.fetchChallengeParticipants(challengeId)
             repositoryResult.collect {
-                assertEquals(it, participantList)
+                assertEquals(participantList, it)
             }
         }
     }
@@ -126,7 +126,7 @@ class ChallengeRepositoryUnitTest {
         val challengeId = 12
         runBlocking {
             val repositoryResult = challengeRepository.postParticipateChallenge(challengeId)
-            assertEquals(repositoryResult, Unit)
+            assertEquals(Unit, repositoryResult)
         }
     }
 
@@ -139,7 +139,7 @@ class ChallengeRepositoryUnitTest {
 
             val repositoryResult = challengeRepository.fetchMyChallenges()
             repositoryResult.collect {
-                assertEquals(it, challengeList)
+                assertEquals(challengeList, it)
             }
         }
     }
