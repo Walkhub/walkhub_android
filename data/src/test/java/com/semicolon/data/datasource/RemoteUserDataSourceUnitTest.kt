@@ -179,12 +179,24 @@ class RemoteUserDataSourceUnitTest {
 
     @Test
     fun testUpdateProfile() {
-
+        val request = UpdateProfileRequest(
+            "김재원",
+            "https://testImageUrl",
+            "M"
+        )
+        runBlocking {
+            val dataSourceResult = remoteUserDataSource.updateProfile(request)
+            assertEquals(Unit, dataSourceResult)
+        }
     }
 
     @Test
     fun testPatchSchool() {
-
+        val schoolId = 14
+        runBlocking {
+            val dataSourceResult = remoteUserDataSource.patchSchool(schoolId)
+            assertEquals(Unit, dataSourceResult)
+        }
     }
 
     @Test
