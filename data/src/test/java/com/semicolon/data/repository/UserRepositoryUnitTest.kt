@@ -21,5 +21,12 @@ class UserRepositoryUnitTest {
     private val userRepository =
         UserRepositoryImpl(imageDataSource, localUserDataSource, remoteUserDataSource)
 
+    @Test
+    fun testVerifyUserPhoneNumber() {
 
+        runBlocking {
+            val repositoryResult = userRepository.verifyUserPhoneNumber(VerifyPhoneNumberSignUpParam("010-2100-2936"))
+            assertEquals(Unit,repositoryResult)
+        }
+    }
 }
