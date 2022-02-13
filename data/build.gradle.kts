@@ -39,6 +39,7 @@ dependencies {
     androidTestImplementation(Dependency.Test.androidJunit)
     testImplementation(Dependency.Test.mockitoKotlin)
     testImplementation(Dependency.Test.mockitoInline)
+    testImplementation(Dependency.Test.threeTenAbp)
 
     implementation(Dependency.Network.retrofit)
     implementation(Dependency.Network.gsonConverter)
