@@ -1,12 +1,10 @@
 package com.semicolon.data.repository
 
 import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.whenever
 import com.semicolon.data.local.datasource.LocalUserDataSource
 import com.semicolon.data.remote.datasource.RemoteImagesDataSource
 import com.semicolon.data.remote.datasource.RemoteUserDataSource
-import com.semicolon.data.remote.request.users.UserSignUpRequest
-import com.semicolon.data.remote.request.users.VerifyPhoneNumberSignUpRequest
+import com.semicolon.domain.param.user.PostUserSignInParam
 import com.semicolon.domain.param.user.PostUserSignUpParam
 import com.semicolon.domain.param.user.VerifyPhoneNumberSignUpParam
 import kotlinx.coroutines.runBlocking
@@ -46,6 +44,19 @@ class UserRepositoryUnitTest {
         runBlocking {
             val repositoryResult = userRepository.postUserSignUp(request)
             assertEquals(Unit, repositoryResult)
+        }
+    }
+    @Test
+    fun testPostUserSignIn() {
+        val request = PostUserSignInParam(
+            "13",
+            "password",
+            "device_token"
+        )
+
+        runBlocking {
+            val repositoryResult = userRepository.postUserSignIn(request)
+            assertEquals(Unit,repositoryResult)
         }
     }
 }
