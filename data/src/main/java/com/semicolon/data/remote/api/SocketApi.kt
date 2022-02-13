@@ -4,7 +4,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface SocketApi {
-    @GET("/socket.io")
+    @GET("/socket.io/")
     suspend fun connectionSocket(
         @Query("transport") transport: String
     )
