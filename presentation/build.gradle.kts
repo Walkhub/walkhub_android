@@ -78,4 +78,6 @@ dependencies {
 
     implementation(Dependency.GooglePlayService.fitness)
     implementation(Dependency.GooglePlayService.auth)
+
+    implementation(Dependency.Permission.tedPermission)
 }
