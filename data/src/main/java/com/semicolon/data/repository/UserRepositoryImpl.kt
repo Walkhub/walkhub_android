@@ -44,7 +44,7 @@ class UserRepositoryImpl @Inject constructor(
 
     override suspend fun fetchMyPage(): Flow<UserMyPageEntity> =
         OfflineCacheUtil<UserMyPageEntity>()
-            .remoteData { remoteUserDateSource.fetchMyPage().toEntity() }
+            .remoteData { remoteUserDateSource.fetchMyPage() }
             .localData { localUserDataSource.fetchUserMyPage() }
             .doOnNeedRefresh { localUserDataSource.insertUserMyPage(it) }
             .createFlow()
@@ -61,7 +61,7 @@ class UserRepositoryImpl @Inject constructor(
 
     override suspend fun findUserAccount(phoneNumber: String): Flow<FindUserAccountEntity> =
         flow {
-            emit(remoteUserDateSource.findUserAccount(phoneNumber).toEntity())
+            emit(remoteUserDateSource.findUserAccount(phoneNumber))
         }
 
     override suspend fun patchUserHealth(patchUserHealthParam: PatchUserHealthParam) =
@@ -92,7 +92,7 @@ class UserRepositoryImpl @Inject constructor(
 
     override suspend fun fetchCaloriesLevel(): Flow<FetchCaloriesLevelEntity> =
         OfflineCacheUtil<FetchCaloriesLevelEntity>()
-            .remoteData { remoteUserDateSource.fetchCaloriesLevelList().toEntity() }
+            .remoteData { remoteUserDateSource.fetchCaloriesLevelList() }
             .localData { localUserDataSource.fetchCaloriesLevelList() }
             .doOnNeedRefresh { localUserDataSource.insertCaloriesLevelList(it) }
             .createFlow()
@@ -115,7 +115,7 @@ class UserRepositoryImpl @Inject constructor(
 
     override suspend fun fetchUserProfile(userId: Int): Flow<UserProfileEntity> =
         OfflineCacheUtil<UserProfileEntity>()
-            .remoteData { remoteUserDateSource.fetchUserProfile(userId).toEntity() }
+            .remoteData { remoteUserDateSource.fetchUserProfile(userId) }
             .localData { localUserDataSource.fetchUserProfile(userId) }
             .doOnNeedRefresh { localUserDataSource.insertUserProfile(it) }
             .createFlow()

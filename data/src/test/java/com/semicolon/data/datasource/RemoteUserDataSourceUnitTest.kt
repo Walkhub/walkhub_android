@@ -74,7 +74,7 @@ class RemoteUserDataSourceUnitTest {
             )
 
             val dataSourceResult = remoteUserDataSource.fetchCaloriesLevelList()
-            assertEquals(fetchCaloriesLevelResponse, dataSourceResult)
+            assertEquals(fetchCaloriesLevelResponse.toEntity(), dataSourceResult)
         }
     }
 
@@ -139,7 +139,7 @@ class RemoteUserDataSourceUnitTest {
             )
 
             val dataSourceResult = remoteUserDataSource.fetchMyPage()
-            assertEquals(myPageResponse, dataSourceResult)
+            assertEquals(myPageResponse.toEntity(), dataSourceResult)
         }
     }
 
@@ -170,7 +170,7 @@ class RemoteUserDataSourceUnitTest {
             )
 
             val dataSourceResult = remoteUserDataSource.fetchUserProfile(userId)
-            assertEquals(userProfile, dataSourceResult)
+            assertEquals(userProfile.toEntity(), dataSourceResult)
         }
     }
 
@@ -206,7 +206,7 @@ class RemoteUserDataSourceUnitTest {
             )
 
             val dataSourceResult = remoteUserDataSource.findUserAccount(phoneNumber)
-            assertEquals(response, dataSourceResult)
+            assertEquals(response.toEntity(), dataSourceResult)
         }
     }
 

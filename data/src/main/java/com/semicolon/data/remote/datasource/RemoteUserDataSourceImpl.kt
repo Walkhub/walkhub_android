@@ -4,6 +4,10 @@ import com.semicolon.data.remote.api.UserApi
 import com.semicolon.data.remote.request.users.*
 import com.semicolon.data.remote.response.users.*
 import com.semicolon.data.util.HttpHandler
+import com.semicolon.domain.entity.users.FetchCaloriesLevelEntity
+import com.semicolon.domain.entity.users.FindUserAccountEntity
+import com.semicolon.domain.entity.users.UserMyPageEntity
+import com.semicolon.domain.entity.users.UserProfileEntity
 import javax.inject.Inject
 
 class RemoteUserDataSourceImpl @Inject constructor(
@@ -28,10 +32,10 @@ class RemoteUserDataSourceImpl @Inject constructor(
         .httpRequest { userApi.patchDailyWalkGoal(patchDailyWalkGoalRequest) }
         .sendRequest()
 
-    override suspend fun fetchCaloriesLevelList(): FetchCaloriesLevelResponse =
+    override suspend fun fetchCaloriesLevelList(): FetchCaloriesLevelEntity =
         HttpHandler<FetchCaloriesLevelResponse>()
         .httpRequest { userApi.fetchCaloriesLevelList() }
-        .sendRequest()
+        .sendRequest().toEntity()
 
     override suspend fun postUserSignIn(
         userSignInRequest: UserSignInRequest
@@ -45,15 +49,15 @@ class RemoteUserDataSourceImpl @Inject constructor(
         .httpRequest { userApi.userChangePassword(userChangePasswordRequest) }
         .sendRequest()
 
-    override suspend fun fetchMyPage(): FetchMyPageResponse =
+    override suspend fun fetchMyPage(): UserMyPageEntity =
         HttpHandler<FetchMyPageResponse>()
             .httpRequest { userApi.fetchMyPage() }
-            .sendRequest()
+            .sendRequest().toEntity()
 
-    override suspend fun fetchUserProfile(userId: Int) =
+    override suspend fun fetchUserProfile(userId: Int): UserProfileEntity =
         HttpHandler<FetchUserProfileResponse>()
             .httpRequest { userApi.fetchUserProfile(userId) }
-            .sendRequest()
+            .sendRequest().toEntity()
 
     override suspend fun updateProfile(updateProfileRequest: UpdateProfileRequest) =
         HttpHandler<Unit>()
@@ -65,10 +69,10 @@ class RemoteUserDataSourceImpl @Inject constructor(
             .httpRequest { userApi.patchSchool(schoolId) }
             .sendRequest()
 
-    override suspend fun findUserAccount(phoneNumber: String): FindUserAccountResponse =
+    override suspend fun findUserAccount(phoneNumber: String): FindUserAccountEntity =
         HttpHandler<FindUserAccountResponse>()
             .httpRequest { userApi.findUserAccount(phoneNumber) }
-            .sendRequest()
+            .sendRequest().toEntity()
 
     override suspend fun patchUserHealth(
         patchUserHealthRequest: PatchUserHealthRequest
