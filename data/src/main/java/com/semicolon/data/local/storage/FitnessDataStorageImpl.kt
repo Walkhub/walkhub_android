@@ -35,10 +35,11 @@ class FitnessDataStorageImpl(
                     .aggregate(DataType.AGGREGATE_DISTANCE_DELTA)
                     .aggregate(DataType.AGGREGATE_CALORIES_EXPENDED)
                     .setTimeRange(
-                        periodParam.startTimeAsMilli,
-                        periodParam.endTimeAsMilli,
+                        periodParam.startTimeAsSecond,
+                        periodParam.endTimeAsSecond,
                         TimeUnit.SECONDS
                     )
+                    .bucketByTime(1, TimeUnit.HOURS)
                     .build()
             )
 
@@ -48,10 +49,11 @@ class FitnessDataStorageImpl(
                 DataReadRequest.Builder()
                     .aggregate(DataType.TYPE_LOCATION_SAMPLE)
                     .setTimeRange(
-                        periodParam.startTimeAsMilli,
-                        periodParam.endTimeAsMilli,
+                        periodParam.startTimeAsSecond,
+                        periodParam.endTimeAsSecond,
                         TimeUnit.SECONDS
                     )
+                    .bucketByTime(1, TimeUnit.HOURS)
                     .build()
             )
 
@@ -62,8 +64,8 @@ class FitnessDataStorageImpl(
                     .aggregate(DataType.AGGREGATE_STEP_COUNT_DELTA)
                     .aggregate(DataType.AGGREGATE_DISTANCE_DELTA)
                     .setTimeRange(
-                        periodParam.startTimeAsMilli,
-                        periodParam.endTimeAsMilli,
+                        periodParam.startTimeAsSecond,
+                        periodParam.endTimeAsSecond,
                         TimeUnit.SECONDS
                     )
                     .build()

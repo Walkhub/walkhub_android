@@ -20,7 +20,7 @@ interface LocalExerciseDataSource {
 
     suspend fun isMeasuring(): Boolean
 
-    suspend fun startMeasuring(startTimeAsMilli: Long, exerciseId: Int)
+    suspend fun startMeasuring(startTimeAsSecond: Long, exerciseId: Int)
 
     suspend fun finishMeasuring()
 }
