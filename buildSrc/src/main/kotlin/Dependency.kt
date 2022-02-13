@@ -77,4 +77,8 @@ object Dependency {
         const val ktx = "androidx.work:work-runtime-ktx:${Version.workManager}"
         const val hiltExtension = "androidx.hilt:hilt-work:${Version.workManagerHiltExtension}"
     }
+
+    object Permission {
+        const val tedPermission = "io.github.ParkSangGwon:tedpermission-normal:${Version.tedPermission}"
+    }
 }
