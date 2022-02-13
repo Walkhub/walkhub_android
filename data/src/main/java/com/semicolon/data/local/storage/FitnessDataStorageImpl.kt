@@ -39,7 +39,7 @@ class FitnessDataStorageImpl(
                         periodParam.endTimeAsSecond,
                         TimeUnit.SECONDS
                     )
-                    .bucketByTime(1, TimeUnit.HOURS)
+                    .bucketByTime(1, TimeUnit.DAYS)
                     .build()
             )
 
@@ -53,7 +53,7 @@ class FitnessDataStorageImpl(
                         periodParam.endTimeAsSecond,
                         TimeUnit.SECONDS
                     )
-                    .bucketByTime(1, TimeUnit.HOURS)
+                    .bucketByTime(5, TimeUnit.SECONDS)
                     .build()
             )
 
@@ -68,6 +68,7 @@ class FitnessDataStorageImpl(
                         periodParam.endTimeAsSecond,
                         TimeUnit.SECONDS
                     )
+                    .bucketByTime(5, TimeUnit.DAYS)
                     .build()
             )
 
