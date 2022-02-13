@@ -80,4 +80,6 @@ dependencies {
     implementation(Dependency.GooglePlayService.auth)
 
     implementation(Dependency.Permission.tedPermission)
+
+    implementation(Dependency.ThreeTenAndroidBackport.threeTenAbp)
 }
