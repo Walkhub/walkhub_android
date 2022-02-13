@@ -21,6 +21,12 @@ class UserRepositoryUnitTest {
     private val userRepository =
         UserRepositoryImpl(imageDataSource, localUserDataSource, remoteUserDataSource)
 
+    val postUserSignInParam = PostUserSignInParam(
+        "13",
+        "password",
+        "device_token"
+    )
+
     @Test
     fun testVerifyUserPhoneNumber() {
         runBlocking {
@@ -48,14 +54,10 @@ class UserRepositoryUnitTest {
     }
     @Test
     fun testPostUserSignIn() {
-        val request = PostUserSignInParam(
-            "13",
-            "password",
-            "device_token"
-        )
+
 
         runBlocking {
-            val repositoryResult = userRepository.postUserSignIn(request)
+            val repositoryResult = userRepository.postUserSignIn(postUserSignInParam)
             assertEquals(Unit,repositoryResult)
         }
     }
