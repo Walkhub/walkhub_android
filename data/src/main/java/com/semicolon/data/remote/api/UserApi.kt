@@ -8,7 +8,7 @@ interface UserApi {
 
     @POST("users/classes/{section-id}")
     suspend fun signUpClass(
-        @Path("section_id") groupId: Int,
+        @Path("section-id") groupId: Int,
         @Body signUpClassRequest: SignUpClassRequest
     )
 
@@ -70,7 +70,7 @@ interface UserApi {
     suspend fun patchDailyWalkGoal(
         @Body patchDailyWalkGoalRequest: PatchDailyWalkGoalRequest
     )
-    
+
     @GET("users/levels/list")
     suspend fun fetchCaloriesLevelList(): FetchCaloriesLevelResponse
 }
