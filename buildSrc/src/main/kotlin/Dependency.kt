@@ -24,6 +24,7 @@ object Dependency {
         const val espresso = "androidx.test.espresso:espresso-core:${Version.espresso}"
         const val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:${Version.mockitoKotlin}"
         const val mockitoInline = "org.mockito:mockito-inline:${Version.mockitoInline}"
+        const val threeTenAbp =  "org.threeten:threetenbp:${Version.threeTenAbp}"
     }
 
     object Coroutine {
