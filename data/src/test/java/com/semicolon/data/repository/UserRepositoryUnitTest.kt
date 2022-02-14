@@ -6,6 +6,7 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.semicolon.data.local.datasource.LocalUserDataSource
 import com.semicolon.data.remote.datasource.RemoteImagesDataSource
 import com.semicolon.data.remote.datasource.RemoteUserDataSource
+import com.semicolon.data.remote.request.users.UserChangePasswordRequest
 import com.semicolon.data.remote.request.users.UserSignInRequest
 import com.semicolon.data.remote.response.image.ImagesResponse
 import com.semicolon.data.remote.response.users.UserSignInResponse
@@ -36,6 +37,7 @@ class UserRepositoryUnitTest {
     private val password = "password"
     private val deviceToken = "device_token"
     private val phoneNumber = "010-1234-1234"
+    private val authCode = "auth_code"
 
     private val postUserSignInParam = PostUserSignInParam(
         accountId,
@@ -71,6 +73,24 @@ class UserRepositoryUnitTest {
         "최민준",
         File("https://testImageUrl"),
         "male"
+    )
+
+    private val patchUserHealthParam = PatchUserHealthParam(
+        176.8,
+        60
+    )
+
+    private val userChangePasswordRequest = UserChangePasswordRequest(
+        accountId,
+        phoneNumber,
+        authCode,
+        "newPassword!"
+    )
+
+    private val signUpClassParam = SignUpClassParam(
+        1,
+        "2-3",
+        19
     )
 
 
@@ -168,6 +188,15 @@ class UserRepositoryUnitTest {
                 .collect {
                     assertEquals(findUserAccountEntity, it)
                 }
+        }
+    }
+
+    @Test
+    fun testPatchUserHealth() {
+
+        runBlocking {
+            val repositoryResult = userRepository.patchUserHealth(patchUserHealthParam)
+            assertEquals(Unit, repositoryResult)
         }
     }
 
