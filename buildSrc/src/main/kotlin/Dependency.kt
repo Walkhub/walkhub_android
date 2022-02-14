@@ -24,6 +24,7 @@ object Dependency {
         const val espresso = "androidx.test.espresso:espresso-core:${Version.espresso}"
         const val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:${Version.mockitoKotlin}"
         const val mockitoInline = "org.mockito:mockito-inline:${Version.mockitoInline}"
+        const val threeTenAbp =  "org.threeten:threetenbp:${Version.threeTenAbp}"
     }
 
     object Coroutine {
@@ -76,5 +77,9 @@ object Dependency {
     object WorkManager {
         const val ktx = "androidx.work:work-runtime-ktx:${Version.workManager}"
         const val hiltExtension = "androidx.hilt:hilt-work:${Version.workManagerHiltExtension}"
+    }
+
+    object Permission {
+        const val tedPermission = "io.github.ParkSangGwon:tedpermission-normal:${Version.tedPermission}"
     }
 }
