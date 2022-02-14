@@ -1,6 +1,7 @@
 package com.semicolon.data.remote.response.notice
 
 import com.google.gson.annotations.SerializedName
+import java.time.LocalDateTime
 
 data class NoticeListResponse(
     @SerializedName("notice_list") val noticeList: List<NoticeListValue>
@@ -9,7 +10,7 @@ data class NoticeListResponse(
     data class NoticeListValue (
         @SerializedName("id") val noticeId: Int,
         @SerializedName("title") val title: String,
-        @SerializedName("created_at") val createdAt: String,
+        @SerializedName("created_at") val createdAt: LocalDateTime,
         @SerializedName("writer") val noticeWriter: NoticeWriter
     ){
         data class NoticeWriter (

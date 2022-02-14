@@ -1,6 +1,6 @@
 package com.semicolon.domain.entity.notice
 
-import org.threeten.bp.LocalDateTime
+import java.time.LocalDateTime
 
 data class NoticeEntity(
     val noticeId: Int,
