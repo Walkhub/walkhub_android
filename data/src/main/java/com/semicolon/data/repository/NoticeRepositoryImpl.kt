@@ -2,6 +2,7 @@ package com.semicolon.data.repository
 
 import com.semicolon.data.local.datasource.LocalNoticeDataSource
 import com.semicolon.data.remote.datasource.RemoteNoticeDataSource
+import com.semicolon.data.remote.response.notice.toEntity
 import com.semicolon.data.util.OfflineCacheUtil
 import com.semicolon.domain.entity.notice.NoticeEntity
 import com.semicolon.domain.enum.NoticeType
@@ -14,11 +15,10 @@ class NoticeRepositoryImpl @Inject constructor(
     private val remoteNoticeDataSource: RemoteNoticeDataSource
 ) : NoticeRepository {
 
-    override suspend fun fetchNoticeList(noticeType: NoticeType): Flow<List<NoticeEntity>> =
-        OfflineCacheUtil<List<NoticeEntity>>()
-            .remoteData { remoteNoticeDataSource.fetchNoticeList(noticeType.toString()) }
+    override suspend fun fetchNoticeList(noticeType: NoticeType): Flow<NoticeEntity> =
+        OfflineCacheUtil<NoticeEntity>()
+            .remoteData { remoteNoticeDataSource.fetchNoticeList(noticeType.toString()).toEntity() }
             .localData { localNoticeDataSource.fetchNoticeList() }
-            .compareData { localData, remoteData -> localData.containsAll(remoteData) }
             .doOnNeedRefresh { localNoticeDataSource.saveNoticeList(it) }
             .createFlow()
 }
