@@ -84,5 +84,18 @@ class UserRepositoryUnitTest {
             assertEquals(Unit,repositoryResult)
         }
     }
+    @Test
+    fun tesPatchUserChangePassword() {
 
+        val patchUserChangePasswordParam = PatchUserChangePasswordParam(
+            "13",
+            "010-2100-2936",
+            "auth_code",
+            "alswns",
+        )
+        runBlocking {
+            val repositoryResult = userRepository.patchUserChangePassword(patchUserChangePasswordParam)
+            assertEquals(Unit,repositoryResult)
+        }
+    }
 }
