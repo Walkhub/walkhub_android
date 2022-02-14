@@ -2,6 +2,7 @@ package com.semicolon.data.repository
 
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import com.semicolon.data.local.datasource.LocalUserDataSource
 import com.semicolon.data.remote.datasource.RemoteImagesDataSource
@@ -50,6 +51,8 @@ class UserRepositoryUnitTest {
         password,
         deviceToken
     )
+
+    private val userSignInRequest = mock<UserSignInRequest>()
 
     private val myPageEntity = UserMyPageEntity(
         13,
@@ -205,7 +208,7 @@ class UserRepositoryUnitTest {
 
         runBlocking {
             val repositoryResult = userRepository.signUpClass(signUpClassParam)
-            assertEquals(Unit,repositoryResult)
+            assertEquals(Unit, repositoryResult)
         }
     }
 
@@ -215,6 +218,26 @@ class UserRepositoryUnitTest {
         runBlocking {
             val repositoryResult = userRepository.patchSchool(1)
             assertEquals(Unit, repositoryResult)
+        }
+    }
+
+    @Test
+    fun testAutoLogin() {
+
+        val id = "id"
+        val password = "password"
+        val deviceToken = "device_token"
+        runBlocking {
+
+            whenever(localUserDataSource.fetchId()).thenReturn(id)
+            whenever(localUserDataSource.fetchPw()).thenReturn(password)
+            whenever(localUserDataSource.fetchDeviceToken()).thenReturn(deviceToken)
+
+            userRepository.autoLogin()
+            verify(remoteUserDataSource)
+                .postUserSignIn(
+                    UserSignInRequest(id,password, deviceToken)
+                )
         }
     }
 
