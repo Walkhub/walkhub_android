@@ -3,6 +3,7 @@ package com.semicolon.walkhub.ui.login
 import android.Manifest
 import android.content.Intent
 import android.os.Build
+import androidx.lifecycle.MutableLiveData
 import com.example.nms_android_v1.base.BaseActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.fitness.FitnessOptions
@@ -15,6 +16,7 @@ import com.semicolon.data.local.datasource.LocalExerciseDataSourceImpl
 import com.semicolon.data.local.param.PeriodParam
 import com.semicolon.data.local.storage.ExerciseInfoDataStorageImpl
 import com.semicolon.data.local.storage.FitnessDataStorageImpl
+import com.semicolon.domain.entity.exercise.DailyExerciseEntity
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
@@ -24,6 +26,7 @@ import org.threeten.bp.ZoneId
 class LoginActivity : BaseActivity<ActivityLoginBinding>(
     R.layout.activity_login
 ) {
+
     private val fitnessOptions =
         FitnessOptions.builder()
             .addDataType(DataType.AGGREGATE_STEP_COUNT_DELTA)
@@ -33,8 +36,19 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(
             .addDataType(DataType.TYPE_LOCATION_SAMPLE)
             .build()
 
+    // TODO: 나중에 지워
+    private val liveData = MutableLiveData<DailyExerciseEntity>()
+
     override fun initView() {
         requestPermissions()
+
+        // TODO: 나중에 지워
+        liveData.observe(this) {
+            binding.steps.setText("걸음 수 : ${it.stepCount.toString()}회")
+            binding.times.setText("운동 시간 : ${it.exerciseTimeAsMilli.toString()}ms")
+            binding.distance.setText("이동 거리 : ${it.traveledDistanceAsMeter.toString()}m")
+            binding.calories.setText("소모한 칼로리 : ${it.burnedKilocalories.toString()}cals")
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -52,6 +66,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(
 
         GlobalScope.launch {
             a.fetchDailyExerciseRecordAsFlow().collect {
+                liveData.postValue(it)
                 println(it.toString())
             }
         }
