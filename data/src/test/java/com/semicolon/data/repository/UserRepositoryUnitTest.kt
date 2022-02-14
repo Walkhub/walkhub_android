@@ -1,21 +1,24 @@
 package com.semicolon.data.repository
 
+import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import com.semicolon.data.local.datasource.LocalUserDataSource
 import com.semicolon.data.remote.datasource.RemoteImagesDataSource
 import com.semicolon.data.remote.datasource.RemoteUserDataSource
 import com.semicolon.data.remote.request.users.UserSignInRequest
+import com.semicolon.data.remote.response.image.ImagesResponse
 import com.semicolon.data.remote.response.users.UserSignInResponse
 import com.semicolon.domain.entity.users.UserMyPageEntity
-import com.semicolon.domain.param.user.PatchUserChangePasswordParam
-import com.semicolon.domain.param.user.PostUserSignInParam
-import com.semicolon.domain.param.user.PostUserSignUpParam
-import com.semicolon.domain.param.user.VerifyPhoneNumberSignUpParam
+import com.semicolon.domain.param.user.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import java.io.File
 
 class UserRepositoryUnitTest {
 
@@ -63,6 +66,12 @@ class UserRepositoryUnitTest {
             "레벨",
             "https://testImageUrl"
         )
+    )
+
+    private val upDateProfileParam = UpdateProfileParam(
+        "최민준",
+        File("https://testImageUrl"),
+        "male"
     )
 
 
@@ -129,6 +138,19 @@ class UserRepositoryUnitTest {
             val repositoryResult = userRepository.fetchMyPage()
             repositoryResult.collect{
                 assertEquals(myPageEntity,it)
+            }
+        }
+    }
+    @Test
+    fun testUpdateProfile() {
+        runBlocking {
+            val imagesResponse = ImagesResponse(listOf("http://test.image"))
+
+            runBlocking {
+                whenever(imageDataSource.postImages(any())).thenReturn(imagesResponse)
+
+                val repositoryResult = userRepository.updateProfile(upDateProfileParam)
+                assertEquals(Unit,repositoryResult)
             }
         }
     }
