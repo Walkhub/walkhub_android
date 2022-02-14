@@ -7,7 +7,6 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.semicolon.data.local.datasource.LocalUserDataSource
 import com.semicolon.data.remote.datasource.RemoteImagesDataSource
 import com.semicolon.data.remote.datasource.RemoteUserDataSource
-import com.semicolon.data.remote.request.users.UserChangePasswordRequest
 import com.semicolon.data.remote.request.users.UserSignInRequest
 import com.semicolon.data.remote.response.image.ImagesResponse
 import com.semicolon.data.remote.response.users.UserSignInResponse
@@ -16,12 +15,7 @@ import com.semicolon.domain.entity.users.FindUserAccountEntity
 import com.semicolon.domain.entity.users.UserMyPageEntity
 import com.semicolon.domain.entity.users.UserProfileEntity
 import com.semicolon.domain.param.user.*
-import com.semicolon.domain.repository.UserRepository
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
-import okhttp3.MediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.io.File
@@ -36,73 +30,11 @@ class UserRepositoryUnitTest {
     private val userRepository =
         UserRepositoryImpl(imageDataSource, localUserDataSource, remoteUserDataSource)
 
-    private val accountId = "13"
-    private val password = "password"
-    private val deviceToken = "device_token"
-    private val phoneNumber = "010-1234-1234"
-    private val authCode = "auth_code"
 
     private val fetchCaloriesLevelEntity = mock<FetchCaloriesLevelEntity>()
-
     private val userProfileEntity = mock<UserProfileEntity>()
-
-    private val postUserSignInParam = PostUserSignInParam(
-        accountId,
-        password,
-        deviceToken
-    )
-
-    private val userSignInResponse = UserSignInResponse(
-        accountId,
-        password,
-        deviceToken
-    )
-
-    private val userSignInRequest = mock<UserSignInRequest>()
-
-    private val myPageEntity = UserMyPageEntity(
-        13,
-        "김재원",
-        "https://testImageUrl",
-        "대덕소프트웨어마이스터고",
-        3,
-        2,
-        UserMyPageEntity.TitleBadge(
-            14,
-            "뱃지",
-            "https://testImageUrl"
-        ),
-        UserMyPageEntity.Level(
-            "레벨",
-            "https://testImageUrl"
-        )
-    )
-
-    private val upDateProfileParam = UpdateProfileParam(
-        "최민준",
-        File("https://testImageUrl"),
-        "male"
-    )
-
-    private val patchUserHealthParam = PatchUserHealthParam(
-        176.8,
-        60
-    )
-
-    private val userChangePasswordRequest = UserChangePasswordRequest(
-        accountId,
-        phoneNumber,
-        authCode,
-        "newPassword!"
-    )
-
-    private val signUpClassParam = SignUpClassParam(
-        1,
-        "2-3",
-        19
-    )
-
-
+    private val userSignInResponse = mock<UserSignInResponse>()
+    private val myPageEntity = mock<UserMyPageEntity>()
 
     @Test
     fun testVerifyUserPhoneNumber() {
@@ -116,7 +48,7 @@ class UserRepositoryUnitTest {
     @Test
     fun testPostUserSignUp() {
         val request = PostUserSignUpParam(
-            accountId,
+            "accountId",
             "dlwodnjs0310",
             "이재원",
             "010-2100-2936",
@@ -132,7 +64,11 @@ class UserRepositoryUnitTest {
 
     @Test
     fun testPostUserSignIn() {
-
+        val postUserSignInParam = PostUserSignInParam(
+            "accountId",
+            "password",
+            "deviceToken"
+        )
         runBlocking {
             whenever(remoteUserDataSource.postUserSignIn(any())).thenReturn(userSignInResponse)
 
@@ -143,9 +79,8 @@ class UserRepositoryUnitTest {
 
     @Test
     fun tesPatchUserChangePassword() {
-
         val patchUserChangePasswordParam = PatchUserChangePasswordParam(
-            accountId,
+            "accountId",
             "010-2100-2936",
             "auth_code",
             "alswns",
@@ -164,15 +99,20 @@ class UserRepositoryUnitTest {
             whenever(localUserDataSource.fetchUserMyPage()).thenReturn(myPageEntity)
             whenever(remoteUserDataSource.fetchMyPage()).thenReturn(myPageEntity)
 
-            val repositoryResult = userRepository.fetchMyPage()
-            repositoryResult.collect {
-                assertEquals(myPageEntity, it)
-            }
+            userRepository.fetchMyPage()
+                .collect {
+                    assertEquals(myPageEntity, it)
+                }
         }
     }
 
     @Test
     fun testUpdateProfile() {
+        val upDateProfileParam = UpdateProfileParam(
+            "최민준",
+            File("https://testImageUrl"),
+            "male"
+        )
         runBlocking {
             val imagesResponse = ImagesResponse(listOf("http://test.image"))
 
@@ -187,7 +127,6 @@ class UserRepositoryUnitTest {
 
     @Test
     fun testFindUserAccount() {
-
         val findUserAccountEntity = FindUserAccountEntity("account_id")
         runBlocking {
             whenever(remoteUserDataSource.findUserAccount(any())).thenReturn(
@@ -203,7 +142,10 @@ class UserRepositoryUnitTest {
 
     @Test
     fun testPatchUserHealth() {
-
+        val patchUserHealthParam = PatchUserHealthParam(
+            176.8,
+            60
+        )
         runBlocking {
             val repositoryResult = userRepository.patchUserHealth(patchUserHealthParam)
             assertEquals(Unit, repositoryResult)
@@ -212,7 +154,11 @@ class UserRepositoryUnitTest {
 
     @Test
     fun testSignUpClass() {
-
+        val signUpClassParam = SignUpClassParam(
+            1,
+            "2-3",
+            19
+        )
         runBlocking {
             val repositoryResult = userRepository.signUpClass(signUpClassParam)
             assertEquals(Unit, repositoryResult)
@@ -221,7 +167,6 @@ class UserRepositoryUnitTest {
 
     @Test
     fun testPatchSchool() {
-
         runBlocking {
             val repositoryResult = userRepository.patchSchool(1)
             assertEquals(Unit, repositoryResult)
@@ -230,7 +175,6 @@ class UserRepositoryUnitTest {
 
     @Test
     fun testAutoLogin() {
-
         val id = "id"
         val password = "password"
         val deviceToken = "device_token"
@@ -259,7 +203,6 @@ class UserRepositoryUnitTest {
 
     @Test
     fun testFetchCaloriesLevel() {
-
         runBlocking {
             whenever(remoteUserDataSource.fetchCaloriesLevelList()).thenReturn(
                 fetchCaloriesLevelEntity
@@ -277,19 +220,16 @@ class UserRepositoryUnitTest {
 
     @Test
     fun testFetchUserProfile() {
-
         runBlocking {
-            whenever(remoteUserDataSource.fetchUserProfile(1)).thenReturn(userProfileEntity)
-            whenever(localUserDataSource.fetchUserProfile(1)).thenReturn(userProfileEntity)
+            whenever(remoteUserDataSource.fetchUserProfile(any())).thenReturn(userProfileEntity)
+            whenever(localUserDataSource.fetchUserProfile(any())).thenReturn(userProfileEntity)
 
-            val repositoryResult = userRepository.fetchUserProfile(1)
-
-                repositoryResult.collect{
-                    assertEquals(userProfileEntity,it)
+            userRepository.fetchUserProfile(1)
+                .collect {
+                    assertEquals(userProfileEntity, it)
                 }
         }
     }
-
 
 
 }
