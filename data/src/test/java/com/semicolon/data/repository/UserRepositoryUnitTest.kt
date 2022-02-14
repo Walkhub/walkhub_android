@@ -9,6 +9,7 @@ import com.semicolon.data.remote.datasource.RemoteUserDataSource
 import com.semicolon.data.remote.request.users.UserSignInRequest
 import com.semicolon.data.remote.response.image.ImagesResponse
 import com.semicolon.data.remote.response.users.UserSignInResponse
+import com.semicolon.domain.entity.users.FindUserAccountEntity
 import com.semicolon.domain.entity.users.UserMyPageEntity
 import com.semicolon.domain.param.user.*
 import com.semicolon.domain.repository.UserRepository
@@ -28,12 +29,13 @@ class UserRepositoryUnitTest {
 
     private val imageDataSource = mock<RemoteImagesDataSource>()
 
-    private val userRepository: UserRepository =
+    private val userRepository =
         UserRepositoryImpl(imageDataSource, localUserDataSource, remoteUserDataSource)
 
-    val accountId = "13"
-    val password = "password"
-    val deviceToken = "device_token"
+    private val accountId = "13"
+    private val password = "password"
+    private val deviceToken = "device_token"
+    private val phoneNumber = "010-1234-1234"
 
     private val postUserSignInParam = PostUserSignInParam(
         accountId,
@@ -72,9 +74,6 @@ class UserRepositoryUnitTest {
     )
 
 
-
-
-
     @Test
     fun testVerifyUserPhoneNumber() {
         runBlocking {
@@ -87,7 +86,7 @@ class UserRepositoryUnitTest {
     @Test
     fun testPostUserSignUp() {
         val request = PostUserSignUpParam(
-            "13",
+            accountId,
             "dlwodnjs0310",
             "이재원",
             "010-2100-2936",
@@ -100,6 +99,7 @@ class UserRepositoryUnitTest {
             assertEquals(Unit, repositoryResult)
         }
     }
+
     @Test
     fun testPostUserSignIn() {
 
@@ -107,21 +107,23 @@ class UserRepositoryUnitTest {
             whenever(remoteUserDataSource.postUserSignIn(any())).thenReturn(userSignInResponse)
 
             val repositoryResult = userRepository.postUserSignIn(postUserSignInParam)
-            assertEquals(Unit,repositoryResult)
+            assertEquals(Unit, repositoryResult)
         }
     }
+
     @Test
     fun tesPatchUserChangePassword() {
 
         val patchUserChangePasswordParam = PatchUserChangePasswordParam(
-            "13",
+            accountId,
             "010-2100-2936",
             "auth_code",
             "alswns",
         )
         runBlocking {
-            val repositoryResult = userRepository.patchUserChangePassword(patchUserChangePasswordParam)
-            assertEquals(Unit,repositoryResult)
+            val repositoryResult =
+                userRepository.patchUserChangePassword(patchUserChangePasswordParam)
+            assertEquals(Unit, repositoryResult)
         }
     }
 
@@ -133,11 +135,12 @@ class UserRepositoryUnitTest {
             whenever(remoteUserDataSource.fetchMyPage()).thenReturn(myPageEntity)
 
             val repositoryResult = userRepository.fetchMyPage()
-            repositoryResult.collect{
-                assertEquals(myPageEntity,it)
+            repositoryResult.collect {
+                assertEquals(myPageEntity, it)
             }
         }
     }
+
     @Test
     fun testUpdateProfile() {
         runBlocking {
@@ -147,8 +150,26 @@ class UserRepositoryUnitTest {
                 whenever(imageDataSource.postImages(any())).thenReturn(imagesResponse)
 
                 val repositoryResult = userRepository.updateProfile(upDateProfileParam)
-                assertEquals(Unit,repositoryResult)
+                assertEquals(Unit, repositoryResult)
             }
         }
     }
+
+    @Test
+    fun testFindUserAccount() {
+
+        val findUserAccountEntity = FindUserAccountEntity("account_id")
+        runBlocking {
+            whenever(remoteUserDataSource.findUserAccount(any())).thenReturn(
+                findUserAccountEntity
+            )
+
+            userRepository.findUserAccount("010-1234-5678")
+                .collect {
+                    assertEquals(findUserAccountEntity, it)
+                }
+        }
+    }
+
+
 }
