@@ -34,15 +34,12 @@ class FCMManager : FirebaseMessagingService() {
         val message = remoteMessage.data["message"]
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = "채널"
-            val channelName = "채널명"
             val notificationChannel = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             val channelMessage = NotificationChannel(
                 channel, channelName,
                 NotificationManager.IMPORTANCE_DEFAULT
             )
 
-            channelMessage.description = "채널에 대한 설명."
             channelMessage.enableLights(true)
             channelMessage.enableVibration(true)
             channelMessage.setShowBadge(false)
