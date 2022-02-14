@@ -86,8 +86,8 @@ class ExerciseRepositoryImpl @Inject constructor(
         exerciseBackgroundTask.synchronizeExerciseRecord(1, TimeUnit.HOURS)
 
     override suspend fun fetchExerciseRecordList(): Flow<List<ExerciseRecordEntity>> =
-        flow { remoteExerciseDataSource.fetchExerciseRecordList().toEntityList() }
+        flow { emit(remoteExerciseDataSource.fetchExerciseRecordList().toEntityList()) }
 
     override suspend fun fetchExerciseAnalysisResult(): Flow<ExerciseAnalysisResultEntity> =
-        flow { remoteExerciseDataSource.fetchExerciseAnalysisResult().toEntity() }
+        flow { emit(remoteExerciseDataSource.fetchExerciseAnalysisResult().toEntity()) }
 }
