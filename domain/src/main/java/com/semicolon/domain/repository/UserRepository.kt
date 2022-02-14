@@ -15,7 +15,7 @@ interface UserRepository {
 
     suspend fun postUserSignIn(
         postUserSignInParam: PostUserSignInParam
-    ) : Flow<UserSignInEntity>
+    )
 
     suspend fun patchUserChangePassword(
         patchUserChangePasswordParam: PatchUserChangePasswordParam
@@ -27,14 +27,6 @@ interface UserRepository {
 
     suspend fun fetchMyPage(
     ) : Flow<UserMyPageEntity>
-
-    suspend fun fetchUserOwnBadge(
-        userId: Int
-    ) : Flow<UserOwnBadgeEntity>
-
-    suspend fun setBadge(
-        badgeId: Int
-    )
 
     suspend fun updateProfile(
         updateProfileParam: UpdateProfileParam
@@ -53,6 +45,14 @@ interface UserRepository {
     )
 
     suspend fun patchSchool(
-        agencyCode: String
+        schoolId: Int
     )
+
+    suspend fun autoLogin()
+
+    suspend fun patchDailyWalkGoal(
+        patchDailyWalkGoalParam: PatchDailyWalkGoalParam
+    )
+
+    suspend fun fetchCaloriesLevel() : Flow<FetchCaloriesLevelEntity>
 }

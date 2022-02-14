@@ -26,10 +26,11 @@ class SynchronizeExerciseWorker @AssistedInject constructor(
             val exerciseRecord = localExerciseDataSource.fetchDailyExerciseRecordAsFlow().first()
             val date = LocalDate.now().toString()
             remoteExerciseDataSource.saveDailyExercise(
-                date,
                 SaveDailyExerciseRequest(
                     distanceAsCentimeter = exerciseRecord.traveledDistanceAsMeter * 100,
-                    walkCount = exerciseRecord.stepCount
+                    walkCount = exerciseRecord.stepCount,
+                    date = date,
+                    calories = exerciseRecord.burnedKilocalories.toInt()
                 )
             )
             Result.success()
