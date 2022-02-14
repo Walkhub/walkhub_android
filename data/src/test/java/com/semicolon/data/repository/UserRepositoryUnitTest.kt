@@ -200,5 +200,13 @@ class UserRepositoryUnitTest {
         }
     }
 
+    @Test
+    fun testSignUpClass() {
+
+        runBlocking {
+            val repositoryResult = userRepository.signUpClass(signUpClassParam)
+            assertEquals(Unit,repositoryResult)
+        }
+    }
 
 }
