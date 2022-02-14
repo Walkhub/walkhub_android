@@ -7,51 +7,60 @@ import java.time.LocalDateTime
 
 
 @Entity(tableName = "notice")
+
 data class NoticeListRoomEntity(
-    @PrimaryKey var noticeId: Int,
-    val title: String,
-    val createdAt: LocalDateTime,
-    val noticeWriter: NoticeWriterRoomEntity
+    val noticeValueRoomEntity: List<NoticeValueRoomEntity>
 ) {
-    data class NoticeWriterRoomEntity(
-        var writerId: Int,
-        val writerName: String,
-        val profileUrl: String
-    )
+    data class NoticeValueRoomEntity(
+        @PrimaryKey var noticeId: Int,
+        val title: String,
+        val createdAt: LocalDateTime,
+        val noticeWriter: NoticeWriterRoomEntity
+    ) {
+        data class NoticeWriterRoomEntity(
+            var writerId: Int,
+            val writerName: String,
+            val profileUrl: String
+        )
+    }
 }
 
 fun NoticeListRoomEntity.toEntity() =
-    NoticeEntity(
+    NoticeListRoomEntity(
+        noticeValueRoomEntity = noticeValueRoomEntity
+    )
+
+fun NoticeListRoomEntity.NoticeValueRoomEntity.toEntity() =
+    NoticeEntity.NoticeValueEntity(
         noticeId = noticeId,
         title = title,
         createdAt = createdAt,
         noticeWriter = noticeWriter.toEntity()
     )
 
-fun NoticeListRoomEntity.NoticeWriterRoomEntity.toEntity() =
-    NoticeEntity.NoticeWriterEntity (
+fun NoticeListRoomEntity.NoticeValueRoomEntity.NoticeWriterRoomEntity.toEntity() =
+    NoticeEntity.NoticeValueEntity.NoticeWriterEntity(
         writerId = writerId,
         writerName = writerName,
         profileUrl = profileUrl
     )
-
-fun List<NoticeListRoomEntity>.toEntity() =
-    map { it.toEntity() }
 
 fun NoticeEntity.toDbEntity() =
     NoticeListRoomEntity(
+        noticeValueRoomEntity = noticeValueEntity.map { it.toDbEntity() }
+    )
+
+fun NoticeEntity.NoticeValueEntity.toDbEntity() =
+    NoticeListRoomEntity.NoticeValueRoomEntity(
         noticeId = noticeId,
         title = title,
         createdAt = createdAt,
-        noticeWriter = noticeWriter.toDbEntity(),
+        noticeWriter = noticeWriter.toDbEntity()
     )
 
-fun NoticeEntity.NoticeWriterEntity.toDbEntity() =
-    NoticeListRoomEntity.NoticeWriterRoomEntity(
+fun NoticeEntity.NoticeValueEntity.NoticeWriterEntity.toDbEntity() =
+    NoticeListRoomEntity.NoticeValueRoomEntity.NoticeWriterRoomEntity(
         writerId = writerId,
         writerName = writerName,
         profileUrl = profileUrl
     )
-
-fun List<NoticeEntity>.toDbEntity() =
-    map { it.toDbEntity() }
