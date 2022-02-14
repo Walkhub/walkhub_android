@@ -37,7 +37,7 @@ class UserRepositoryImpl @Inject constructor(
 
     override suspend fun fetchMyPage(): Flow<UserMyPageEntity> =
         OfflineCacheUtil<UserMyPageEntity>()
-            .remoteData { remoteUserDateSource.fetchMyPage().toEntity() }
+            .remoteData { remoteUserDateSource.fetchMyPage() }
             .localData { localUserDataSource.fetchUserMyPage() }
             .doOnNeedRefresh { localUserDataSource.insertUserMyPage(it) }
             .createFlow()
@@ -57,7 +57,7 @@ class UserRepositoryImpl @Inject constructor(
 
     override suspend fun findUserAccount(phoneNumber: String): Flow<FindUserAccountEntity> =
         flow {
-            emit(remoteUserDateSource.findUserAccount(phoneNumber).toEntity())
+            emit(remoteUserDateSource.findUserAccount(phoneNumber))
         }
 
     override suspend fun patchUserHealth(patchUserHealthParam: PatchUserHealthParam) =
@@ -71,12 +71,54 @@ class UserRepositoryImpl @Inject constructor(
             signUpClassParam.toRequest()
         )
 
+<<<<<<< HEAD
     override suspend fun patchSchool(agencyCode: String) =
         remoteUserDateSource.patchSchool(agencyCode)
+=======
+    override suspend fun patchSchool(schoolId: Int) =
+        remoteUserDateSource.patchSchool(schoolId)
+
+    override suspend fun autoLogin() {
+        remoteUserDateSource.postUserSignIn(
+            UserSignInRequest(
+                localUserDataSource.fetchId(),
+                localUserDataSource.fetchPw(),
+                localUserDataSource.fetchDeviceToken()
+            )
+        )
+    }
+
+    override suspend fun patchDailyWalkGoal(patchDailyWalkGoalParam: PatchDailyWalkGoalParam) {
+        remoteUserDateSource.patchDailyWalkGoal(patchDailyWalkGoalParam.toRequest())
+    }
+
+    override suspend fun fetchCaloriesLevel(): Flow<FetchCaloriesLevelEntity> =
+        OfflineCacheUtil<FetchCaloriesLevelEntity>()
+            .remoteData { remoteUserDateSource.fetchCaloriesLevelList() }
+            .localData { localUserDataSource.fetchCaloriesLevelList() }
+            .doOnNeedRefresh { localUserDataSource.insertCaloriesLevelList(it) }
+            .createFlow()
+
+    private suspend fun saveToken(userSignInResponse: UserSignInResponse) {
+        localUserDataSource.apply {
+            setAccessToken(userSignInResponse.accessToken)
+            setRefreshToken(userSignInResponse.refreshToken)
+            setExpiredAt(userSignInResponse.expiredAt)
+        }
+    }
+
+    private suspend fun saveAccount(userSignInParam: PostUserSignInParam) {
+        localUserDataSource.apply {
+            setId(userSignInParam.accountId)
+            setPw(userSignInParam.password)
+            setDeviceToken(userSignInParam.deviceToken)
+        }
+    }
+>>>>>>> 60_Notice_data
 
     override suspend fun fetchUserProfile(userId: Int): Flow<UserProfileEntity> =
         OfflineCacheUtil<UserProfileEntity>()
-            .remoteData { remoteUserDateSource.fetchUserProfile(userId).toEntity() }
+            .remoteData { remoteUserDateSource.fetchUserProfile(userId) }
             .localData { localUserDataSource.fetchUserProfile(userId) }
             .doOnNeedRefresh { localUserDataSource.insertUserProfile(userId, it) }
             .createFlow()
