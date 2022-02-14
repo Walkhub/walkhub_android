@@ -11,6 +11,7 @@ import com.semicolon.data.remote.response.image.ImagesResponse
 import com.semicolon.data.remote.response.users.UserSignInResponse
 import com.semicolon.domain.entity.users.UserMyPageEntity
 import com.semicolon.domain.param.user.*
+import com.semicolon.domain.repository.UserRepository
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
 import okhttp3.MediaType
@@ -27,7 +28,7 @@ class UserRepositoryUnitTest {
 
     private val imageDataSource = mock<RemoteImagesDataSource>()
 
-    private val userRepository =
+    private val userRepository: UserRepository =
         UserRepositoryImpl(imageDataSource, localUserDataSource, remoteUserDataSource)
 
     val accountId = "13"
