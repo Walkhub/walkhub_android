@@ -5,5 +5,5 @@ import com.semicolon.domain.enum.NoticeType
 import kotlinx.coroutines.flow.Flow
 
 interface NoticeRepository{
-    suspend fun fetchNoticeList(noticeType: NoticeType): Flow<List<NoticeEntity>>
+    suspend fun fetchNoticeList(noticeType: NoticeType): Flow<NoticeEntity>
 }
