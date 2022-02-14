@@ -22,12 +22,9 @@ object Dependency {
         const val mockito = "org.mockito:mockito-core:${Version.mockito}"
         const val androidJunit = "androidx.test.ext:junit:${Version.androidJunit}"
         const val espresso = "androidx.test.espresso:espresso-core:${Version.espresso}"
-<<<<<<< HEAD
-=======
         const val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:${Version.mockitoKotlin}"
         const val mockitoInline = "org.mockito:mockito-inline:${Version.mockitoInline}"
         const val threeTenAbp =  "org.threeten:threetenbp:${Version.threeTenAbp}"
->>>>>>> 60_Notice_data
     }
 
     object Coroutine {

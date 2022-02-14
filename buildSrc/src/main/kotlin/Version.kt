@@ -24,10 +24,7 @@ object Version {
     const val workManager = "2.7.1"
     const val workManagerHiltExtension = "1.0.0"
     const val sharedPreference = "1.1.1"
-<<<<<<< HEAD
-=======
     const val mockitoKotlin = "2.2.0"
     const val mockitoInline = "2.21.0"
     const val tedPermission = "3.3.0"
->>>>>>> 60_Notice_data
 }
