@@ -39,11 +39,7 @@ class UserRepositoryUnitTest {
         password,
         deviceToken
     )
-    private val userSignInRequest = UserSignInRequest(
-        accountId,
-        password,
-        deviceToken
-    )
+
     private val userSignInResponse = UserSignInResponse(
         accountId,
         password,
@@ -107,7 +103,7 @@ class UserRepositoryUnitTest {
     fun testPostUserSignIn() {
 
         runBlocking {
-            whenever(remoteUserDataSource.postUserSignIn(userSignInRequest)).thenReturn(userSignInResponse)
+            whenever(remoteUserDataSource.postUserSignIn(any())).thenReturn(userSignInResponse)
 
             val repositoryResult = userRepository.postUserSignIn(postUserSignInParam)
             assertEquals(Unit,repositoryResult)
