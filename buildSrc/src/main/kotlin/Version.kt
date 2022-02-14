@@ -27,4 +27,7 @@ object Version {
     const val sharedPreference = "1.1.1"
     const val mockitoKotlin = "2.2.0"
     const val mockitoInline = "2.21.0"
+    const val fcm = "20.1.0"
+    const val service = "4.3.10"
+    const val message = "23.0.0"
 }
