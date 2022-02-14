@@ -50,7 +50,7 @@ class LocalExerciseDataSourceImpl @Inject constructor(
                         ?.getValue(Field.FIELD_DURATION)?.asInt() ?: 0
                     distance = it.buckets.firstOrNull()
                         ?.getDataSet(DataType.AGGREGATE_DISTANCE_DELTA)!!.dataPoints.firstOrNull()
-                        ?.getValue(Field.FIELD_DISTANCE)?.asInt() ?: 0
+                        ?.getValue(Field.FIELD_DISTANCE)?.asFloat()?.toInt() ?:0
                     calories = it.buckets.firstOrNull()
                         ?.getDataSet(DataType.AGGREGATE_CALORIES_EXPENDED)!!.dataPoints.firstOrNull()
                         ?.getValue(Field.FIELD_CALORIES)?.asFloat() ?: 0f
@@ -96,7 +96,7 @@ class LocalExerciseDataSourceImpl @Inject constructor(
                     ?.getValue(Field.FIELD_STEPS)?.asInt() ?: 0
                 val distance = response.buckets.firstOrNull()
                     ?.getDataSet(DataType.AGGREGATE_DISTANCE_DELTA)!!.dataPoints.firstOrNull()
-                    ?.getValue(Field.FIELD_DISTANCE)?.asInt() ?: 0
+                    ?.getValue(Field.FIELD_DISTANCE)?.asFloat()?.toInt() ?: 0
                 val calories = response.buckets.firstOrNull()
                     ?.getDataSet(DataType.AGGREGATE_CALORIES_EXPENDED)!!.dataPoints.firstOrNull()
                     ?.getValue(Field.FIELD_CALORIES)?.asFloat() ?: 0f
