@@ -3,8 +3,6 @@ package com.semicolon.walkhub.ui.login
 import android.Manifest
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import com.example.nms_android_v1.base.BaseActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.fitness.FitnessOptions
@@ -13,21 +11,15 @@ import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityLoginBinding
-import android.widget.Toast
-import com.jakewharton.threetenabp.AndroidThreeTen
-import com.semicolon.data.local.datasource.LocalExerciseDataSource
 import com.semicolon.data.local.datasource.LocalExerciseDataSourceImpl
-import com.semicolon.data.local.storage.ExerciseInfoDataStorage
+import com.semicolon.data.local.param.PeriodParam
 import com.semicolon.data.local.storage.ExerciseInfoDataStorageImpl
 import com.semicolon.data.local.storage.FitnessDataStorageImpl
-
-import com.semicolon.walkhub.ui.MainActivity
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-
+import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.ZoneId
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>(
     R.layout.activity_login
@@ -53,10 +45,23 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(
             FitnessDataStorageImpl(this),
             ExerciseInfoDataStorageImpl(this)
         )
+        val period = PeriodParam(
+            LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toEpochSecond(),
+            LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond()
+        )
+
         GlobalScope.launch {
             a.fetchDailyExerciseRecordAsFlow().collect {
                 println(it.toString())
             }
+        }
+
+        GlobalScope.launch {
+            println(a.fetchWalkRecord(period).toString() + " walk record with period")
+        }
+
+        GlobalScope.launch {
+            println(a.fetchLocationRecord(period).toString()+ " location record with period")
         }
         // TODO: 나중에 로그인 개발할떄 지워줘
     }
