@@ -7,14 +7,14 @@ object Dependency {
 
     object UI {
         const val material = "com.google.android.material:material:${Version.material}"
-        const val constraintLayout =
-            "androidx.constraintlayout:constraintlayout:${Version.constraintLayout}"
+        const val constraintLayout = "androidx.constraintlayout:constraintlayout:${Version.constraintLayout}"
     }
 
     object GradlePlugin {
         const val android = "com.android.tools.build:gradle:${Version.gradle}"
         const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Version.kotlin}"
         const val hilt = "com.google.dagger:hilt-android-gradle-plugin:${Version.hilt}"
+        const val service = "com.google.gms:google-services:${Version.service}"
     }
 
     object Test {
@@ -76,5 +76,10 @@ object Dependency {
     object WorkManager {
         const val ktx = "androidx.work:work-runtime-ktx:${Version.workManager}"
         const val hiltExtension = "androidx.hilt:hilt-work:${Version.workManagerHiltExtension}"
+    }
+
+    object FireBase {
+        const val fcm = "com.google.firebase:firebase-analytics-ktx:${Version.fcm}"
+        const val message = "com.google.firebase:firebase-messaging:${Version.message}"
     }
 }
