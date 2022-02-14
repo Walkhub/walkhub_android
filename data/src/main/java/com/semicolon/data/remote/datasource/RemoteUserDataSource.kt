@@ -24,25 +24,21 @@ interface RemoteUserDataSource {
         userChangePasswordRequest: UserChangePasswordRequest
     )
 
-<<<<<<< HEAD
     suspend fun fetchMyPage(): FetchMyPageResponse
-=======
+
     suspend fun findUserAccount(
         phoneNumber: String
     ): FindUserAccountEntity
->>>>>>> 60_Notice_data
 
     suspend fun fetchUserProfile(
         userId: Int
     ): UserProfileEntity
 
-<<<<<<< HEAD
     suspend fun fetchUserOwnBadge(
         userId: Int
     ): FetchOwnBadgeResponse
-=======
+
     suspend fun fetchMyPage(): UserMyPageEntity
->>>>>>> 60_Notice_data
 
     suspend fun setBadge(
         badgeId: Int
@@ -67,11 +63,9 @@ interface RemoteUserDataSource {
         signUpClassRequest: SignUpClassRequest
     )
 
-<<<<<<< HEAD
     suspend fun patchSchool(
         agencyCode: String
     )
-=======
+
     suspend fun fetchCaloriesLevelList() : FetchCaloriesLevelEntity
->>>>>>> 60_Notice_data
 }

@@ -71,10 +71,9 @@ class UserRepositoryImpl @Inject constructor(
             signUpClassParam.toRequest()
         )
 
-<<<<<<< HEAD
     override suspend fun patchSchool(agencyCode: String) =
         remoteUserDateSource.patchSchool(agencyCode)
-=======
+
     override suspend fun patchSchool(schoolId: Int) =
         remoteUserDateSource.patchSchool(schoolId)
 
@@ -114,7 +113,6 @@ class UserRepositoryImpl @Inject constructor(
             setDeviceToken(userSignInParam.deviceToken)
         }
     }
->>>>>>> 60_Notice_data
 
     override suspend fun fetchUserProfile(userId: Int): Flow<UserProfileEntity> =
         OfflineCacheUtil<UserProfileEntity>()

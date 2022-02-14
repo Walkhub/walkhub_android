@@ -12,17 +12,16 @@ import retrofit2.http.*
 
 interface UserApi {
 
-<<<<<<< HEAD
     // 전화번호 인증(회원가입)
     @POST("users/signup/verification-codes")
     suspend fun verifyPhoneNumberSignUp(
         @Body verifyPhoneNumberSignUpRequest: VerifyPhoneNumberSignUpRequest
-=======
+    )
+
     @POST("users/classes/{section-id}")
     suspend fun signUpClass(
         @Path("section-id") groupId: Int,
         @Body signUpClassRequest: SignUpClassRequest
->>>>>>> 60_Notice_data
     )
 
     // 유저 회원가입
@@ -103,10 +102,7 @@ interface UserApi {
     suspend fun patchSchool(
         @Body agency_code: String
     )
-<<<<<<< HEAD
-=======
 
     @GET("users/levels/list")
     suspend fun fetchCaloriesLevelList(): FetchCaloriesLevelResponse
->>>>>>> 60_Notice_data
 }

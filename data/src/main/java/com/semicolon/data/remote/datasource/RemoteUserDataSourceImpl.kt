@@ -26,8 +26,6 @@ class RemoteUserDataSourceImpl @Inject constructor(
         .httpRequest { userApi.userSignUp(userSignUpRequest) }
         .sendRequest()
 
-<<<<<<< HEAD
-=======
     override suspend fun patchDailyWalkGoal(
         patchDailyWalkGoalRequest: PatchDailyWalkGoalRequest
     ) = HttpHandler<Unit>()
@@ -39,7 +37,6 @@ class RemoteUserDataSourceImpl @Inject constructor(
         .httpRequest { userApi.fetchCaloriesLevelList() }
         .sendRequest().toEntity()
 
->>>>>>> 60_Notice_data
     override suspend fun postUserSignIn(
         userSignInRequest: UserSignInRequest
     ) = HttpHandler<UserSignInResponse>()
