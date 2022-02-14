@@ -11,5 +11,11 @@ data class NoticeListResponse(
         @SerializedName("title") val title: String,
         @SerializedName("created_at") val createdAt: String,
         @SerializedName("writer") val noticeWriter: NoticeWriter
-    )
+    ){
+        data class NoticeWriter (
+            @SerializedName("id") val writerId: Int,
+            @SerializedName("name") val writerName: String,
+            @SerializedName("profile_url") val profileUrl: String
+        )
+    }
 }

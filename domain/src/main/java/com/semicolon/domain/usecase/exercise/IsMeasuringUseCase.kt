@@ -2,9 +2,8 @@ package com.semicolon.domain.usecase.exercise
 
 import com.semicolon.domain.repository.ExerciseRepository
 import com.semicolon.domain.usecase.UseCase
-import javax.inject.Inject
 
-class IsMeasuringUseCase @Inject constructor(
+class IsMeasuringUseCase(
     private val exerciseRepository: ExerciseRepository
 ) : UseCase<Unit, Boolean>() {
 

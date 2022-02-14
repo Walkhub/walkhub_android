@@ -2,20 +2,29 @@ package com.semicolon.data.local.converter
 
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
+import com.semicolon.data.local.entity.notice.NoticeListRoomEntity
+import com.semicolon.data.local.entity.user.UserOwnBadgeRoomEntity
+<<<<<<< HEAD
+=======
 import com.semicolon.data.local.entity.badge.FetchMyBadgesRoomEntity
 import com.semicolon.data.local.entity.badge.FetchNewBadgesRoomEntity
-import com.semicolon.data.local.entity.badge.FetchUserBadgesRoomEntity
 import com.semicolon.data.local.entity.user.FetchCaloriesLevelRoomEntity
+>>>>>>> 60_Notice_data
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 
 @ProvidedTypeConverter
-class CaloriesListTypeConverter(
+class BadgeListTypeConverter(
     private val moshi: Moshi
 ) {
 
     @TypeConverter
+<<<<<<< HEAD
+    fun fromString(value: String): List<UserOwnBadgeRoomEntity.Badge>? {
+        val listType = Types.newParameterizedType(List::class.java, UserOwnBadgeRoomEntity.Badge::class.java)
+        val adapter: JsonAdapter<List<UserOwnBadgeRoomEntity.Badge>> = moshi.adapter(listType)
+=======
     fun fromString(value: String): List<FetchCaloriesLevelRoomEntity.CaloriesLevel>? {
         val listType = Types.newParameterizedType(
             List::class.java,
@@ -23,10 +32,18 @@ class CaloriesListTypeConverter(
         )
         val adapter: JsonAdapter<List<FetchCaloriesLevelRoomEntity.CaloriesLevel>> =
             moshi.adapter(listType)
+>>>>>>> 60_Notice_data
         return adapter.fromJson(value)
     }
 
     @TypeConverter
+<<<<<<< HEAD
+    fun fromImage(type: List<UserOwnBadgeRoomEntity.Badge>): String {
+        val listType = Types.newParameterizedType(List::class.java, UserOwnBadgeRoomEntity.Badge::class.java)
+        val adapter: JsonAdapter<List<UserOwnBadgeRoomEntity.Badge>> = moshi.adapter(listType)
+        return adapter.toJson(type)
+    }
+=======
     fun fromList(type: List<FetchCaloriesLevelRoomEntity.CaloriesLevel>): String {
         val listType = Types.newParameterizedType(
             List::class.java,
@@ -42,6 +59,7 @@ class CaloriesListTypeConverter(
 class MyBadgeListTypeConverter(
     private val moshi: Moshi
 ) {
+>>>>>>> 60_Notice_data
 
     @TypeConverter
     fun fromString(value: String): List<FetchMyBadgesRoomEntity.Badge>? {
@@ -106,4 +124,21 @@ class UserBadgeListTypeConverter(
         val adapter: JsonAdapter<List<FetchUserBadgesRoomEntity.Badge>> = moshi.adapter(listType)
         return adapter.toJson(type)
     }
+}
+
+@ProvidedTypeConverter
+class NoticeListTypeConverter(
+    private val moshi: Moshi
+) {
+
+    @TypeConverter
+    fun fromStringToNotice(value: String): List<NoticeListRoomEntity>? {
+        val listType = Types.newParameterizedType(List::class.java, NoticeListRoomEntity::class.java)
+        val adapter: JsonAdapter<List<NoticeListRoomEntity>> = moshi.adapter(listType)
+        return adapter.fromJson(value)
+    }
+<<<<<<< HEAD
+
+=======
+>>>>>>> 60_Notice_data
 }

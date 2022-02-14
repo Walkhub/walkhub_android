@@ -1,8 +1,6 @@
 package com.semicolon.domain.entity.challenge
 
-import com.semicolon.domain.enum.ChallengeGoalScope
-import com.semicolon.domain.enum.ChallengeGoalType
-import com.semicolon.domain.enum.ChallengeUserScope
+import com.semicolon.domain.enum.ChallengeScope
 import org.threeten.bp.LocalDateTime
 
 data class ChallengeEntity(
@@ -11,7 +9,5 @@ data class ChallengeEntity(
     val startAt: LocalDateTime,
     val endAt: LocalDateTime,
     val imageUrl: String,
-    val userScope: ChallengeUserScope,
-    val goalScope: ChallengeGoalScope,
-    val goalType: ChallengeGoalType
+    val scope: ChallengeScope
 )

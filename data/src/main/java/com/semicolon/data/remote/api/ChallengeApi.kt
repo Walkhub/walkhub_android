@@ -21,11 +21,8 @@ interface ChallengeApi {
         @Path("challenge-id") challengeId: Int
     )
 
-    @GET("challenges/{challenge-id}/participants/students")
+    @GET("challenges/{challenge-id}/participants")
     suspend fun getChallengeParticipants(
         @Path("challenge-id") challengeId: Int
     ): ChallengeParticipantListResponse
-
-    @GET("challenges/participated")
-    suspend fun getMyChallenges(): ChallengeListResponse
 }

@@ -70,9 +70,6 @@ dependencies {
 
     implementation(Dependency.Lifecycle.viewModel)
 
-    implementation (Dependency.Navigation.navigationFragment)
-    implementation (Dependency.Navigation.navigationUi)
-
     implementation(Dependency.WorkManager.ktx)
     implementation(Dependency.WorkManager.hiltExtension)
 

@@ -8,45 +8,6 @@ import com.semicolon.domain.entity.users.UserMyPageEntity
 import com.semicolon.domain.entity.users.UserProfileEntity
 
 interface RemoteUserDataSource {
-    suspend fun signUpClass(
-        groupId: Int,
-        signUpClassRequest: SignUpClassRequest
-    )
-
-    suspend fun userReissue(
-        refreshToken: String
-    ): UserReissueResponse
-
-    suspend fun patchUserHealth(
-        patchUserHealthRequest: PatchUserHealthRequest
-    )
-
-    suspend fun updateProfile(
-        updateProfileRequest: UpdateProfileRequest
-    )
-
-    suspend fun patchSchool(
-        schoolId: Int
-    )
-
-    suspend fun findUserAccount(
-        phoneNumber: String
-    ): FindUserAccountEntity
-
-    suspend fun fetchUserProfile(
-        userId: Int
-    ): UserProfileEntity
-
-    suspend fun fetchMyPage(): UserMyPageEntity
-
-    suspend fun patchUserChangePassword(
-        userChangePasswordRequest: UserChangePasswordRequest
-    )
-
-    suspend fun postUserSignIn(
-        userSignInRequest: UserSignInRequest
-    ): UserSignInResponse
-
     suspend fun verifyUserPhoneNumber(
         verifyPhoneNumberSignUpRequest: VerifyPhoneNumberSignUpRequest
     )
@@ -55,9 +16,62 @@ interface RemoteUserDataSource {
         userSignUpRequest: UserSignUpRequest
     )
 
-    suspend fun patchDailyWalkGoal(
-        patchDailyWalkGoalRequest: PatchDailyWalkGoalRequest
+    suspend fun postUserSignIn(
+        userSignInRequest: UserSignInRequest
+    ): UserSignInResponse
+
+    suspend fun patchUserChangePassword(
+        userChangePasswordRequest: UserChangePasswordRequest
     )
 
+<<<<<<< HEAD
+    suspend fun fetchMyPage(): FetchMyPageResponse
+=======
+    suspend fun findUserAccount(
+        phoneNumber: String
+    ): FindUserAccountEntity
+>>>>>>> 60_Notice_data
+
+    suspend fun fetchUserProfile(
+        userId: Int
+    ): UserProfileEntity
+
+<<<<<<< HEAD
+    suspend fun fetchUserOwnBadge(
+        userId: Int
+    ): FetchOwnBadgeResponse
+=======
+    suspend fun fetchMyPage(): UserMyPageEntity
+>>>>>>> 60_Notice_data
+
+    suspend fun setBadge(
+        badgeId: Int
+    )
+
+    suspend fun updateProfile(
+        updateProfileRequest: UpdateProfileRequest
+    )
+
+    suspend fun findUserAccount(
+        phoneNumber: String
+    ): FindUserAccountResponse
+
+    suspend fun patchUserHealth(
+        patchUserHealthRequest: PatchUserHealthRequest
+    )
+
+    suspend fun signUpClass(
+        agencyCode: String,
+        grade: Int,
+        classRoom: Int,
+        signUpClassRequest: SignUpClassRequest
+    )
+
+<<<<<<< HEAD
+    suspend fun patchSchool(
+        agencyCode: String
+    )
+=======
     suspend fun fetchCaloriesLevelList() : FetchCaloriesLevelEntity
+>>>>>>> 60_Notice_data
 }

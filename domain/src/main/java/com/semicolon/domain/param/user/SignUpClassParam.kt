@@ -1,7 +1,9 @@
 package com.semicolon.domain.param.user
 
 data class SignUpClassParam(
-    val group_id: Int,
+    val agencyCode: String,
+    val grade: Int,
+    val classRoom: Int,
     val classCode: String,
     val number: Int
 )

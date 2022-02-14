@@ -5,7 +5,6 @@ data class PostUserSignUpParam(
     val password: String,
     val name: String,
     val phoneNumber: String,
-    val authCode: String,
-    val schoolName: String
+    val authCode: String
 )
 
