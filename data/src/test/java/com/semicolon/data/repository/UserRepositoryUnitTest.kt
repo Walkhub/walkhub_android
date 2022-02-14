@@ -1,9 +1,13 @@
 package com.semicolon.data.repository
 
 import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.whenever
 import com.semicolon.data.local.datasource.LocalUserDataSource
 import com.semicolon.data.remote.datasource.RemoteImagesDataSource
 import com.semicolon.data.remote.datasource.RemoteUserDataSource
+import com.semicolon.data.remote.request.users.UserSignInRequest
+import com.semicolon.data.remote.response.users.UserSignInResponse
+import com.semicolon.domain.param.user.PatchUserChangePasswordParam
 import com.semicolon.domain.param.user.PostUserSignInParam
 import com.semicolon.domain.param.user.PostUserSignUpParam
 import com.semicolon.domain.param.user.VerifyPhoneNumberSignUpParam
@@ -21,11 +25,29 @@ class UserRepositoryUnitTest {
     private val userRepository =
         UserRepositoryImpl(imageDataSource, localUserDataSource, remoteUserDataSource)
 
-    val postUserSignInParam = PostUserSignInParam(
-        "13",
-        "password",
-        "device_token"
+    val accountId = "13"
+    val password = "password"
+    val deviceToken = "device_token"
+
+    private val postUserSignInParam = PostUserSignInParam(
+        accountId,
+        password,
+        deviceToken
     )
+    private val userSignInRequest = UserSignInRequest(
+        accountId,
+        password,
+        deviceToken
+    )
+    private val userSignInResponse = UserSignInResponse(
+        accountId,
+        password,
+        deviceToken
+    )
+
+
+
+
 
     @Test
     fun testVerifyUserPhoneNumber() {
@@ -55,10 +77,12 @@ class UserRepositoryUnitTest {
     @Test
     fun testPostUserSignIn() {
 
-
         runBlocking {
+            whenever(remoteUserDataSource.postUserSignIn(userSignInRequest)).thenReturn(userSignInResponse)
+
             val repositoryResult = userRepository.postUserSignIn(postUserSignInParam)
             assertEquals(Unit,repositoryResult)
         }
     }
+
 }
