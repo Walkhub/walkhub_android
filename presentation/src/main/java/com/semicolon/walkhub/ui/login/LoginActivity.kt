@@ -45,6 +45,22 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(
         requestPermissions()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        // TODO: 이 이래는 테스트하려고 임시로 써놓은 코드임
+        if (requestCode != 0 && resultCode != RESULT_OK) return
+        val a = LocalExerciseDataSourceImpl(
+            FitnessDataStorageImpl(this),
+            ExerciseInfoDataStorageImpl(this)
+        )
+        GlobalScope.launch {
+            a.fetchDailyExerciseRecordAsFlow().collect {
+                println(it.toString())
+            }
+        }
+        // TODO: 나중에 로그인 개발할떄 지워줘
+    }
+
     private fun requestPermissions() {
         val permissionListener = object : PermissionListener {
             override fun onPermissionGranted() {
