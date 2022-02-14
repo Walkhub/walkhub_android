@@ -2,15 +2,15 @@ package com.semicolon.data.local.entity.notice
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.semicolon.data.util.toLocalDateTime
 import com.semicolon.domain.entity.notice.NoticeEntity
+import java.time.LocalDateTime
 
 
 @Entity(tableName = "notice")
 data class NoticeListRoomEntity(
     @PrimaryKey var noticeId: Int,
     val title: String,
-    val createdAt: String,
+    val createdAt: LocalDateTime,
     val noticeWriter: NoticeWriterRoomEntity
 ) {
     data class NoticeWriterRoomEntity(
@@ -24,7 +24,7 @@ fun NoticeListRoomEntity.toEntity() =
     NoticeEntity(
         noticeId = noticeId,
         title = title,
-        createdAt = createdAt.toLocalDateTime(),
+        createdAt = createdAt,
         noticeWriter = noticeWriter.toEntity()
     )
 
@@ -42,7 +42,7 @@ fun NoticeEntity.toDbEntity() =
     NoticeListRoomEntity(
         noticeId = noticeId,
         title = title,
-        createdAt = createdAt.toString(),
+        createdAt = createdAt,
         noticeWriter = noticeWriter.toDbEntity(),
     )
 
