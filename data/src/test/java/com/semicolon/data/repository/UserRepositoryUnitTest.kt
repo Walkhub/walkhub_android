@@ -14,6 +14,7 @@ import com.semicolon.data.remote.response.users.UserSignInResponse
 import com.semicolon.domain.entity.users.FetchCaloriesLevelEntity
 import com.semicolon.domain.entity.users.FindUserAccountEntity
 import com.semicolon.domain.entity.users.UserMyPageEntity
+import com.semicolon.domain.entity.users.UserProfileEntity
 import com.semicolon.domain.param.user.*
 import com.semicolon.domain.repository.UserRepository
 import kotlinx.coroutines.flow.collect
@@ -42,6 +43,8 @@ class UserRepositoryUnitTest {
     private val authCode = "auth_code"
 
     private val fetchCaloriesLevelEntity = mock<FetchCaloriesLevelEntity>()
+
+    private val userProfileEntity = mock<UserProfileEntity>()
 
     private val postUserSignInParam = PostUserSignInParam(
         accountId,
@@ -98,6 +101,7 @@ class UserRepositoryUnitTest {
         "2-3",
         19
     )
+
 
 
     @Test
@@ -267,6 +271,21 @@ class UserRepositoryUnitTest {
             userRepository.fetchCaloriesLevel()
                 .collect {
                     assertEquals(fetchCaloriesLevelEntity, it)
+                }
+        }
+    }
+
+    @Test
+    fun testFetchUserProfile() {
+
+        runBlocking {
+            whenever(remoteUserDataSource.fetchUserProfile(1)).thenReturn(userProfileEntity)
+            whenever(localUserDataSource.fetchUserProfile(1)).thenReturn(userProfileEntity)
+
+            val repositoryResult = userRepository.fetchUserProfile(1)
+
+                repositoryResult.collect{
+                    assertEquals(userProfileEntity,it)
                 }
         }
     }
