@@ -1,11 +1,11 @@
-package com.semicolon.domain.entity.users
+package com.semicolon.domain.entity.badge
 
-data class UserOwnBadgeEntity(
+data class FetchNewBadgesEntity(
     val badgeList: List<Badge>
 ) {
     data class Badge(
         val badgeId: Int,
-        val badgeImage: String,
+        val badgeImageUrl: String,
         val badgeName: String
     )
 }

@@ -79,4 +79,11 @@ dependencies {
 
     implementation(Dependency.FireBase.fcm)
     implementation(Dependency.FireBase.message)
+    
+    implementation(Dependency.GooglePlayService.fitness)
+    implementation(Dependency.GooglePlayService.auth)
+
+    implementation(Dependency.Permission.tedPermission)
+
+    implementation(Dependency.ThreeTenAndroidBackport.threeTenAbp)
 }

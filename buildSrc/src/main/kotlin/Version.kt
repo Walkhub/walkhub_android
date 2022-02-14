@@ -30,4 +30,5 @@ object Version {
     const val fcm = "20.1.0"
     const val service = "4.3.10"
     const val message = "23.0.0"
+    const val tedPermission = "3.3.0"
 }
