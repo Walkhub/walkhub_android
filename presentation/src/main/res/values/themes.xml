@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Walkhub" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Walkhub" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -12,5 +12,10 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:buttonStyle">@style/NotoSansButtonStyle</item>
+        <item name="android:editTextStyle">@style/NotoSansEditTextStyle</item>
+        <item name="android:radioButtonStyle">@style/NotoSansRadioButtonStyle</item>
+        <item name="android:checkboxStyle">@style/NotoSansCheckboxStyle</item>
+        <item name="android:textViewStyle">@style/NotoSansTextViewStyle</item>
     </style>
 </resources>
