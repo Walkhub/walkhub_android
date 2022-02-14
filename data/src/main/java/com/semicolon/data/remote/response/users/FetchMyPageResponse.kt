@@ -4,49 +4,43 @@ import com.google.gson.annotations.SerializedName
 import com.semicolon.domain.entity.users.UserMyPageEntity
 
 data class FetchMyPageResponse(
-    @SerializedName("user_id") val userId: Int,
-    @SerializedName("name") val name: String,
-    @SerializedName("profile_image_url") val profileImageUrl: String,
-    @SerializedName("school_name") val schoolName: String,
+    @SerializedName("birthday") val birthday: String,
+    @SerializedName("class") val classRoom: Int,
     @SerializedName("grade") val grade: Int,
-    @SerializedName("class_num") val classNum: Int,
+    @SerializedName("height") val height: Double,
+    @SerializedName("id") val id: Int,
+    @SerializedName("name") val name: String,
+    @SerializedName("profile_image") val profileImage: String,
+    @SerializedName("school_name") val schoolName: String,
+    @SerializedName("sex") val sex: String,
     @SerializedName("title_badge") val titleBadge: TitleBadge,
-    @SerializedName("level") val level: Level
+    @SerializedName("weight") val weight: Int
 ) {
     data class TitleBadge(
         @SerializedName("id") val badgeId: Int,
-        @SerializedName("name") val badgeName: String,
-        @SerializedName("image_url") val badgeImageUrl: String
+        @SerializedName("image") val badgeImage: String,
+        @SerializedName("name") val badgeName: String
     )
-
-    data class Level(
-        @SerializedName("name") val levelName: String,
-        @SerializedName("image_url") val levelImageUrl: String
-    )
-
-    fun TitleBadge.toEntity() =
-        UserMyPageEntity.TitleBadge(
-            badgeId = badgeId,
-            badgeName = badgeName,
-            badgeImageUrl = badgeImageUrl
-        )
-
-    fun Level.toEntity() =
-        UserMyPageEntity.Level(
-            levelName = levelName,
-            levelImageUrl = levelImageUrl
-        )
 }
 
+fun FetchMyPageResponse.TitleBadge.toEntity() =
+    UserMyPageEntity.TitleBadge(
+        badgeId = badgeId,
+        badgeImage = badgeImage,
+        badgeName = badgeName
+    )
 
 fun FetchMyPageResponse.toEntity() =
     UserMyPageEntity(
-        userId = userId,
-        name = name,
-        profileImageUrl = profileImageUrl,
-        schoolName = schoolName,
+        birthday = birthday,
+        classRoom = classRoom,
         grade = grade,
-        classNum = classNum,
+        height = height,
+        id = id,
+        name = name,
+        profileImage = profileImage,
+        schoolName = schoolName,
+        sex = sex,
         titleBadge = titleBadge.toEntity(),
-        level = level.toEntity()
+        weight = weight
     )

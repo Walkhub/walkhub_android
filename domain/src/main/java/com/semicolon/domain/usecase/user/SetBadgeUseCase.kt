@@ -2,13 +2,12 @@ package com.semicolon.domain.usecase.user
 
 import com.semicolon.domain.repository.UserRepository
 import com.semicolon.domain.usecase.UseCase
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class AutoLoginUseCase @Inject constructor(
+class SetBadgeUseCase @Inject constructor(
     private val userRepository: UserRepository
-) : UseCase<Unit, Unit>() {
+) : UseCase<Int, Unit>() {
 
-    override suspend fun execute(data: Unit): Unit =
-        userRepository.autoLogin()
+    override suspend fun execute(badgeId: Int) =
+        userRepository.setBadge(badgeId)
 }

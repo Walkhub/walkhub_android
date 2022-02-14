@@ -3,79 +3,69 @@ package com.semicolon.data.local.entity.user
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.semicolon.data.remote.response.users.FetchUserProfileResponse
 import com.semicolon.domain.entity.users.UserMyPageEntity
-import com.semicolon.domain.entity.users.UserProfileEntity
 
 @Entity(tableName = "userMyPage")
 data class UserMyPageRoomEntity(
-    @PrimaryKey val userId: Int,
-    val name: String,
-    val profileImageUrl: String,
-    val schoolName: String,
+    val birthday: String,
+    val classRoom: Int,
     val grade: Int,
-    val classNum: Int,
+    val height: Double,
+    @PrimaryKey val id: Int,
+    val name: String,
+    val profileImage: String,
+    val schoolName: String,
+    val sex: String,
     @Embedded val titleBadge: TitleBadge,
-    @Embedded val level: Level
+    val weight: Int
 ) {
     data class TitleBadge(
         val badgeId: Int,
-        val badgeName: String,
-        val badgeImageUrl: String
+        val badgeImage: String,
+        val badgeName: String
     )
-
-    data class Level(
-        val levelName: String,
-        val levelImageUrl: String
-    )
-
-    fun TitleBadge.toEntity() =
-        UserMyPageEntity.TitleBadge(
-            badgeId = badgeId,
-            badgeName = badgeName,
-            badgeImageUrl = badgeImageUrl
-        )
-
-    fun Level.toEntity() =
-        UserMyPageEntity.Level(
-            levelName = levelName,
-            levelImageUrl = levelImageUrl
-        )
 }
+
+fun UserMyPageRoomEntity.TitleBadge.toEntity() =
+    UserMyPageEntity.TitleBadge(
+        badgeId = badgeId,
+        badgeImage = badgeImage,
+        badgeName = badgeName
+    )
 
 fun UserMyPageRoomEntity.toEntity() =
     UserMyPageEntity(
-        userId = userId,
-        name = name,
-        profileImageUrl = profileImageUrl,
-        schoolName = schoolName,
+        birthday = birthday,
+        classRoom = classRoom,
         grade = grade,
-        classNum = classNum,
+        height = height,
+        id = id,
+        name = name,
+        profileImage = profileImage,
+        schoolName = schoolName,
+        sex = sex,
         titleBadge = titleBadge.toEntity(),
-        level = level.toEntity()
+        weight = weight
     )
 
 fun UserMyPageEntity.TitleBadge.toDbEntity() =
     UserMyPageRoomEntity.TitleBadge(
         badgeId = badgeId,
-        badgeName = badgeName,
-        badgeImageUrl = badgeImageUrl
-    )
-
-fun UserMyPageEntity.Level.toDbEntity() =
-    UserMyPageRoomEntity.Level(
-        levelName = levelName,
-        levelImageUrl = levelImageUrl
+        badgeImage = badgeImage,
+        badgeName = badgeName
     )
 
 fun UserMyPageEntity.toDbEntity() =
     UserMyPageRoomEntity(
-        userId = userId,
-        name = name,
-        profileImageUrl = profileImageUrl,
-        schoolName = schoolName,
+        birthday = birthday,
+        classRoom = classRoom,
         grade = grade,
-        classNum = classNum,
+        height = height,
+        id = id,
+        name = name,
+        profileImage = profileImage,
+        schoolName = schoolName,
+        sex = sex,
         titleBadge = titleBadge.toDbEntity(),
-        level = level.toDbEntity()
+        weight = weight
     )

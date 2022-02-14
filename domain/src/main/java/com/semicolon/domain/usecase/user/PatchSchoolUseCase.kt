@@ -6,8 +6,8 @@ import javax.inject.Inject
 
 class PatchSchoolUseCase @Inject constructor(
     private val userRepository: UserRepository
-) : UseCase<Int, Unit>() {
+) : UseCase<String, Unit>() {
 
-    override suspend fun execute(schoolId: Int) =
-        userRepository.patchSchool(schoolId)
+    override suspend fun execute(agencyCode: String) =
+        userRepository.patchSchool(agencyCode)
 }

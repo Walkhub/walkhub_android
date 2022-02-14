@@ -4,9 +4,7 @@ import androidx.room.Embedded
 import androidx.room.Relation
 import com.semicolon.data.util.toLocalDateTime
 import com.semicolon.domain.entity.challenge.ChallengeDetailEntity
-import com.semicolon.domain.enum.toGoalScope
-import com.semicolon.domain.enum.toGoalType
-import com.semicolon.domain.enum.toUserScope
+import com.semicolon.domain.enum.toChallengeScope
 
 data class ChallengeAndDetail(
 
@@ -23,14 +21,11 @@ fun ChallengeAndDetail.toEntity() =
         name = challenge.name,
         content = detail.content,
         goal = detail.goal,
-        goalType = detail.goalType.toGoalType(),
-        goalScope = detail.goalScope.toGoalScope(),
-        userScope = detail.userScope.toUserScope(),
         award = detail.award,
         imageUrl = challenge.imageUrl,
-        isMine = detail.isMine,
         startAt = challenge.startAt.toLocalDateTime(),
         endAt = challenge.endAt.toLocalDateTime(),
+        scope = challenge.scope.toChallengeScope(),
         participantCount = detail.participantCount,
         writerEntity = ChallengeDetailEntity.WriterEntity(
             id = detail.writerId,

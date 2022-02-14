@@ -1,23 +1,21 @@
 package com.semicolon.domain.entity.users
 
 data class UserMyPageEntity(
-    val userId: Int,
-    val name: String,
-    val profileImageUrl: String,
-    val schoolName: String,
+    val birthday: String,
+    val classRoom : Int,
     val grade: Int,
-    val classNum: Int,
+    val height: Double,
+    val id: Int,
+    val name: String,
+    val profileImage: String,
+    val schoolName: String,
+    val sex: String,
     val titleBadge: TitleBadge,
-    val level: Level
+    val weight: Int
 ) {
     data class TitleBadge(
         val badgeId: Int,
-        val badgeName: String,
-        val badgeImageUrl: String
-    )
-
-    data class Level(
-        val levelName: String,
-        val levelImageUrl: String
+        val badgeImage: String,
+        val badgeName: String
     )
 }

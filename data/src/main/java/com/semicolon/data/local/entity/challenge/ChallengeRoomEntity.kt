@@ -4,9 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.semicolon.data.util.toLocalDateTime
 import com.semicolon.domain.entity.challenge.ChallengeEntity
-import com.semicolon.domain.enum.toGoalScope
-import com.semicolon.domain.enum.toGoalType
-import com.semicolon.domain.enum.toUserScope
+import com.semicolon.domain.enum.toChallengeScope
 import com.semicolon.domain.enum.toScopeString
 
 @Entity(tableName = "challenge")
@@ -16,9 +14,7 @@ data class ChallengeRoomEntity(
     var startAt: String,
     var endAt: String,
     var imageUrl: String,
-    var goalType: String,
-    var goalScope: String,
-    var userScope: String
+    var scope: String
 )
 
 fun ChallengeRoomEntity.toEntity() =
@@ -28,9 +24,7 @@ fun ChallengeRoomEntity.toEntity() =
         startAt = startAt.toLocalDateTime(),
         endAt = endAt.toLocalDateTime(),
         imageUrl = imageUrl,
-        userScope = userScope.toUserScope(),
-        goalScope = goalScope.toGoalScope(),
-        goalType = goalType.toGoalType()
+        scope = scope.toChallengeScope()
     )
 
 fun List<ChallengeRoomEntity>.toEntity() =
@@ -43,9 +37,7 @@ fun ChallengeEntity.toDbEntity() =
         startAt = startAt.toString(),
         endAt = endAt.toString(),
         imageUrl = imageUrl,
-        userScope = userScope.toScopeString(),
-        goalScope = goalScope.toScopeString(),
-        goalType = goalType.toScopeString()
+        scope = scope.toScopeString()
     )
 
 fun List<ChallengeEntity>.toDbEntity() =
