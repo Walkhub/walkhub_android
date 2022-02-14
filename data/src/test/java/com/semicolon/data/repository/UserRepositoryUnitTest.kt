@@ -209,4 +209,13 @@ class UserRepositoryUnitTest {
         }
     }
 
+    @Test
+    fun testPatchSchool() {
+
+        runBlocking {
+            val repositoryResult = userRepository.patchSchool(1)
+            assertEquals(Unit, repositoryResult)
+        }
+    }
+
 }
