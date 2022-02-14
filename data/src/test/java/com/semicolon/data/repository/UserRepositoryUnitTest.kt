@@ -241,4 +241,13 @@ class UserRepositoryUnitTest {
         }
     }
 
+    @Test
+    fun testPatchDailyWalkGoal() {
+        val patchDailyWalkGoalParam = PatchDailyWalkGoalParam(3)
+        runBlocking {
+            val repositoryResult =userRepository.patchDailyWalkGoal(patchDailyWalkGoalParam)
+            assertEquals(Unit,repositoryResult)
+        }
+    }
+
 }
