@@ -30,7 +30,6 @@ class UserRepositoryUnitTest {
     private val userRepository =
         UserRepositoryImpl(imageDataSource, localUserDataSource, remoteUserDataSource)
 
-
     private val fetchCaloriesLevelEntity = mock<FetchCaloriesLevelEntity>()
     private val userProfileEntity = mock<UserProfileEntity>()
     private val userSignInResponse = mock<UserSignInResponse>()
@@ -230,6 +229,4 @@ class UserRepositoryUnitTest {
                 }
         }
     }
-
-
 }
