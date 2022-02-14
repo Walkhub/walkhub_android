@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("dagger.hilt.android.plugin")
+    id("com.google.gms.google-services")
     kotlin("android")
     kotlin("kapt")
 }
@@ -75,4 +76,7 @@ dependencies {
 
     implementation(Dependency.WorkManager.ktx)
     implementation(Dependency.WorkManager.hiltExtension)
+
+    implementation(Dependency.FireBase.fcm)
+    implementation(Dependency.FireBase.message)
 }
