@@ -11,6 +11,7 @@ import com.semicolon.data.remote.request.users.UserChangePasswordRequest
 import com.semicolon.data.remote.request.users.UserSignInRequest
 import com.semicolon.data.remote.response.image.ImagesResponse
 import com.semicolon.data.remote.response.users.UserSignInResponse
+import com.semicolon.domain.entity.users.FetchCaloriesLevelEntity
 import com.semicolon.domain.entity.users.FindUserAccountEntity
 import com.semicolon.domain.entity.users.UserMyPageEntity
 import com.semicolon.domain.param.user.*
@@ -39,6 +40,8 @@ class UserRepositoryUnitTest {
     private val deviceToken = "device_token"
     private val phoneNumber = "010-1234-1234"
     private val authCode = "auth_code"
+
+    private val fetchCaloriesLevelEntity = mock<FetchCaloriesLevelEntity>()
 
     private val postUserSignInParam = PostUserSignInParam(
         accountId,
@@ -236,7 +239,7 @@ class UserRepositoryUnitTest {
             userRepository.autoLogin()
             verify(remoteUserDataSource)
                 .postUserSignIn(
-                    UserSignInRequest(id,password, deviceToken)
+                    UserSignInRequest(id, password, deviceToken)
                 )
         }
     }
@@ -245,9 +248,29 @@ class UserRepositoryUnitTest {
     fun testPatchDailyWalkGoal() {
         val patchDailyWalkGoalParam = PatchDailyWalkGoalParam(3)
         runBlocking {
-            val repositoryResult =userRepository.patchDailyWalkGoal(patchDailyWalkGoalParam)
-            assertEquals(Unit,repositoryResult)
+            val repositoryResult = userRepository.patchDailyWalkGoal(patchDailyWalkGoalParam)
+            assertEquals(Unit, repositoryResult)
         }
     }
+
+    @Test
+    fun testFetchCaloriesLevel() {
+
+        runBlocking {
+            whenever(remoteUserDataSource.fetchCaloriesLevelList()).thenReturn(
+                fetchCaloriesLevelEntity
+            )
+            whenever(localUserDataSource.fetchCaloriesLevelList()).thenReturn(
+                fetchCaloriesLevelEntity
+            )
+
+            userRepository.fetchCaloriesLevel()
+                .collect {
+                    assertEquals(fetchCaloriesLevelEntity, it)
+                }
+        }
+    }
+
+
 
 }
