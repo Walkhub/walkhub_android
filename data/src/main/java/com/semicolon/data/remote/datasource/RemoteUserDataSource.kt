@@ -2,6 +2,10 @@ package com.semicolon.data.remote.datasource
 
 import com.semicolon.data.remote.request.users.*
 import com.semicolon.data.remote.response.users.*
+import com.semicolon.domain.entity.users.FetchCaloriesLevelEntity
+import com.semicolon.domain.entity.users.FindUserAccountEntity
+import com.semicolon.domain.entity.users.UserMyPageEntity
+import com.semicolon.domain.entity.users.UserProfileEntity
 
 interface RemoteUserDataSource {
     suspend fun signUpClass(
@@ -27,13 +31,13 @@ interface RemoteUserDataSource {
 
     suspend fun findUserAccount(
         phoneNumber: String
-    ): FindUserAccountResponse
+    ): FindUserAccountEntity
 
     suspend fun fetchUserProfile(
         userId: Int
-    ): FetchUserProfileResponse
+    ): UserProfileEntity
 
-    suspend fun fetchMyPage(): FetchMyPageResponse
+    suspend fun fetchMyPage(): UserMyPageEntity
 
     suspend fun patchUserChangePassword(
         userChangePasswordRequest: UserChangePasswordRequest
@@ -55,5 +59,5 @@ interface RemoteUserDataSource {
         patchDailyWalkGoalRequest: PatchDailyWalkGoalRequest
     )
 
-    suspend fun fetchCaloriesLevelList() : FetchCaloriesLevelResponse
+    suspend fun fetchCaloriesLevelList() : FetchCaloriesLevelEntity
 }

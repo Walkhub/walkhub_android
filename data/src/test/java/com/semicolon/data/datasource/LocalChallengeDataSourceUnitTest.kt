@@ -65,15 +65,16 @@ class LocalChallengeDataSourceUnitTest {
             whenever(challengeDao.fetchChallenges()).thenReturn(challengeRoomList)
 
             val dataSourceResult = localChallengeDataSource.fetchChallenges()
-            assertEquals(dataSourceResult, challengeRoomList.toEntity())
+            assertEquals(challengeRoomList.toEntity(), dataSourceResult)
         }
     }
 
     @Test
     fun testSaveChallenges() {
         runBlocking {
-            val dataSourceResult = localChallengeDataSource.saveChallenges(challengeRoomList.toEntity())
-            assertEquals(dataSourceResult, Unit)
+            val dataSourceResult =
+                localChallengeDataSource.saveChallenges(challengeRoomList.toEntity())
+            assertEquals(Unit, dataSourceResult)
         }
     }
 
@@ -90,7 +91,7 @@ class LocalChallengeDataSourceUnitTest {
             )
 
             val dataSourceResult = localChallengeDataSource.fetchChallengeDetail(challengeId)
-            assertEquals(dataSourceResult, challengeAndDetail.toEntity())
+            assertEquals(challengeAndDetail.toEntity(), dataSourceResult)
         }
     }
 
@@ -117,8 +118,9 @@ class LocalChallengeDataSourceUnitTest {
         )
         val challengeId = 12
         runBlocking {
-            val dataSourceResult = localChallengeDataSource.saveChallengeDetail(challengeId, challengeDetailEntity)
-            assertEquals(dataSourceResult, Unit)
+            val dataSourceResult =
+                localChallengeDataSource.saveChallengeDetail(challengeId, challengeDetailEntity)
+            assertEquals(Unit, dataSourceResult)
         }
     }
 
@@ -134,7 +136,7 @@ class LocalChallengeDataSourceUnitTest {
             )
 
             val dataSourceResult = localChallengeDataSource.fetchParticipants(challengeId)
-            assertEquals(dataSourceResult, participantList.toEntity())
+            assertEquals(participantList.toEntity(), dataSourceResult)
         }
     }
 
@@ -145,8 +147,9 @@ class LocalChallengeDataSourceUnitTest {
             participantRoomEntity.toEntity()
         )
         runBlocking {
-            val dataSourceResult = localChallengeDataSource.saveParticipants(challengeId, participantList)
-            assertEquals(dataSourceResult, Unit)
+            val dataSourceResult =
+                localChallengeDataSource.saveParticipants(challengeId, participantList)
+            assertEquals(Unit, dataSourceResult)
         }
     }
 }
