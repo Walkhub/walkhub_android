@@ -4,12 +4,13 @@ data class UserRankEntity(
     val rankList: List<UserRank>
 ) {
     data class UserRank(
-        val classNum: Int,
-        val grade: Int,
-        val name: String,
-        val profileImageUrl: String,
-        val rank: Int,
         val userId: Int,
+        val name: String,
+        val grade: Int,
+        val classNum: Int,
+        val number: Int,
+        val ranking: Int,
+        val profileImageUrl: String,
         val walkCount: Int
     )
 }

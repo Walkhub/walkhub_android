@@ -4,10 +4,10 @@ data class SearchSchoolEntity(
     val schoolList: List<SchoolInfo>
 ) {
     data class SchoolInfo(
-        val agencyCode: String,
-        val logoImageUrl: String,
-        val rank: Int,
+        val schoolId: Int,
         val schoolName: String,
+        val ranking: Int,
+        val logoImageUrl: String,
         val walkCount: Int
     )
 }

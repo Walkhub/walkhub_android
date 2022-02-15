@@ -8,7 +8,7 @@ data class SearchUserEntity(
         val grade: Int,
         val name: String,
         val profileImageUrl: String,
-        val rank: Int,
+        val ranking: Int,
         val userId: Int,
         val walkCount: Int
     )
