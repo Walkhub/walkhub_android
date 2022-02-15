@@ -4,6 +4,10 @@ import com.semicolon.data.remote.api.UserApi
 import com.semicolon.data.remote.request.users.*
 import com.semicolon.data.remote.response.users.*
 import com.semicolon.data.util.HttpHandler
+import com.semicolon.domain.entity.users.FetchCaloriesLevelEntity
+import com.semicolon.domain.entity.users.FindUserAccountEntity
+import com.semicolon.domain.entity.users.UserMyPageEntity
+import com.semicolon.domain.entity.users.UserProfileEntity
 import javax.inject.Inject
 
 class RemoteUserDataSourceImpl @Inject constructor(
@@ -22,6 +26,17 @@ class RemoteUserDataSourceImpl @Inject constructor(
         .httpRequest { userApi.userSignUp(userSignUpRequest) }
         .sendRequest()
 
+    override suspend fun patchDailyWalkGoal(
+        patchDailyWalkGoalRequest: PatchDailyWalkGoalRequest
+    ) = HttpHandler<Unit>()
+        .httpRequest { userApi.patchDailyWalkGoal(patchDailyWalkGoalRequest) }
+        .sendRequest()
+
+    override suspend fun fetchCaloriesLevelList(): FetchCaloriesLevelEntity =
+        HttpHandler<FetchCaloriesLevelResponse>()
+        .httpRequest { userApi.fetchCaloriesLevelList() }
+        .sendRequest().toEntity()
+
     override suspend fun postUserSignIn(
         userSignInRequest: UserSignInRequest
     ) = HttpHandler<UserSignInResponse>()
@@ -34,36 +49,30 @@ class RemoteUserDataSourceImpl @Inject constructor(
         .httpRequest { userApi.userChangePassword(userChangePasswordRequest) }
         .sendRequest()
 
-    override suspend fun fetchMyPage(): FetchMyPageResponse =
+    override suspend fun fetchMyPage(): UserMyPageEntity =
         HttpHandler<FetchMyPageResponse>()
             .httpRequest { userApi.fetchMyPage() }
-            .sendRequest()
+            .sendRequest().toEntity()
 
-    override suspend fun fetchUserProfile(userId: Int) =
+    override suspend fun fetchUserProfile(userId: Int): UserProfileEntity =
         HttpHandler<FetchUserProfileResponse>()
             .httpRequest { userApi.fetchUserProfile(userId) }
-            .sendRequest()
-
-    override suspend fun fetchUserOwnBadge(userId: Int) =
-        HttpHandler<FetchOwnBadgeResponse>()
-            .httpRequest { userApi.fetchOwnBadge(userId) }
-            .sendRequest()
-
-    override suspend fun setBadge(badgeId: Int) =
-        HttpHandler<Unit>()
-            .httpRequest { userApi.setRepresentativeBadge(badgeId) }
-            .sendRequest()
+            .sendRequest().toEntity()
 
     override suspend fun updateProfile(updateProfileRequest: UpdateProfileRequest) =
         HttpHandler<Unit>()
             .httpRequest { userApi.updateProfile(updateProfileRequest) }
             .sendRequest()
 
-    override suspend fun findUserAccount(phoneNumber: String): FindUserAccountResponse =
-        HttpHandler<FindUserAccountResponse>()
-            .httpRequest { userApi.findUserAccount(phoneNumber) }
+    override suspend fun patchSchool(schoolId: Int) =
+        HttpHandler<Unit>()
+            .httpRequest { userApi.patchSchool(schoolId) }
             .sendRequest()
 
+    override suspend fun findUserAccount(phoneNumber: String): FindUserAccountEntity =
+        HttpHandler<FindUserAccountResponse>()
+            .httpRequest { userApi.findUserAccount(phoneNumber) }
+            .sendRequest().toEntity()
 
     override suspend fun patchUserHealth(
         patchUserHealthRequest: PatchUserHealthRequest
@@ -72,16 +81,13 @@ class RemoteUserDataSourceImpl @Inject constructor(
         .sendRequest()
 
     override suspend fun signUpClass(
-        agencyCode: String,
-        grade: Int,
-        classRoom: Int,
-        signUpClassRequest: SignUpClassRequest
+        groupId: Int, signUpClassRequest: SignUpClassRequest
     ) = HttpHandler<Unit>()
-        .httpRequest { userApi.signUpClass(agencyCode, grade, classRoom, signUpClassRequest) }
+        .httpRequest { userApi.signUpClass(groupId, signUpClassRequest) }
         .sendRequest()
 
-    override suspend fun patchSchool(agencyCode: String) =
-        HttpHandler<Unit>()
-            .httpRequest { userApi.patchSchool(agencyCode) }
+    override suspend fun userReissue(refreshToken: String): UserReissueResponse =
+        HttpHandler<UserReissueResponse>()
+            .httpRequest { userApi.userReissue(refreshToken) }
             .sendRequest()
 }

@@ -7,12 +7,17 @@ import com.semicolon.data.remote.datasource.RemoteExerciseDataSource
 import com.semicolon.data.remote.datasource.RemoteImagesDataSource
 import com.semicolon.data.remote.request.exercise.FinishMeasureExerciseRequest
 import com.semicolon.data.remote.request.exercise.toRequest
+import com.semicolon.data.remote.response.exercise.toEntity
+import com.semicolon.data.remote.response.exercise.toEntityList
 import com.semicolon.data.util.toMultipart
 import com.semicolon.domain.entity.exercise.DailyExerciseEntity
+import com.semicolon.domain.entity.exercise.ExerciseAnalysisResultEntity
+import com.semicolon.domain.entity.exercise.ExerciseRecordEntity
 import com.semicolon.domain.param.exercise.FinishMeasureExerciseParam
 import com.semicolon.domain.param.exercise.StartMeasureExerciseParam
 import com.semicolon.domain.repository.ExerciseRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.ZoneId
 import java.lang.Exception
@@ -79,4 +84,10 @@ class ExerciseRepositoryImpl @Inject constructor(
 
     override suspend fun startRecordExercise() =
         exerciseBackgroundTask.synchronizeExerciseRecord(1, TimeUnit.HOURS)
+
+    override suspend fun fetchExerciseRecordList(): Flow<List<ExerciseRecordEntity>> =
+        flow { emit(remoteExerciseDataSource.fetchExerciseRecordList().toEntityList()) }
+
+    override suspend fun fetchExerciseAnalysisResult(): Flow<ExerciseAnalysisResultEntity> =
+        flow { emit(remoteExerciseDataSource.fetchExerciseAnalysisResult().toEntity()) }
 }
