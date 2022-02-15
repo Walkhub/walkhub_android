@@ -9,7 +9,6 @@ import com.semicolon.data.local.entity.rank.*
 
 @Dao
 interface RankDao {
-
     @Query("SELECT * FROM ourschoolUserRank")
     suspend fun fetchOurSchoolUserRank(): OurSchoolUserRankRoomEntity
 

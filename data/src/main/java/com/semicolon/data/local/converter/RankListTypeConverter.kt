@@ -9,7 +9,6 @@ import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 
-
 @ProvidedTypeConverter
 class RankListTypeConverter(
     private val moshi: Moshi
