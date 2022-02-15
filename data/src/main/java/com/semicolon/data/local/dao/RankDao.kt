@@ -6,7 +6,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.semicolon.data.local.entity.rank.*
 
-
 @Dao
 interface RankDao {
     @Query("SELECT * FROM ourschoolUserRank")
