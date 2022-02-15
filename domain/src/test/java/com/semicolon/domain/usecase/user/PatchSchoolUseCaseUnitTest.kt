@@ -15,12 +15,15 @@ class PatchSchoolUseCaseUnitTest {
 
     private val patchSchoolUseCase= PatchSchoolUseCase(userRepository)
 
+    private val schoolId = 2
+
     @Test
     fun testPatchSchoolUseCase() {
         runBlocking {
-            val useCaseResult = patchSchoolUseCase.execute(any())
+            val useCaseResult = patchSchoolUseCase.execute(schoolId)
             assertEquals(Unit,useCaseResult)
-            verify(userRepository, times(1)).patchSchool(any())
+
+            verify(userRepository, times(1)).patchSchool(schoolId)
         }
     }
 }

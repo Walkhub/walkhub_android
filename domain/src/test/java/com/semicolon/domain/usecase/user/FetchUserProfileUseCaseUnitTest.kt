@@ -19,16 +19,19 @@ class FetchUserProfileUseCaseUnitTest {
 
     private val userProfileEntity = mock<UserProfileEntity>()
 
+    private val userId = 2
+
     @Test
     fun testFetchUserProfileUseCase() {
-        val userId = 2
         runBlocking {
             whenever(userRepository.fetchUserProfile(userId)).thenReturn(
                 flow { emit(userProfileEntity) }
             )
+
             fetchUserProfileUseCase.execute(userId).collect{
                 assertEquals(userProfileEntity,it)
             }
+
             verify(userRepository,times(1)).fetchUserProfile(userId)
         }
     }

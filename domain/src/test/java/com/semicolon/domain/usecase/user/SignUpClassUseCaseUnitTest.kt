@@ -19,8 +19,6 @@ class SignUpClassUseCaseUnitTest {
 
     @Test
     fun testSignUpClassUseCase() {
-
-        val signUpClassParam = SignUpClassParam(2,"2-3",19)
         runBlocking {
             val useCaseResult = signUpClassUseCase.execute(signUpClassParam)
             assertEquals(Unit,useCaseResult)

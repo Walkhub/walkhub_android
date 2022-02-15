@@ -19,8 +19,6 @@ class PatchUserHealthUseCaseUnitTest {
 
     @Test
     fun testPatchUserHealthUseCase() {
-        val patchUserHealthParam = PatchUserHealthParam(176.8,60)
-
         runBlocking {
             val useCaseResult = patchUserHealthUseCase.execute(patchUserHealthParam)
             assertEquals(Unit,useCaseResult)

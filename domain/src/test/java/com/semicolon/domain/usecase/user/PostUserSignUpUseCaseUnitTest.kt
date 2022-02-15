@@ -19,14 +19,6 @@ class PostUserSignUpUseCaseUnitTest {
 
     @Test
     fun testPostUserSignUpUseCase() {
-        val postUserSignUpParam = PostUserSignUpParam(
-            "account_id",
-            "password",
-            "device_token",
-        "010-1234-1234",
-        "auth_code",
-        "school_name")
-
         runBlocking {
             val useCaseResult = postUserSignUpUseCase.execute(postUserSignUpParam)
             assertEquals(Unit, useCaseResult)

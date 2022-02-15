@@ -16,9 +16,10 @@ class FindUserAccountUseCaseUnitTest {
 
     private val findUserAccountEntity = mock<FindUserAccountEntity>()
 
+    private val phoneNumber ="010-1234-2345"
+
     @Test
     fun testFindUserAccountUseCase() {
-        val phoneNumber ="010-1234-2345"
         runBlocking {
             whenever(userRepository.findUserAccount(any())).thenReturn(
                 flow { emit(findUserAccountEntity) }
@@ -27,6 +28,7 @@ class FindUserAccountUseCaseUnitTest {
             findUserAccountUseCase.execute(phoneNumber).collect{
                 assertEquals(findUserAccountEntity,it)
             }
+
             verify(userRepository, times(1)).findUserAccount(phoneNumber)
         }
     }

@@ -20,12 +20,6 @@ class PatchUserChangePasswordUseCaseUnitTest {
     @Test
     fun testPatchUserChangePasswordUseCase() {
         runBlocking {
-            val patchUserChangePasswordParam =PatchUserChangePasswordParam(
-                "account_id",
-                "phone_number",
-                "auth_code",
-                "new_password"
-            )
             val useCaseResult = patchUserChangePasswordUseCase.execute(patchUserChangePasswordParam)
             assertEquals(Unit, useCaseResult)
             verify(userRepository, times(1)).patchUserChangePassword(patchUserChangePasswordParam)

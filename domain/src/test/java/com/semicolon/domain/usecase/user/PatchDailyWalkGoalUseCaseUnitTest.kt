@@ -16,14 +16,14 @@ class PatchDailyWalkGoalUseCaseUnitTest {
 
     private val patchDailyWalkGoalUseCase = PatchDailyWalkGoalUseCase(userRepository)
 
+    private val patchDailyWalkGoalParam = mock<PatchDailyWalkGoalParam>()
+
     @Test
     fun testPatchDailyWalkGoalUseCase() {
-
-        val patchDailyWalkGoalParam = PatchDailyWalkGoalParam(1000)
-
         runBlocking {
             val useCaseResult = patchDailyWalkGoalUseCase.execute(patchDailyWalkGoalParam)
             assertEquals(Unit,useCaseResult)
+
             verify(userRepository, times(1)).patchDailyWalkGoal(patchDailyWalkGoalParam)
         }
     }
