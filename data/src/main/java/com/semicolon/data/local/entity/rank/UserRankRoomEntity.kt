@@ -11,23 +11,25 @@ data class UserRankRoomEntity(
     @Embedded val rankList: List<UserRank>
 ) {
     data class UserRank(
-        val classNum: Int,
-        val grade: Int,
-        val name: String,
-        val profileImageUrl: String,
-        val rank: Int,
         val userId: Int,
+        val name: String,
+        val grade: Int,
+        val classNum: Int,
+        val number: Int,
+        val ranking: Int,
+        val profileImageUrl: String,
         val walkCount: Int
     )
 
     fun UserRank.toEntity() =
         UserRankEntity.UserRank(
-            classNum = classNum,
-            grade = grade,
-            name = name,
-            profileImageUrl = profileImageUrl,
-            rank = rank,
             userId = userId,
+            name = name,
+            grade = grade,
+            classNum = classNum,
+            number = number,
+            ranking = ranking,
+            profileImageUrl = profileImageUrl,
             walkCount = walkCount
         )
 }
@@ -39,12 +41,13 @@ fun UserRankRoomEntity.toEntity() =
 
 fun UserRankEntity.UserRank.toDbEntity() =
     UserRankRoomEntity.UserRank(
-        classNum = classNum,
-        grade = grade,
-        name = name,
-        profileImageUrl = profileImageUrl,
-        rank = rank,
         userId = userId,
+        name = name,
+        grade = grade,
+        classNum = classNum,
+        number = number,
+        ranking = ranking,
+        profileImageUrl = profileImageUrl,
         walkCount = walkCount
     )
 

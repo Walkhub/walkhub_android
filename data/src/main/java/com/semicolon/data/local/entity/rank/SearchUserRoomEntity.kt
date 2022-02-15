@@ -15,7 +15,7 @@ data class SearchUserRoomEntity(
         val grade: Int,
         val name: String,
         val profileImageUrl: String,
-        val rank: Int,
+        val ranking: Int,
         val userId: Int,
         val walkCount: Int
     )
@@ -26,7 +26,7 @@ data class SearchUserRoomEntity(
             grade = grade,
             name = name,
             profileImageUrl = profileImageUrl,
-            rank = rank,
+            ranking = ranking,
             userId = userId,
             walkCount = walkCount
         )
@@ -43,7 +43,7 @@ fun SearchUserEntity.UserInfo.toDbEntity() =
         grade = grade,
         name = name,
         profileImageUrl = profileImageUrl,
-        rank = rank,
+        ranking = ranking,
         userId = userId,
         walkCount = walkCount
     )
