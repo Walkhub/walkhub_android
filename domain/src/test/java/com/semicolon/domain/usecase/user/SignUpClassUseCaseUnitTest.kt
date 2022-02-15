@@ -15,6 +15,8 @@ class SignUpClassUseCaseUnitTest {
 
     private val signUpClassUseCase = SignUpClassUseCase(userRepository)
 
+    private val signUpClassParam = mock<SignUpClassParam>()
+
     @Test
     fun testSignUpClassUseCase() {
 

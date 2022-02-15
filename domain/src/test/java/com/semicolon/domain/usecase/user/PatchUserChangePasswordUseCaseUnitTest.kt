@@ -16,6 +16,7 @@ class PatchUserChangePasswordUseCaseUnitTest {
 
     private val patchUserChangePasswordUseCase = PatchUserChangePasswordUseCase(userRepository)
 
+    private val patchUserChangePasswordParam = mock<PatchUserChangePasswordParam>()
     @Test
     fun testPatchUserChangePasswordUseCase() {
         runBlocking {

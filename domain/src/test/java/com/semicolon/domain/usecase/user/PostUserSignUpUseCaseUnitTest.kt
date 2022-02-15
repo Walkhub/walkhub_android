@@ -15,6 +15,8 @@ class PostUserSignUpUseCaseUnitTest {
 
     private val postUserSignUpUseCase = PostUserSignUpUseCase(userRepository)
 
+    private val postUserSignUpParam = mock<PostUserSignUpParam>()
+
     @Test
     fun testPostUserSignUpUseCase() {
         val postUserSignUpParam = PostUserSignUpParam(

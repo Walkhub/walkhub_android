@@ -15,6 +15,8 @@ class PostUserSignInUseCaseUnitTest {
 
     private val patchUserSignInUseCase = PostUserSignInUseCase(userRepository)
 
+    private val postUserSignInParam = mock<PostUserSignInParam>()
+
     @Test
     fun testPostUserSignInUseCase() {
         val postUserSignInParam = PostUserSignInParam("account_id", "password", "device_token")

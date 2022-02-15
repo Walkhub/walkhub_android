@@ -15,6 +15,8 @@ class PatchUserHealthUseCaseUnitTest {
 
     private val patchUserHealthUseCase = PatchUserHealthUseCase(userRepository)
 
+    private val patchUserHealthParam = mock<PatchUserHealthParam>()
+
     @Test
     fun testPatchUserHealthUseCase() {
         val patchUserHealthParam = PatchUserHealthParam(176.8,60)
