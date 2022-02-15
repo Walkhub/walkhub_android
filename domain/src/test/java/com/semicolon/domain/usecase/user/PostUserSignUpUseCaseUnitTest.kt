@@ -13,7 +13,7 @@ class PostUserSignUpUseCaseUnitTest {
 
     private val userRepository = mock<UserRepository>()
 
-    private val patchUserSignUpUseCase = PostUserSignUpUseCase(userRepository)
+    private val postUserSignUpUseCase = PostUserSignUpUseCase(userRepository)
 
     @Test
     fun testPostUserSignUpUseCase() {
@@ -26,7 +26,7 @@ class PostUserSignUpUseCaseUnitTest {
         "school_name")
 
         runBlocking {
-            val useCaseResult = patchUserSignUpUseCase.execute(postUserSignUpParam)
+            val useCaseResult = postUserSignUpUseCase.execute(postUserSignUpParam)
             assertEquals(Unit, useCaseResult)
 
             verify(userRepository).postUserSignUp(postUserSignUpParam)
