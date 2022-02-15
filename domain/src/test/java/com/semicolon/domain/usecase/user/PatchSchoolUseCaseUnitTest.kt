@@ -1,5 +1,6 @@
 package com.semicolon.domain.usecase.user
 
+import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import com.semicolon.domain.repository.UserRepository
 import kotlinx.coroutines.runBlocking
@@ -14,9 +15,8 @@ class PatchSchoolUseCaseUnitTest {
 
     @Test
     fun testPatchSchoolUseCase() {
-        val schoolId = 1
         runBlocking {
-            val useCaseResult = patchSchoolUseCase.execute(schoolId)
+            val useCaseResult = patchSchoolUseCase.execute(any())
             assertEquals(Unit,useCaseResult)
         }
     }
