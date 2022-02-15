@@ -10,8 +10,8 @@ import com.semicolon.domain.entity.notice.NoticeEntity
 @Dao
 interface NoticeDao {
     @Query("SELECT * FROM notice")
-    suspend fun fetchNoticeList(): List<NoticeListRoomEntity>
+    suspend fun fetchNoticeList(): NoticeListRoomEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun saveNoticeList(notice: List<NoticeListRoomEntity>): List<NoticeEntity>
+    suspend fun saveNoticeList(noticeListRoomEntity: NoticeListRoomEntity): NoticeEntity
 }

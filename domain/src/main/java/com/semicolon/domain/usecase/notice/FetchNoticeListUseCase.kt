@@ -10,8 +10,8 @@ import javax.inject.Inject
 
 class FetchNoticeListUseCase @Inject constructor(
     private val noticeRepository: NoticeRepository
-) : UseCase<NoticeType, Flow<List<NoticeEntity>>>() {
+) : UseCase<NoticeType, Flow<NoticeEntity>>() {
 
-    override suspend fun execute(data: NoticeType): Flow<List<NoticeEntity>> =
+    override suspend fun execute(data: NoticeType): Flow<NoticeEntity> =
         noticeRepository.fetchNoticeList(data)
 }

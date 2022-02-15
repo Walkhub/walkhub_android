@@ -4,6 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.semicolon.data.local.converter.BadgeListTypeConverter
+import com.semicolon.data.local.converter.NoticeListTypeConverter
 import com.semicolon.data.local.dao.ChallengeDao
 import com.semicolon.data.local.dao.NoticeDao
 import com.semicolon.data.local.dao.UserDao
@@ -22,12 +23,14 @@ import com.semicolon.data.local.entity.user.UserProfileRoomEntity
         ChallengeParticipantRoomEntity::class,
         UserMyPageRoomEntity::class,
         UserProfileRoomEntity::class,
-        UserOwnBadgeRoomEntity::class,
-        NoticeListRoomEntity::class
     ], version = 1, exportSchema = false
 )
 
-@TypeConverters(value = [BadgeListTypeConverter::class])
+@TypeConverters(
+    value = [
+        NoticeListTypeConverter::class
+    ]
+)
 
 abstract class WalkHubDataBase : RoomDatabase() {
     abstract fun challengeDao(): ChallengeDao
