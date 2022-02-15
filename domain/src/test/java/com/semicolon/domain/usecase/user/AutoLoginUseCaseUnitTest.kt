@@ -8,4 +8,15 @@ import org.junit.Test
 
 class AutoLoginUseCaseUnitTest {
 
+    private val userRepository = mock<UserRepository>()
+
+    private val autoLoginUseCase = AutoLoginUseCase(userRepository)
+
+    @Test
+    fun testAutoLoginUseCase(){
+        runBlocking {
+            val useCaseResult = autoLoginUseCase.execute(Unit)
+            assertEquals(Unit,useCaseResult)
+        }
+    }
 }
