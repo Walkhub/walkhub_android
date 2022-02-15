@@ -21,7 +21,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.09" />
+            app:layout_constraintGuide_percent="0.04" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline21"
@@ -42,7 +42,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.91" />
+            app:layout_constraintGuide_percent="0.95555" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidline3"
@@ -341,14 +341,14 @@
 
                 <TextView
                     android:id="@+id/school_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="11dp"
-                    android:layout_marginEnd="35dp"
                     android:layout_marginBottom="29dp"
                     android:fontFamily="@font/noto_sans_kr_medium"
-                    android:text="대덕소프트웨어마이스터고등학교"
+                    android:text="아직 학교가 없습니다"
+                    android:gravity="left"
                     android:textColor="@color/gray_900"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -363,7 +363,7 @@
                     android:layout_marginTop="35dp"
                     android:layout_marginBottom="11dp"
                     android:fontFamily="@font/noto_sans_kr_regular"
-                    android:text="2학년3반"
+                    android:text="반에 가입되어 있지 않습니다"
                     android:textColor="@color/gray_800"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
