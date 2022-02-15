@@ -1,6 +1,8 @@
 package com.semicolon.domain.usecase.user
 
 import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.times
+import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import com.semicolon.domain.entity.users.UserProfileEntity
 import com.semicolon.domain.repository.UserRepository
@@ -27,6 +29,7 @@ class FetchUserProfileUseCaseUnitTest {
             fetchUserProfileUseCase.execute(userId).collect{
                 assertEquals(userProfileEntity,it)
             }
+            verify(userRepository,times(1)).fetchUserProfile(userId)
         }
     }
 }
