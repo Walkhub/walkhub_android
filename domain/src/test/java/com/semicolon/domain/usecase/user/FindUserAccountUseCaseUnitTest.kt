@@ -1,8 +1,6 @@
 package com.semicolon.domain.usecase.user
 
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import com.semicolon.domain.entity.users.FindUserAccountEntity
 import com.semicolon.domain.repository.UserRepository
 import kotlinx.coroutines.flow.flow
@@ -29,6 +27,7 @@ class FindUserAccountUseCaseUnitTest {
             findUserAccountUseCase.execute(phoneNumber).collect{
                 assertEquals(findUserAccountEntity,it)
             }
+            verify(userRepository, times(1)).findUserAccount(phoneNumber)
         }
     }
 }
