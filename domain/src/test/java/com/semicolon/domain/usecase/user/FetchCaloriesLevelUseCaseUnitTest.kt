@@ -28,10 +28,9 @@ class FetchCaloriesLevelUseCaseUnitTest {
                 }
             )
 
-            fetchCaloriesLevelUseCase.execute(Unit)
-                .collect {
-                    assertEquals(fetchCaloriesLevelEntity,it)
-                }
+            fetchCaloriesLevelUseCase.execute(Unit).collect {
+                assertEquals(fetchCaloriesLevelEntity, it)
+            }
         }
     }
 }
