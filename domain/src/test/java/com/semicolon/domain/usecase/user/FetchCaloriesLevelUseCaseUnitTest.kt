@@ -23,9 +23,7 @@ class FetchCaloriesLevelUseCaseUnitTest {
 
         runBlocking {
             whenever(userRepository.fetchCaloriesLevel()).thenReturn(
-                flow {
-                    emit(fetchCaloriesLevelEntity)
-                }
+                flow { emit(fetchCaloriesLevelEntity) }
             )
 
             fetchCaloriesLevelUseCase.execute(Unit).collect {

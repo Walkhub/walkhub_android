@@ -23,9 +23,7 @@ class FetchMyPageUseCaseUnitTest {
 
         runBlocking {
             whenever(userRepository.fetchMyPage()).thenReturn(
-                flow {
-                    emit(userMyPageEntity)
-                }
+                flow { emit(userMyPageEntity) }
             )
 
             fetchMyPageUseCase.execute(Unit).collect {
