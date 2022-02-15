@@ -8,35 +8,41 @@ data class SchoolRankResponse(
     @SerializedName("school_list") val schoolRankList: List<SchoolRank>
 ) {
     data class SchoolRank(
-        @SerializedName("agency_code") val agencyCode: String,
-        @SerializedName("logo_image_url") val logoImageUrl: String,
+        @SerializedName("school_id") val schoolId: Int,
         @SerializedName("name") val name: String,
+        @SerializedName("ranking") val ranking: Int,
+        @SerializedName("student_count") val studentCount: Int,
+        @SerializedName("logo_image_url") val logoImageUrl: String,
         @SerializedName("walk_count") val walkCount: Int
     )
 
     data class MySchoolRank(
-        @SerializedName("agency_code") val agencyCode: String,
-        @SerializedName("logo_image_url") val logoImageUrl: String,
+        @SerializedName("school_id") val schoolId: Int,
         @SerializedName("name") val name: String,
-        @SerializedName("rank") val rank: Int,
-        @SerializedName("walk_count") val walkCount: Int
+        @SerializedName("logo_image_url") val logoImageUrl: String,
+        @SerializedName("walk_count") val walkCount: Int,
+        @SerializedName("grade") val grade: Int,
+        @SerializedName("class_num") val classNum: Int
     )
 
     fun SchoolRank.toEntity() =
         SchoolRankEntity.SchoolRank(
-            agencyCode = agencyCode,
-            logoImageUrl = logoImageUrl,
+            schoolId = schoolId,
             name = name,
+            ranking = ranking,
+            studentCount = studentCount,
+            logoImageUrl = logoImageUrl,
             walkCount = walkCount
         )
 
     fun MySchoolRank.toEntity() =
         SchoolRankEntity.MySchoolRank(
-            agencyCode = agencyCode,
-            logoImageUrl = logoImageUrl,
+            schoolId = schoolId,
             name = name,
-            rank = rank,
-            walkCount = walkCount
+            logoImageUrl = logoImageUrl,
+            walkCount = walkCount,
+            grade = grade,
+            classNum = classNum
         )
 
 }

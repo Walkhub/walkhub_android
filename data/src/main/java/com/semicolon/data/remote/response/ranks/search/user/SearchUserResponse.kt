@@ -11,7 +11,7 @@ data class SearchUserResponse(
         @SerializedName("grade") val grade: Int,
         @SerializedName("name") val name: String,
         @SerializedName("profile_image_url") val profileImageUrl: String,
-        @SerializedName("rank") val rank: Int,
+        @SerializedName("ranking") val ranking: Int,
         @SerializedName("user_id") val userId: Int,
         @SerializedName("walk_count") val walkCount: Int
     )
@@ -22,7 +22,7 @@ data class SearchUserResponse(
             grade = grade,
             name = name,
             profileImageUrl = profileImageUrl,
-            rank = rank,
+            ranking = ranking,
             userId = userId,
             walkCount = walkCount
         )

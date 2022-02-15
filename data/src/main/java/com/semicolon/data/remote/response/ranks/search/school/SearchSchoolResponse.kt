@@ -7,19 +7,19 @@ data class SearchSchoolResponse(
     @SerializedName("school_list") val schoolList: List<SchoolInfo>
 ) {
     data class SchoolInfo(
-        @SerializedName("agency_code") val agencyCode: String,
-        @SerializedName("logo_image_url") val logoImageUrl: String,
-        @SerializedName("rank") val rank: Int,
+        @SerializedName("school_id") val schoolId: Int,
         @SerializedName("school_name") val schoolName: String,
+        @SerializedName("ranking") val ranking: Int,
+        @SerializedName("logo_image_url") val logoImageUrl: String,
         @SerializedName("walk_count") val walkCount: Int
     )
 
     fun SchoolInfo.toEntity() =
         SearchSchoolEntity.SchoolInfo(
-            agencyCode = agencyCode,
-            logoImageUrl = logoImageUrl,
-            rank = rank,
+            schoolId = schoolId,
             schoolName = schoolName,
+            ranking = ranking,
+            logoImageUrl = logoImageUrl,
             walkCount = walkCount
         )
 }
