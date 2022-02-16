@@ -12,7 +12,7 @@ abstract class StorageModule {
 
     @Binds
     abstract fun provideAuthDataStorage(
-        authDataSourceImpl: AuthDataStorageImpl
+        authDataStorageImpl: AuthDataStorageImpl
     ): AuthDataStorage
 
     @Binds
