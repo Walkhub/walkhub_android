@@ -9,8 +9,4 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding>(
 ) {
     override fun initView() {
     }
-
-    override fun handleEvent() {
-        TODO("Not yet implemented")
-    }
 }

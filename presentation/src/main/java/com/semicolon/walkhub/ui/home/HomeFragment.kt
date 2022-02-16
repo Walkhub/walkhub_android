@@ -9,7 +9,4 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
 ) {
     override fun initView() {
     }
-
-    override fun handleEvent() {
-    }
 }
