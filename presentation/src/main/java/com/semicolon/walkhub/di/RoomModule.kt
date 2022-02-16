@@ -3,10 +3,7 @@ package com.semicolon.walkhub.di
 import android.content.Context
 import androidx.room.Room
 import com.semicolon.data.local.converter.*
-import com.semicolon.data.local.dao.BadgeDao
-import com.semicolon.data.local.dao.ChallengeDao
-import com.semicolon.data.local.dao.NoticeDao
-import com.semicolon.data.local.dao.UserDao
+import com.semicolon.data.local.dao.*
 import com.semicolon.data.local.database.WalkHubDataBase
 import dagger.Module
 import dagger.Provides
@@ -49,4 +46,14 @@ object RoomModule {
     fun provideBadgeDao(
         walkHubDataBase: WalkHubDataBase
     ): BadgeDao = walkHubDataBase.badgeDao()
+
+    @Provides
+    fun provideRankDao(
+        walkHubDataBase: WalkHubDataBase
+    ): RankDao = walkHubDataBase.rankDao()
+
+    @Provides
+    fun provideNotificationDao(
+        walkHubDataBase: WalkHubDataBase
+    ): NotificationDao = walkHubDataBase.notification()
 }
