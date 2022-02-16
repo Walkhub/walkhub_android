@@ -20,6 +20,8 @@ class LocalBadgeDataSourceUnitTest {
 
     private val fetchUserBadgesRoomEntity = mock<FetchUserBadgesRoomEntity>()
 
+    private val fetchUserBadgesEntity = mock<FetchUserBadgesEntity>()
+
     @Test
     fun testFetchUserBadges() {
         val userId = 1
@@ -30,6 +32,17 @@ class LocalBadgeDataSourceUnitTest {
             assertEquals(fetchUserBadgesRoomEntity.toEntity(), dataSourceResult)
 
             verify(badgeDao, times(1)).fetchUserBadges(userId)
+        }
+    }
+
+    @Test
+    fun testInsertUserBadge() {
+        val userId = 1
+        runBlocking {
+            val dataSourceResult = localBadgeDataSource.insertUserBadge(userId,fetchUserBadgesEntity)
+            assertEquals(Unit, dataSourceResult)
+
+            verify(badgeDao, times(1)).insertUserBadge(fetchUserBadgesEntity.toDbEntity(userId))
         }
     }
 }
