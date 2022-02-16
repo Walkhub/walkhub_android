@@ -1,0 +1,27 @@
+package com.semicolon.walkhub.di
+
+import com.semicolon.data.local.storage.*
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+
+@Module
+@InstallIn(SingletonComponent::class)
+abstract class StorageModule {
+
+    @Binds
+    abstract fun provideAuthDataStorage(
+        authDataSourceImpl: AuthDataStorageImpl
+    ): AuthDataStorage
+
+    @Binds
+    abstract fun provideExerciseInfoDataStorage(
+        exerciseInfoDataStorageImpl: ExerciseInfoDataStorageImpl
+    ): ExerciseInfoDataStorage
+
+    @Binds
+    abstract fun provideFitnessDataStorage(
+        fitnessDataStorageImpl: FitnessDataStorageImpl
+    ): FitnessDataStorage
+}
