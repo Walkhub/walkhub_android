@@ -41,6 +41,10 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":data"))
 
+    implementation(Dependency.Moshi.moshi)
+    kapt(Dependency.Moshi.moshiCompiler)
+    implementation (Dependency.Moshi.moshiKotlin)
+
     implementation(Dependency.coreKtx)
     implementation(Dependency.appcompat)
     implementation(Dependency.androidKtx)
