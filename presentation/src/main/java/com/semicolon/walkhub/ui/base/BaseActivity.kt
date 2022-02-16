@@ -20,7 +20,6 @@ abstract class BaseActivity<B : ViewDataBinding>(
         binding.lifecycleOwner = this
 
         initView()
-        handleEvent()
     }
 
     fun showShortToast(msg: String) {
@@ -32,6 +31,4 @@ abstract class BaseActivity<B : ViewDataBinding>(
     }
 
     abstract fun initView()
-
-    abstract fun handleEvent()
 }

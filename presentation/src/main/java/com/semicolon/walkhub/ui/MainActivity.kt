@@ -7,7 +7,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityMainBinding
 import com.semicolon.walkhub.ui.base.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(
     R.layout.activity_main
 ) {
@@ -26,8 +28,5 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
 
     override fun initView() {
         initBottomNav()
-    }
-
-    override fun handleEvent() {
     }
 }

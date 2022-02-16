@@ -30,10 +30,7 @@ abstract class BaseFragment<B : ViewDataBinding>(
         binding.lifecycleOwner = this
 
         initView()
-        handleEvent()
     }
-
-    abstract fun handleEvent()
 
     abstract fun initView()
 

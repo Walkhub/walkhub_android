@@ -121,7 +121,4 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(
             fitnessOptions
         )
     }
-
-    override fun handleEvent() {
-    }
 }

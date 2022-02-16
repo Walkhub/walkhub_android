@@ -9,7 +9,4 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
 ) {
     override fun initView() {
     }
-
-    override fun handleEvent() {
-    }
 }
