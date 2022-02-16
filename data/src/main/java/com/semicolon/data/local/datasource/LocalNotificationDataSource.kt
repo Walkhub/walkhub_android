@@ -1,10 +1,10 @@
 package com.semicolon.data.local.datasource
 
-import com.semicolon.domain.entity.notification.NotificationListEntity
+import com.semicolon.domain.entity.notification.NotificationEntity
 
 interface LocalNotificationDataSource {
-    suspend fun fetchNotificationList(): List<NotificationListEntity>
+    suspend fun fetchNotificationList(): List<NotificationEntity>
 
-    suspend fun saveNotificationList(list: List<NotificationListEntity>): List<NotificationListEntity>
+    suspend fun saveNotificationList(list: List<NotificationEntity>)
 
 }
