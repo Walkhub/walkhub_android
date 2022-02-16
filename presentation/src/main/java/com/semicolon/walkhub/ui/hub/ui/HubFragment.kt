@@ -2,9 +2,9 @@ package com.semicolon.walkhub.ui.hub.ui
 
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.nms_android_v1.base.BaseFragment
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.FragmentHubBinding
+import com.semicolon.walkhub.ui.base.BaseFragment
 import com.semicolon.walkhub.ui.hub.adapter.HubSchoolRankRvAdapter
 import com.semicolon.walkhub.ui.hub.model.MySchool
 import com.semicolon.walkhub.ui.hub.model.School
@@ -53,6 +53,6 @@ class HubFragment : BaseFragment<FragmentHubBinding>(
         binding.rvHubRank.adapter?.notifyDataSetChanged()
     }
 
-    override fun observeEvent() {
+    override fun handleEvent() {
     }
 }

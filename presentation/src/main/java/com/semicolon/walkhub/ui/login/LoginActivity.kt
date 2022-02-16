@@ -4,7 +4,6 @@ import android.Manifest
 import android.content.Intent
 import android.os.Build
 import androidx.lifecycle.MutableLiveData
-import com.example.nms_android_v1.base.BaseActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.fitness.FitnessOptions
 import com.google.android.gms.fitness.data.DataType
@@ -17,6 +16,7 @@ import com.semicolon.data.local.param.PeriodParam
 import com.semicolon.data.local.storage.ExerciseInfoDataStorageImpl
 import com.semicolon.data.local.storage.FitnessDataStorageImpl
 import com.semicolon.domain.entity.exercise.DailyExerciseEntity
+import com.semicolon.walkhub.ui.base.BaseActivity
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
@@ -120,5 +120,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(
             GoogleSignIn.getAccountForExtension(this, fitnessOptions),
             fitnessOptions
         )
+    }
+
+    override fun handleEvent() {
     }
 }
