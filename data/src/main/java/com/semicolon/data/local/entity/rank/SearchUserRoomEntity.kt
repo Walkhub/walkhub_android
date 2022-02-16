@@ -8,7 +8,7 @@ import com.semicolon.domain.entity.rank.SearchUserEntity
 @Entity(tableName = "searchUser")
 data class SearchUserRoomEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    @Embedded val userList: List<UserInfo>
+    val userList: List<UserInfo>
 ) {
     data class UserInfo(
         val classNum: Int,

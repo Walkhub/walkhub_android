@@ -9,7 +9,7 @@ import com.semicolon.domain.entity.rank.OurSchoolUserRankEntity
 data class OurSchoolUserRankRoomEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @Embedded val myRanking: Ranking,
-    @Embedded val rankingList: List<Ranking>
+    val rankingList: List<Ranking>
 ) {
     data class Ranking(
         val classNum: Int,
