@@ -3,7 +3,6 @@ package com.semicolon.data.local.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.semicolon.data.local.converter.BadgeListTypeConverter
 import com.semicolon.data.local.converter.NoticeListTypeConverter
 import com.semicolon.data.local.converter.CaloriesListTypeConverter
 import com.semicolon.data.local.converter.MyBadgeListTypeConverter
@@ -34,7 +33,8 @@ import com.semicolon.data.local.entity.user.UserProfileRoomEntity
         FetchCaloriesLevelRoomEntity::class,
         FetchMyBadgesRoomEntity::class,
         FetchNewBadgesRoomEntity::class,
-        FetchUserBadgesRoomEntity::class
+        FetchUserBadgesRoomEntity::class,
+        NoticeListRoomEntity::class
     ], version = 1, exportSchema = false
 )
 
