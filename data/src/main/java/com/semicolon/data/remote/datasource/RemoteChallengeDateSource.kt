@@ -1,15 +1,17 @@
 package com.semicolon.data.remote.datasource
 
-import com.semicolon.data.remote.response.challenge.ChallengeDetailResponse
-import com.semicolon.data.remote.response.challenge.ChallengeListResponse
-import com.semicolon.data.remote.response.challenge.ChallengeParticipantListResponse
+import com.semicolon.domain.entity.challenge.ChallengeDetailEntity
+import com.semicolon.domain.entity.challenge.ChallengeEntity
+import com.semicolon.domain.entity.challenge.ChallengeParticipantEntity
 
 interface RemoteChallengeDateSource {
-    suspend fun fetchChallenges(): ChallengeListResponse
+    suspend fun fetchChallenges(): List<ChallengeEntity>
 
-    suspend fun fetchChallengeDetail(challengeId: Int): ChallengeDetailResponse
+    suspend fun fetchChallengeDetail(challengeId: Int): ChallengeDetailEntity
 
     suspend fun postParticipate(challengeId: Int)
 
-    suspend fun fetchParticipants(challengeId: Int): ChallengeParticipantListResponse
+    suspend fun fetchParticipants(challengeId: Int): List<ChallengeParticipantEntity>
+
+    suspend fun fetchMyChallenges(): List<ChallengeEntity>
 }

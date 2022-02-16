@@ -8,7 +8,6 @@ import com.semicolon.domain.entity.challenge.ChallengeParticipantEntity
 data class ChallengeParticipantRoomEntity(
     @PrimaryKey var id: Int,
     var name: String,
-    var gcn: Int,
     var profileImageUrl: String,
     var challengeId: Int
 )
@@ -17,7 +16,6 @@ fun ChallengeParticipantRoomEntity.toEntity() =
     ChallengeParticipantEntity(
         id = id,
         name = name,
-        gcn = gcn,
         profileImageUrl = profileImageUrl
     )
 
@@ -28,7 +26,6 @@ fun ChallengeParticipantEntity.toDbEntity(challengeId: Int) =
     ChallengeParticipantRoomEntity(
         id = id,
         name = name,
-        gcn = gcn,
         profileImageUrl = profileImageUrl,
         challengeId = challengeId
     )

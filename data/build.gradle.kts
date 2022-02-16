@@ -15,7 +15,7 @@ android {
 
     buildTypes {
         getByName("release") {
-            isMinifyEnabled  = false
+            isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
@@ -37,6 +37,9 @@ dependencies {
     testImplementation(Dependency.Test.junit)
     testImplementation(Dependency.Test.mockito)
     androidTestImplementation(Dependency.Test.androidJunit)
+    testImplementation(Dependency.Test.mockitoKotlin)
+    testImplementation(Dependency.Test.mockitoInline)
+    testImplementation(Dependency.Test.threeTenAbp)
 
     implementation(Dependency.Network.retrofit)
     implementation(Dependency.Network.gsonConverter)

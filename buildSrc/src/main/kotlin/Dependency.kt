@@ -22,6 +22,9 @@ object Dependency {
         const val mockito = "org.mockito:mockito-core:${Version.mockito}"
         const val androidJunit = "androidx.test.ext:junit:${Version.androidJunit}"
         const val espresso = "androidx.test.espresso:espresso-core:${Version.espresso}"
+        const val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:${Version.mockitoKotlin}"
+        const val mockitoInline = "org.mockito:mockito-inline:${Version.mockitoInline}"
+        const val threeTenAbp =  "org.threeten:threetenbp:${Version.threeTenAbp}"
     }
 
     object Coroutine {
@@ -66,8 +69,17 @@ object Dependency {
         const val moshiCompiler = "com.squareup.moshi:moshi-kotlin-codegen:${Version.moshi}"
     }
 
+    object Navigation {
+        const val navigationFragment = "androidx.navigation:navigation-fragment-ktx:${Version.navigation}"
+        const val navigationUi = "androidx.navigation:navigation-ui-ktx:${Version.navigation}"
+    }
+
     object WorkManager {
         const val ktx = "androidx.work:work-runtime-ktx:${Version.workManager}"
         const val hiltExtension = "androidx.hilt:hilt-work:${Version.workManagerHiltExtension}"
+    }
+
+    object Permission {
+        const val tedPermission = "io.github.ParkSangGwon:tedpermission-normal:${Version.tedPermission}"
     }
 }

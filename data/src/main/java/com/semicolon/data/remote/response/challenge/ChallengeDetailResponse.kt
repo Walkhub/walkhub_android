@@ -3,18 +3,22 @@ package com.semicolon.data.remote.response.challenge
 import com.google.gson.annotations.SerializedName
 import com.semicolon.data.util.toLocalDateTime
 import com.semicolon.domain.entity.challenge.ChallengeDetailEntity
-import com.semicolon.domain.enum.toChallengeScope
-import java.util.*
+import com.semicolon.domain.enum.toGoalScope
+import com.semicolon.domain.enum.toGoalType
+import com.semicolon.domain.enum.toUserScope
 
 data class ChallengeDetailResponse(
     @SerializedName("name") val name: String,
     @SerializedName("content") val content: String,
-    @SerializedName("goal") val goal: Int,
     @SerializedName("award") val award: String,
     @SerializedName("image_url") val imageUrl: String,
     @SerializedName("start_at") val startAt: String,
     @SerializedName("end_at") val endAt: String,
-    @SerializedName("scope") val scope: String,
+    @SerializedName("goal") val goal: Int,
+    @SerializedName("goal_scope") val goalScope: String,
+    @SerializedName("goal_type") val goalType: String,
+    @SerializedName("user_scope") val userScope: String,
+    @SerializedName("isMine") val isMine: Boolean,
     @SerializedName("participant_count") val participantCount: Int,
     @SerializedName("writer") val writer: ChallengeWriterResponse
 ) {
@@ -30,11 +34,14 @@ fun ChallengeDetailResponse.toEntity() =
         name = name,
         content = content,
         goal = goal,
+        goalType = goalType.toGoalType(),
+        goalScope = goalScope.toGoalScope(),
+        userScope = userScope.toUserScope(),
         award = award,
         imageUrl = imageUrl,
         startAt = startAt.toLocalDateTime(),
         endAt = endAt.toLocalDateTime(),
-        scope = scope.toChallengeScope(),
+        isMine = isMine,
         participantCount = participantCount,
         writerEntity = writer.toEntity()
     )

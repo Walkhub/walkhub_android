@@ -70,6 +70,16 @@ dependencies {
 
     implementation(Dependency.Lifecycle.viewModel)
 
+    implementation (Dependency.Navigation.navigationFragment)
+    implementation (Dependency.Navigation.navigationUi)
+
     implementation(Dependency.WorkManager.ktx)
     implementation(Dependency.WorkManager.hiltExtension)
+
+    implementation(Dependency.GooglePlayService.fitness)
+    implementation(Dependency.GooglePlayService.auth)
+
+    implementation(Dependency.Permission.tedPermission)
+
+    implementation(Dependency.ThreeTenAndroidBackport.threeTenAbp)
 }
