@@ -6,9 +6,9 @@ import retrofit2.http.PATCH
 import retrofit2.http.Path
 
 interface NotificationApi {
-    @GET("/notifications")
+    @GET("notifications")
     suspend fun loadNotifications(): NotificationListResponse
 
-    @PATCH("/notifications/{notification-id}")
+    @PATCH("notifications/{notification-id}")
     suspend fun sendReadNotification(@Path("notification-id") notificationId: Int)
 }
