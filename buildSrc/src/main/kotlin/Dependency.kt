@@ -9,7 +9,6 @@ object Dependency {
         const val material = "com.google.android.material:material:${Version.material}"
         const val constraintLayout =
             "androidx.constraintlayout:constraintlayout:${Version.constraintLayout}"
-        const val circleimageview = "de.hdodenhof:circleimageview:${Version.circleImageView}"
     }
 
     object GradlePlugin {

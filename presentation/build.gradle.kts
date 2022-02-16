@@ -48,7 +48,6 @@ dependencies {
 
     implementation(Dependency.UI.material)
     implementation(Dependency.UI.constraintLayout)
-    implementation(Dependency.UI.circleimageview)
 
     testImplementation(Dependency.Test.junit)
     testImplementation(Dependency.Test.mockito)
