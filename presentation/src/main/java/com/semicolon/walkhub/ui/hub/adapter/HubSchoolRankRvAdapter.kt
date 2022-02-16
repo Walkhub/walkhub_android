@@ -7,12 +7,13 @@ import com.bumptech.glide.Glide
 import com.gun0912.tedpermission.provider.TedPermissionProvider.context
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.HubSchoolRankViewBinding
-import com.semicolon.walkhub.ui.hub.model.School
+import com.semicolon.walkhub.ui.hub.model.HubSchoolRank.MySchool
+import com.semicolon.walkhub.ui.hub.model.HubSchoolRank.OtherSchool
 import com.semicolon.walkhub.util.loadFromUrl
 import com.semicolon.walkhub.util.visible
 
 class HubSchoolRankRvAdapter(
-    val data: List<School>
+    val data: List<OtherSchool>
 ) : RecyclerView.Adapter<HubSchoolRankRvAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -28,7 +29,7 @@ class HubSchoolRankRvAdapter(
     class ViewHolder private constructor(val binding: HubSchoolRankViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: School) {
+        fun bind(item: OtherSchool) {
 
             binding.ivSchool.loadFromUrl(item.logo_image_url)
             if(item.name.length > 10) {
