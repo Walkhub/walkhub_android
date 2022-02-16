@@ -14,6 +14,8 @@ interface LocalExerciseDataSource {
 
     suspend fun fetchWalkRecord(periodParam: PeriodParam): WalkRecordEntity
 
+    suspend fun startRecordExercise()
+
     suspend fun fetchStartTime(): Long
 
     suspend fun fetchExerciseId(): Int

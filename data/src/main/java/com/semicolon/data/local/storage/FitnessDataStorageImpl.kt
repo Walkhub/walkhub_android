@@ -72,5 +72,38 @@ class FitnessDataStorageImpl(
                     .build()
             )
 
-    private fun getGoogleAccount() = GoogleSignIn.getAccountForExtension(context, fitnessOptions)
+    override suspend fun startRecordExercise(
+        onSuccess: (DataType) -> Unit,
+        onFailure: (DataType) -> Unit
+    ) {
+        val stepCount = DataType.AGGREGATE_STEP_COUNT_DELTA
+        val moveMinute = DataType.AGGREGATE_MOVE_MINUTES
+        val distance = DataType.AGGREGATE_DISTANCE_DELTA
+        val calories = DataType.AGGREGATE_CALORIES_EXPENDED
+        val location = DataType.TYPE_LOCATION_SAMPLE
+
+        Fitness.getRecordingClient(context, getGoogleAccount()).subscribe(stepCount)
+            .addOnSuccessListener { onSuccess(stepCount) }
+            .addOnFailureListener { onFailure(stepCount) }
+
+        Fitness.getRecordingClient(context, getGoogleAccount()).subscribe(moveMinute)
+            .addOnSuccessListener { onSuccess(moveMinute) }
+            .addOnFailureListener { onFailure(moveMinute) }
+
+        Fitness.getRecordingClient(context, getGoogleAccount()).subscribe(distance)
+            .addOnSuccessListener { onSuccess(distance) }
+            .addOnFailureListener { onFailure(distance) }
+
+        Fitness.getRecordingClient(context, getGoogleAccount()).subscribe(calories)
+            .addOnSuccessListener { onSuccess(calories) }
+            .addOnFailureListener { onFailure(calories) }
+
+        Fitness.getRecordingClient(context, getGoogleAccount()).subscribe(location)
+            .addOnSuccessListener { onSuccess(location) }
+            .addOnFailureListener { onFailure(location) }
+    }
+
+
+    private fun getGoogleAccount() =
+        GoogleSignIn.getAccountForExtension(context, fitnessOptions)
 }

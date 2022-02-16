@@ -8,6 +8,7 @@ import com.semicolon.data.local.param.PeriodParam
 import com.semicolon.data.local.storage.ExerciseInfoDataStorage
 import com.semicolon.data.local.storage.FitnessDataStorage
 import com.semicolon.domain.entity.exercise.DailyExerciseEntity
+import com.semicolon.domain.exception.exercise.RecordExerciseException
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -50,7 +51,7 @@ class LocalExerciseDataSourceImpl @Inject constructor(
                         ?.getValue(Field.FIELD_DURATION)?.asInt() ?: 0
                     distance = it.buckets.firstOrNull()
                         ?.getDataSet(DataType.AGGREGATE_DISTANCE_DELTA)!!.dataPoints.firstOrNull()
-                        ?.getValue(Field.FIELD_DISTANCE)?.asFloat()?.toInt() ?:0
+                        ?.getValue(Field.FIELD_DISTANCE)?.asFloat()?.toInt() ?: 0
                     calories = it.buckets.firstOrNull()
                         ?.getDataSet(DataType.AGGREGATE_CALORIES_EXPENDED)!!.dataPoints.firstOrNull()
                         ?.getValue(Field.FIELD_CALORIES)?.asFloat() ?: 0f
@@ -60,7 +61,7 @@ class LocalExerciseDataSourceImpl @Inject constructor(
                             steps,
                             minutes.toLong() * 60000,
                             distance,
-                            calories
+                            calories / 1000
                         )
                     )
                 }
@@ -110,6 +111,18 @@ class LocalExerciseDataSourceImpl @Inject constructor(
                 )
             }
         }
+    }
+
+    override suspend fun startRecordExercise() {
+        fitnessDataStorage.startRecordExercise(
+            onSuccess = {
+                println("success ${it.name}")
+            },
+            onFailure = {
+                println("failure ${it.name}")
+                throw RecordExerciseException()
+            }
+        )
     }
 
     override suspend fun fetchStartTime(): Long =
