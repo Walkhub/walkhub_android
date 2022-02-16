@@ -4,6 +4,7 @@ import com.nhaarman.mockitokotlin2.*
 import com.semicolon.data.local.dao.BadgeDao
 import com.semicolon.data.local.datasource.LocalBadgeDataSource
 import com.semicolon.data.local.datasource.LocalBadgeDataSourceImpl
+import com.semicolon.data.local.entity.badge.FetchMyBadgesRoomEntity
 import com.semicolon.data.local.entity.badge.FetchUserBadgesRoomEntity
 import com.semicolon.data.local.entity.badge.toDbEntity
 import com.semicolon.data.local.entity.badge.toEntity
@@ -21,6 +22,8 @@ class LocalBadgeDataSourceUnitTest {
     private val fetchUserBadgesRoomEntity = mock<FetchUserBadgesRoomEntity>()
 
     private val fetchUserBadgesEntity = mock<FetchUserBadgesEntity>()
+
+    private val fetchMyBadgesRoomEntity = mock<FetchMyBadgesRoomEntity>()
 
     @Test
     fun testFetchUserBadges() {
@@ -43,6 +46,19 @@ class LocalBadgeDataSourceUnitTest {
             assertEquals(Unit, dataSourceResult)
 
             verify(badgeDao, times(1)).insertUserBadge(fetchUserBadgesEntity.toDbEntity(userId))
+        }
+    }
+
+    @Test
+    fun testFetchMyBadges() {
+
+        runBlocking {
+            whenever(badgeDao.fetchMyBadges()).thenReturn(fetchMyBadgesRoomEntity)
+
+            val dataSourceResult = localBadgeDataSource.fetchMyBadges()
+            assertEquals(fetchMyBadgesRoomEntity.toEntity(), dataSourceResult)
+
+            verify(badgeDao, times(1)).fetchMyBadges()
         }
     }
 }
