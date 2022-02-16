@@ -1,10 +1,11 @@
 package com.semicolon.data.local.datasource
 
-import com.semicolon.data.local.entity.notice.NoticeListRoomEntity
 import com.semicolon.domain.entity.notice.NoticeEntity
+import com.semicolon.domain.enum.NoticeType
 
 interface LocalNoticeDataSource {
-    suspend fun fetchNoticeList(): NoticeListRoomEntity
 
-    suspend fun saveNoticeList(list: NoticeEntity): NoticeEntity
+    suspend fun fetchNoticeList(): NoticeEntity
+
+    suspend fun saveNoticeList(list: NoticeEntity)
 }
