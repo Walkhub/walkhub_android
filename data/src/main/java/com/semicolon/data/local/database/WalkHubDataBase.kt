@@ -44,8 +44,12 @@ import com.semicolon.data.local.entity.user.UserProfileRoomEntity
         MyBadgeListTypeConverter::class,
         NewBadgeListTypeConverter::class,
         UserBadgeListTypeConverter::class,
-        RankListTypeConverter::class
-    ]
+        RankOurSchoolTypeConverter::class,
+        RankSchoolRankTypeConverter::class,
+        RankSearchSchoolTypeConverter::class,
+        RankSearchUserTypeConverter::class,
+        RankUserRankTypeConverter::class]
+
 )
 
 abstract class WalkHubDataBase : RoomDatabase() {
