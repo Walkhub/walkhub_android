@@ -88,4 +88,9 @@ dependencies {
     implementation(Dependency.Permission.tedPermission)
 
     implementation(Dependency.ThreeTenAndroidBackport.threeTenAbp)
+
+    implementation(Dependency.CircleImageView.circleImage)
+
+    implementation(Dependency.Glide.glideCore)
+    annotationProcessor(Dependency.Glide.glideCompiler)
 }

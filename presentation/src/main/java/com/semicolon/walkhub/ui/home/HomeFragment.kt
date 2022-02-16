@@ -1,8 +1,8 @@
 package com.semicolon.walkhub.ui.home
 
-import com.example.nms_android_v1.base.BaseFragment
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.FragmentHomeBinding
+import com.semicolon.walkhub.ui.base.BaseFragment
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(
     R.layout.fragment_home
@@ -10,6 +10,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     override fun initView() {
     }
 
-    override fun observeEvent() {
+    override fun handleEvent() {
     }
 }

@@ -1,8 +1,8 @@
 package com.semicolon.walkhub.ui.profile
 
-import com.example.nms_android_v1.base.BaseFragment
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.FragmentProfileBinding
+import com.semicolon.walkhub.ui.base.BaseFragment
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(
     R.layout.fragment_profile
@@ -10,6 +10,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
     override fun initView() {
     }
 
-    override fun observeEvent() {
+    override fun handleEvent() {
     }
 }
