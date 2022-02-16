@@ -1,8 +1,5 @@
 package com.semicolon.walkhub.di
 
-import com.semicolon.data.local.datasource.LocalBadgeDataSource
-import com.semicolon.data.local.datasource.LocalBadgeDataSourceImpl
-import com.semicolon.data.local.datasource.LocalExerciseDataSourceImpl
 import com.semicolon.data.remote.datasource.*
 import dagger.Binds
 import dagger.Module

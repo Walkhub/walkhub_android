@@ -1,12 +1,10 @@
 package com.semicolon.walkhub.di
 
 import com.semicolon.data.local.datasource.*
-import com.semicolon.data.remote.api.BadgeApi
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-
 
 @Module
 @InstallIn(SingletonComponent::class)
