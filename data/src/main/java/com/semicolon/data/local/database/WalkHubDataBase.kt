@@ -32,7 +32,6 @@ import com.semicolon.data.local.entity.notification.NotificationRoomEntity
         ChallengeParticipantRoomEntity::class,
         UserMyPageRoomEntity::class,
         UserProfileRoomEntity::class,
-        UserOwnBadgeRoomEntity::class,
         NotificationRoomEntity::class,
         FetchCaloriesLevelRoomEntity::class,
         FetchMyBadgesRoomEntity::class,
