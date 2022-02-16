@@ -23,7 +23,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class HubFragment @Inject constructor(
-): BaseFragment<FragmentHubBinding>(
+) : BaseFragment<FragmentHubBinding>(
     R.layout.fragment_hub
 ) {
 
@@ -100,7 +100,7 @@ class HubFragment @Inject constructor(
     }
 
     private fun setSchoolRank(school: List<HubSchoolRank.OtherSchool>) {
-        for(i: Int in 0..school.size-1) {
+        for (i: Int in 0..school.size - 1) {
             schoolRvData.add(school[i])
         }
 
