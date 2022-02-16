@@ -22,7 +22,7 @@ object RoomModule {
     fun provideGithubDatabase(
         @ApplicationContext context: Context
     ): WalkHubDataBase = Room
-        .databaseBuilder(context, WalkHubDataBase::class.java, "github")
+        .databaseBuilder(context, WalkHubDataBase::class.java, "walkhub")
         .addTypeConverter(CaloriesListTypeConverter::class)
         .addTypeConverter(MyBadgeListTypeConverter::class)
         .addTypeConverter(NewBadgeListTypeConverter::class)
