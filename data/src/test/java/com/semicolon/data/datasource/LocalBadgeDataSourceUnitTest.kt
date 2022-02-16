@@ -42,8 +42,7 @@ class LocalBadgeDataSourceUnitTest {
     fun testInsertUserBadge() {
         val userId = 1
         runBlocking {
-            val dataSourceResult =
-                localBadgeDataSource.insertUserBadge(userId, fetchUserBadgesEntity)
+            val dataSourceResult = localBadgeDataSource.insertUserBadge(userId, fetchUserBadgesEntity)
             assertEquals(Unit, dataSourceResult)
 
             verify(badgeDao, times(1)).insertUserBadge(fetchUserBadgesEntity.toDbEntity(userId))
@@ -74,7 +73,6 @@ class LocalBadgeDataSourceUnitTest {
 
     @Test
     fun testFetchNewBadges() {
-
         runBlocking {
             whenever(badgeDao.fetchNewBadges()).thenReturn(fetchNewBadgesRoomEntity)
 
@@ -87,7 +85,6 @@ class LocalBadgeDataSourceUnitTest {
 
     @Test
     fun testInsertNewBadges() {
-
         runBlocking {
             val dataSourceResult = localBadgeDataSource.insertNewBadges(fetchNewBadgesEntity)
             assertEquals(Unit,dataSourceResult)
