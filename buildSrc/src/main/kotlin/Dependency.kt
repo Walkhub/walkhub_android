@@ -53,6 +53,8 @@ object Dependency {
 
     object Lifecycle {
         const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.lifecycle}"
+        const val liveData = "androidx.lifecycle:lifecycle-livedata-ktx:${Version.lifecycle}"
+        const val runTime = "androidx.lifecycle:lifecycle-runtime-ktx:${Version.lifecycle}"
     }
 
     object GooglePlayService {
