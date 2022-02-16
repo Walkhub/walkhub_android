@@ -6,14 +6,14 @@ data class NoticeEntity(
     val noticeValueEntity: List<NoticeValueEntity>
 ) {
     data class NoticeValueEntity(
-        val noticeId: Int,
-        val title: String,
+        val id: Int,
+        val content: String,
         val createdAt: LocalDateTime,
         val noticeWriter: NoticeWriterEntity
     ) {
         data class NoticeWriterEntity(
-            val writerId: Int,
-            val writerName: String,
+            val id: Int,
+            val name: String,
             val profileUrl: String
         )
     }
