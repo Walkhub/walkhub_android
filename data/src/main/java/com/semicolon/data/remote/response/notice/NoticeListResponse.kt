@@ -10,7 +10,7 @@ data class NoticeListResponse(
 ) {
     data class NoticeListValue(
         @SerializedName("id") val noticeId: Int,
-        @SerializedName("title") val title: String,
+        @SerializedName("title") val content: String,
         @SerializedName("created_at") val createdAt: LocalDateTime,
         @SerializedName("writer") val noticeWriter: NoticeWriter
     ) {
@@ -24,15 +24,15 @@ data class NoticeListResponse(
 
 fun NoticeListResponse.NoticeListValue.NoticeWriter.toEntity() =
     NoticeEntity.NoticeValueEntity.NoticeWriterEntity(
-        writerId = writerId,
-        writerName = writerName,
+        id = writerId,
+        name = writerName,
         profileUrl = profileUrl
     )
 
 fun NoticeListResponse.NoticeListValue.toEntity() =
     NoticeEntity.NoticeValueEntity(
-        noticeId = noticeId,
-        title = title,
+        id = noticeId,
+        content = content,
         createdAt = createdAt,
         noticeWriter = noticeWriter.toEntity()
     )
