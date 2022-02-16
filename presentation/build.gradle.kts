@@ -84,4 +84,6 @@ dependencies {
     implementation(Dependency.Permission.tedPermission)
 
     implementation(Dependency.ThreeTenAndroidBackport.threeTenAbp)
+
+    implementation(Dependency.CircleImageView.circleImage)
 }

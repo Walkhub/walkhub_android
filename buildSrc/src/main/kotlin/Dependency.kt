@@ -84,4 +84,8 @@ object Dependency {
     object Permission {
         const val tedPermission = "io.github.ParkSangGwon:tedpermission-normal:${Version.tedPermission}"
     }
+
+    object CircleImageView {
+        const val circleImage = "de.hdodenhof:circleimageview:${Version.circleImage}"
+    }
 }
