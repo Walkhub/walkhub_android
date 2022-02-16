@@ -2,7 +2,8 @@ package com.semicolon.data.local.entity.notification
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.semicolon.domain.entity.notification.NotificationListEntity
+import com.semicolon.domain.entity.notice.NoticeEntity
+import com.semicolon.domain.entity.notification.NotificationEntity
 
 @Entity(tableName = "notification")
 data class NotificationRoomEntity(
@@ -15,7 +16,7 @@ data class NotificationRoomEntity(
 )
 
 fun NotificationRoomEntity.toEntity() =
-    NotificationListEntity(
+    NotificationEntity(
         notificationId = notificationId,
         title = title,
         content = content,
@@ -27,7 +28,7 @@ fun NotificationRoomEntity.toEntity() =
 fun List<NotificationRoomEntity>.toEntity() =
     map { it.toEntity() }
 
-fun NotificationListEntity.toDbEntity() =
+fun NotificationEntity.toDbEntity() =
     NotificationRoomEntity(
         notificationId = notificationId,
         title = title,
@@ -37,7 +38,7 @@ fun NotificationListEntity.toDbEntity() =
         isRead = isRead
     )
 
-fun List<NotificationListEntity>.toDbEntity() =
+fun List<NotificationEntity>.toDbEntity() =
     map { it.toDbEntity() }
 
 

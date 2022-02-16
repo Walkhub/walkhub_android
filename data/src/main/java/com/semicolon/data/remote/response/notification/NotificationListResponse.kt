@@ -1,7 +1,7 @@
 package com.semicolon.data.remote.response.notification
 
 import com.google.gson.annotations.SerializedName
-import com.semicolon.domain.entity.notification.NotificationListEntity
+import com.semicolon.domain.entity.notification.NotificationEntity
 
 data class NotificationListResponse(
     @SerializedName("notification_list") val notificationList: List<NotificationList>
@@ -15,8 +15,8 @@ data class NotificationListResponse(
         @SerializedName("is_read") val isRead: Boolean
     )
 
-    fun NotificationList.toEntity(): NotificationListEntity =
-        NotificationListEntity(
+    fun NotificationList.toEntity(): NotificationEntity =
+        NotificationEntity(
             notificationId = notificationId,
             title = title,
             content = content,
@@ -26,5 +26,5 @@ data class NotificationListResponse(
         )
 }
 
-fun NotificationListResponse.toEntity(): List<NotificationListEntity> =
+fun NotificationListResponse.toEntity(): List<NotificationEntity> =
     notificationList.map { it.toEntity() }
