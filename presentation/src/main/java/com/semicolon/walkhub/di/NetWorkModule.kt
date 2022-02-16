@@ -3,6 +3,7 @@ package com.semicolon.walkhub.di
 import android.content.Context
 import com.semicolon.data.local.storage.AuthDataStorage
 import com.semicolon.data.local.storage.AuthDataStorageImpl
+import com.semicolon.data.remote.api.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -57,4 +58,31 @@ object NetWorkModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
+    @Provides
+    fun provideChallengeApi(retrofit: Retrofit) : ChallengeApi =
+        retrofit.create(ChallengeApi::class.java)
+
+    @Provides
+    fun provideExerciseApi(retrofit: Retrofit) : ExerciseApi =
+        retrofit.create(ExerciseApi::class.java)
+
+    @Provides
+    fun provideImageApi(retrofit: Retrofit) : ImagesApi =
+        retrofit.create(ImagesApi::class.java)
+
+    @Provides
+    fun provideNoticeApi(retrofit: Retrofit) : NoticesApi =
+        retrofit.create(NoticesApi::class.java)
+
+    @Provides
+    fun provideRankApi(retrofit: Retrofit) : RankApi =
+        retrofit.create(RankApi::class.java)
+
+    @Provides
+    fun provideSchoolApi(retrofit: Retrofit) : SchoolApi =
+        retrofit.create(SchoolApi::class.java)
+
+    @Provides
+    fun provideUserApi(retrofit: Retrofit) : UserApi =
+        retrofit.create(UserApi::class.java)
 }
