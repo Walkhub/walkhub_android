@@ -14,13 +14,15 @@ interface LocalExerciseDataSource {
 
     suspend fun fetchWalkRecord(periodParam: PeriodParam): WalkRecordEntity
 
+    suspend fun startRecordExercise()
+
     suspend fun fetchStartTime(): Long
 
     suspend fun fetchExerciseId(): Int
 
     suspend fun isMeasuring(): Boolean
 
-    suspend fun startMeasuring(startTimeAsMilli: Long, exerciseId: Int)
+    suspend fun startMeasuring(startTimeAsSecond: Long, exerciseId: Int)
 
     suspend fun finishMeasuring()
 }
