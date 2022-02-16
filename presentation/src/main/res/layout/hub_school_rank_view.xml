@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.semicolon.walkhub.ui.hub.model.School" />
+            type="com.semicolon.walkhub.ui.hub.model.HubSchoolRank" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
