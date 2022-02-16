@@ -50,7 +50,7 @@
                 android:id="@+id/editText"
                 android:layout_width="0dp"
                 android:layout_height="44dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="12dp"
                 android:background="@drawable/bg_hub_edit_text"
                 android:fontFamily="@font/noto_sans_kr_regular"
                 android:hint="학교 검색"
@@ -66,7 +66,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="12dp"
                 android:fontFamily="@font/noto_sans_kr_medium"
                 android:text="내 학교"
                 android:textColor="@color/gray_900"
@@ -77,12 +77,12 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clMySchool"
                 android:layout_width="0dp"
-                android:layout_height="100dp"
+                android:layout_height="64dp"
                 android:background="@drawable/bg_hub_my_school"
                 app:layout_constraintEnd_toEndOf="@id/guideline4"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@id/guideline3"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" >
+                app:layout_constraintTop_toBottomOf="@+id/textView2">
 
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -133,7 +133,7 @@
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="18dp"
                 android:fontFamily="@font/noto_sans_kr_medium"
                 android:text="걸음수 Top 100"
                 android:textColor="@color/gray_900"
@@ -170,7 +170,7 @@
                 android:id="@+id/rvHubRank"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="12dp"
                 android:nestedScrollingEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
