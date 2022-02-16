@@ -8,6 +8,7 @@ import com.semicolon.data.local.entity.badge.FetchMyBadgesRoomEntity
 import com.semicolon.data.local.entity.badge.FetchUserBadgesRoomEntity
 import com.semicolon.data.local.entity.badge.toDbEntity
 import com.semicolon.data.local.entity.badge.toEntity
+import com.semicolon.domain.entity.badge.FetchMyBadgesEntity
 import com.semicolon.domain.entity.badge.FetchUserBadgesEntity
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -22,6 +23,8 @@ class LocalBadgeDataSourceUnitTest {
     private val fetchUserBadgesRoomEntity = mock<FetchUserBadgesRoomEntity>()
 
     private val fetchUserBadgesEntity = mock<FetchUserBadgesEntity>()
+    private val fetchMyBadgesEntity = mock<FetchMyBadgesEntity>()
+
 
     private val fetchMyBadgesRoomEntity = mock<FetchMyBadgesRoomEntity>()
 
@@ -42,7 +45,8 @@ class LocalBadgeDataSourceUnitTest {
     fun testInsertUserBadge() {
         val userId = 1
         runBlocking {
-            val dataSourceResult = localBadgeDataSource.insertUserBadge(userId,fetchUserBadgesEntity)
+            val dataSourceResult =
+                localBadgeDataSource.insertUserBadge(userId, fetchUserBadgesEntity)
             assertEquals(Unit, dataSourceResult)
 
             verify(badgeDao, times(1)).insertUserBadge(fetchUserBadgesEntity.toDbEntity(userId))
@@ -51,7 +55,6 @@ class LocalBadgeDataSourceUnitTest {
 
     @Test
     fun testFetchMyBadges() {
-
         runBlocking {
             whenever(badgeDao.fetchMyBadges()).thenReturn(fetchMyBadgesRoomEntity)
 
@@ -59,6 +62,16 @@ class LocalBadgeDataSourceUnitTest {
             assertEquals(fetchMyBadgesRoomEntity.toEntity(), dataSourceResult)
 
             verify(badgeDao, times(1)).fetchMyBadges()
+        }
+    }
+
+    @Test
+    fun testInsertMyBadges() {
+        runBlocking {
+            val dataSourceResult = localBadgeDataSource.insertMyBadges(fetchMyBadgesEntity)
+            assertEquals(Unit, dataSourceResult)
+
+            verify(badgeDao, times(1)).insertMyBadges(fetchMyBadgesEntity.toDbEntity())
         }
     }
 }
