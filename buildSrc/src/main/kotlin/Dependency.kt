@@ -88,4 +88,9 @@ object Dependency {
     object CircleImageView {
         const val circleImage = "de.hdodenhof:circleimageview:${Version.circleImage}"
     }
+
+    object Glide {
+        const val glideCore = "com.github.bumptech.glide:glide:${Version.glide}"
+        const val glideCompiler = "com.github.bumptech.glide:compiler:${Version.glide}"
+    }
 }
