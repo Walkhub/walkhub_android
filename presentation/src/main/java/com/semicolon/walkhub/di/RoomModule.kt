@@ -5,31 +5,43 @@ import androidx.room.Room
 import com.semicolon.data.local.converter.*
 import com.semicolon.data.local.dao.*
 import com.semicolon.data.local.database.WalkHubDataBase
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object RoomModule {
 
+    @Singleton
     @Provides
-    fun provideGithubDatabase(
-        @ApplicationContext context: Context
+    fun providesMoshi(): Moshi {
+        return Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
+    }
+
+    @Provides
+    fun provideWalkHubDatabase(
+        @ApplicationContext context: Context,
+        moshi: Moshi
     ): WalkHubDataBase = Room
-        .databaseBuilder(context, WalkHubDataBase::class.java, "walkhub")
-        .addTypeConverter(CaloriesListTypeConverter::class)
-        .addTypeConverter(MyBadgeListTypeConverter::class)
-        .addTypeConverter(NewBadgeListTypeConverter::class)
-        .addTypeConverter(NoticeListTypeConverter::class)
-        .addTypeConverter(UserBadgeListTypeConverter::class)
-        .addTypeConverter(RankOurSchoolTypeConverter::class)
-        .addTypeConverter(RankSchoolRankTypeConverter::class)
-        .addTypeConverter(RankSearchSchoolTypeConverter::class)
-        .addTypeConverter(RankSearchUserTypeConverter::class)
-        .addTypeConverter(RankUserRankTypeConverter::class)
+        .databaseBuilder(context, WalkHubDataBase::class.java, "WalkHubDataBase")
+        .addTypeConverter(CaloriesListTypeConverter(moshi))
+        .addTypeConverter(MyBadgeListTypeConverter(moshi))
+        .addTypeConverter(NewBadgeListTypeConverter(moshi))
+        .addTypeConverter(NoticeListTypeConverter(moshi))
+        .addTypeConverter(UserBadgeListTypeConverter(moshi))
+        .addTypeConverter(RankOurSchoolTypeConverter(moshi))
+        .addTypeConverter(RankSchoolRankTypeConverter(moshi))
+        .addTypeConverter(RankSearchSchoolTypeConverter(moshi))
+        .addTypeConverter(RankSearchUserTypeConverter(moshi))
+        .addTypeConverter(RankUserRankTypeConverter(moshi))
         .build()
 
     @Provides

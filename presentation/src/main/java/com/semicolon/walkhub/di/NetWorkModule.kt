@@ -44,11 +44,6 @@ object NetWorkModule {
             .build()
 
     @Provides
-    fun provideAuthDataStorage(
-        @ApplicationContext context: Context
-    ): AuthDataStorage = AuthDataStorageImpl(context)
-
-    @Provides
     fun provideRetrofit(
         okHttpClient: OkHttpClient
     ): Retrofit =

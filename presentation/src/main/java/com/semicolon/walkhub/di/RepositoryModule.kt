@@ -18,7 +18,7 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun provideChallengeRepository(
-        challengeRepositoryImpl: ChallengeRepository
+        challengeRepositoryImpl: ChallengeRepositoryImpl
     ): ChallengeRepository
 
     @Binds

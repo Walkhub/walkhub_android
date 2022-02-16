@@ -28,6 +28,7 @@ object Version {
     const val mockitoKotlin = "2.2.0"
     const val mockitoInline = "2.21.0"
     const val tedPermission = "3.3.0"
+    const val moshiKotlin = "1.8.0"
     const val circleImage = "3.1.0"
     const val glide = "4.13.0"
 }

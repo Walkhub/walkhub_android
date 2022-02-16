@@ -69,6 +69,7 @@ object Dependency {
     object Moshi {
         const val moshi = "com.squareup.moshi:moshi:${Version.moshi}"
         const val moshiCompiler = "com.squareup.moshi:moshi-kotlin-codegen:${Version.moshi}"
+        const val moshiKotlin = "com.squareup.moshi:moshi-kotlin:${Version.moshiKotlin}"
     }
 
     object Navigation {
