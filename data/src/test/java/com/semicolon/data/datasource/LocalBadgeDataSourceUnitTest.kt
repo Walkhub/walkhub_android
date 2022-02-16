@@ -84,4 +84,15 @@ class LocalBadgeDataSourceUnitTest {
             verify(badgeDao, times(1)).fetchNewBadges()
         }
     }
+
+    @Test
+    fun testInsertNewBadges() {
+
+        runBlocking {
+            val dataSourceResult = localBadgeDataSource.insertNewBadges(fetchNewBadgesEntity)
+            assertEquals(Unit,dataSourceResult)
+
+            verify(badgeDao).insertNewBadges(fetchNewBadgesEntity.toDbEntity())
+        }
+    }
 }
