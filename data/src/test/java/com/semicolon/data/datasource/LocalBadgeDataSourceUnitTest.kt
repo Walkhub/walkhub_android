@@ -4,11 +4,9 @@ import com.nhaarman.mockitokotlin2.*
 import com.semicolon.data.local.dao.BadgeDao
 import com.semicolon.data.local.datasource.LocalBadgeDataSource
 import com.semicolon.data.local.datasource.LocalBadgeDataSourceImpl
-import com.semicolon.data.local.entity.badge.FetchMyBadgesRoomEntity
-import com.semicolon.data.local.entity.badge.FetchUserBadgesRoomEntity
-import com.semicolon.data.local.entity.badge.toDbEntity
-import com.semicolon.data.local.entity.badge.toEntity
+import com.semicolon.data.local.entity.badge.*
 import com.semicolon.domain.entity.badge.FetchMyBadgesEntity
+import com.semicolon.domain.entity.badge.FetchNewBadgesEntity
 import com.semicolon.domain.entity.badge.FetchUserBadgesEntity
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -21,12 +19,11 @@ class LocalBadgeDataSourceUnitTest {
     private val localBadgeDataSource = LocalBadgeDataSourceImpl(badgeDao)
 
     private val fetchUserBadgesRoomEntity = mock<FetchUserBadgesRoomEntity>()
-
     private val fetchUserBadgesEntity = mock<FetchUserBadgesEntity>()
     private val fetchMyBadgesEntity = mock<FetchMyBadgesEntity>()
-
-
     private val fetchMyBadgesRoomEntity = mock<FetchMyBadgesRoomEntity>()
+    private val fetchNewBadgesRoomEntity = mock<FetchNewBadgesRoomEntity>()
+    private val fetchNewBadgesEntity = mock<FetchNewBadgesEntity>()
 
     @Test
     fun testFetchUserBadges() {
@@ -72,6 +69,19 @@ class LocalBadgeDataSourceUnitTest {
             assertEquals(Unit, dataSourceResult)
 
             verify(badgeDao, times(1)).insertMyBadges(fetchMyBadgesEntity.toDbEntity())
+        }
+    }
+
+    @Test
+    fun testFetchNewBadges() {
+
+        runBlocking {
+            whenever(badgeDao.fetchNewBadges()).thenReturn(fetchNewBadgesRoomEntity)
+
+            val dataSourceResult = localBadgeDataSource.fetchNewBadges()
+            assertEquals(fetchNewBadgesRoomEntity.toEntity(), dataSourceResult)
+
+            verify(badgeDao, times(1)).fetchNewBadges()
         }
     }
 }
