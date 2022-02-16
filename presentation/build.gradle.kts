@@ -29,11 +29,15 @@ android {
         sourceCompatibility = Project.javaVersion
         targetCompatibility = Project.javaVersion
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion = Version.jetpackCompose
+    }
     kotlinOptions {
         jvmTarget = "1.8"
     }
     buildFeatures {
         dataBinding = true
+        compose = true
     }
 }
 
@@ -52,6 +56,8 @@ dependencies {
     implementation(Dependency.UI.composeTooling)
     implementation(Dependency.UI.composePreview)
     implementation(Dependency.UI.composeMaterial)
+    implementation(Dependency.UI.composeCompiler)
+    implementation(Dependency.UI.activityCompose)
 
     testImplementation(Dependency.Test.junit)
     testImplementation(Dependency.Test.mockito)

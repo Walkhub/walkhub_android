@@ -15,6 +15,10 @@ object Dependency {
             "androidx.compose.ui:ui-tooling-preview:${Version.jetpackCompose}"
         const val composeMaterial =
             "androidx.compose.material:material:${Version.jetpackCompose}"
+        const val composeCompiler =
+            "androidx.compose.compiler:compiler:${Version.jetpackCompose}"
+        const val activityCompose =
+            "androidx.activity:activity-compose:${Version.activityCompose}"
     }
 
     object GradlePlugin {
