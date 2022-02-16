@@ -9,6 +9,12 @@ object Dependency {
         const val material = "com.google.android.material:material:${Version.material}"
         const val constraintLayout =
             "androidx.constraintlayout:constraintlayout:${Version.constraintLayout}"
+        const val compose = "androidx.compose.ui:ui:${Version.jetpackCompose}"
+        const val composeTooling = "androidx.compose.ui:ui-tooling:${Version.jetpackCompose}"
+        const val composePreview =
+            "androidx.compose.ui:ui-tooling-preview:${Version.jetpackCompose}"
+        const val composeMaterial =
+            "androidx.compose.material:material:${Version.jetpackCompose}"
     }
 
     object GradlePlugin {
@@ -22,9 +28,10 @@ object Dependency {
         const val mockito = "org.mockito:mockito-core:${Version.mockito}"
         const val androidJunit = "androidx.test.ext:junit:${Version.androidJunit}"
         const val espresso = "androidx.test.espresso:espresso-core:${Version.espresso}"
-        const val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:${Version.mockitoKotlin}"
+        const val mockitoKotlin =
+            "com.nhaarman.mockitokotlin2:mockito-kotlin:${Version.mockitoKotlin}"
         const val mockitoInline = "org.mockito:mockito-inline:${Version.mockitoInline}"
-        const val threeTenAbp =  "org.threeten:threetenbp:${Version.threeTenAbp}"
+        const val threeTenAbp = "org.threeten:threetenbp:${Version.threeTenAbp}"
     }
 
     object Coroutine {
@@ -48,7 +55,8 @@ object Dependency {
     object LocalStorage {
         const val room = "androidx.room:room-ktx:${Version.room}"
         const val roomCompiler = "androidx.room:room-compiler:${Version.room}"
-        const val sharedPreference = "androidx.preference:preference-ktx:${Version.sharedPreference}"
+        const val sharedPreference =
+            "androidx.preference:preference-ktx:${Version.sharedPreference}"
     }
 
     object Lifecycle {
@@ -72,7 +80,8 @@ object Dependency {
     }
 
     object Navigation {
-        const val navigationFragment = "androidx.navigation:navigation-fragment-ktx:${Version.navigation}"
+        const val navigationFragment =
+            "androidx.navigation:navigation-fragment-ktx:${Version.navigation}"
         const val navigationUi = "androidx.navigation:navigation-ui-ktx:${Version.navigation}"
     }
 
@@ -82,6 +91,7 @@ object Dependency {
     }
 
     object Permission {
-        const val tedPermission = "io.github.ParkSangGwon:tedpermission-normal:${Version.tedPermission}"
+        const val tedPermission =
+            "io.github.ParkSangGwon:tedpermission-normal:${Version.tedPermission}"
     }
 }

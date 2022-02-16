@@ -48,6 +48,10 @@ dependencies {
 
     implementation(Dependency.UI.material)
     implementation(Dependency.UI.constraintLayout)
+    implementation(Dependency.UI.compose)
+    implementation(Dependency.UI.composeTooling)
+    implementation(Dependency.UI.composePreview)
+    implementation(Dependency.UI.composeMaterial)
 
     testImplementation(Dependency.Test.junit)
     testImplementation(Dependency.Test.mockito)
