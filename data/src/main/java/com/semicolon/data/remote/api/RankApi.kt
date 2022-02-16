@@ -12,20 +12,20 @@ import retrofit2.http.Query
 interface RankApi {
 
     //학교랭킹조회
-    @GET("/ranks/schools")
+    @GET("ranks/schools")
     suspend fun fetchSchoolRank(
         @Query("dateType") dateType: String
     ): SchoolRankResponse
 
     //학교검색
-    @GET("/ranks/schools/search")
+    @GET("ranks/schools/search")
     suspend fun searchSchool(
         @Query("name") name: String,
         @Query("dateType") moreDateType: String
     ): SearchSchoolResponse
 
     //유저랭킹조회
-    @GET("/ranks/users/{school-id}")
+    @GET("ranks/users/{school-id}")
     suspend fun fetchUserRank(
         @Path("school-id") schoolId: Int,
         @Query("scope") scope: String,
@@ -33,14 +33,14 @@ interface RankApi {
     ): UserRankResponse
 
     //우리학교 유저 랭킹
-    @GET("/ranks/users/my-school")
+    @GET("ranks/users/my-school")
     suspend fun fetchOurSchoolUserRank(
         @Query("scope") scope: String,
         @Query("dateType") moreDateType: String
     ): OurSchoolUserRankResponse
 
     //유저검색
-    @GET("/ranks/users/search")
+    @GET("ranks/users/search")
     suspend fun searchUser(
         @Query("name") name: String,
         @Query("scope") scope: String,
@@ -48,8 +48,4 @@ interface RankApi {
         @Query("grade") grade: Int,
         @Query("classNum") classNum:Int
     ): SearchUserResponse
-
-
-
-
 }
