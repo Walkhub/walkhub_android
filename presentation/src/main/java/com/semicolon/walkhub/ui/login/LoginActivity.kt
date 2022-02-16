@@ -65,6 +65,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(
         )
 
         GlobalScope.launch {
+            a.startRecordExercise()
+        }
+
+        GlobalScope.launch {
             a.fetchDailyExerciseRecordAsFlow().collect {
                 liveData.postValue(it)
                 println(it.toString())
