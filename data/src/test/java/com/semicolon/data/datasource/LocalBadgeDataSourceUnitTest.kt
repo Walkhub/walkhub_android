@@ -2,7 +2,6 @@ package com.semicolon.data.datasource
 
 import com.nhaarman.mockitokotlin2.*
 import com.semicolon.data.local.dao.BadgeDao
-import com.semicolon.data.local.datasource.LocalBadgeDataSource
 import com.semicolon.data.local.datasource.LocalBadgeDataSourceImpl
 import com.semicolon.data.local.entity.badge.*
 import com.semicolon.domain.entity.badge.FetchMyBadgesEntity
