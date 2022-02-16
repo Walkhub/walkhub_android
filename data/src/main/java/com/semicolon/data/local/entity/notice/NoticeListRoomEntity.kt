@@ -1,66 +1,66 @@
 package com.semicolon.data.local.entity.notice
 
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.semicolon.domain.entity.notice.NoticeEntity
 import java.time.LocalDateTime
 
-
-@Entity(tableName = "notice")
-
+@Entity(tableName = "noticeList")
 data class NoticeListRoomEntity(
-    val noticeValueRoomEntity: List<NoticeValueRoomEntity>
+    @PrimaryKey (autoGenerate = true) var id: Int = 0,
+    val noticeList: List<NoticeListValue>
 ) {
-    data class NoticeValueRoomEntity(
-        @PrimaryKey var noticeId: Int,
-        val title: String,
+    data class NoticeListValue(
+        val id: Int,
+        val content: String,
         val createdAt: LocalDateTime,
-        val noticeWriter: NoticeWriterRoomEntity
+        @Embedded val noticeWriter: NoticeWriter
     ) {
-        data class NoticeWriterRoomEntity(
-            var writerId: Int,
-            val writerName: String,
-            val profileUrl: String
+        data class NoticeWriter(
+            val id: Int,
+            val name: String,
+            val profileImageUrl: String
         )
     }
+
+    fun NoticeListValue.toEntity() =
+        NoticeEntity.NoticeValueEntity(
+            id = id,
+            content = content,
+            createdAt = createdAt,
+            noticeWriter = noticeWriter.toEntity()
+        )
+
+    fun NoticeListValue.NoticeWriter.toEntity() =
+        NoticeEntity.NoticeValueEntity.NoticeWriterEntity(
+            id = id,
+            name = name,
+            profileUrl = profileImageUrl
+        )
 }
 
 fun NoticeListRoomEntity.toEntity() =
-    NoticeListRoomEntity(
-        noticeValueRoomEntity = noticeValueRoomEntity
-    )
-
-fun NoticeListRoomEntity.NoticeValueRoomEntity.toEntity() =
-    NoticeEntity.NoticeValueEntity(
-        noticeId = noticeId,
-        title = title,
-        createdAt = createdAt,
-        noticeWriter = noticeWriter.toEntity()
-    )
-
-fun NoticeListRoomEntity.NoticeValueRoomEntity.NoticeWriterRoomEntity.toEntity() =
-    NoticeEntity.NoticeValueEntity.NoticeWriterEntity(
-        writerId = writerId,
-        writerName = writerName,
-        profileUrl = profileUrl
+    NoticeEntity(
+        noticeValueEntity = noticeList.map { it.toEntity() }
     )
 
 fun NoticeEntity.toDbEntity() =
     NoticeListRoomEntity(
-        noticeValueRoomEntity = noticeValueEntity.map { it.toDbEntity() }
+        noticeList = noticeValueEntity.map { it.toDbEntity() }
     )
 
 fun NoticeEntity.NoticeValueEntity.toDbEntity() =
-    NoticeListRoomEntity.NoticeValueRoomEntity(
-        noticeId = noticeId,
-        title = title,
+    NoticeListRoomEntity.NoticeListValue(
+        id = id,
+        content = content,
         createdAt = createdAt,
         noticeWriter = noticeWriter.toDbEntity()
     )
 
 fun NoticeEntity.NoticeValueEntity.NoticeWriterEntity.toDbEntity() =
-    NoticeListRoomEntity.NoticeValueRoomEntity.NoticeWriterRoomEntity(
-        writerId = writerId,
-        writerName = writerName,
-        profileUrl = profileUrl
+    NoticeListRoomEntity.NoticeListValue.NoticeWriter(
+        id = id,
+        name = name,
+        profileImageUrl = profileUrl
     )
