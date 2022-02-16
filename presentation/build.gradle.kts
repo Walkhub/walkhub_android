@@ -69,6 +69,8 @@ dependencies {
     implementation(Dependency.Coroutine.android)
 
     implementation(Dependency.Lifecycle.viewModel)
+    implementation(Dependency.Lifecycle.liveData)
+    implementation(Dependency.Lifecycle.runTime)
 
     implementation (Dependency.Navigation.navigationFragment)
     implementation (Dependency.Navigation.navigationUi)
