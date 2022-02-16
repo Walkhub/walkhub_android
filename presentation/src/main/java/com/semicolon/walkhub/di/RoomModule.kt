@@ -25,6 +25,11 @@ object RoomModule {
         .addTypeConverter(NewBadgeListTypeConverter::class)
         .addTypeConverter(NoticeListTypeConverter::class)
         .addTypeConverter(UserBadgeListTypeConverter::class)
+        .addTypeConverter(RankOurSchoolTypeConverter::class)
+        .addTypeConverter(RankSchoolRankTypeConverter::class)
+        .addTypeConverter(RankSearchSchoolTypeConverter::class)
+        .addTypeConverter(RankSearchUserTypeConverter::class)
+        .addTypeConverter(RankUserRankTypeConverter::class)
         .build()
 
     @Provides
