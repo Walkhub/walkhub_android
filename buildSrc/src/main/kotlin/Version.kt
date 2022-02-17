@@ -32,4 +32,7 @@ object Version {
     const val activityCompose = "1.4.0"
     const val coilCompose = "1.4.0"
     const val hiltCompose = "1.0.0"
+    const val moshiKotlin = "1.8.0"
+    const val circleImage = "3.1.0"
+    const val glide = "4.13.0"
 }
