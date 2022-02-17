@@ -7,6 +7,7 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.semicolon.data.local.datasource.LocalBadgeDataSource
 import com.semicolon.data.remote.datasource.RemoteBadgeDataSource
 import com.semicolon.domain.entity.badge.FetchMyBadgesEntity
+import com.semicolon.domain.entity.badge.FetchNewBadgesEntity
 import com.semicolon.domain.entity.badge.FetchUserBadgesEntity
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -23,6 +24,7 @@ class BadgeRepositoryUnitTest {
 
     private val fetchUserBadgesEntity = mock<FetchUserBadgesEntity>()
     private val fetchMyBadgesEntity = mock<FetchMyBadgesEntity>()
+    private val fetchNewBadgesEntity = mock<FetchNewBadgesEntity>()
 
     @Test
     fun testFetchUserBadges() {
@@ -64,6 +66,23 @@ class BadgeRepositoryUnitTest {
             assertEquals(Unit, repositoryResult)
 
             verify(remoteBadgeDataSource, times(1)).setBadge(badgeId)
+        }
+    }
+
+    @Test
+    fun testFetchNewBadges() {
+
+        runBlocking {
+            whenever(remoteBadgeDataSource.fetchNewBadges()).thenReturn(fetchNewBadgesEntity)
+            whenever(localBadgeDataSource.fetchNewBadges()).thenReturn(fetchNewBadgesEntity)
+
+            badgeRepository.fetchNewBadges()
+                .collect{
+                    assertEquals(fetchNewBadgesEntity, it)
+                }
+
+            verify(remoteBadgeDataSource, times(1)).fetchNewBadges()
+            verify(localBadgeDataSource, times(1)).fetchNewBadges()
         }
     }
 }
