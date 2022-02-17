@@ -315,7 +315,7 @@
                     android:layout_marginStart="266dp"
                     android:layout_marginEnd="46dp"
                     android:layout_marginBottom="3dp"
-                    app:layout_constraintBottom_toTopOf="@+id/kalory"
+                    app:layout_constraintBottom_toTopOf="@+id/calorie"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
