@@ -34,6 +34,7 @@ fun WalkGraph(items: List<GraphItem>, type: GraphType) {
         }
     val lines = maxOfXAxis / 5000
     Column(
+        modifier = Modifier.padding(bottom = 16.dp),
         horizontalAlignment = Alignment.End
     ) {
         Row(
@@ -168,7 +169,7 @@ fun WeeklyGraphLabel(items: List<GraphItem>) {
         modifier = Modifier
             .padding(vertical = 4.dp)
             .width(228.dp)
-            .wrapContentHeight()
+            .height(18.dp)
             .padding(horizontal = 10.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
@@ -191,72 +192,81 @@ fun MonthlyGraphLabel(items: List<GraphItem>) {
     val secondLabelDate = items[labelIndex[1]].date
     val thirdLabelDate = items[labelIndex[2]].date
     val fourthLabelDate = items[labelIndex[3]].date
+    val centerOfFirstLabel = (16 + 6 + labelIndex[0] * 8).dp
     val density = LocalDensity.current
-    val centerOfFirstLabel = 16 + 6 + labelIndex[0] * 8
 
     var firstLabelWidth by remember { mutableStateOf(0) }
     var secondLabelWidth by remember { mutableStateOf(0) }
     var thirdLabelWidth by remember { mutableStateOf(0) }
     var fourthLabelWidth by remember { mutableStateOf(0) }
 
-    val firstDatePadding = density.run {
-        centerOfFirstLabel - ((firstLabelWidth / 2).toDp().value)
-    }
-    val secondDatePadding = density.run {
-        centerOfFirstLabel + 56 - ((secondLabelWidth / 2).toDp().value)
-    }
-    val thirdDatePadding = density.run {
-        centerOfFirstLabel + 112 - ((thirdLabelWidth / 2).toDp().value)
-    }
-    val fourthDatePadding = density.run {
-        centerOfFirstLabel + 168 - ((fourthLabelWidth / 2).toDp().value)
-    }
+    val firstLabelWidthDp = density.run { firstLabelWidth.toDp() }
+    val secondLabelWidthDp = density.run { secondLabelWidth.toDp() }
+    val thirdLabelWidthDp = density.run { thirdLabelWidth.toDp() }
+    val fourthLabelWidthDp = density.run { fourthLabelWidth.toDp() }
+
+    val firstPadding = centerOfFirstLabel - (firstLabelWidthDp / 2)
+    val secondPadding = centerOfFirstLabel + 56.dp - (secondLabelWidthDp / 2)
+    val thirdPadding = centerOfFirstLabel + 112.dp - (thirdLabelWidthDp / 2)
+    val fourthPadding = centerOfFirstLabel + 168.dp - (fourthLabelWidthDp / 2)
+    println("$firstPadding $secondPadding $thirdPadding $fourthPadding asdf")
+    println("$firstLabelWidth $secondLabelWidth $thirdLabelWidth $fourthLabelWidth qwer")
     Box(
         Modifier
             .padding(vertical = 4.dp)
             .width(260.dp)
-            .wrapContentHeight()
+            .height(18.dp),
+        contentAlignment = Alignment.CenterStart
     ) {
-        MiniCaption(
-            modifier = Modifier
-                .padding(start = firstDatePadding.dp)
-                .wrapContentSize()
-                .onSizeChanged {
-                    firstLabelWidth = it.width
-                },
-            text = "${firstLabelDate.month.value}.${firstLabelDate.dayOfMonth}",
-            color = gray800
-        )
-        MiniCaption(
-            modifier = Modifier
-                .padding(start = secondDatePadding.dp)
-                .wrapContentSize()
-                .onSizeChanged {
-                    secondLabelWidth = it.width
-                },
-            text = "${secondLabelDate.month.value}.${secondLabelDate.dayOfMonth}",
-            color = gray800
-        )
-        MiniCaption(
-            modifier = Modifier
-                .padding(start = thirdDatePadding.dp)
-                .wrapContentSize()
-                .onSizeChanged {
-                    thirdLabelWidth = it.width
-                },
-            text = "${thirdLabelDate.month.value}.${thirdLabelDate.dayOfMonth}",
-            color = gray800
-        )
-        MiniCaption(
-            modifier = Modifier
-                .padding(start = fourthDatePadding.dp)
-                .wrapContentSize()
-                .onSizeChanged {
-                    fourthLabelWidth = it.width
-                },
-            text = "${fourthLabelDate.month.value}.${fourthLabelDate.dayOfMonth}",
-            color = gray800
-        )
+        Row {
+            Spacer(modifier = Modifier.width(firstPadding))
+            MiniCaption(
+                modifier = Modifier
+                    .wrapContentSize()
+                    .onSizeChanged {
+                        firstLabelWidth = it.width
+                        println(firstLabelWidth)
+                    },
+                text = "${firstLabelDate.month.value}.${firstLabelDate.dayOfMonth}",
+                color = gray800
+            )
+        }
+        Row {
+            Spacer(modifier = Modifier.width(secondPadding))
+            MiniCaption(
+                modifier = Modifier
+                    .wrapContentSize()
+                    .onSizeChanged {
+                        secondLabelWidth = it.width
+                    },
+                text = "${secondLabelDate.month.value}.${secondLabelDate.dayOfMonth}",
+                color = gray800
+            )
+        }
+        Row {
+            Spacer(modifier = Modifier.width(thirdPadding))
+            MiniCaption(
+                modifier = Modifier
+                    .wrapContentSize()
+                    .onSizeChanged {
+                        thirdLabelWidth = it.width
+                    },
+                text = "${thirdLabelDate.month.value}.${thirdLabelDate.dayOfMonth}",
+                color = gray800
+            )
+        }
+        Row {
+            Spacer(modifier = Modifier.width(fourthPadding))
+            MiniCaption(
+                modifier = Modifier
+                    .wrapContentSize()
+                    .onSizeChanged {
+                        fourthLabelWidth = it.width
+                    },
+                text = "${fourthLabelDate.month.value}.${fourthLabelDate.dayOfMonth}",
+                color = gray800
+            )
+        }
     }
 }
 
