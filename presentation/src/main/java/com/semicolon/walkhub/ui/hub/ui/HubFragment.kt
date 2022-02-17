@@ -1,5 +1,6 @@
 package com.semicolon.walkhub.ui.hub.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.semicolon.walkhub.viewmodel.HubMainViewModel.Event
+import com.semicolon.walkhub.viewmodel.hub.HubMainViewModel.Event
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.FragmentHubBinding
 import com.semicolon.walkhub.extensions.repeatOnStarted
@@ -17,7 +18,7 @@ import com.semicolon.walkhub.ui.base.BaseFragment
 import com.semicolon.walkhub.ui.hub.adapter.HubSchoolRankRvAdapter
 import com.semicolon.walkhub.ui.hub.model.HubSchoolRank
 import com.semicolon.walkhub.util.loadCircleFromUrl
-import com.semicolon.walkhub.viewmodel.HubMainViewModel
+import com.semicolon.walkhub.viewmodel.hub.HubMainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -58,6 +59,12 @@ class HubFragment @Inject constructor(
 
         setAdapter()
         setSpinner()
+
+        binding.clMySchool.setOnClickListener {
+            val intent = Intent(context, HubSchoolActivity::class.java)
+            intent.putExtra("type", true)
+            startActivity(intent)
+        }
     }
 
     private fun setSpinner() {

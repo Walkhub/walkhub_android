@@ -1,4 +1,4 @@
-package com.semicolon.walkhub.viewmodel
+package com.semicolon.walkhub.viewmodel.hub
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
