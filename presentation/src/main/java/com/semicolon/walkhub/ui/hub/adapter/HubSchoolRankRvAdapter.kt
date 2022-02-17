@@ -1,5 +1,6 @@
 package com.semicolon.walkhub.ui.hub.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -9,6 +10,7 @@ import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.HubSchoolRankViewBinding
 import com.semicolon.walkhub.ui.hub.model.HubSchoolRank.MySchool
 import com.semicolon.walkhub.ui.hub.model.HubSchoolRank.OtherSchool
+import com.semicolon.walkhub.ui.hub.ui.HubMySchoolActivity
 import com.semicolon.walkhub.util.loadFromUrl
 import com.semicolon.walkhub.util.visible
 
@@ -30,6 +32,13 @@ class HubSchoolRankRvAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: OtherSchool) {
+
+            itemView.setOnClickListener {
+                val intent = Intent(context, HubMySchoolActivity::class.java)
+                intent.putExtra("type", false)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                context.startActivity(intent)
+            }
 
             binding.ivSchool.loadFromUrl(item.logo_image_url)
             if(item.name.length > 10) {
