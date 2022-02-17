@@ -55,4 +55,15 @@ class BadgeRepositoryUnitTest {
             verify(localBadgeDataSource, times(1)).fetchMyBadges()
         }
     }
+
+    @Test
+    fun testSetBadge() {
+        val badgeId = 1
+        runBlocking {
+            val repositoryResult = badgeRepository.setBadge(badgeId)
+            assertEquals(Unit, repositoryResult)
+
+            verify(remoteBadgeDataSource, times(1)).setBadge(badgeId)
+        }
+    }
 }
