@@ -64,7 +64,6 @@ class RemoteBadgeDataSourceUnitTest {
 
     @Test
     fun testFetchNewBadges() {
-
         runBlocking {
             whenever(badgeApi.fetchNewBadges()).thenReturn(fetchNewBadgesResponse)
 
@@ -74,5 +73,4 @@ class RemoteBadgeDataSourceUnitTest {
             verify(badgeApi, times(1)).fetchNewBadges()
         }
     }
-
 }
