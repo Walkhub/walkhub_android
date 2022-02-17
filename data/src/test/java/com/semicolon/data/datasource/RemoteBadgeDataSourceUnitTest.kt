@@ -51,6 +51,17 @@ class RemoteBadgeDataSourceUnitTest {
         }
     }
 
+    @Test
+    fun testSetBadge() {
+        val badgeId = 1
+        runBlocking {
+            val dataSourceResult = remoteBadgeDatasource.setBadge(badgeId)
+            assertEquals(Unit,dataSourceResult)
+
+            verify(badgeApi, times(1)).setBadge(badgeId)
+        }
+    }
+
 
 
 }
