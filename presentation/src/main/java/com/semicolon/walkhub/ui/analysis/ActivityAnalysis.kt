@@ -20,7 +20,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 @Composable
-fun ActivityAnalysis() {
+fun ActivityAnalysis(onBackButtonClick: () -> Unit) {
     // TODO: ViewModel 완성 후 더미데이터 지우고 값 넣기
     val scrollState = rememberScrollState()
     val random = Random()
@@ -177,7 +177,7 @@ fun ActivityAnalysis() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             AppBar(text = "활동분석") {
-                // TODO: "뒤로가기 눌렀을 때 로직"
+                onBackButtonClick()
             }
             Spacer(modifier = Modifier.size(12.dp))
             CaloriesLevelCard(
@@ -196,5 +196,5 @@ fun ActivityAnalysis() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewActivityAnalysis() {
-    ActivityAnalysis()
+    ActivityAnalysis {}
 }
