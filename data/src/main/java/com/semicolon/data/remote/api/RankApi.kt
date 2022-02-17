@@ -28,8 +28,7 @@ interface RankApi {
     @GET("ranks/users/{school-id}")
     suspend fun fetchUserRank(
         @Path("school-id") schoolId: Int,
-        @Query("scope") scope: String,
-        @Query("dateType") moreDateType: String
+        @Query("dateType") dateType: String
     ): UserRankResponse
 
     //우리학교 유저 랭킹
