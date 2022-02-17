@@ -209,8 +209,7 @@ fun MonthlyGraphLabel(items: List<GraphItem>) {
     val secondPadding = centerOfFirstLabel + 56.dp - (secondLabelWidthDp / 2)
     val thirdPadding = centerOfFirstLabel + 112.dp - (thirdLabelWidthDp / 2)
     val fourthPadding = centerOfFirstLabel + 168.dp - (fourthLabelWidthDp / 2)
-    println("$firstPadding $secondPadding $thirdPadding $fourthPadding asdf")
-    println("$firstLabelWidth $secondLabelWidth $thirdLabelWidth $fourthLabelWidth qwer")
+    
     Box(
         Modifier
             .padding(vertical = 4.dp)
