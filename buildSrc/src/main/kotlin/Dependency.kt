@@ -84,6 +84,7 @@ object Dependency {
     object Moshi {
         const val moshi = "com.squareup.moshi:moshi:${Version.moshi}"
         const val moshiCompiler = "com.squareup.moshi:moshi-kotlin-codegen:${Version.moshi}"
+        const val moshiKotlin = "com.squareup.moshi:moshi-kotlin:${Version.moshiKotlin}"
     }
 
     object Navigation {
@@ -100,5 +101,14 @@ object Dependency {
     object Permission {
         const val tedPermission =
             "io.github.ParkSangGwon:tedpermission-normal:${Version.tedPermission}"
+    }
+
+    object CircleImageView {
+        const val circleImage = "de.hdodenhof:circleimageview:${Version.circleImage}"
+    }
+
+    object Glide {
+        const val glideCore = "com.github.bumptech.glide:glide:${Version.glide}"
+        const val glideCompiler = "com.github.bumptech.glide:compiler:${Version.glide}"
     }
 }
