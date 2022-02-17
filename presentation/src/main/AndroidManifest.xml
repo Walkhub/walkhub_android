@@ -20,7 +20,7 @@
             android:name=".ui.hub.ui.HubOtherSchoolActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.hub.ui.HubMySchoolActivity"
+            android:name=".ui.hub.ui.HubSchoolActivity"
             android:exported="false" />
         <activity
             android:name=".ui.login.LoginActivity"

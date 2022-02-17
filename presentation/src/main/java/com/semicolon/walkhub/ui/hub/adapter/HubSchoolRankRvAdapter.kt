@@ -4,13 +4,11 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.gun0912.tedpermission.provider.TedPermissionProvider.context
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.HubSchoolRankViewBinding
-import com.semicolon.walkhub.ui.hub.model.HubSchoolRank.MySchool
 import com.semicolon.walkhub.ui.hub.model.HubSchoolRank.OtherSchool
-import com.semicolon.walkhub.ui.hub.ui.HubMySchoolActivity
+import com.semicolon.walkhub.ui.hub.ui.HubSchoolActivity
 import com.semicolon.walkhub.util.loadFromUrl
 import com.semicolon.walkhub.util.visible
 
@@ -34,7 +32,7 @@ class HubSchoolRankRvAdapter(
         fun bind(item: OtherSchool) {
 
             itemView.setOnClickListener {
-                val intent = Intent(context, HubMySchoolActivity::class.java)
+                val intent = Intent(context, HubSchoolActivity::class.java)
                 intent.putExtra("type", false)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 context.startActivity(intent)
