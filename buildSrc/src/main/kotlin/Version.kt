@@ -30,4 +30,5 @@ object Version {
     const val tedPermission = "3.3.0"
     const val jetpackCompose = "1.1.0"
     const val activityCompose = "1.4.0"
+    const val coilCompose = "1.4.0"
 }

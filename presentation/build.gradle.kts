@@ -58,6 +58,7 @@ dependencies {
     implementation(Dependency.UI.composeMaterial)
     implementation(Dependency.UI.composeCompiler)
     implementation(Dependency.UI.activityCompose)
+    implementation(Dependency.UI.coilCompose)
 
     testImplementation(Dependency.Test.junit)
     testImplementation(Dependency.Test.mockito)

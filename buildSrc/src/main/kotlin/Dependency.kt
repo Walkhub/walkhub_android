@@ -19,6 +19,8 @@ object Dependency {
             "androidx.compose.compiler:compiler:${Version.jetpackCompose}"
         const val activityCompose =
             "androidx.activity:activity-compose:${Version.activityCompose}"
+        const val coilCompose =
+            "io.coil-kt:coil-compose:${Version.coilCompose}"
     }
 
     object GradlePlugin {
