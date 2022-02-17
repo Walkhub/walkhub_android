@@ -66,6 +66,7 @@ dependencies {
     androidTestImplementation(Dependency.Test.espresso)
 
     implementation(Dependency.DI.hiltAndroid)
+    implementation(Dependency.DI.hiltCompose)
     kapt(Dependency.DI.hiltCompiler)
 
     implementation(Dependency.Network.retrofit)
