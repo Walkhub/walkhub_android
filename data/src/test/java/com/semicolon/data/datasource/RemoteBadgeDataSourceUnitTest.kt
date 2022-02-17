@@ -62,6 +62,17 @@ class RemoteBadgeDataSourceUnitTest {
         }
     }
 
+    @Test
+    fun testFetchNewBadges() {
 
+        runBlocking {
+            whenever(badgeApi.fetchNewBadges()).thenReturn(fetchNewBadgesResponse)
+
+            val dataSourceResult = remoteBadgeDatasource.fetchNewBadges()
+            assertEquals(fetchNewBadgesResponse.toEntity(), dataSourceResult)
+
+            verify(badgeApi, times(1)).fetchNewBadges()
+        }
+    }
 
 }
