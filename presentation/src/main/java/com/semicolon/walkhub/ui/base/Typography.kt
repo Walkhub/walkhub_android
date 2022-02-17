@@ -1,15 +1,21 @@
 package com.semicolon.walkhub.ui.base
 
+import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextLayoutResult
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
+import com.semicolon.walkhub.R
 
 @Composable
 fun Title1(
@@ -33,6 +39,8 @@ fun Title1(
         color = color,
         lineHeight = lineHeight,
         letterSpacing = letterSpacing,
+        baselineToTop = 42,
+        baselineToBottom = 18,
         textDecoration = textDecoration,
         textAlign = textAlign,
         overflow = overflow,
@@ -64,6 +72,8 @@ fun Title2(
         color = color,
         lineHeight = lineHeight,
         letterSpacing = letterSpacing,
+        baselineToTop = 38,
+        baselineToBottom = 16,
         textDecoration = textDecoration,
         textAlign = textAlign,
         overflow = overflow,
@@ -95,6 +105,8 @@ fun Title3(
         color = color,
         lineHeight = lineHeight,
         letterSpacing = letterSpacing,
+        baselineToTop = 34,
+        baselineToBottom = 14,
         textDecoration = textDecoration,
         textAlign = textAlign,
         overflow = overflow,
@@ -126,6 +138,8 @@ fun Subtitle1(
         color = color,
         lineHeight = lineHeight,
         letterSpacing = letterSpacing,
+        baselineToTop = 34,
+        baselineToBottom = 14,
         textDecoration = textDecoration,
         textAlign = textAlign,
         overflow = overflow,
@@ -157,6 +171,8 @@ fun Subtitle2(
         color = color,
         lineHeight = lineHeight,
         letterSpacing = letterSpacing,
+        baselineToTop = 30,
+        baselineToBottom = 12,
         textDecoration = textDecoration,
         textAlign = textAlign,
         overflow = overflow,
@@ -188,6 +204,8 @@ fun Subtitle3(
         color = color,
         lineHeight = lineHeight,
         letterSpacing = letterSpacing,
+        baselineToTop = 26,
+        baselineToBottom = 10,
         textDecoration = textDecoration,
         textAlign = textAlign,
         overflow = overflow,
@@ -214,11 +232,13 @@ fun Subtitle4(
     Typography(
         text = text,
         modifier = modifier,
-        weight = FontWeight.W400,
+        weight = FontWeight.Medium,
         size = 20,
         color = color,
         lineHeight = lineHeight,
         letterSpacing = letterSpacing,
+        baselineToTop = 22,
+        baselineToBottom = 8,
         textDecoration = textDecoration,
         textAlign = textAlign,
         overflow = overflow,
@@ -245,11 +265,13 @@ fun Body1(
     Typography(
         text = text,
         modifier = modifier,
-        weight = FontWeight.W300,
+        weight = FontWeight.Medium,
         size = 16,
         color = color,
         lineHeight = lineHeight,
         letterSpacing = letterSpacing,
+        baselineToTop = 18,
+        baselineToBottom = 6,
         textDecoration = textDecoration,
         textAlign = textAlign,
         overflow = overflow,
@@ -276,11 +298,13 @@ fun Body2(
     Typography(
         text = text,
         modifier = modifier,
-        weight = FontWeight.W300,
+        weight = FontWeight.Medium,
         size = 14,
         color = color,
         lineHeight = lineHeight,
         letterSpacing = letterSpacing,
+        baselineToTop = 16,
+        baselineToBottom = 5,
         textDecoration = textDecoration,
         textAlign = textAlign,
         overflow = overflow,
@@ -307,11 +331,13 @@ fun Body3(
     Typography(
         text = text,
         modifier = modifier,
-        weight = FontWeight.W300,
+        weight = FontWeight.Normal,
         size = 12,
         color = color,
         lineHeight = lineHeight,
         letterSpacing = letterSpacing,
+        baselineToTop = 14,
+        baselineToBottom = 4,
         textDecoration = textDecoration,
         textAlign = textAlign,
         overflow = overflow,
@@ -338,11 +364,13 @@ fun Button(
     Typography(
         text = text,
         modifier = modifier,
-        weight = FontWeight.W300,
+        weight = FontWeight.Normal,
         size = 14,
         color = color,
         lineHeight = lineHeight,
         letterSpacing = letterSpacing,
+        baselineToTop = 16,
+        baselineToBottom = 5,
         textDecoration = textDecoration,
         textAlign = textAlign,
         overflow = overflow,
@@ -369,11 +397,13 @@ fun Caption(
     Typography(
         text = text,
         modifier = modifier,
-        weight = FontWeight.W300,
+        weight = FontWeight.Normal,
         size = 12,
         color = color,
         lineHeight = lineHeight,
         letterSpacing = letterSpacing,
+        baselineToTop = 14,
+        baselineToBottom = 4,
         textDecoration = textDecoration,
         textAlign = textAlign,
         overflow = overflow,
@@ -400,11 +430,13 @@ fun MiniCaption(
     Typography(
         text = text,
         modifier = modifier,
-        weight = FontWeight.W300,
+        weight = FontWeight.Medium,
         size = 8,
         color = color,
         lineHeight = lineHeight,
         letterSpacing = letterSpacing,
+        baselineToTop = 10,
+        baselineToBottom =2,
         textDecoration = textDecoration,
         textAlign = textAlign,
         overflow = overflow,
@@ -423,6 +455,8 @@ fun Typography(
     color: Color,
     lineHeight: Int,
     letterSpacing: Int,
+    baselineToTop: Int,
+    baselineToBottom: Int,
     textDecoration: TextDecoration? = null,
     textAlign: TextAlign?,
     overflow: TextOverflow,
@@ -430,19 +464,33 @@ fun Typography(
     maxLines: Int,
     onTextLayout: (TextLayoutResult) -> Unit
 ) {
+
+    val baselineModifier = modifier.paddingFromBaseline(top = baselineToTop.sp, bottom = baselineToBottom.sp)
     Text(
+        style = TextStyle(
+            color = color,
+            lineHeight = lineHeight.sp,
+            letterSpacing = letterSpacing.sp,
+            fontSize = size.sp,
+            fontFamily = notoSansFamily,
+            fontWeight = weight,
+            textDecoration = textDecoration,
+            textAlign = textAlign,
+        ),
         text = text,
-        modifier = modifier,
-        fontWeight = weight,
-        fontSize = size.sp,
-        color = color,
-        lineHeight = lineHeight.sp,
-        letterSpacing = letterSpacing.sp,
-        textDecoration = textDecoration,
-        textAlign = textAlign,
+        modifier = baselineModifier,
         overflow = overflow,
         softWrap = softWrap,
         maxLines = maxLines,
         onTextLayout = onTextLayout
     )
 }
+
+val notoSansFamily = FontFamily(
+    Font(R.font.noto_sans_kr_black, FontWeight.Black),
+    Font(R.font.noto_sans_kr_bold, FontWeight.Bold),
+    Font(R.font.noto_sans_kr_medium, FontWeight.Medium),
+    Font(R.font.noto_sans_kr_regular, FontWeight.Normal),
+    Font(R.font.noto_sans_kr_light, FontWeight.Light),
+    Font(R.font.noto_sans_kr_thin, FontWeight.Thin)
+)
