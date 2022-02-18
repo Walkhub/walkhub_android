@@ -2,6 +2,7 @@ package com.semicolon.walkhub.viewmodel.hub
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.semicolon.domain.enum.DateType
 import com.semicolon.walkhub.ui.hub.model.HubSchoolRank
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
@@ -16,7 +17,7 @@ class HubMainViewModel @Inject constructor(
     private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()
 
-    fun fetchSchoolRank() {
+    fun fetchSchoolRank(dateType: DateType) {
         val mySchool = HubSchoolRank.MySchool(1, "대덕소프트웨어마이스터고등학교", "http://goo.gl/gEgYUd", 1123213, 1, 1)
         val otherSchool: List<HubSchoolRank.OtherSchool> = listOf(
             HubSchoolRank.OtherSchool(2, "대전문지중학교", 1, 1312, "http://goo.gl/gEgYUd", 1123123),

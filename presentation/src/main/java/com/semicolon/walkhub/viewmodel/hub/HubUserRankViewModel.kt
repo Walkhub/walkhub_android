@@ -21,7 +21,7 @@ class HubUserRankViewModel @Inject constructor(
     private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()
 
-    fun fetchMySchoolUserRank(date: DateType) {
+    fun fetchMySchoolUserRank(dateType: DateType) {
         val fakeData = OurSchoolUserRankEntity(
             OurSchoolUserRankEntity.Ranking(1, 1, "임세현", "http://goo.gl/gEgYUd", 41, 1, 415),
             listOf(
@@ -34,7 +34,7 @@ class HubUserRankViewModel @Inject constructor(
         event(Event.FetchMySchoolUserRank(fakeData.toData()))
     }
 
-    fun fetchSchoolUserRank(date: DateType) {
+    fun fetchSchoolUserRank(dateType: DateType) {
         val fakeData = UserRankEntity(
             listOf(
                 UserRankEntity.UserRank(1, "감자", 2, 3, 10, 1, "http://goo.gl/gEgYUd", 141),
