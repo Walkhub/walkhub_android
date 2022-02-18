@@ -3,6 +3,7 @@ package com.semicolon.walkhub.ui.register
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -160,10 +161,6 @@ class Register : BaseActivity<ActivityRegisterBinding>(
                             R.drawable.registerbuttondesign
                         )
                     }
-
-                    6 -> {
-
-                    }
                 }
             }
 
@@ -182,7 +179,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
                 binding.btContinue.setOnClickListener {
                     val name = binding.etName.text.toString()
 
-                    if (name.length in 2..10) nextPage(2)
+                    if (name.length in 2..10) movePage(2)
                     else {
                         showShortToast("이름은 (2~10)자 안으로 입력해주세요.")
                     }
@@ -195,7 +192,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
                 binding.btContinue.setOnClickListener {
                     val phone = binding.etName.text.toString()
 
-                    if (phone.length in 11..11) nextPage(3)
+                    if (phone.length in 11..11) movePage(3)
                     else {
                         showShortToast("전화번호를 올바르게 입력해주세요.")
                     }
@@ -209,7 +206,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
 
                     if (cer.length < 5) {
                         showShortToast("올바른 형식의 인증번호를 입력해주세요.")
-                    } else nextPage(4)
+                    } else movePage(4)
                 }
             }
             4 -> {
@@ -220,7 +217,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
 
                     if (id.length < 4) {
                         showShortToast("5자 이상의 아이디를 입력해주세요.")
-                    } else nextPage(5)
+                    } else movePage(5)
                 }
             }
             5 -> {
@@ -243,7 +240,8 @@ class Register : BaseActivity<ActivityRegisterBinding>(
                 sendSchool()
 
                 binding.etName.setOnClickListener {
-
+                    val intent = Intent(this, SearchSchoolActivity::class.java)
+                    startActivity(intent)
                 }
             }
         }
@@ -311,15 +309,9 @@ class Register : BaseActivity<ActivityRegisterBinding>(
     }
 
     private fun sendSchool() {
-        setTextWatcher(6)
-
         binding.tvMain.text = "학교 등록"
         binding.tvEt.text = "현재 소속 중인 학교를 입력해주세요."
         binding.etName.hint = "학교 검색하기"
-    }
-
-    private fun nextPage(page: Int) {
-        movePage(page)
     }
 
     @SuppressLint("ServiceCast")
