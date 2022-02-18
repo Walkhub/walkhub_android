@@ -1,8 +1,6 @@
 package com.semicolon.walkhub.ui.register
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -12,14 +10,11 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import androidx.core.view.isInvisible
-import androidx.databinding.DataBindingUtil
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityRegisterBinding
 import com.semicolon.walkhub.ui.base.BaseActivity
+import com.semicolon.walkhub.ui.register.searchschool.SearchSchoolActivity
 import com.semicolon.walkhub.util.visible
 
 class Register : BaseActivity<ActivityRegisterBinding>(
