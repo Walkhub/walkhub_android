@@ -123,7 +123,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
                                     )
 
                                 binding.tvWarning.visible()
-                                binding.tvWarning.setTextColor(Color.parseColor("#4D99F0"))
+                                binding.tvWarning.setTextColor(Color.parseColor("primary_400"))
                             }
 
                             p0?.length!! < 6 -> {
