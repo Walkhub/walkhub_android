@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_hub"
-        android:name="com.semicolon.walkhub.ui.hub.ui.HubFragment"
+        android:name="com.semicolon.walkhub.ui.hub.HubFragment"
         android:label="허브"
         tools:layout="@layout/fragment_hub" />
 

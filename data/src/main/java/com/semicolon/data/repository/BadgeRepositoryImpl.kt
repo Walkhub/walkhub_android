@@ -18,14 +18,14 @@ class BadgeRepositoryImpl @Inject constructor(
 
     override suspend fun fetchUserBadges(userId: Int): Flow<FetchUserBadgesEntity> =
         OfflineCacheUtil<FetchUserBadgesEntity>()
-            .remoteData { remoteBadgeDataSource.fetchUserBadges(userId) }
+            .remoteData { remoteBadgeDataSource.fetchUserBadges(userId).toEntity() }
             .localData { localBadgeDataSource.fetchUserBadges(userId) }
             .doOnNeedRefresh { localBadgeDataSource.insertUserBadge(userId, it) }
             .createFlow()
 
     override suspend fun fetchMyBadges(): Flow<FetchMyBadgesEntity> =
         OfflineCacheUtil<FetchMyBadgesEntity>()
-            .remoteData { remoteBadgeDataSource.fetchMyBadges() }
+            .remoteData { remoteBadgeDataSource.fetchMyBadges().toEntity() }
             .localData { localBadgeDataSource.fetchMyBadges() }
             .doOnNeedRefresh { localBadgeDataSource.insertMyBadges(it) }
             .createFlow()
@@ -36,7 +36,7 @@ class BadgeRepositoryImpl @Inject constructor(
 
     override suspend fun fetchNewBadges(): Flow<FetchNewBadgesEntity> =
         OfflineCacheUtil<FetchNewBadgesEntity>()
-            .remoteData { remoteBadgeDataSource.fetchNewBadges() }
+            .remoteData { remoteBadgeDataSource.fetchNewBadges().toEntity() }
             .localData { localBadgeDataSource.fetchNewBadges() }
             .doOnNeedRefresh { localBadgeDataSource.insertNewBadges(it) }
             .createFlow()

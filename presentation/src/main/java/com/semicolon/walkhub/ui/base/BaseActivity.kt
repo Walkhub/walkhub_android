@@ -1,4 +1,4 @@
-package com.semicolon.walkhub.ui.base
+package com.example.nms_android_v1.base
 
 import android.os.Bundle
 import android.widget.Toast
@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 
-abstract class BaseActivity<B : ViewDataBinding>(
+abstract class BaseActivity<B: ViewDataBinding> (
     @LayoutRes private val layoutId: Int
 ) : AppCompatActivity() {
 
@@ -18,7 +18,7 @@ abstract class BaseActivity<B : ViewDataBinding>(
 
         binding = DataBindingUtil.setContentView(this, layoutId)
         binding.lifecycleOwner = this
-
+        
         initView()
     }
 

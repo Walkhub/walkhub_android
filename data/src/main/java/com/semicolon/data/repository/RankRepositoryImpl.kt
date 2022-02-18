@@ -38,7 +38,7 @@ class RankRepositoryImpl @Inject constructor(
 
     override suspend fun fetchUserRank(fetchUserRankParam: FetchUserRankParam): Flow<UserRankEntity> =
         OfflineCacheUtil<UserRankEntity>()
-            .remoteData { remoteRankDataSource.fetchUserRank(fetchUserRankParam.schoolId,fetchUserRankParam.dateType.toString()).toEntity() }
+            .remoteData { remoteRankDataSource.fetchUserRank(fetchUserRankParam.schoolId,fetchUserRankParam.moreDateType.toString(),fetchUserRankParam.scope.toString()).toEntity() }
             .localData { localRankDataSource.fetchUserRank() }
             .doOnNeedRefresh { localRankDataSource.insertUserRank(it) }
             .createFlow()

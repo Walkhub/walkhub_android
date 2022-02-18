@@ -7,170 +7,23 @@
 
         <variable
             name="fragment"
-            type="com.semicolon.walkhub.ui.hub.ui.HubFragment" />
+            type="com.semicolon.walkhub.ui.hub.HubFragment" />
     </data>
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        tools:context=".ui.hub.HubFragment">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/gray_50"
-            tools:context=".activity.MainActivity">
+            android:text="Hub"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline3"
-                android:layout_width="1dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.04" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline4"
-                android:layout_width="1dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.96" />
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/noto_sans_kr_medium"
-                android:text="허브"
-                android:textColor="@color/gray_800"
-                android:textSize="20dp"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/editText"
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/bg_hub_edit_text"
-                android:fontFamily="@font/noto_sans_kr_regular"
-                android:hint="학교 검색"
-                android:paddingLeft="20dp"
-                android:textColor="@color/gray_900"
-                android:textSize="14dp"
-                app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
-                app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/noto_sans_kr_medium"
-                android:text="내 학교"
-                android:textColor="@color/gray_900"
-                android:textSize="16dp"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
-                app:layout_constraintTop_toBottomOf="@+id/editText" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clMySchool"
-                android:layout_width="0dp"
-                android:layout_height="64dp"
-                android:background="@drawable/bg_hub_my_school"
-                app:layout_constraintEnd_toEndOf="@id/guideline4"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@id/guideline3"
-                app:layout_constraintTop_toBottomOf="@+id/textView2">
-
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/ivMySchool"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="16dp"
-                    android:background="@android:color/transparent"
-                    android:src="@color/gray_400"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvMySchoolName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="11dp"
-                    android:layout_marginBottom="29dp"
-                    android:fontFamily="@font/noto_sans_kr_medium"
-                    android:text="학교 이름"
-                    android:textColor="@color/gray_900"
-                    android:textSize="16dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/clMySchool"
-                    app:layout_constraintStart_toEndOf="@+id/ivMySchool"
-                    app:layout_constraintTop_toTopOf="@+id/clMySchool" />
-
-                <TextView
-                    android:id="@+id/tvMySchoolInfo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="35dp"
-                    android:layout_marginBottom="11dp"
-                    android:fontFamily="@font/noto_sans_kr_regular"
-                    android:text="1학년 1반"
-                    android:textColor="@color/gray_800"
-                    android:textSize="12dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/clMySchool"
-                    app:layout_constraintStart_toStartOf="@+id/tvMySchoolName"
-                    app:layout_constraintTop_toTopOf="@+id/clMySchool" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:fontFamily="@font/noto_sans_kr_medium"
-                android:text="걸음수 Top 100"
-                android:textColor="@color/gray_900"
-                android:textSize="16dp"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
-                app:layout_constraintTop_toBottomOf="@+id/clMySchool" />
-
-            <Spinner
-                android:id="@+id/spHubMain"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                app:layout_constraintBottom_toBottomOf="@+id/textView10"
-                app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                app:layout_constraintTop_toTopOf="@+id/textView10" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvHubRank"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:nestedScrollingEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView10" />
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
-                app:layout_constraintBottom_toBottomOf="@+id/editText"
-                app:layout_constraintEnd_toEndOf="@+id/editText"
-                app:layout_constraintTop_toTopOf="@+id/editText"
-                app:srcCompat="@drawable/ic_hub_search" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.core.widget.NestedScrollView>
 </layout>
