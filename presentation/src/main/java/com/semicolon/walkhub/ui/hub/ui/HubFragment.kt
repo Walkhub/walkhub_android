@@ -63,6 +63,7 @@ class HubFragment @Inject constructor(
         binding.clMySchool.setOnClickListener {
             val intent = Intent(context, HubSchoolActivity::class.java)
             intent.putExtra("type", true)
+            intent.putExtra("name", binding.tvMySchoolName.text)
             startActivity(intent)
         }
     }

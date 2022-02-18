@@ -34,12 +34,13 @@ class HubSchoolRankRvAdapter(
             itemView.setOnClickListener {
                 val intent = Intent(context, HubSchoolActivity::class.java)
                 intent.putExtra("type", false)
+                intent.putExtra("name", item.name)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 context.startActivity(intent)
             }
 
             binding.ivSchool.loadFromUrl(item.logo_image_url)
-            if(item.name.length > 10) {
+            if (item.name.length > 10) {
                 val schoolName = item.name.substring(0, 11) + "..."
                 binding.tvName.text = schoolName
             } else {

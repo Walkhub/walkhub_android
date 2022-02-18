@@ -28,6 +28,7 @@ class HubSchoolActivity @Inject constructor(
 ) {
 
     private val vm: HubUserRankViewModel by viewModels()
+    private var schoolName = "no data"
 
     private lateinit var mAdapter: HubSearchUserRvAdapter
     private var rvHubUserData = arrayListOf<UserRankRvData>()
@@ -75,6 +76,10 @@ class HubSchoolActivity @Inject constructor(
     }
 
     private fun setToolbar() {
+
+        schoolName = intent.getStringExtra("name")!!
+
+        binding.toolbarTitle.text = schoolName
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
