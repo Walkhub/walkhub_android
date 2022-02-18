@@ -1,6 +1,7 @@
 package com.semicolon.walkhub.ui.register
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.os.Build
@@ -17,20 +18,19 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.view.isInvisible
 import androidx.databinding.DataBindingUtil
+import com.example.nms_android_v1.base.BaseActivity
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityRegisterBinding
 import com.semicolon.walkhub.util.visible
 
-class Register : AppCompatActivity() {
-
-    private lateinit var binding: ActivityRegisterBinding
+class Register : BaseActivity<ActivityRegisterBinding>(
+    R.layout.activity_register
+) {
 
     var page = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_register)
 
         binding.constraint.setOnClickListener {
             hideKeyboard()
@@ -184,7 +184,7 @@ class Register : AppCompatActivity() {
 
                     if (name.length in 2..10) nextPage(2)
                     else {
-                        Toast.makeText(this, "이름은 (2~10)자안으로 입력해야합니다.", Toast.LENGTH_SHORT).show()
+                        showShortToast("이름은 (2~10)자 안으로 입력해주세요.")
                     }
                 }
             }
@@ -197,7 +197,7 @@ class Register : AppCompatActivity() {
 
                     if (phone.length in 11..11) nextPage(3)
                     else {
-                        Toast.makeText(this, "전화번호를 올바르게 입력해주세요", Toast.LENGTH_SHORT).show()
+                        showShortToast("전화번호를 올바르게 입력해주세요.")
                     }
                 }
             }
@@ -208,7 +208,7 @@ class Register : AppCompatActivity() {
                     val cer = binding.etName.text.toString()
 
                     if (cer.length < 5) {
-                        Toast.makeText(this, "올바른 형식의 인증번호를 입력해주세요", Toast.LENGTH_SHORT).show()
+                        showShortToast("올바른 형식의 인증번호를 입력해주세요.")
                     } else nextPage(4)
                 }
             }
@@ -219,7 +219,7 @@ class Register : AppCompatActivity() {
                     val id = binding.etName.text.toString()
 
                     if (id.length < 4) {
-                        Toast.makeText(this, "최소 5자 이상의 아이디를 입력해주세요", Toast.LENGTH_SHORT).show()
+                        showShortToast("5자 이상의 아이디를 입력해주세요.")
                     } else nextPage(5)
                 }
             }
@@ -230,11 +230,7 @@ class Register : AppCompatActivity() {
                     val password = binding.etName.text.toString()
 
                     if (password.length in 1..7) {
-                        Toast.makeText(
-                            this,
-                            "비밀번호는 8~30자 내로 특수문자를 포함하여 입력해주세요.",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        showShortToast("8자 이상의 비밀번호를 입력해주세요.")
                     }
 
                     else if (password.length > 7) {
@@ -330,5 +326,9 @@ class Register : AppCompatActivity() {
     private fun hideKeyboard() {
         val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.etName.windowToken, 0)
+    }
+
+    override fun initView() {
+
     }
 }
