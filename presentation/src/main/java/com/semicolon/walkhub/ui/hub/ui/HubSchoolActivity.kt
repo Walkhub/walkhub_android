@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -49,6 +52,13 @@ class HubSchoolActivity @Inject constructor(
         }
     }
 
+    override fun initView() {
+
+        setToolbar()
+        setTab()
+        setAdapter()
+    }
+
     private fun handleEvent(event: HubUserRankViewModel.Event) = when (event) {
 
         is HubUserRankViewModel.Event.FetchMySchoolUserRank -> {
@@ -68,13 +78,6 @@ class HubSchoolActivity @Inject constructor(
         binding.rvSchool.adapter?.notifyDataSetChanged()
     }
 
-    override fun initView() {
-
-        setToolbar()
-        setTab()
-        setAdapter()
-    }
-
     private fun setToolbar() {
 
         schoolName = intent.getStringExtra("name")!!
@@ -83,6 +86,7 @@ class HubSchoolActivity @Inject constructor(
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun setTab() {
@@ -105,11 +109,22 @@ class HubSchoolActivity @Inject constructor(
         binding.rvSchool.adapter = mAdapter
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
 
         menuInflater.inflate(R.menu.menu_hub_search, menu)
 
-        val mSearch = menu!!.findItem(R.id.action_search)
+        val mSearch = menu.findItem(R.id.action_search)
         val mSearchView = mSearch.actionView as SearchView
 
         mSearchView.queryHint = "학교를 입력하세요"
