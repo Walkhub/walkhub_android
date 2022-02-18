@@ -12,7 +12,7 @@ interface RemoteRankDataSource {
 
     suspend fun searchSchool(name: String, moreDateType: String): SearchSchoolResponse
 
-    suspend fun fetchUserRank(schoolId: Int, scope: String, moreDateType: String): UserRankResponse
+    suspend fun fetchUserRank(schoolId: Int, dateType: String): UserRankResponse
 
     suspend fun fetchOurSchoolUserRank(scope: String, moreDateType: String): OurSchoolUserRankResponse
 

@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.nms_android_v1.base.BaseActivity
+import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.fitness.FitnessOptions
 import com.google.android.gms.fitness.data.DataType
@@ -15,6 +16,17 @@ import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityLoginBinding
+import com.semicolon.data.local.datasource.LocalExerciseDataSourceImpl
+import com.semicolon.data.local.param.PeriodParam
+import com.semicolon.data.local.storage.ExerciseInfoDataStorageImpl
+import com.semicolon.data.local.storage.FitnessDataStorageImpl
+import com.semicolon.domain.entity.exercise.DailyExerciseEntity
+import com.semicolon.walkhub.ui.base.BaseActivity
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.ZoneId
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>(
    R.layout.activity_login

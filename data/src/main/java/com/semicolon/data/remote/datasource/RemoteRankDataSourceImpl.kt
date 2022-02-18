@@ -26,10 +26,9 @@ class RemoteRankDataSourceImpl @Inject constructor(
 
     override suspend fun fetchUserRank(
         schoolId: Int,
-        scope: String,
-        moreDateType: String,
+        dateType: String,
     ): UserRankResponse = HttpHandler<UserRankResponse>()
-        .httpRequest { rankApi.fetchUserRank(schoolId ,scope, moreDateType) }
+        .httpRequest { rankApi.fetchUserRank(schoolId , dateType) }
         .sendRequest()
 
     override suspend fun fetchOurSchoolUserRank(

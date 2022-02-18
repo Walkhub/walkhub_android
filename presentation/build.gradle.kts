@@ -29,17 +29,25 @@ android {
         sourceCompatibility = Project.javaVersion
         targetCompatibility = Project.javaVersion
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion = Version.jetpackCompose
+    }
     kotlinOptions {
         jvmTarget = "1.8"
     }
     buildFeatures {
         dataBinding = true
+        compose = true
     }
 }
 
 dependencies {
     implementation(project(":domain"))
     implementation(project(":data"))
+
+    implementation(Dependency.Moshi.moshi)
+    kapt(Dependency.Moshi.moshiCompiler)
+    implementation (Dependency.Moshi.moshiKotlin)
 
     implementation(Dependency.coreKtx)
     implementation(Dependency.appcompat)
@@ -48,6 +56,13 @@ dependencies {
 
     implementation(Dependency.UI.material)
     implementation(Dependency.UI.constraintLayout)
+    implementation(Dependency.UI.compose)
+    implementation(Dependency.UI.composeTooling)
+    implementation(Dependency.UI.composePreview)
+    implementation(Dependency.UI.composeMaterial)
+    implementation(Dependency.UI.composeCompiler)
+    implementation(Dependency.UI.activityCompose)
+    implementation(Dependency.UI.coilCompose)
 
     testImplementation(Dependency.Test.junit)
     testImplementation(Dependency.Test.mockito)
@@ -55,6 +70,7 @@ dependencies {
     androidTestImplementation(Dependency.Test.espresso)
 
     implementation(Dependency.DI.hiltAndroid)
+    implementation(Dependency.DI.hiltCompose)
     kapt(Dependency.DI.hiltCompiler)
 
     implementation(Dependency.Network.retrofit)
@@ -84,4 +100,9 @@ dependencies {
     implementation(Dependency.Permission.tedPermission)
 
     implementation(Dependency.ThreeTenAndroidBackport.threeTenAbp)
+
+    implementation(Dependency.CircleImageView.circleImage)
+
+    implementation(Dependency.Glide.glideCore)
+    annotationProcessor(Dependency.Glide.glideCompiler)
 }
