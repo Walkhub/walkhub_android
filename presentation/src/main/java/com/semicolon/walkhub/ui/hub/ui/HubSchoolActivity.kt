@@ -20,6 +20,8 @@ import com.semicolon.walkhub.ui.hub.adapter.HubSearchUserRvAdapter
 import com.semicolon.walkhub.ui.hub.adapter.HubViewPagerAdapter
 import com.semicolon.walkhub.ui.hub.model.UserRankRvData
 import com.semicolon.walkhub.ui.hub.model.toRvData
+import com.semicolon.walkhub.util.invisible
+import com.semicolon.walkhub.util.visible
 import com.semicolon.walkhub.viewmodel.hub.HubUserRankViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -131,16 +133,16 @@ class HubSchoolActivity @Inject constructor(
 
         mSearch.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
             override fun onMenuItemActionExpand(p0: MenuItem?): Boolean {
-                binding.searchBlack.visibility = View.VISIBLE
-                binding.rvSchool.visibility = View.VISIBLE
-                binding.vpHub.visibility = View.GONE
+                binding.searchBlack.visible()
+                binding.rvSchool.visible()
+                binding.vpHub.invisible()
                 return true
             }
 
             override fun onMenuItemActionCollapse(p0: MenuItem?): Boolean {
-                binding.searchBlack.visibility = View.GONE
-                binding.rvSchool.visibility = View.GONE
-                binding.vpHub.visibility = View.VISIBLE
+                binding.vpHub.visible()
+                binding.searchBlack.invisible()
+                binding.rvSchool.invisible()
                 return true
             }
         })
@@ -161,11 +163,11 @@ class HubSchoolActivity @Inject constructor(
 
         binding.apply {
             if (state) {
-                searchBlack.visibility = View.VISIBLE
-                rvSchool.visibility = View.VISIBLE
+                searchBlack.visible()
+                rvSchool.visible()
             } else {
-                searchBlack.visibility = View.GONE
-                rvSchool.visibility = View.GONE
+                searchBlack.invisible()
+                rvSchool.invisible()
             }
 
             return false
