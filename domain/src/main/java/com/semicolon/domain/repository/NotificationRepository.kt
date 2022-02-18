@@ -7,4 +7,5 @@ interface NotificationRepository {
     suspend fun fetchNotificationList(): Flow<List<NotificationEntity>>
 
     suspend fun readNotification(notificationId: Int)
+    
 }

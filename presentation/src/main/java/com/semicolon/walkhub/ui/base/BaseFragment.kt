@@ -1,4 +1,5 @@
-package com.example.nms_android_v1.base
+package com.semicolon.walkhub.ui.base
+
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -29,10 +30,7 @@ abstract class BaseFragment<B : ViewDataBinding>(
         binding.lifecycleOwner = this
 
         initView()
-        observeEvent()
     }
-
-    abstract fun observeEvent()
 
     abstract fun initView()
 

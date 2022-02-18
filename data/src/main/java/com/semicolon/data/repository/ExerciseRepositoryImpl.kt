@@ -82,8 +82,10 @@ class ExerciseRepositoryImpl @Inject constructor(
     override suspend fun isMeasuring(): Boolean =
         localExerciseDataSource.isMeasuring()
 
-    override suspend fun startRecordExercise() =
+    override suspend fun startRecordExercise() {
+        localExerciseDataSource.startRecordExercise()
         exerciseBackgroundTask.synchronizeExerciseRecord(1, TimeUnit.HOURS)
+    }
 
     override suspend fun fetchExerciseRecordList(): Flow<List<ExerciseRecordEntity>> =
         flow { emit(remoteExerciseDataSource.fetchExerciseRecordList().toEntityList()) }
