@@ -15,7 +15,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.95"/>
+            app:layout_constraintGuide_percent="0.94"/>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/left_line"
@@ -37,6 +37,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center"
+            android:layout_marginBottom="12dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toTopOf="@id/bottom_line">
@@ -66,7 +67,7 @@
             android:text="가입하기"
             android:textSize="16dp"
             android:background="@drawable/mainbuttondesign"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="30dp"
             app:layout_constraintLeft_toLeftOf="@id/left_line"
             app:layout_constraintRight_toRightOf="@id/right_line"
             app:layout_constraintBottom_toTopOf="@id/linear"/>
@@ -77,9 +78,8 @@
             android:layout_height="wrap_content"
             android:text="끝이 없다.\n 걸음에는,"
             android:fontFamily="@font/noto_sans_kr_bold"
-            android:textSize="32dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="-10dp"
+            android:textSize="30dp"
+            android:layout_marginBottom="21dp"
             app:layout_constraintRight_toRightOf="@id/right_line"
             app:layout_constraintBottom_toTopOf="@id/bt_join"/>
 
@@ -90,8 +90,8 @@
             android:text="Walkhub"
             android:textColor="#57B4F1"
             android:textSize="28dp"
-            android:fontFamily="@font/noto_sans_kr_medium"
-            android:layout_marginBottom="-20dp"
+            android:fontFamily="@font/noto_sans_kr_bold"
+            android:layout_marginBottom="20dp"
             app:layout_constraintBottom_toTopOf="@id/tv_ad"
             app:layout_constraintRight_toRightOf="@id/right_line"/>
 
