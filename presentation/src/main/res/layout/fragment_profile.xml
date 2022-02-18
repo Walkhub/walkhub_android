@@ -144,15 +144,11 @@
                 android:layout_height="0dp"
                 android:layout_weight="1" />
 
-            <TextView
+            <ImageView
                 android:id="@+id/setting"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/noto_sans_kr_regular"
-                android:text="설정"
-                android:textColor="@color/gray_800"
-                android:textSize="12sp" />
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center" />
 
         </LinearLayout>
 
