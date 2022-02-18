@@ -19,6 +19,7 @@ import androidx.core.view.isInvisible
 import androidx.databinding.DataBindingUtil
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityRegisterBinding
+import com.semicolon.walkhub.util.visible
 
 class Register : AppCompatActivity() {
 
@@ -55,7 +56,7 @@ class Register : AppCompatActivity() {
                                 applicationContext, R.drawable.registerbuttondesign
                             )
 
-                            binding.tvWarning.visibility = View.VISIBLE
+                            binding.tvWarning.visible()
                             binding.tvWarning.text = "이름은 최소 2자 이상이여야 합니다."
                         }
 
@@ -64,7 +65,7 @@ class Register : AppCompatActivity() {
                                 applicationContext, R.drawable.registerbuttondesign
                             )
 
-                            binding.tvWarning.visibility = View.VISIBLE
+                            binding.tvWarning.visible()
                             binding.tvWarning.text = "이름은 최대 10자 이하여야 합니다."
                         }
 
@@ -86,7 +87,7 @@ class Register : AppCompatActivity() {
                                         R.drawable.registerbuttondesign
                                     )
 
-                                binding.tvWarning.visibility = View.VISIBLE
+                                binding.tvWarning.visible()
                                 binding.tvWarning.text = ""
                             }
 
@@ -106,7 +107,7 @@ class Register : AppCompatActivity() {
                                         R.drawable.registerbuttondesign
                                     )
 
-                                binding.tvWarning.visibility = View.VISIBLE
+                                binding.tvWarning.visible()
                                 binding.tvWarning.text = "올바른 전화번호 형식을 입력해주세요."
                             }
                         }
@@ -121,7 +122,7 @@ class Register : AppCompatActivity() {
                                         R.drawable.register_btn
                                     )
 
-                                binding.tvWarning.visibility = View.VISIBLE
+                                binding.tvWarning.visible()
                                 binding.tvWarning.setTextColor(Color.parseColor("#4D99F0"))
                             }
 
@@ -130,7 +131,7 @@ class Register : AppCompatActivity() {
                             }
 
                             p0.length > 5 -> {
-                                binding.tvWarning.visibility = View.VISIBLE
+                                binding.tvWarning.visible()
                                 binding.tvWarning.setTextColor(Color.parseColor("#F33636"))
                                 binding.tvWarning.text = "인증번호는 5글자입니다."
                             }
@@ -284,9 +285,9 @@ class Register : AppCompatActivity() {
 
         binding.tvEt.visibility = View.GONE
         binding.tvWarning.visibility = View.GONE
-        binding.btReCer.visibility = View.VISIBLE
-        binding.tvMinute.visibility = View.VISIBLE
-        binding.tvSecond.visibility = View.VISIBLE
+        binding.btReCer.visible()
+        binding.tvMinute.visible()
+        binding.tvSecond.visible()
         binding.etName.hint = "인증번호입력"
     }
 
@@ -295,7 +296,7 @@ class Register : AppCompatActivity() {
 
         binding.etName.hint = "아이디 (5~30자)"
         binding.tvMain.text = "아이디"
-        binding.tvEt.visibility = View.VISIBLE
+        binding.tvEt.visible()
         binding.tvEt.text = "아이디는 (5~30)자 포함"
         binding.btReCer.visibility = View.GONE
         binding.tvMinute.visibility = View.GONE
