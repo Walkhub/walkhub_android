@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.semicolon.domain.enum.DateType
 import com.semicolon.walkhub.viewmodel.hub.HubMainViewModel.Event
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.FragmentHubBinding
@@ -38,8 +39,6 @@ class HubFragment @Inject constructor(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        vm.fetchSchoolRank()
 
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
@@ -82,8 +81,8 @@ class HubFragment @Inject constructor(
         binding.spHubMain.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 when (p2) {
-                    0 -> Toast.makeText(context, "지난주", Toast.LENGTH_SHORT).show()
-                    1 -> Toast.makeText(context, "지난달", Toast.LENGTH_SHORT).show()
+                    0 -> vm.fetchSchoolRank(DateType.WEEK)
+                    1 -> vm.fetchSchoolRank(DateType.MONTH)
                 }
             }
 
