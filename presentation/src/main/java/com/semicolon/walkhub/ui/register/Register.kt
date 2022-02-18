@@ -5,8 +5,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
@@ -19,9 +17,9 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.view.isInvisible
 import androidx.databinding.DataBindingUtil
-import com.example.nms_android_v1.base.BaseActivity
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityRegisterBinding
+import com.semicolon.walkhub.ui.base.BaseActivity
 import com.semicolon.walkhub.util.visible
 
 class Register : BaseActivity<ActivityRegisterBinding>(

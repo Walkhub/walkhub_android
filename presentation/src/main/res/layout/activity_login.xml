@@ -96,7 +96,7 @@
             android:layout_height="wrap_content"
             android:text="아이디 찾기"
             android:textColor="#BDBDBD"
-            android:layout_marginRight="8dp"
+            android:layout_marginRight="10dp"
             app:layout_constraintRight_toLeftOf="@id/v"
             app:layout_constraintTop_toTopOf="@id/v"
             app:layout_constraintBottom_toBottomOf="@id/v"/>
@@ -106,7 +106,7 @@
             android:layout_height="wrap_content"
             android:text="비밀번호 변경"
             android:textColor="#BDBDBD"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="10dp"
             app:layout_constraintLeft_toRightOf="@id/v"
             app:layout_constraintTop_toTopOf="@id/v"
             app:layout_constraintBottom_toBottomOf="@id/v"/>

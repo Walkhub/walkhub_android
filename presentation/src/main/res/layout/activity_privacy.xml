@@ -50,12 +50,9 @@
         android:id="@+id/help"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="30dp"
         android:layout_marginTop="-30dp"
+        android:padding="30dp"
         android:scrollbars="vertical"
-        android:textSize="14dp"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/main"
         android:text="**제1조 (목적)**\n\n본 약관은 (TEAM Walkhub[https://walkhub.co.kr] 이하 ‘Walkhub’)는(은) 모바일 앱을
 통하여 제공하는 서비스와 관련하여 (TEAM Walkhub[https://walkhub.co.kr] 이하 ‘Walkhub’)는(은) 회원 간의 관리와 의무, 책임 사항 및 회원의 서비스 이용 절차에 관한
 사항을 규정함을 목적으로 합니다.\nWalkhub는 시스템에 관한 제반 기술과 운영에 대한 모든 권한을 갖고 있습니다.\n\n**제2조 (용어의 정의)**\n이 약관에서 사용하는 용어의 정의는 다음과 같습니다.\n
@@ -63,6 +60,10 @@
 \n2. ”회원“이란 본 이용약관에 따라(TEAM Walkhub[https://walkhub.co.kr] 이하‘Walkhub’)는(은) 이용계약을 체결하고 서비스를 이용하는 이용자를 말합니다.
 \n3. ”콘텐츠“란 (TEAM Walkhub 이하 ‘Walkhub’)가 서비스를 위하여 ”회원“에게제공하는 내용물 일체(텍스트, 음성, 영상, 네트워크 서비스를 포함하되 이에 한정되지 아니 합니다)를 의미합니다.
 \n4. 이 약관에서 사용하는 용어 중 위에서 정하지 아니한 것은, 관계법령 및 서비스별안내에서 정하는 바에 따르며, 그 외에는 일반 거래관행에 따릅니다."
+        android:textColor="@color/black"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@id/left_line"
-        app:layout_constraintRight_toRightOf="@id/right_line"/>
+        app:layout_constraintRight_toRightOf="@id/right_line"
+        app:layout_constraintTop_toBottomOf="@id/main" />
 </androidx.constraintlayout.widget.ConstraintLayout>

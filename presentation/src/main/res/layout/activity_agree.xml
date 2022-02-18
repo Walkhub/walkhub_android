@@ -64,12 +64,14 @@
             android:text="약관 동의"
             android:textColor="#212121"
             android:textSize="24dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintLeft_toLeftOf="@id/left_line"
             app:layout_constraintTop_toTopOf="@id/top_line2" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
             android:text="Walkhub 회원가입을 마무리하기 위해\n서비스 이용 약관에 동의해주세요"
             android:textColor="#757575"
             android:textSize="14dp"
