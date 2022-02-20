@@ -1,6 +1,7 @@
 package com.semicolon.walkhub.di
 
 import android.content.Context
+import com.semicolon.data.interceptor.AuthorizationInterceptor
 import com.semicolon.data.local.storage.AuthDataStorage
 import com.semicolon.data.local.storage.AuthDataStorageImpl
 import com.semicolon.data.remote.api.*
@@ -28,19 +29,12 @@ object NetWorkModule {
     @Provides
     fun provideOkHttpClient(
         httpLoggingInterceptor: HttpLoggingInterceptor,
-        authDataStorage: AuthDataStorage
+        authorizationInterceptor: AuthorizationInterceptor
     ): OkHttpClient =
         OkHttpClient
             .Builder()
             .addNetworkInterceptor(httpLoggingInterceptor)
-            .addInterceptor {
-                it.proceed(
-                    it.request().newBuilder().addHeader(
-                        "Authorization",
-                        "Bearer ${authDataStorage.fetchAccessToken()}"
-                    ).build()
-                )
-            }
+            .addInterceptor(authorizationInterceptor)
             .build()
 
     @Provides
