@@ -36,6 +36,7 @@
                 app:layout_constraintGuide_percent="0.96" />
 
             <TextView
+                android:layout_marginTop="14dp"
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -50,15 +51,15 @@
                 android:id="@+id/editText"
                 android:layout_width="0dp"
                 android:layout_height="44dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="25dp"
                 android:background="@drawable/bg_hub_edit_text"
                 android:fontFamily="@font/noto_sans_kr_regular"
                 android:hint="학교 검색"
                 android:paddingLeft="20dp"
                 android:textColor="@color/gray_900"
-                android:textSize="14dp"
+                android:textSize="8dp"
                 app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -75,6 +76,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/editText" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_marginTop="8dp"
                 android:id="@+id/clMySchool"
                 android:layout_width="0dp"
                 android:layout_height="64dp"
@@ -133,7 +135,7 @@
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/noto_sans_kr_medium"
                 android:text="걸음수 Top 100"
                 android:textColor="@color/gray_900"
