@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +20,8 @@ import com.semicolon.walkhub.ui.hub.adapter.HubSearchUserRvAdapter
 import com.semicolon.walkhub.ui.hub.adapter.HubViewPagerAdapter
 import com.semicolon.walkhub.ui.hub.model.UserRankRvData
 import com.semicolon.walkhub.ui.hub.model.toRvData
+import com.semicolon.walkhub.util.invisible
+import com.semicolon.walkhub.util.visible
 import com.semicolon.walkhub.viewmodel.hub.HubUserRankViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -28,6 +33,7 @@ class HubSchoolActivity @Inject constructor(
 ) {
 
     private val vm: HubUserRankViewModel by viewModels()
+    private var schoolName = "no data"
 
     private lateinit var mAdapter: HubSearchUserRvAdapter
     private var rvHubUserData = arrayListOf<UserRankRvData>()
@@ -46,6 +52,13 @@ class HubSchoolActivity @Inject constructor(
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
         }
+    }
+
+    override fun initView() {
+
+        setToolbar()
+        setTab()
+        setAdapter()
     }
 
     private fun handleEvent(event: HubUserRankViewModel.Event) = when (event) {
@@ -67,17 +80,15 @@ class HubSchoolActivity @Inject constructor(
         binding.rvSchool.adapter?.notifyDataSetChanged()
     }
 
-    override fun initView() {
-
-        setToolbar()
-        setTab()
-        setAdapter()
-    }
-
     private fun setToolbar() {
+
+        schoolName = intent.getStringExtra("name")!!
+
+        binding.toolbarTitle.text = schoolName
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun setTab() {
@@ -100,27 +111,38 @@ class HubSchoolActivity @Inject constructor(
         binding.rvSchool.adapter = mAdapter
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
 
         menuInflater.inflate(R.menu.menu_hub_search, menu)
 
-        val mSearch = menu!!.findItem(R.id.action_search)
+        val mSearch = menu.findItem(R.id.action_search)
         val mSearchView = mSearch.actionView as SearchView
 
         mSearchView.queryHint = "학교를 입력하세요"
 
         mSearch.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
             override fun onMenuItemActionExpand(p0: MenuItem?): Boolean {
-                binding.searchBlack.visibility = View.VISIBLE
-                binding.rvSchool.visibility = View.VISIBLE
-                binding.vpHub.visibility = View.GONE
+                binding.searchBlack.visible()
+                binding.rvSchool.visible()
+                binding.vpHub.invisible()
                 return true
             }
 
             override fun onMenuItemActionCollapse(p0: MenuItem?): Boolean {
-                binding.searchBlack.visibility = View.GONE
-                binding.rvSchool.visibility = View.GONE
-                binding.vpHub.visibility = View.VISIBLE
+                binding.vpHub.visible()
+                binding.searchBlack.invisible()
+                binding.rvSchool.invisible()
                 return true
             }
         })
@@ -141,11 +163,11 @@ class HubSchoolActivity @Inject constructor(
 
         binding.apply {
             if (state) {
-                searchBlack.visibility = View.VISIBLE
-                rvSchool.visibility = View.VISIBLE
+                searchBlack.visible()
+                rvSchool.visible()
             } else {
-                searchBlack.visibility = View.GONE
-                rvSchool.visibility = View.GONE
+                searchBlack.invisible()
+                rvSchool.invisible()
             }
 
             return false
