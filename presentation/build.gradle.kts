@@ -52,6 +52,7 @@ dependencies {
 
     implementation(Dependency.UI.material)
     implementation(Dependency.UI.constraintLayout)
+    implementation(Dependency.UI.switchbutton)
 
     testImplementation(Dependency.Test.junit)
     testImplementation(Dependency.Test.mockito)

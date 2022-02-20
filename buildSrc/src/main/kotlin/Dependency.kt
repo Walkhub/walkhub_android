@@ -9,6 +9,7 @@ object Dependency {
         const val material = "com.google.android.material:material:${Version.material}"
         const val constraintLayout =
             "androidx.constraintlayout:constraintlayout:${Version.constraintLayout}"
+        const val switchbutton = "com.github.zcweng:switch-button:${Version.switchbutton}"
     }
 
     object GradlePlugin {
