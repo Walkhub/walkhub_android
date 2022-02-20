@@ -6,7 +6,5 @@ interface RemoteLevelDataSource {
 
     suspend fun fetchLevelList(): List<LevelEntity>
 
-    suspend fun saveLevelList(levelList: List<LevelEntity>)
-
     suspend fun patchMaxLevel(levelId: Int)
 }

@@ -21,6 +21,6 @@ class LevelRepositoryImpl @Inject constructor(
             .createFlow()
 
     override suspend fun patchMaxLevel(levelId: Int) {
-        remoteLevelDataSource.fetchLevelList()
+        remoteLevelDataSource.patchMaxLevel(levelId)
     }
 }

@@ -16,10 +16,6 @@ class RemoteLevelDataSourceImpl @Inject constructor(
             .httpRequest { levelApi.fetchLevelList() }
             .sendRequest().toEntity()
 
-    override suspend fun saveLevelList(levelList: List<LevelEntity>) {
-
-    }
-
     override suspend fun patchMaxLevel(levelId: Int) {
         levelApi.patchMaxLevel(levelId)
     }
