@@ -28,7 +28,7 @@ class AuthorizationInterceptor @Inject constructor(
                 .build()
             val response = client.newCall(tokenRefreshRequest).execute()
 
-            if (response.code() == 200) {
+            if (response.isSuccessful) {
                 val token = Gson().fromJson(
                     response.body()!!.toString(),
                     TokenRefreshResponse::class.java
