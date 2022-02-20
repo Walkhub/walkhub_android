@@ -4,5 +4,8 @@ import com.semicolon.domain.entity.level.LevelEntity
 import kotlinx.coroutines.flow.Flow
 
 interface LevelRepository {
+
     suspend fun fetchLevelList(): Flow<List<LevelEntity>>
+
+    suspend fun patchMaxLevel(levelId: Int)
 }
