@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class LevelRepositoryImpl @Inject constructor(
-    
+
 ): LevelRepository {
     override suspend fun fetchLevelList(): Flow<List<LevelEntity>> {
         TODO("Not yet implemented")
