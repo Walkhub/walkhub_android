@@ -1,7 +1,9 @@
 package com.semicolon.data.remote.datasource
 
 import com.semicolon.data.remote.api.LevelApi
+import com.semicolon.data.remote.response.level.LevelListResponse
 import com.semicolon.data.remote.response.level.toEntity
+import com.semicolon.data.util.HttpHandler
 import com.semicolon.domain.entity.level.LevelEntity
 import javax.inject.Inject
 
@@ -10,7 +12,13 @@ class RemoteLevelDataSourceImpl @Inject constructor(
 ) : RemoteLevelDataSource {
 
     override suspend fun fetchLevelList(): List<LevelEntity> =
-        levelApi.fetchLevelList().toEntity()
+        HttpHandler<LevelListResponse>()
+            .httpRequest { levelApi.fetchLevelList() }
+            .sendRequest().toEntity()
+
+    override suspend fun saveLevelList(levelList: List<LevelEntity>) {
+
+    }
 
     override suspend fun patchMaxLevel(levelId: Int) {
         levelApi.patchMaxLevel(levelId)
