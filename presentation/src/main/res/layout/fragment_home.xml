@@ -72,14 +72,14 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:orientation="horizontal"
-                        app:layout_constraintGuide_percent="0.72" />
+                        app:layout_constraintGuide_percent="0.73" />
 
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/top_line8"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:orientation="horizontal"
-                        app:layout_constraintGuide_percent="0.775" />
+                        app:layout_constraintGuide_percent="0.795" />
 
                     <com.semicolon.walkhub.customview.CircularProgressBar
                         android:id="@+id/cpb"
@@ -286,7 +286,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/third"
                 android:layout_width="0dp"
-                android:layout_height="268dp"
+                android:layout_height="258dp"
                 android:layout_marginTop="12dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="12dp"
