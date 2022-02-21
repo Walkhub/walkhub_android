@@ -2,7 +2,7 @@ package com.semicolon.data.local.storage
 
 interface ExerciseInfoDataStorage {
 
-    fun setStartTime(timeAsMilli: Long)
+    fun setStartTime(timeAsSecond: Long)
 
     fun fetchStartTime(): Long
 

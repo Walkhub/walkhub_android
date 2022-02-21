@@ -31,4 +31,11 @@ object Version {
     const val service = "4.3.10"
     const val message = "23.0.0"
     const val tedPermission = "3.3.0"
+    const val jetpackCompose = "1.1.0"
+    const val activityCompose = "1.4.0"
+    const val coilCompose = "1.4.0"
+    const val hiltCompose = "1.0.0"
+    const val moshiKotlin = "1.8.0"
+    const val circleImage = "3.1.0"
+    const val glide = "4.13.0"
 }

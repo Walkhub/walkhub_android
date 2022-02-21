@@ -12,9 +12,9 @@ class ExerciseInfoDataStorageImpl @Inject constructor(
     @ApplicationContext private val context: Context
 ) : ExerciseInfoDataStorage {
 
-    override fun setStartTime(timeAsMilli: Long) =
+    override fun setStartTime(timeAsSecond: Long) =
         getSharedPreference().edit().let {
-            it.putLong(START_TIME, timeAsMilli)
+            it.putLong(START_TIME, timeAsSecond)
             it.apply()
         }
 

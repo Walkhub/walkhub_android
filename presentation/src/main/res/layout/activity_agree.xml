@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="activity"
+            type="com.semicolon.walkhub.ui.register.agree.AgreeActivity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/left_line"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.06" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/right_line"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.94" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/top_line"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/top_line2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.15" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/top_line3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.34" />
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/photo"
+            app:layout_constraintLeft_toLeftOf="@id/left_line"
+            app:layout_constraintTop_toTopOf="@id/top_line" />
+
+        <TextView
+            android:id="@+id/tv_agree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/noto_sans_kr_bold"
+            android:text="약관 동의"
+            android:textColor="#212121"
+            android:textSize="24dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintLeft_toLeftOf="@id/left_line"
+            app:layout_constraintTop_toTopOf="@id/top_line2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="Walkhub 회원가입을 마무리하기 위해\n서비스 이용 약관에 동의해주세요"
+            android:textColor="#757575"
+            android:textSize="14dp"
+            app:layout_constraintLeft_toLeftOf="@id/left_line"
+            app:layout_constraintTop_toBottomOf="@id/tv_agree" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="@id/left_line"
+            app:layout_constraintRight_toRightOf="@id/right_line"
+            app:layout_constraintTop_toTopOf="@id/top_line3">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:background="@drawable/servicebutton"
+                app:layout_constraintLeft_toLeftOf="@id/left_line"
+                app:layout_constraintRight_toRightOf="@id/right_line"
+                app:layout_constraintTop_toTopOf="@id/top_line3">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/left_line2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.1" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/right_line2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.93" />
+
+                <CheckBox
+                    android:id="@+id/cb_all"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/custom_checkbox"
+                    android:button="@android:color/transparent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="@id/left_line2"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/noto_sans_kr_regular"
+                    android:text="약관 전체동의"
+                    android:textColor="#424242"
+                    android:textSize="14dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="@id/right_line2"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                app:layout_constraintLeft_toLeftOf="@id/left_line"
+                app:layout_constraintRight_toRightOf="@id/right_line"
+                app:layout_constraintTop_toTopOf="@id/top_line3">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/left_line3"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.1" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/right_line3"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.93" />
+
+                <CheckBox
+                    android:id="@+id/cb_use"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/custom_checkbox"
+                    android:button="@android:color/transparent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="@id/left_line3"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_instruction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/noto_sans_kr_regular"
+                    android:text="이용약관(필수)"
+                    android:textColor="#424242"
+                    android:textSize="14dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="@id/right_line3"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                app:layout_constraintLeft_toLeftOf="@id/left_line"
+                app:layout_constraintRight_toRightOf="@id/right_line"
+                app:layout_constraintTop_toTopOf="@id/top_line3">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/left_line4"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.1" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/right_line4"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.93" />
+
+                <CheckBox
+                    android:id="@+id/cb_privacy"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/custom_checkbox"
+                    android:button="@android:color/transparent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="@id/left_line4"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_privacy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/noto_sans_kr_regular"
+                    android:text="개인정보 취급방침(필수)"
+                    android:textColor="#424242"
+                    android:textSize="14dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="@id/right_line4"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/top_line4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.85"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/bt_join"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:background="@drawable/mainbuttondesign"
+            android:text="회원가입 완료하기"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="@id/left_line"
+            app:layout_constraintRight_toRightOf="@id/right_line"
+            app:layout_constraintTop_toTopOf="@id/top_line4" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

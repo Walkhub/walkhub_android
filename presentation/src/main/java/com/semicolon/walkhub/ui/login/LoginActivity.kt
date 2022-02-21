@@ -5,7 +5,8 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.nms_android_v1.base.BaseActivity
+import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.fitness.FitnessOptions
 import com.google.android.gms.fitness.data.DataType
@@ -13,25 +14,42 @@ import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityLoginBinding
-import android.widget.Toast
-import com.jakewharton.threetenabp.AndroidThreeTen
-import com.semicolon.data.local.datasource.LocalExerciseDataSource
-import com.semicolon.data.local.datasource.LocalExerciseDataSourceImpl
-import com.semicolon.data.local.storage.ExerciseInfoDataStorage
-import com.semicolon.data.local.storage.ExerciseInfoDataStorageImpl
-import com.semicolon.data.local.storage.FitnessDataStorageImpl
-
-import com.semicolon.walkhub.ui.MainActivity
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-
+import com.semicolon.walkhub.ui.base.BaseActivity
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>(
-    R.layout.activity_login
+   R.layout.activity_login
 ) {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
+
+        binding.btLogin.setOnClickListener {
+            loginToast()
+        }
+
+        binding.btLogin.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun loginToast() {
+        val id = binding.etId.text
+        val password = binding.etPassword.text
+        if (id.isEmpty()) {
+            Toast.makeText(this, "아이디를 입력해주세요", Toast.LENGTH_SHORT).show()
+        }
+
+        else if (id.isNotEmpty() && password.isEmpty()){
+            Toast.makeText(this, "비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show()
+        }
+
+        else if (id.isNotEmpty() && password.isNotEmpty()){
+
+        }
+    }
+
     private val fitnessOptions =
         FitnessOptions.builder()
             .addDataType(DataType.AGGREGATE_STEP_COUNT_DELTA)
@@ -40,10 +58,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(
             .addDataType(DataType.AGGREGATE_CALORIES_EXPENDED)
             .addDataType(DataType.TYPE_LOCATION_SAMPLE)
             .build()
-
-    override fun initView() {
-        requestPermissions()
-    }
 
     private fun requestPermissions() {
         val permissionListener = object : PermissionListener {
@@ -80,5 +94,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(
             GoogleSignIn.getAccountForExtension(this, fitnessOptions),
             fitnessOptions
         )
+    }
+
+    override fun initView() {
+
     }
 }
