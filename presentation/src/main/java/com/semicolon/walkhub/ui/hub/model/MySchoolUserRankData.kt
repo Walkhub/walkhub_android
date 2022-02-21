@@ -2,7 +2,7 @@ package com.semicolon.walkhub.ui.hub.model
 
 import com.semicolon.domain.entity.rank.OurSchoolUserRankEntity
 
-data class OurSchoolUserRankData(
+data class MySchoolUserRankData(
     val myRanking: Ranking,
     val rankingList: List<Ranking>
 ) {
@@ -19,13 +19,13 @@ data class OurSchoolUserRankData(
 }
 
 fun OurSchoolUserRankEntity.toData() =
-    OurSchoolUserRankData(
+    MySchoolUserRankData(
         myRanking = myRanking.toData(),
         rankingList = rankingList.map { it.toData() }
     )
 
 fun OurSchoolUserRankEntity.Ranking.toData() =
-    OurSchoolUserRankData.Ranking(
+    MySchoolUserRankData.Ranking(
         classNum = classNum,
         grade = grade,
         name = name,
