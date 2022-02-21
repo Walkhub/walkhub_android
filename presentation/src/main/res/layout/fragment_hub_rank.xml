@@ -48,6 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:gravity="center_vertical"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toTopOf="@+id/guideline5">
 
@@ -60,12 +61,11 @@
                     android:textColor="@color/gray_700"
                     android:textSize="14dp" />
 
-                <Switch
-                    android:id="@+id/switch1"
+                <androidx.compose.ui.platform.ComposeView
+                    android:id="@+id/cvSwitch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+                    android:layout_marginStart="8dp" />
 
                 <TextView
                     android:id="@+id/textView7"
@@ -79,11 +79,11 @@
 
             </LinearLayout>
 
-            <Spinner
-                android:id="@+id/spRankHub"
+            <androidx.compose.ui.platform.ComposeView
+                android:id="@+id/cvWeekDropDown"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="right"
+                app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
                 app:layout_constraintEnd_toStartOf="@+id/guideline4"
                 app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
@@ -155,7 +155,7 @@
                     android:id="@+id/ivMyProfile"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:background="@color/gray_900"
+                    android:background="@color/gray_300"
                     app:layout_constraintBottom_toTopOf="@+id/guideline19"
                     app:layout_constraintStart_toStartOf="@+id/guideline17"
                     app:layout_constraintTop_toTopOf="parent" />

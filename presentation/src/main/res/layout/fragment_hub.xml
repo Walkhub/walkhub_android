@@ -57,7 +57,7 @@
                 android:hint="학교 검색"
                 android:paddingLeft="20dp"
                 android:textColor="@color/gray_900"
-                android:textSize="8dp"
+                android:textSize="14dp"
                 app:layout_constraintEnd_toStartOf="@+id/guideline4"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
@@ -143,11 +143,10 @@
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toBottomOf="@+id/clMySchool" />
 
-            <Spinner
-                android:id="@+id/spHubMain"
+            <androidx.compose.ui.platform.ComposeView
+                android:id="@+id/cvWeekDropDown"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="right"
                 app:layout_constraintBottom_toBottomOf="@+id/textView10"
                 app:layout_constraintEnd_toStartOf="@+id/guideline4"
                 app:layout_constraintTop_toTopOf="@+id/textView10" />
