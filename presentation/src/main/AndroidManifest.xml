@@ -52,6 +52,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+      
+        <service
+            android:name=".fcm.FCMManager"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
         <provider
             android:name="androidx.startup.InitializationProvider"
@@ -59,5 +67,4 @@
             android:exported="false"
             tools:node="remove" />
     </application>
-
 </manifest>
