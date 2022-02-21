@@ -10,23 +10,16 @@
             type="com.semicolon.walkhub.ui.home.HomeFragment" />
     </data>
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#F9F9F9"
-        android:orientation="vertical"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/top_line"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.09" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/top_line2"
@@ -34,41 +27,6 @@
                 android:layout_height="0dp"
                 android:orientation="horizontal"
                 app:layout_constraintGuide_percent="0.093" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/top_line3"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.55" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/top_line4"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.5675"/>
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/top_line5"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.7" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/top_line6"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.7175"/>
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/top_line7"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.998" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/left_line"
@@ -91,16 +49,16 @@
                 android:text="Walkhub"
                 android:textColor="#424242"
                 android:textSize="25dp"
-                app:layout_constraintBottom_toBottomOf="@id/top_line"
+                app:layout_constraintBottom_toBottomOf="@id/top_line2"
                 app:layout_constraintLeft_toLeftOf="@id/left_line"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/first_CardView"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="390dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="12dp"
-                app:layout_constraintBottom_toBottomOf="@id/top_line3"
                 app:layout_constraintLeft_toLeftOf="@id/left_line"
                 app:layout_constraintRight_toRightOf="@id/right_line"
                 app:layout_constraintTop_toTopOf="@id/top_line2">
@@ -110,21 +68,73 @@
                     android:layout_height="match_parent">
 
                     <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/top_line3"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent="0.72" />
+
+                    <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/top_line8"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:orientation="horizontal"
                         app:layout_constraintGuide_percent="0.775" />
 
+                    <com.semicolon.walkhub.customview.CircularProgressBar
+                        android:id="@+id/cpb"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:max="7000"
+                        android:progress="6472"
+                        app:layout_constraintBottom_toBottomOf="@id/top_line3"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv"
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"
+                        app:layout_constraintBottom_toBottomOf="@id/cpb"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/cpb" />
+
+                    <TextView
+                        android:id="@+id/tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:fontFamily="@font/noto_sans_kr_medium"
+                        android:gravity="center"
+                        android:text="6472"
+                        android:textColor="#212121"
+                        android:textSize="24sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/iv" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:fontFamily="@font/noto_sans_kr_regular"
+                        android:gravity="center"
+                        android:text="/7000 걸음"
+                        android:textColor="#424242"
+                        android:textSize="14sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv" />
+
                     <ImageButton
                         android:id="@+id/bt_clock"
                         android:layout_width="16dp"
                         android:layout_height="16dp"
                         android:layout_marginRight="30dp"
-                        android:src="@drawable/photo"
                         android:adjustViewBounds="true"
                         android:background="@android:color/transparent"
                         android:scaleType="fitCenter"
+                        android:src="@drawable/photo"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="@id/bt_distance"
                         app:layout_constraintTop_toTopOf="@id/top_line8" />
@@ -132,6 +142,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
                         android:fontFamily="@font/noto_sans_kr_medium"
                         android:text="7"
                         android:textColor="@color/black"
@@ -144,10 +155,10 @@
                         android:id="@+id/bt_distance"
                         android:layout_width="16dp"
                         android:layout_height="16dp"
-                        android:src="@drawable/photo"
                         android:adjustViewBounds="true"
                         android:background="@android:color/transparent"
                         android:scaleType="fitCenter"
+                        android:src="@drawable/photo"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="@id/top_line8" />
@@ -155,6 +166,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
                         android:fontFamily="@font/noto_sans_kr_medium"
                         android:text="0.52"
                         android:textColor="@color/black"
@@ -168,10 +180,10 @@
                         android:layout_width="16dp"
                         android:layout_height="16dp"
                         android:layout_marginLeft="30dp"
-                        android:src="@drawable/photo"
                         android:adjustViewBounds="true"
                         android:background="@android:color/transparent"
                         android:scaleType="fitCenter"
+                        android:src="@drawable/photo"
                         app:layout_constraintLeft_toLeftOf="@id/bt_distance"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="@id/top_line8" />
@@ -179,6 +191,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
                         android:fontFamily="@font/noto_sans_kr_medium"
                         android:text="158"
                         android:textColor="@color/black"
@@ -192,14 +205,15 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/second_CardView"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="96dp"
+                android:layout_marginTop="12dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="12dp"
-                app:layout_constraintBottom_toBottomOf="@id/top_line5"
                 app:layout_constraintLeft_toLeftOf="@id/left_line"
                 app:layout_constraintRight_toRightOf="@id/right_line"
-                app:layout_constraintTop_toTopOf="@id/top_line4">
+                app:layout_constraintTop_toBottomOf="@id/first_CardView">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -224,7 +238,7 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:orientation="horizontal"
-                        app:layout_constraintGuide_percent="0.39" />
+                        app:layout_constraintGuide_begin="38dp" />
 
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/top_line10"
@@ -257,10 +271,10 @@
                     <ImageButton
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:src="@drawable/photo"
                         android:adjustViewBounds="true"
                         android:background="@android:color/transparent"
                         android:scaleType="fitCenter"
+                        android:src="@drawable/photo"
                         app:layout_constraintBottom_toBottomOf="@id/top_line10"
                         app:layout_constraintRight_toRightOf="@id/right_line2"
                         app:layout_constraintTop_toTopOf="@id/top_line9" />
@@ -270,14 +284,15 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/third"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="268dp"
+                android:layout_marginTop="12dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="12dp"
-                app:layout_constraintBottom_toBottomOf="@id/top_line7"
                 app:layout_constraintLeft_toLeftOf="@id/left_line"
                 app:layout_constraintRight_toRightOf="@id/right_line"
-                app:layout_constraintTop_toTopOf="@id/top_line6">
+                app:layout_constraintTop_toBottomOf="@id/second_CardView">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -317,286 +332,267 @@
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:orientation="horizontal"
-                            app:layout_constraintGuide_percent="0.25"/>
+                            app:layout_constraintGuide_percent="0.25" />
 
                         <androidx.constraintlayout.widget.Guideline
                             android:id="@+id/top_line13"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:orientation="horizontal"
-                            app:layout_constraintGuide_percent="0.31"/>
+                            app:layout_constraintGuide_percent="0.31" />
 
                         <androidx.constraintlayout.widget.Guideline
                             android:id="@+id/top_line14"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:orientation="horizontal"
-                            app:layout_constraintGuide_percent="0.48"/>
+                            app:layout_constraintGuide_percent="0.48" />
 
                         <androidx.constraintlayout.widget.Guideline
                             android:id="@+id/top_line15"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:orientation="horizontal"
-                            app:layout_constraintGuide_percent="0.54"/>
+                            app:layout_constraintGuide_percent="0.54" />
 
                         <androidx.constraintlayout.widget.Guideline
                             android:id="@+id/top_line16"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:orientation="horizontal"
-                            app:layout_constraintGuide_percent="0.71"/>
+                            app:layout_constraintGuide_percent="0.71" />
 
                         <androidx.constraintlayout.widget.Guideline
                             android:id="@+id/top_line17"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:orientation="horizontal"
-                            app:layout_constraintGuide_percent="0.77"/>
+                            app:layout_constraintGuide_percent="0.77" />
 
                         <androidx.constraintlayout.widget.Guideline
                             android:id="@+id/top_line18"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:orientation="horizontal"
-                            app:layout_constraintGuide_percent="0.95"/>
+                            app:layout_constraintGuide_percent="0.95" />
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            app:layout_constraintTop_toTopOf="@id/top_line11"
-                            app:layout_constraintBottom_toBottomOf="@id/top_line12">
+                            app:layout_constraintBottom_toBottomOf="@id/top_line12"
+                            app:layout_constraintTop_toTopOf="@id/top_line11">
 
                             <androidx.constraintlayout.widget.Guideline
                                 android:id="@+id/left_line4"
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
                                 android:orientation="vertical"
-                                app:layout_constraintGuide_percent="0.22"/>
+                                app:layout_constraintGuide_percent="0.22" />
 
                             <androidx.constraintlayout.widget.Guideline
                                 android:id="@+id/top_line19"
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
                                 android:orientation="horizontal"
-                                app:layout_constraintGuide_percent="0.14"/>
-
-                            <androidx.constraintlayout.widget.Guideline
-                                android:id="@+id/top_line20"
-                                android:layout_width="0dp"
-                                android:layout_height="0dp"
-                                android:orientation="horizontal"
-                                app:layout_constraintGuide_percent="0.82"/>
+                                app:layout_constraintGuide_percent="0.5" />
 
                             <ImageView
                                 android:id="@+id/iv_profile"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:src="@drawable/photo"
+                                app:layout_constraintBottom_toBottomOf="@id/top_line19"
                                 app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"/>
+                                app:layout_constraintTop_toTopOf="@id/top_line19" />
 
                             <TextView
                                 android:id="@+id/tv_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="임세현"
-                                android:textSize="16dp"
-                                android:textColor="#212121"
                                 android:fontFamily="@font/noto_sans_kr_medium"
-                                app:layout_constraintTop_toTopOf="@id/top_line19"
+                                android:text="임세현"
+                                android:textColor="#212121"
+                                android:textSize="16dp"
                                 app:layout_constraintBottom_toBottomOf="@id/top_line19"
-                                app:layout_constraintLeft_toLeftOf="@id/left_line4"/>
+                                app:layout_constraintLeft_toLeftOf="@id/left_line4" />
 
                             <TextView
                                 android:id="@+id/tv_walkCount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="9231 걸음"
-                                android:textSize="12dp"
-                                android:textColor="#424242"
+                                android:layout_marginTop="8dp"
                                 android:fontFamily="@font/noto_sans_kr_regular"
+                                android:text="9231 걸음"
+                                android:textColor="#424242"
+                                android:textSize="12dp"
                                 app:layout_constraintLeft_toLeftOf="@id/left_line4"
-                                app:layout_constraintTop_toTopOf="@id/top_line20"
-                                app:layout_constraintBottom_toBottomOf="@id/top_line20"/>
+                                app:layout_constraintTop_toTopOf="@id/top_line19" />
+
                             <TextView
                                 android:id="@+id/tv_rank"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginRight="5dp"
+                                android:fontFamily="@font/noto_sans_kr_medium"
                                 android:text="1등"
                                 android:textColor="#424242"
                                 android:textSize="16dp"
-                                android:fontFamily="@font/noto_sans_kr_medium"
-                                android:layout_marginRight="5dp"
-                                android:layout_marginBottom="5dp"
+                                app:layout_constraintBottom_toBottomOf="@id/top_line19"
                                 app:layout_constraintRight_toRightOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"/>
+                                app:layout_constraintTop_toTopOf="@id/top_line19" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            app:layout_constraintTop_toTopOf="@id/top_line13"
-                            app:layout_constraintBottom_toBottomOf="@id/top_line14">
+                            app:layout_constraintBottom_toBottomOf="@id/top_line14"
+                            app:layout_constraintTop_toTopOf="@id/top_line13">
 
                             <androidx.constraintlayout.widget.Guideline
                                 android:id="@+id/left_line5"
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
                                 android:orientation="vertical"
-                                app:layout_constraintGuide_percent="0.22"/>
+                                app:layout_constraintGuide_percent="0.22" />
 
                             <androidx.constraintlayout.widget.Guideline
                                 android:id="@+id/top_line21"
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
                                 android:orientation="horizontal"
-                                app:layout_constraintGuide_percent="0.14"/>
-
-                            <androidx.constraintlayout.widget.Guideline
-                                android:id="@+id/top_line22"
-                                android:layout_width="0dp"
-                                android:layout_height="0dp"
-                                android:orientation="horizontal"
-                                app:layout_constraintGuide_percent="0.82"/>
+                                app:layout_constraintGuide_percent="0.5" />
 
                             <ImageView
                                 android:id="@+id/iv_profile2"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:src="@drawable/photo"
+                                app:layout_constraintBottom_toBottomOf="@id/top_line21"
                                 app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"/>
+                                app:layout_constraintTop_toTopOf="@id/top_line21" />
 
                             <TextView
                                 android:id="@+id/tv_name2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="김재원"
-                                android:textSize="16dp"
-                                android:textColor="#212121"
                                 android:fontFamily="@font/noto_sans_kr_medium"
-                                app:layout_constraintTop_toTopOf="@id/top_line21"
+                                android:text="김재원"
+                                android:textColor="#212121"
+                                android:textSize="16dp"
                                 app:layout_constraintBottom_toBottomOf="@id/top_line21"
-                                app:layout_constraintLeft_toLeftOf="@id/left_line5"/>
+                                app:layout_constraintLeft_toLeftOf="@id/left_line5" />
 
                             <TextView
                                 android:id="@+id/tv_walkCount2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="8241 걸음"
-                                android:textSize="12dp"
-                                android:textColor="#424242"
+                                android:layout_marginTop="12dp"
                                 android:fontFamily="@font/noto_sans_kr_regular"
+                                android:text="8241 걸음"
+                                android:textColor="#424242"
+                                android:textSize="12dp"
                                 app:layout_constraintLeft_toLeftOf="@id/left_line5"
-                                app:layout_constraintTop_toTopOf="@id/top_line22"
-                                app:layout_constraintBottom_toBottomOf="@id/top_line22"/>
+                                app:layout_constraintTop_toTopOf="@id/top_line21" />
+
                             <TextView
                                 android:id="@+id/tv_rank2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:fontFamily="@font/noto_sans_kr_medium"
                                 android:text="2등"
                                 android:textColor="#424242"
                                 android:textSize="16dp"
-                                android:fontFamily="@font/noto_sans_kr_medium"
-                                android:layout_marginRight="5dp"
-                                android:layout_marginBottom="5dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintRight_toRightOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"/>
+                                app:layout_constraintTop_toTopOf="parent" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            app:layout_constraintTop_toTopOf="@id/top_line15"
-                            app:layout_constraintBottom_toBottomOf="@id/top_line16">
+                            app:layout_constraintBottom_toBottomOf="@id/top_line16"
+                            app:layout_constraintTop_toTopOf="@id/top_line15">
 
                             <androidx.constraintlayout.widget.Guideline
                                 android:id="@+id/left_line6"
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
                                 android:orientation="vertical"
-                                app:layout_constraintGuide_percent="0.22"/>
+                                app:layout_constraintGuide_percent="0.22" />
 
                             <androidx.constraintlayout.widget.Guideline
                                 android:id="@+id/top_line23"
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
                                 android:orientation="horizontal"
-                                app:layout_constraintGuide_percent="0.14"/>
-
-                            <androidx.constraintlayout.widget.Guideline
-                                android:id="@+id/top_line24"
-                                android:layout_width="0dp"
-                                android:layout_height="0dp"
-                                android:orientation="horizontal"
-                                app:layout_constraintGuide_percent="0.82"/>
+                                app:layout_constraintGuide_percent="0.5" />
 
                             <ImageView
                                 android:id="@+id/iv_profile3"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:src="@drawable/photo"
+                                app:layout_constraintBottom_toBottomOf="@id/top_line23"
                                 app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"/>
+                                app:layout_constraintTop_toTopOf="@id/top_line23" />
 
                             <TextView
                                 android:id="@+id/tv_name3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="최민준"
-                                android:textSize="16dp"
-                                android:textColor="#212121"
                                 android:fontFamily="@font/noto_sans_kr_medium"
-                                app:layout_constraintTop_toTopOf="@id/top_line23"
+                                android:text="최민준"
+                                android:textColor="#212121"
+                                android:textSize="16dp"
                                 app:layout_constraintBottom_toBottomOf="@id/top_line23"
-                                app:layout_constraintLeft_toLeftOf="@id/left_line6"/>
+                                app:layout_constraintLeft_toLeftOf="@id/left_line6" />
 
                             <TextView
                                 android:id="@+id/tv_walkCount3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="7983 걸음"
-                                android:textSize="12dp"
-                                android:textColor="#424242"
+                                android:layout_marginTop="8dp"
                                 android:fontFamily="@font/noto_sans_kr_regular"
+                                android:text="7983 걸음"
+                                android:textColor="#424242"
+                                android:textSize="12dp"
                                 app:layout_constraintLeft_toLeftOf="@id/left_line6"
-                                app:layout_constraintTop_toTopOf="@id/top_line24"
-                                app:layout_constraintBottom_toBottomOf="@id/top_line24"/>
+                                app:layout_constraintTop_toTopOf="@id/top_line23" />
+
                             <TextView
                                 android:id="@+id/tv_rank3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginRight="5dp"
+                                android:fontFamily="@font/noto_sans_kr_medium"
                                 android:text="3등"
                                 android:textColor="#424242"
                                 android:textSize="16dp"
-                                android:fontFamily="@font/noto_sans_kr_medium"
-                                android:layout_marginRight="5dp"
-                                android:layout_marginBottom="5dp"
+                                app:layout_constraintBottom_toBottomOf="@id/top_line23"
                                 app:layout_constraintRight_toRightOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"/>
+                                app:layout_constraintTop_toTopOf="@id/top_line23" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/bt_fetchOurSchoolRank"
                             android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:text="모두 보기"
-                            android:textSize="16dp"
-                            android:textColor="@color/black"
+                            android:layout_height="40dp"
                             android:background="@drawable/buttondesign"
-                            app:layout_constraintTop_toTopOf="@id/top_line17"
-                            app:layout_constraintBottom_toBottomOf="@id/top_line18"/>
+                            android:text="모두 보기"
+                            android:textColor="@color/black"
+                            android:textSize="16dp"
+                            app:layout_constraintBottom_toBottomOf="@id/top_line18" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#F9F9F9"
+                app:layout_constraintTop_toBottomOf="@id/third" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>
