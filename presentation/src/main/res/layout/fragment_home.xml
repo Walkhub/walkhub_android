@@ -481,12 +481,12 @@
                                 android:textSize="16dp"
                                 app:layout_constraintBottom_toBottomOf="@id/top_line21"
                                 app:layout_constraintLeft_toLeftOf="@id/left_line5" />
-
+                            
                             <TextView
                                 android:id="@+id/tv_walkCount2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="12dp"
+                                android:layout_marginTop="8dp"
                                 android:fontFamily="@font/noto_sans_kr_regular"
                                 android:text="8241 걸음"
                                 android:textColor="#424242"
