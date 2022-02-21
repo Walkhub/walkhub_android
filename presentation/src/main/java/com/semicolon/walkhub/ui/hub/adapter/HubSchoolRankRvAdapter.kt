@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gun0912.tedpermission.provider.TedPermissionProvider.context
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.HubSchoolRankViewBinding
-import com.semicolon.walkhub.ui.hub.model.HubSchoolRank.OtherSchool
+import com.semicolon.walkhub.ui.hub.model.HubSchoolRankData.OtherSchool
 import com.semicolon.walkhub.ui.hub.ui.HubSchoolActivity
 import com.semicolon.walkhub.util.loadFromUrl
 import com.semicolon.walkhub.util.visible
@@ -40,12 +40,14 @@ class HubSchoolRankRvAdapter(
             }
 
             binding.ivSchool.loadFromUrl(item.logo_image_url)
+
             if (item.name.length > 10) {
                 val schoolName = item.name.substring(0, 11) + "..."
                 binding.tvName.text = schoolName
             } else {
                 binding.tvName.text = item.name
             }
+
             binding.tvWalkCount.text = "총 ${item.walk_count} 걸음 / 총 ${item.student_count} 명"
             binding.tvRate.text = item.ranking.toString()
 

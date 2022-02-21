@@ -8,9 +8,7 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
-import com.semicolon.domain.entity.rank.UserRankEntity
 import com.semicolon.walkhub.databinding.HubUserSearchViewBinding
-import com.semicolon.walkhub.ui.hub.model.OurSchoolUserRankData
 import com.semicolon.walkhub.ui.hub.model.UserRankRvData
 import com.semicolon.walkhub.util.loadFromUrl
 import java.util.*
