@@ -102,6 +102,7 @@ object Dependency {
     object FireBase {
         const val fcm = "com.google.firebase:firebase-analytics-ktx:${Version.fcm}"
         const val message = "com.google.firebase:firebase-messaging:${Version.message}"
+    }
 
     object Permission {
         const val tedPermission =
