@@ -11,6 +11,7 @@ import com.semicolon.domain.enum.DateType
 import com.semicolon.domain.enum.RankScope
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.customview.Dropdown
+import com.semicolon.walkhub.customview.MenuDirection
 import com.semicolon.walkhub.customview.ToggleSwitch
 import com.semicolon.walkhub.databinding.FragmentHubRankBinding
 import com.semicolon.walkhub.extensions.repeatOnStarted
@@ -126,6 +127,7 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
                 Dropdown(
                     items = arrayOf("지난주", "지난달"),
                     defaultItemIndex = 1,
+                    menuDirection = MenuDirection.LEFT,
                     onItemSelected = { index, _ -> dropDownItemSelect(index) }
                 )
             }

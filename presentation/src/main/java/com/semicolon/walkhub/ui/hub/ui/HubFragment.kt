@@ -12,6 +12,7 @@ import com.semicolon.domain.enum.DateType
 import com.semicolon.walkhub.viewmodel.hub.HubMainViewModel.Event
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.customview.Dropdown
+import com.semicolon.walkhub.customview.MenuDirection
 import com.semicolon.walkhub.databinding.FragmentHubBinding
 import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.base.BaseFragment
@@ -73,6 +74,7 @@ class HubFragment @Inject constructor(
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 Dropdown(
+                    menuDirection = MenuDirection.LEFT,
                     items = arrayOf("지난주", "지난달"),
                     defaultItemIndex = 1,
                     onItemSelected = { index, _ -> dropDownItemSelect(index) }
