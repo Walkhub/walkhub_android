@@ -94,8 +94,8 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
         binding.tvMyName.text = data.name
         binding.tvMyWalkCount.text = "${data.walkCount} 걸음"
         binding.tvMyRank.text = "${data.ranking} 등"
-        data.walkCount
     }
+
     private fun setAdapter() {
 
         mAdapter = HubUserRvAdapter(userRvData)
