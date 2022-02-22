@@ -60,6 +60,10 @@ object NetWorkModule {
         retrofit.create(NoticesApi::class.java)
 
     @Provides
+    fun provideNotificationApi(retrofit: Retrofit) : NotificationApi =
+        retrofit.create(NotificationApi::class.java)
+
+    @Provides
     fun provideRankApi(retrofit: Retrofit) : RankApi =
         retrofit.create(RankApi::class.java)
 
