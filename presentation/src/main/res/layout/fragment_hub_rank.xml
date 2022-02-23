@@ -47,8 +47,8 @@
                 android:id="@+id/linearLayout2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toTopOf="@+id/guideline5">
 
@@ -124,6 +124,7 @@
                 android:layout_height="118dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/bg_hub_my_school"
+                android:visibility="gone"
                 app:layout_constraintEnd_toStartOf="@+id/guideline4"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
@@ -150,12 +151,11 @@
                     android:orientation="horizontal"
                     app:layout_constraintGuide_percent="0.55" />
 
-
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/ivMyProfile"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:background="@color/gray_300"
+                    android:src="@color/gray_300"
                     app:layout_constraintBottom_toTopOf="@+id/guideline19"
                     app:layout_constraintStart_toStartOf="@+id/guideline17"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -207,16 +207,19 @@
                     android:id="@+id/pbMy"
                     style="@android:style/Widget.Material.ProgressBar.Horizontal"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="8dp"
                     android:max="100"
                     android:progress="50"
+                    android:progressDrawable="@drawable/progress_horizontal"
                     app:layout_constraintEnd_toStartOf="@+id/guideline18"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/guideline17"
                     app:layout_constraintTop_toTopOf="@+id/guideline19" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/noto_sans_kr_regular"
                     android:text="현재 소속 중인 반이 없어요."
                     android:textColor="@color/gray_700"
@@ -228,6 +231,7 @@
                     android:id="@+id/tvMyRemainWalkCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/noto_sans_kr_regular"
                     android:text="0 걸음"
                     android:textColor="@color/gray_600"
