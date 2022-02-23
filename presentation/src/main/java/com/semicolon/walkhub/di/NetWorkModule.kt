@@ -74,4 +74,8 @@ object NetWorkModule {
     @Provides
     fun provideUserApi(retrofit: Retrofit) : UserApi =
         retrofit.create(UserApi::class.java)
+    
+    @Provides
+    fun provideLevelApi(retrofit: Retrofit) : LevelApi =
+        retrofit.create(LevelApi::class.java)
 }
