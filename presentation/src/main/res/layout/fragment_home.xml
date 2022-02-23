@@ -194,36 +194,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/left_line2"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:orientation="vertical"
-                        app:layout_constraintGuide_percent="0.1" />
-
-                    <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/right_line2"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:orientation="vertical"
-                        app:layout_constraintGuide_percent="0.9" />
-
-                    <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/top_line10"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:orientation="horizontal"
-                        app:layout_constraintGuide_percent="0.5" />
-
                     <TextView
+                        android:id="@+id/whofast"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="누구보다 빠르게"
                         android:textColor="@color/black"
                         android:textSize="16dp"
                         android:layout_marginBottom="2dp"
-                        app:layout_constraintBottom_toBottomOf="@id/top_line10"
-                        app:layout_constraintLeft_toLeftOf="@id/left_line2"/>
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginTop="24dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -233,8 +215,9 @@
                         android:textColor="@color/black"
                         android:textSize="16dp"
                         android:layout_marginTop="2dp"
-                        app:layout_constraintLeft_toLeftOf="@id/left_line2"
-                        app:layout_constraintTop_toBottomOf="@id/top_line10"/>
+                        android:layout_marginLeft="24dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/whofast"/>
 
                     <ImageButton
                         android:layout_width="48dp"
@@ -243,9 +226,10 @@
                         android:background="@android:color/transparent"
                         android:scaleType="fitCenter"
                         android:src="@drawable/photo"
-                        app:layout_constraintBottom_toBottomOf="@id/top_line10"
-                        app:layout_constraintRight_toRightOf="@id/right_line2"
-                        app:layout_constraintTop_toTopOf="@id/top_line10" />
+                        android:layout_marginRight="24dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -254,7 +238,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/third"
                 android:layout_width="match_parent"
-                android:layout_height="258dp"
+                android:layout_height="268dp"
                 android:layout_marginTop="12dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="12dp"
@@ -262,116 +246,31 @@
                 android:layout_marginRight="16dp"
                 app:layout_constraintTop_toBottomOf="@id/second_CardView">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/left_line3"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:orientation="vertical"
-                        app:layout_constraintGuide_percent="0.05" />
-
-                    <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/right_line3"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:orientation="vertical"
-                        app:layout_constraintGuide_percent="0.95" />
-
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="@id/left_line3"
-                        app:layout_constraintRight_toRightOf="@id/right_line3"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
-                        <androidx.constraintlayout.widget.Guideline
-                            android:id="@+id/top_line11"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:orientation="horizontal"
-                            app:layout_constraintGuide_percent="0.08" />
-
-                        <androidx.constraintlayout.widget.Guideline
-                            android:id="@+id/top_line12"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:orientation="horizontal"
-                            app:layout_constraintGuide_percent="0.25" />
-
-                        <androidx.constraintlayout.widget.Guideline
-                            android:id="@+id/top_line13"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:orientation="horizontal"
-                            app:layout_constraintGuide_percent="0.31" />
-
-                        <androidx.constraintlayout.widget.Guideline
-                            android:id="@+id/top_line14"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:orientation="horizontal"
-                            app:layout_constraintGuide_percent="0.48" />
-
-                        <androidx.constraintlayout.widget.Guideline
-                            android:id="@+id/top_line15"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:orientation="horizontal"
-                            app:layout_constraintGuide_percent="0.54" />
-
-                        <androidx.constraintlayout.widget.Guideline
-                            android:id="@+id/top_line16"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:orientation="horizontal"
-                            app:layout_constraintGuide_percent="0.71" />
-
-                        <androidx.constraintlayout.widget.Guideline
-                            android:id="@+id/top_line17"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:orientation="horizontal"
-                            app:layout_constraintGuide_begin="199dp" />
-
-                        <androidx.constraintlayout.widget.Guideline
-                            android:id="@+id/top_line18"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:orientation="horizontal"
-                            app:layout_constraintGuide_percent="0.95" />
-
                         <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/first_rank"
                             android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            app:layout_constraintBottom_toBottomOf="@id/top_line12"
-                            app:layout_constraintTop_toTopOf="@id/top_line11">
-
-                            <androidx.constraintlayout.widget.Guideline
-                                android:id="@+id/left_line4"
-                                android:layout_width="0dp"
-                                android:layout_height="0dp"
-                                android:orientation="vertical"
-                                app:layout_constraintGuide_percent="0.22" />
-
-                            <androidx.constraintlayout.widget.Guideline
-                                android:id="@+id/top_line19"
-                                android:layout_width="0dp"
-                                android:layout_height="0dp"
-                                android:orientation="horizontal"
-                                app:layout_constraintGuide_percent="0.5" />
+                            android:layout_height="64dp"
+                            android:layout_marginTop="18dp"
+                            app:layout_constraintTop_toTopOf="parent">
 
                             <ImageView
                                 android:id="@+id/iv_profile"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:src="@drawable/photo"
-                                app:layout_constraintBottom_toBottomOf="@id/top_line19"
+                                app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintTop_toTopOf="@id/top_line19" />
+                                app:layout_constraintTop_toTopOf="parent" />
 
                             <TextView
                                 android:id="@+id/tv_name"
@@ -381,8 +280,10 @@
                                 android:text="임세현"
                                 android:textColor="#212121"
                                 android:textSize="16dp"
-                                app:layout_constraintBottom_toBottomOf="@id/top_line19"
-                                app:layout_constraintLeft_toLeftOf="@id/left_line4" />
+                                android:layout_marginLeft="16dp"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:layout_marginTop="11dp"
+                                app:layout_constraintLeft_toRightOf="@id/iv_profile"/>
 
                             <TextView
                                 android:id="@+id/tv_walkCount"
@@ -393,8 +294,9 @@
                                 android:text="9231 걸음"
                                 android:textColor="#424242"
                                 android:textSize="12dp"
-                                app:layout_constraintLeft_toLeftOf="@id/left_line4"
-                                app:layout_constraintTop_toTopOf="@id/top_line19" />
+                                android:layout_marginLeft="16dp"
+                                app:layout_constraintTop_toBottomOf="@id/tv_name"
+                                app:layout_constraintLeft_toRightOf="@id/iv_profile" />
 
                             <TextView
                                 android:id="@+id/tv_rank"
@@ -405,39 +307,25 @@
                                 android:text="1등"
                                 android:textColor="#424242"
                                 android:textSize="16dp"
-                                app:layout_constraintBottom_toBottomOf="@id/top_line19"
+                                app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintRight_toRightOf="parent"
-                                app:layout_constraintTop_toTopOf="@id/top_line19" />
+                                app:layout_constraintTop_toTopOf="parent" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/second_rank"
                             android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            app:layout_constraintBottom_toBottomOf="@id/top_line14"
-                            app:layout_constraintTop_toTopOf="@id/top_line13">
-
-                            <androidx.constraintlayout.widget.Guideline
-                                android:id="@+id/left_line5"
-                                android:layout_width="0dp"
-                                android:layout_height="0dp"
-                                android:orientation="vertical"
-                                app:layout_constraintGuide_percent="0.22" />
-
-                            <androidx.constraintlayout.widget.Guideline
-                                android:id="@+id/top_line21"
-                                android:layout_width="0dp"
-                                android:layout_height="0dp"
-                                android:orientation="horizontal"
-                                app:layout_constraintGuide_percent="0.5" />
+                            android:layout_height="64dp"
+                            app:layout_constraintTop_toBottomOf="@id/first_rank">
 
                             <ImageView
                                 android:id="@+id/iv_profile2"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:src="@drawable/photo"
-                                app:layout_constraintBottom_toBottomOf="@id/top_line21"
+                                app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintTop_toTopOf="@id/top_line21" />
+                                app:layout_constraintTop_toTopOf="parent" />
 
                             <TextView
                                 android:id="@+id/tv_name2"
@@ -447,8 +335,10 @@
                                 android:text="김재원"
                                 android:textColor="#212121"
                                 android:textSize="16dp"
-                                app:layout_constraintBottom_toBottomOf="@id/top_line21"
-                                app:layout_constraintLeft_toLeftOf="@id/left_line5" />
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginTop="11dp"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintLeft_toRightOf="@id/iv_profile2"/>
                             
                             <TextView
                                 android:id="@+id/tv_walkCount2"
@@ -459,8 +349,9 @@
                                 android:text="8241 걸음"
                                 android:textColor="#424242"
                                 android:textSize="12dp"
-                                app:layout_constraintLeft_toLeftOf="@id/left_line5"
-                                app:layout_constraintTop_toTopOf="@id/top_line21" />
+                                android:layout_marginLeft="16dp"
+                                app:layout_constraintTop_toBottomOf="@id/tv_name2"
+                                app:layout_constraintLeft_toRightOf="@id/iv_profile2" />
 
                             <TextView
                                 android:id="@+id/tv_rank2"
@@ -478,33 +369,19 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/third_rank"
                             android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            app:layout_constraintBottom_toBottomOf="@id/top_line16"
-                            app:layout_constraintTop_toTopOf="@id/top_line15">
-
-                            <androidx.constraintlayout.widget.Guideline
-                                android:id="@+id/left_line6"
-                                android:layout_width="0dp"
-                                android:layout_height="0dp"
-                                android:orientation="vertical"
-                                app:layout_constraintGuide_percent="0.22" />
-
-                            <androidx.constraintlayout.widget.Guideline
-                                android:id="@+id/top_line23"
-                                android:layout_width="0dp"
-                                android:layout_height="0dp"
-                                android:orientation="horizontal"
-                                app:layout_constraintGuide_percent="0.5" />
+                            android:layout_height="64dp"
+                            app:layout_constraintTop_toBottomOf="@id/second_rank" >
 
                             <ImageView
                                 android:id="@+id/iv_profile3"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:src="@drawable/photo"
-                                app:layout_constraintBottom_toBottomOf="@id/top_line23"
+                                app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintTop_toTopOf="@id/top_line23" />
+                                app:layout_constraintTop_toTopOf="parent" />
 
                             <TextView
                                 android:id="@+id/tv_name3"
@@ -514,8 +391,10 @@
                                 android:text="최민준"
                                 android:textColor="#212121"
                                 android:textSize="16dp"
-                                app:layout_constraintBottom_toBottomOf="@id/top_line23"
-                                app:layout_constraintLeft_toLeftOf="@id/left_line6" />
+                                app:layout_constraintLeft_toRightOf="@id/iv_profile3"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginTop="11dp"
+                                app:layout_constraintTop_toTopOf="parent"/>
 
                             <TextView
                                 android:id="@+id/tv_walkCount3"
@@ -526,8 +405,9 @@
                                 android:text="7983 걸음"
                                 android:textColor="#424242"
                                 android:textSize="12dp"
-                                app:layout_constraintLeft_toLeftOf="@id/left_line6"
-                                app:layout_constraintTop_toTopOf="@id/top_line23" />
+                                app:layout_constraintTop_toBottomOf="@id/tv_name3"
+                                app:layout_constraintLeft_toRightOf="@id/iv_profile3"
+                                android:layout_marginLeft="16dp"/>
 
                             <TextView
                                 android:id="@+id/tv_rank3"
@@ -538,9 +418,9 @@
                                 android:text="3등"
                                 android:textColor="#424242"
                                 android:textSize="16dp"
-                                app:layout_constraintBottom_toBottomOf="@id/top_line23"
+                                app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintRight_toRightOf="parent"
-                                app:layout_constraintTop_toTopOf="@id/top_line23" />
+                                app:layout_constraintTop_toTopOf="parent" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.appcompat.widget.AppCompatButton
@@ -551,16 +431,16 @@
                             android:text="모두 보기"
                             android:textColor="@color/black"
                             android:textSize="16dp"
-                            app:layout_constraintBottom_toBottomOf="@id/top_line18" />
+                            android:layout_marginTop="8dp"
+                            app:layout_constraintTop_toBottomOf="@id/third_rank" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:background="#F9F9F9"
-                app:layout_constraintTop_toBottomOf="@id/third" />
+                app:layout_constraintTop_toBottomOf="@id/third"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>
