@@ -22,34 +22,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline3"
-                android:layout_width="1dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.05" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline4"
-                android:layout_width="1dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.95" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline5"
-                android:layout_width="1dp"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.025" />
-
             <LinearLayout
                 android:id="@+id/linearLayout2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
-                app:layout_constraintTop_toTopOf="@+id/guideline5">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/textView8"
@@ -60,12 +42,11 @@
                     android:textColor="@color/gray_700"
                     android:textSize="14dp" />
 
-                <Switch
-                    android:id="@+id/switch1"
+                <androidx.compose.ui.platform.ComposeView
+                    android:id="@+id/cvSwitch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+                    android:layout_marginStart="8dp" />
 
                 <TextView
                     android:id="@+id/textView7"
@@ -79,13 +60,13 @@
 
             </LinearLayout>
 
-            <Spinner
-                android:id="@+id/spRankHub"
+            <androidx.compose.ui.platform.ComposeView
+                android:id="@+id/cvWeekDropDown"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="right"
-                app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                app:layout_constraintTop_toTopOf="@+id/guideline5" />
+                app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/linearLayout2" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvRank"
@@ -122,117 +103,102 @@
                 android:id="@+id/clMyRank"
                 android:layout_width="0dp"
                 android:layout_height="118dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="20dp"
                 android:background="@drawable/bg_hub_my_school"
-                app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline17"
-                    android:layout_width="1dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_begin="18dp" />
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline18"
-                    android:layout_width="1dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.95" />
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline19"
-                    android:layout_width="1dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.55" />
-
-
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/ivMyProfile"
+                    android:layout_marginTop="12dp"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:background="@color/gray_900"
-                    app:layout_constraintBottom_toTopOf="@+id/guideline19"
-                    app:layout_constraintStart_toStartOf="@+id/guideline17"
+                    android:layout_marginStart="18dp"
+                    android:src="@color/gray_300"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:layout_marginTop="3dp"
                     android:id="@+id/tvMyName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="11dp"
-                    android:layout_marginBottom="32dp"
                     android:fontFamily="@font/noto_sans_kr_medium"
                     android:text="홍길동(나)"
                     android:textColor="@color/gray_900"
                     android:textSize="16dp"
-                    app:layout_constraintBottom_toTopOf="@+id/guideline19"
                     app:layout_constraintStart_toEndOf="@+id/ivMyProfile"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.325" />
+                    app:layout_constraintTop_toTopOf="@+id/ivMyProfile" />
 
                 <TextView
+                    android:layout_marginBottom="3dp"
                     android:id="@+id/tvMyWalkCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="35dp"
-                    android:layout_marginBottom="14dp"
                     android:fontFamily="@font/noto_sans_kr_regular"
                     android:text="0 걸음"
                     android:textColor="@color/gray_700"
                     android:textSize="12dp"
-                    app:layout_constraintBottom_toTopOf="@+id/guideline19"
-                    app:layout_constraintStart_toEndOf="@+id/ivMyProfile"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintBottom_toBottomOf="@+id/ivMyProfile"
+                    app:layout_constraintStart_toEndOf="@+id/ivMyProfile" />
 
                 <TextView
                     android:id="@+id/tvMyRank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="18dp"
                     android:fontFamily="@font/noto_sans_kr_medium"
                     android:text="0등"
                     android:textColor="@color/gray_800"
                     android:textSize="16dp"
-                    app:layout_constraintBottom_toTopOf="@+id/guideline19"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline18"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ProgressBar
+                    android:layout_marginTop="20dp"
                     android:id="@+id/pbMy"
                     style="@android:style/Widget.Material.ProgressBar.Horizontal"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginEnd="18dp"
                     android:max="100"
                     android:progress="50"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline18"
-                    app:layout_constraintStart_toStartOf="@+id/guideline17"
-                    app:layout_constraintTop_toTopOf="@+id/guideline19" />
+                    android:progressDrawable="@drawable/progress_horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ivMyProfile" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/noto_sans_kr_regular"
                     android:text="현재 소속 중인 반이 없어요."
                     android:textColor="@color/gray_700"
                     android:textSize="12dp"
-                    app:layout_constraintStart_toStartOf="@+id/guideline17"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/pbMy" />
 
                 <TextView
                     android:id="@+id/tvMyRemainWalkCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="18dp"
                     android:fontFamily="@font/noto_sans_kr_regular"
                     android:text="0 걸음"
                     android:textColor="@color/gray_600"
                     android:textSize="12dp"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline18"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/pbMy" />
 
 

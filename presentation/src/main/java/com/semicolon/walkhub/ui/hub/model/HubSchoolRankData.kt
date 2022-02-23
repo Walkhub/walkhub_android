@@ -1,6 +1,6 @@
 package com.semicolon.walkhub.ui.hub.model
 
-data class HubSchoolRank(
+data class HubSchoolRankData(
     val my_school_rank: MySchool,
     val school_list: List<OtherSchool>
 ) {

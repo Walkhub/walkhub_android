@@ -3,10 +3,6 @@ package com.semicolon.walkhub.ui.hub.ui
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,11 +14,12 @@ import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.base.BaseActivity
 import com.semicolon.walkhub.ui.hub.adapter.HubSearchUserRvAdapter
 import com.semicolon.walkhub.ui.hub.adapter.HubViewPagerAdapter
+import com.semicolon.walkhub.ui.hub.model.MySchoolUserRankData
 import com.semicolon.walkhub.ui.hub.model.UserRankRvData
 import com.semicolon.walkhub.ui.hub.model.toRvData
 import com.semicolon.walkhub.util.invisible
 import com.semicolon.walkhub.util.visible
-import com.semicolon.walkhub.viewmodel.hub.HubUserRankViewModel
+import com.semicolon.walkhub.viewmodel.hub.HubSearchUserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -32,7 +29,7 @@ class HubSchoolActivity @Inject constructor(
     R.layout.activity_hub_school
 ) {
 
-    private val vm: HubUserRankViewModel by viewModels()
+    private val vm: HubSearchUserViewModel by viewModels()
     private var schoolName = "no data"
 
     private lateinit var mAdapter: HubSearchUserRvAdapter
@@ -61,15 +58,16 @@ class HubSchoolActivity @Inject constructor(
         setAdapter()
     }
 
-    private fun handleEvent(event: HubUserRankViewModel.Event) = when (event) {
+    private fun handleEvent(event: HubSearchUserViewModel.Event) = when (event) {
 
-        is HubUserRankViewModel.Event.FetchMySchoolUserRank -> {
-            setUserRank(event.ourSchoolUserRankData.rankingList.map { it.toRvData() })
+        is HubSearchUserViewModel.Event.FetchMySchoolUserRank -> {
+            setUserRank(event.mySchoolUserRankData.rankingList.map { it.toRvData() })
         }
-        is HubUserRankViewModel.Event.FetchUserRank -> {
+        is HubSearchUserViewModel.Event.FetchUserRank -> {
             setUserRank(event.userRankData.rankList.map { it.toRvData() })
         }
     }
+
 
     private fun setUserRank(data: List<UserRankRvData>) {
 
