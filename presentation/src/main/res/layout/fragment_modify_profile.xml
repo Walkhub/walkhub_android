@@ -93,13 +93,6 @@
         app:layout_constraintGuide_percent="0.61" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline36"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.88125" />
-
-    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline15"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -189,8 +182,8 @@
 
         <ImageView
             android:id="@+id/back"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/ic_round_arrow_back_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -280,7 +273,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/fix_btn"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="56dp"
         android:background="#E0E0E0"
         android:fontFamily="@font/noto_sans_kr_regular"
         android:text="수정 완료"
@@ -288,13 +281,12 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline36" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/fix_done_btn"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="56dp"
         android:background="#57B4F1"
         android:fontFamily="@font/noto_sans_kr_regular"
         android:text="수정 완료"
@@ -303,8 +295,7 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline36" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
