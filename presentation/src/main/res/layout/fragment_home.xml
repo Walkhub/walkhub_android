@@ -234,18 +234,11 @@
                         app:layout_constraintGuide_percent="0.9" />
 
                     <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/top_line9"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:orientation="horizontal"
-                        app:layout_constraintGuide_begin="38dp" />
-
-                    <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/top_line10"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:orientation="horizontal"
-                        app:layout_constraintGuide_percent="0.61" />
+                        app:layout_constraintGuide_percent="0.5" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -253,9 +246,9 @@
                         android:text="누구보다 빠르게"
                         android:textColor="@color/black"
                         android:textSize="16dp"
-                        app:layout_constraintBottom_toBottomOf="@id/top_line9"
-                        app:layout_constraintLeft_toLeftOf="@id/left_line2"
-                        app:layout_constraintTop_toTopOf="@id/top_line9" />
+                        android:layout_marginBottom="2dp"
+                        app:layout_constraintBottom_toBottomOf="@id/top_line10"
+                        app:layout_constraintLeft_toLeftOf="@id/left_line2"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -264,9 +257,9 @@
                         android:text="지금 바로 기록하기"
                         android:textColor="@color/black"
                         android:textSize="16dp"
-                        app:layout_constraintBottom_toBottomOf="@id/top_line10"
+                        android:layout_marginTop="2dp"
                         app:layout_constraintLeft_toLeftOf="@id/left_line2"
-                        app:layout_constraintTop_toTopOf="@id/top_line10" />
+                        app:layout_constraintTop_toBottomOf="@id/top_line10"/>
 
                     <ImageButton
                         android:layout_width="48dp"
@@ -277,7 +270,7 @@
                         android:src="@drawable/photo"
                         app:layout_constraintBottom_toBottomOf="@id/top_line10"
                         app:layout_constraintRight_toRightOf="@id/right_line2"
-                        app:layout_constraintTop_toTopOf="@id/top_line9" />
+                        app:layout_constraintTop_toTopOf="@id/top_line10" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -367,7 +360,7 @@
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:orientation="horizontal"
-                            app:layout_constraintGuide_percent="0.77" />
+                            app:layout_constraintGuide_begin="199dp" />
 
                         <androidx.constraintlayout.widget.Guideline
                             android:id="@+id/top_line18"
