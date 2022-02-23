@@ -21,65 +21,39 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/top_line2"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.093" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/left_line"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.048" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/right_line"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.952" />
-
             <TextView
+                android:id="@+id/tv_main"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/noto_sans_kr_bold"
                 android:text="Walkhub"
                 android:textColor="#424242"
                 android:textSize="25dp"
-                app:layout_constraintBottom_toBottomOf="@id/top_line2"
-                app:layout_constraintLeft_toLeftOf="@id/left_line"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="16dp"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/first_CardView"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="390dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="12dp"
-                app:layout_constraintLeft_toLeftOf="@id/left_line"
-                app:layout_constraintRight_toRightOf="@id/right_line"
-                app:layout_constraintTop_toTopOf="@id/top_line2">
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_main">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/top_line3"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:orientation="horizontal"
-                        app:layout_constraintGuide_percent="0.73" />
-
-                    <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/top_line8"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:orientation="horizontal"
-                        app:layout_constraintGuide_percent="0.795" />
+                        app:layout_constraintGuide_begin="306dp"/>
 
                     <com.semicolon.walkhub.customview.CircularProgressBar
                         android:id="@+id/cpb"
@@ -87,10 +61,10 @@
                         android:layout_height="200dp"
                         android:max="7000"
                         android:progress="6472"
-                        app:layout_constraintBottom_toBottomOf="@id/top_line3"
+                        android:layout_marginTop="40dp"
+                        app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintRight_toRightOf="parent"/>
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/iv"
@@ -115,6 +89,7 @@
                         app:layout_constraintTop_toBottomOf="@id/iv" />
 
                     <TextView
+                        android:id="@+id/tv_top"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:fontFamily="@font/noto_sans_kr_regular"
@@ -206,13 +181,13 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/second_CardView"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="96dp"
                 android:layout_marginTop="12dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="12dp"
-                app:layout_constraintLeft_toLeftOf="@id/left_line"
-                app:layout_constraintRight_toRightOf="@id/right_line"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
                 app:layout_constraintTop_toBottomOf="@id/first_CardView">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -278,13 +253,13 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/third"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="258dp"
                 android:layout_marginTop="12dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="12dp"
-                app:layout_constraintLeft_toLeftOf="@id/left_line"
-                app:layout_constraintRight_toRightOf="@id/right_line"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
                 app:layout_constraintTop_toBottomOf="@id/second_CardView">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
