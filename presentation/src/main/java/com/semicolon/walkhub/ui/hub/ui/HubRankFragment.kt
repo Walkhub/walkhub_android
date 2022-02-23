@@ -1,5 +1,6 @@
 package com.semicolon.walkhub.ui.hub.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -57,14 +58,20 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
     }
 
     private fun fetchSchoolUserRank() {
-        vm.fetchSchoolUserRank(dateType, rankScope)
+
+        val schoolType = activity?.intent?.getBooleanExtra("type", true)!!
+
+        if (schoolType) {
+            vm.fetchMySchoolUserRank(dateType, rankScope)
+        } else {
+            vm.fetchSchoolUserRank(dateType, rankScope)
+        }
     }
 
     private fun handleEvent(event: HubUserViewModel.Event) = when (event) {
         is HubUserViewModel.Event.FetchMySchoolUserRank -> {
             setMyRank(event.mySchoolUserRankData.myRanking)
             setUserRvData(event.mySchoolUserRankData.rankingList.map { it.toRvData() })
-
         }
         is HubUserViewModel.Event.FetchOtherSchoolUserRank -> {
             setUserRvData(event.userRankData.rankList.map { it.toRvData() })
@@ -72,6 +79,7 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
     }
 
     private fun setUserRvData(school: List<UserRankRvData>) {
+
         userRvData.clear()
 
         for (i: Int in 0..school.size - 1) {
@@ -89,6 +97,7 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
     }
 
     private fun setMyRank(data: MySchoolUserRankData.Ranking) {
+
         binding.clMyRank.visible()
 
         binding.ivMyProfile.loadCircleFromUrl(data.profileImageUrl)
