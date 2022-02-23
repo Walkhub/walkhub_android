@@ -51,4 +51,9 @@ abstract class RepositoryModule {
         userRepositoryImpl: UserRepositoryImpl
     ): UserRepository
 
+    @Binds
+    abstract fun provideLevelRepository(
+        levelRepositoryImpl: LevelRepositoryImpl
+    ): LevelRepository
+
 }
