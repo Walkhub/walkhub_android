@@ -93,7 +93,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_end="395dp" />
+                    app:layout_constraintGuide_percent="0.04" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline9"
@@ -474,8 +474,8 @@
 
                 <ImageView
                     android:id="@+id/appCompatButton"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     app:layout_constraintBottom_toTopOf="@+id/guideline59"
                     app:layout_constraintEnd_toStartOf="@+id/guideline60"
                     app:layout_constraintStart_toStartOf="@+id/guideline61"
