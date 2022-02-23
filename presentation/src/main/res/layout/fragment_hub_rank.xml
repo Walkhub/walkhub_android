@@ -22,28 +22,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline3"
-                android:layout_width="1dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.05" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline4"
-                android:layout_width="1dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.95" />
-
             <LinearLayout
                 android:id="@+id/linearLayout2"
-                android:layout_marginTop="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
@@ -78,7 +65,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
-                app:layout_constraintEnd_toStartOf="@+id/guideline4" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/linearLayout2" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvRank"
@@ -115,27 +103,15 @@
                 android:id="@+id/clMyRank"
                 android:layout_width="0dp"
                 android:layout_height="118dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="20dp"
                 android:background="@drawable/bg_hub_my_school"
                 android:visibility="visible"
-                app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline17"
-                    android:layout_width="1dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_begin="18dp" />
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline18"
-                    android:layout_width="1dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.95" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline19"
@@ -148,9 +124,10 @@
                     android:id="@+id/ivMyProfile"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:layout_marginStart="18dp"
                     android:src="@color/gray_300"
                     app:layout_constraintBottom_toTopOf="@+id/guideline19"
-                    app:layout_constraintStart_toStartOf="@+id/guideline17"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -188,12 +165,13 @@
                     android:id="@+id/tvMyRank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="18dp"
                     android:fontFamily="@font/noto_sans_kr_medium"
                     android:text="0등"
                     android:textColor="@color/gray_800"
                     android:textSize="16dp"
                     app:layout_constraintBottom_toTopOf="@+id/guideline19"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline18"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ProgressBar
@@ -201,23 +179,25 @@
                     style="@android:style/Widget.Material.ProgressBar.Horizontal"
                     android:layout_width="0dp"
                     android:layout_height="8dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginEnd="18dp"
                     android:max="100"
                     android:progress="50"
                     android:progressDrawable="@drawable/progress_horizontal"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline18"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/guideline17"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/guideline19" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/noto_sans_kr_regular"
                     android:text="현재 소속 중인 반이 없어요."
                     android:textColor="@color/gray_700"
                     android:textSize="12dp"
-                    app:layout_constraintStart_toStartOf="@+id/guideline17"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/pbMy" />
 
                 <TextView
@@ -225,11 +205,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="18dp"
                     android:fontFamily="@font/noto_sans_kr_regular"
                     android:text="0 걸음"
                     android:textColor="@color/gray_600"
                     android:textSize="12dp"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline18"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/pbMy" />
 
 
