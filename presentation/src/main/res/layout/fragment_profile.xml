@@ -30,14 +30,12 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="14dp"
-                android:layout_marginEnd="252dp"
                 android:layout_marginBottom="14dp"
                 android:fontFamily="@font/noto_sans_kr_medium"
                 android:text="마이페이지"
                 android:textColor="@color/gray_800"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,13 +44,11 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center"
-                android:layout_marginStart="320dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
                 android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -200,8 +196,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="251dp"
                     android:layout_marginTop="130dp"
-                    android:layout_marginEnd="46dp"
-                    android:layout_marginBottom="31dp"
+                    android:layout_marginEnd="31dp"
+                    android:layout_marginBottom="30dp"
                     android:fontFamily="@font/noto_sans_kr_medium"
                     android:text="158"
                     android:textColor="@color/gray_800"
