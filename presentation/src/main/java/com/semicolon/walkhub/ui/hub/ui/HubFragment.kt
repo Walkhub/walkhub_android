@@ -51,8 +51,8 @@ class HubFragment @Inject constructor(
 
     private fun handleEvent(event: Event) = when (event) {
         is Event.FetchSchoolRank -> {
-            setMySchool(event.hubSchoolRankData.my_school_rank)
-            setSchoolRank(event.hubSchoolRankData.school_list)
+            setMySchool(event.hubSchoolRankData.mySchoolRank)
+            setSchoolRank(event.hubSchoolRankData.schoolList)
         }
     }
 
@@ -101,9 +101,9 @@ class HubFragment @Inject constructor(
 
     private fun setMySchool(school: HubSchoolRankData.MySchool) {
 
-        binding.ivMySchool.loadCircleFromUrl(school.logo_image_url)
+        binding.ivMySchool.loadCircleFromUrl(school.logoImageUrl)
         binding.tvMySchoolName.text = school.name
-        binding.tvMySchoolInfo.text = "${school.grade} 학년 ${school.class_num} 반"
+        binding.tvMySchoolInfo.text = "${school.grade} 학년 ${school.classNum} 반"
     }
 
     private fun setSchoolRank(school: List<HubSchoolRankData.OtherSchool>) {
