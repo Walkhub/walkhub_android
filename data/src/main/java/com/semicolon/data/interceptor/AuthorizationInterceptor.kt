@@ -3,10 +3,10 @@ package com.semicolon.data.interceptor
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.semicolon.data.local.storage.AuthDataStorage
+import com.semicolon.domain.exception.basic.UnauthorizedException
 import okhttp3.*
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.ZoneId
-import java.lang.RuntimeException
 import javax.inject.Inject
 
 class AuthorizationInterceptor @Inject constructor(
@@ -47,7 +47,7 @@ class AuthorizationInterceptor @Inject constructor(
                 )
                 authDataStorage.setAccessToken(token.accessToken)
                 authDataStorage.setExpiredAt(token.expiredAt)
-            } else throw RuntimeException()
+            } else throw UnauthorizedException()
         }
 
         val accessToken = authDataStorage.fetchAccessToken()
