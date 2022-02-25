@@ -14,8 +14,20 @@ class AuthorizationInterceptor @Inject constructor(
 ) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
+        val request = chain.request()
+        val path = request.url().encodedPath()
+        val ignorePath = listOf(
+            "/users/verification-codes",
+            "/users/account-id",
+            "/users/token",
+            "/users/password"
+        )
+        if (ignorePath.contains(path)) return chain.proceed(request)
+        if (path == "/users" && request.method() == "POST") return chain.proceed(request)
+        if (path.contains("/users/accounts/")) return chain.proceed(request)
+
         val expiredAt = authDataStorage.fetchExpiredAt()
-        val currentTime = LocalDateTime.now().atZone(ZoneId.systemDefault()).toLocalDateTime()
+        val currentTime = LocalDateTime.now(ZoneId.systemDefault())
 
         if (expiredAt.isBefore(currentTime)) {
             val client = OkHttpClient()
@@ -40,7 +52,7 @@ class AuthorizationInterceptor @Inject constructor(
 
         val accessToken = authDataStorage.fetchAccessToken()
         return chain.proceed(
-            chain.request().newBuilder().addHeader(
+            request.newBuilder().addHeader(
                 "Authorization",
                 "Bearer $accessToken"
             ).build()
