@@ -38,4 +38,5 @@ object Version {
     const val moshiKotlin = "1.8.0"
     const val circleImage = "3.1.0"
     const val glide = "4.13.0"
+    const val switchbutton = "0.0.3@aar"
 }

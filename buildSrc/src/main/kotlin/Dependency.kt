@@ -21,6 +21,8 @@ object Dependency {
             "androidx.activity:activity-compose:${Version.activityCompose}"
         const val coilCompose =
             "io.coil-kt:coil-compose:${Version.coilCompose}"
+        const val switchbuttton =
+            "com.github.zcweng:switch-button:${Version.switchbutton}"
     }
 
     object GradlePlugin {
