@@ -18,7 +18,7 @@ class RemoteSocketDataSourceImpl @Inject constructor(
 
     override fun sendCheering(userId: Int) {
         val data = JSONObject()
-        data.put("user_id",1)
+        data.put("user_id",userId)
         socket.emit("cheering",data)
     }
 
