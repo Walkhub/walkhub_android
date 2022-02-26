@@ -64,4 +64,6 @@ dependencies {
     implementation(Dependency.WorkManager.hiltExtension)
 
     implementation(Dependency.LocalStorage.sharedPreference)
+
+    implementation(Dependency.FireBase.message)
 }
