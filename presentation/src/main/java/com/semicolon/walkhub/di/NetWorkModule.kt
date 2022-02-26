@@ -50,7 +50,7 @@ object NetWorkModule {
     fun provideSocket(
         options: IO.Options
     ): Socket =
-        IO.socket(SOCKET_BASE_URL,options)
+        IO.socket(SOCKET_BASE_URL, options)
 
     @Provides
     fun provideRetrofit(

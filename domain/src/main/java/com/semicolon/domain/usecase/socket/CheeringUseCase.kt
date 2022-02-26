@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class CheeringUseCase @Inject constructor(
     private val socketRepository: SocketRepository
-): UseCase<Int,Flow<String>>() {
+) : UseCase<Int, Flow<String>>() {
 
     override suspend fun execute(data: Int): Flow<String> =
         socketRepository.cheering(data)

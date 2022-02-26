@@ -42,7 +42,7 @@ abstract class RemoteDataSourceModule {
 
     @Binds
     abstract fun provideRemoteNotificationDataSource(
-        remoteNotificationDataSourceImpl : RemoteNotificationDataSourceImpl
+        remoteNotificationDataSourceImpl: RemoteNotificationDataSourceImpl
     ): RemoteNotificationDataSource
 
     @Binds

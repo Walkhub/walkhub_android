@@ -8,9 +8,9 @@ import javax.inject.Inject
 
 class RemoteSocketDataSourceImpl @Inject constructor(
     private val socket: Socket
-): RemoteSocketDataSource {
+) : RemoteSocketDataSource {
 
-    var message: String= ""
+    var message: String = ""
 
     private val onReceiveMessage: Emitter.Listener = Emitter.Listener {
         message = it[0] as String
@@ -18,13 +18,13 @@ class RemoteSocketDataSourceImpl @Inject constructor(
 
     override fun sendCheering(userId: Int) {
         val data = JSONObject()
-        data.put("user_id",userId)
-        socket.emit("cheering",data)
+        data.put("user_id", userId)
+        socket.emit("cheering", data)
     }
 
     override fun receiveCheering(): String {
-        socket.on("new_cheering",onReceiveMessage)
-        socket.on("error",onReceiveMessage)
+        socket.on("new_cheering", onReceiveMessage)
+        socket.on("error", onReceiveMessage)
 
         return message
     }
@@ -33,12 +33,12 @@ class RemoteSocketDataSourceImpl @Inject constructor(
         socket.disconnect()
     }
 
-    override fun connectSocket(){
+    override fun connectSocket() {
         socket.connect()
         socket.on(Socket.EVENT_CONNECT) {
-            Log.d("success","success")
-        }.on(Socket.EVENT_CONNECT_ERROR){
-            Log.d("fail",it.contentToString())
+            Log.d("success", "success")
+        }.on(Socket.EVENT_CONNECT_ERROR) {
+            Log.d("fail", it.contentToString())
             println(it.contentToString())
         }
     }

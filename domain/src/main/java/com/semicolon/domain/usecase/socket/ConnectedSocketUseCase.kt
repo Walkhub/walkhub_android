@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class ConnectedSocketUseCase @Inject constructor(
     private val socketRepository: SocketRepository
-): UseCase<Unit,Unit>() {
+) : UseCase<Unit, Unit>() {
 
     override suspend fun execute(data: Unit) =
         socketRepository.connectedSocket()

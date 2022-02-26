@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class SocketRepositoryImpl @Inject constructor(
     private val remoteSocketDataSource: RemoteSocketDataSource
-): SocketRepository {
+) : SocketRepository {
 
     override fun cheering(userId: Int): Flow<String> {
         remoteSocketDataSource.sendCheering(userId)
