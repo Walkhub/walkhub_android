@@ -6,7 +6,7 @@ interface RemoteSocketDataSource {
 
     fun receiveCheering(): String
 
-    fun disConnected()
+    fun disconnected()
 
     fun connectSocket()
 }

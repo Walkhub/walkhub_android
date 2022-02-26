@@ -20,6 +20,6 @@ class SocketRepositoryImpl @Inject constructor(
 
 
     override fun disConnectedSocket() =
-        remoteSocketDataSource.disConnected()
+        remoteSocketDataSource.disconnected()
 
 }

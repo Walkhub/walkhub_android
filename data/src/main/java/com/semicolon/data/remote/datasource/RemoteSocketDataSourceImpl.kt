@@ -29,9 +29,8 @@ class RemoteSocketDataSourceImpl @Inject constructor(
         return message
     }
 
-    override fun disConnected() {
+    override fun disconnected() {
         socket.disconnect()
-        socket.off()
     }
 
     override fun connectSocket(){
