@@ -58,6 +58,17 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/my_picture"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="456dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView3"
             android:layout_width="0dp"
@@ -83,12 +94,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="28dp"
                     android:layout_marginTop="52dp"
-                    android:layout_marginBottom="104dp"
                     android:fontFamily="@font/noto_sans_kr_medium"
                     android:text="이용진"
                     android:textColor="@color/gray_800"
                     android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -97,12 +106,11 @@
                     android:id="@+id/imageView"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    android:layout_marginStart="47dp"
                     android:layout_marginTop="110dp"
-                    android:layout_marginEnd="265dp"
                     android:layout_marginBottom="58dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView3"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -110,107 +118,94 @@
                     android:id="@+id/walk_count"
                     android:layout_width="wrap_content"
                     android:layout_height="24dp"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginEnd="250dp"
-                    android:layout_marginBottom="30dp"
                     android:layout_marginTop="4dp"
                     android:fontFamily="@font/noto_sans_kr_medium"
                     android:text="100"
                     android:textColor="@color/gray_800"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView"
+                    app:layout_constraintStart_toStartOf="@+id/imageView"
                     app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
                 <ImageView
                     android:id="@+id/imageView3"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    android:layout_marginStart="120dp"
                     android:layout_marginTop="110dp"
-                    android:layout_marginEnd="192dp"
                     android:layout_marginBottom="58dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView4"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/imageView"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/walk_time"
                     android:layout_width="wrap_content"
                     android:layout_height="24dp"
-                    android:layout_marginStart="105dp"
-                    android:layout_marginEnd="177dp"
-                    android:layout_marginBottom="30dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginBottom="30dp"
                     android:fontFamily="@font/noto_sans_kr_medium"
                     android:text="7"
                     android:textColor="@color/gray_800"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView3"
+                    app:layout_constraintStart_toStartOf="@+id/imageView3"
                     app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
                 <ImageView
                     android:id="@+id/imageView4"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    android:layout_marginStart="193dp"
                     android:layout_marginTop="110dp"
-                    android:layout_marginEnd="119dp"
                     android:layout_marginBottom="58dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView5"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/imageView3"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/distance"
                     android:layout_width="wrap_content"
                     android:layout_height="24dp"
-                    android:layout_marginStart="178dp"
-                    android:layout_marginEnd="104dp"
-                    android:layout_marginBottom="30dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginBottom="30dp"
                     android:fontFamily="@font/noto_sans_kr_medium"
                     android:text="0.52"
                     android:textColor="@color/gray_800"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView4"
+                    app:layout_constraintStart_toStartOf="@+id/imageView4"
                     app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
                 <ImageView
                     android:id="@+id/imageView5"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    android:layout_marginStart="266dp"
                     android:layout_marginTop="110dp"
-                    android:layout_marginEnd="46dp"
                     android:layout_marginBottom="58dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/imageView4"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/calorie"
                     android:layout_width="wrap_content"
                     android:layout_height="24dp"
-                    android:layout_marginStart="251dp"
-                    android:layout_marginEnd="31dp"
-                    android:layout_marginBottom="30dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginBottom="30dp"
                     android:fontFamily="@font/noto_sans_kr_medium"
                     android:text="158"
                     android:textColor="@color/gray_800"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView5"
+                    app:layout_constraintStart_toStartOf="@+id/imageView5"
                     app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
