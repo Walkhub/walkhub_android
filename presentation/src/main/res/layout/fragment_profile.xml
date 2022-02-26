@@ -30,14 +30,12 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="14dp"
-                android:layout_marginEnd="252dp"
                 android:layout_marginBottom="14dp"
                 android:fontFamily="@font/noto_sans_kr_medium"
                 android:text="마이페이지"
                 android:textColor="@color/gray_800"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,13 +44,11 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center"
-                android:layout_marginStart="320dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -64,10 +60,10 @@
             android:layout_height="80dp"
             android:layout_marginTop="80dp"
             android:layout_marginBottom="456dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/cardView3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/cardView3"/>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView3"
@@ -76,11 +72,9 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="120dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="312dp"
             android:background="@color/white"
             app:cardCornerRadius="12dp"
             app:cardElevation="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -107,8 +101,6 @@
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_marginTop="110dp"
-                    android:layout_marginBottom="58dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/imageView3"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -131,8 +123,6 @@
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_marginTop="110dp"
-                    android:layout_marginBottom="58dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/imageView4"
                     app:layout_constraintStart_toEndOf="@+id/imageView"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -157,8 +147,6 @@
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_marginTop="110dp"
-                    android:layout_marginBottom="58dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/imageView5"
                     app:layout_constraintStart_toEndOf="@+id/imageView3"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -183,8 +171,6 @@
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_marginTop="110dp"
-                    android:layout_marginBottom="58dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView4"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -243,12 +229,10 @@
                     android:layout_height="24dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="11dp"
-                    android:layout_marginBottom="29dp"
                     android:fontFamily="@font/noto_sans_kr_medium"
                     android:text="대전가온중학교"
                     android:textColor="@color/gray_900"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/school_logo"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -301,11 +285,7 @@
                     android:id="@+id/badge_image"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
-                    android:layout_marginStart="47dp"
                     android:layout_marginTop="12dp"
-                    android:layout_marginEnd="47dp"
-                    android:layout_marginBottom="58dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -314,15 +294,11 @@
                     android:id="@+id/badge_name"
                     android:layout_width="wrap_content"
                     android:layout_height="24dp"
-                    android:layout_marginStart="50dp"
                     android:layout_marginTop="80dp"
-                    android:layout_marginEnd="50dp"
-                    android:layout_marginBottom="30dp"
                     android:fontFamily="@font/noto_sans_kr_medium"
                     android:text="No Badge"
                     android:textColor="@color/gray_800"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -330,20 +306,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="18dp"
-                    android:layout_marginStart="55dp"
                     android:layout_marginTop="104dp"
-                    android:layout_marginEnd="55dp"
-                    android:layout_marginBottom="12dp"
                     android:fontFamily="@font/noto_sans_kr_regular"
                     android:text="대표 배지"
                     android:textColor="@color/gray_500"
                     android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -366,11 +339,7 @@
                     android:id="@+id/rating"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
-                    android:layout_marginStart="47dp"
                     android:layout_marginTop="12dp"
-                    android:layout_marginEnd="47dp"
-                    android:layout_marginBottom="58dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -379,15 +348,11 @@
                     android:id="@+id/rating_name"
                     android:layout_width="wrap_content"
                     android:layout_height="24dp"
-                    android:layout_marginStart="48dp"
                     android:layout_marginTop="80dp"
-                    android:layout_marginEnd="48dp"
-                    android:layout_marginBottom="30dp"
                     android:fontFamily="@font/noto_sans_kr_medium"
                     android:text="No Rating"
                     android:textColor="@color/gray_800"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -395,15 +360,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="18dp"
-                    android:layout_marginStart="55dp"
                     android:layout_marginTop="104dp"
-                    android:layout_marginEnd="55dp"
-                    android:layout_marginBottom="12dp"
                     android:fontFamily="@font/noto_sans_kr_regular"
                     android:text="최고 등급"
                     android:textColor="@color/gray_500"
                     android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
