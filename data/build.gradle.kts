@@ -64,4 +64,8 @@ dependencies {
     implementation(Dependency.WorkManager.hiltExtension)
 
     implementation(Dependency.LocalStorage.sharedPreference)
+
+    implementation(Dependency.Socket.socketIo){
+        exclude (group = "org.json", module = "json")
+    }
 }
