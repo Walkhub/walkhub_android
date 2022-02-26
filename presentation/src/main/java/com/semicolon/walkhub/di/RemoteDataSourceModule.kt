@@ -11,6 +11,11 @@ import dagger.hilt.components.SingletonComponent
 abstract class RemoteDataSourceModule {
 
     @Binds
+    abstract fun provideRemoteSocketDataSource(
+        remoteSocketDataSourceImpl: RemoteSocketDataSourceImpl,
+    ): RemoteSocketDataSource
+
+    @Binds
     abstract fun provideRemoteBadgeDataSource(
         remoteBadgeDataSourceImpl: RemoteBadgeDataSourceImpl
     ): RemoteBadgeDataSource

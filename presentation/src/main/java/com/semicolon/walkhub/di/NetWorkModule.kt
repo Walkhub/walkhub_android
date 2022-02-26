@@ -2,8 +2,6 @@ package com.semicolon.walkhub.di
 
 import com.semicolon.data.interceptor.AuthorizationInterceptor
 import com.semicolon.data.remote.api.*
-import com.semicolon.data.remote.datasource.RemoteSocketDataSource
-import com.semicolon.data.remote.datasource.RemoteSocketDataSourceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -63,12 +61,6 @@ object NetWorkModule {
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-
-    @Provides
-    fun provideRemoteSocketDataSource(
-        socket: Socket
-    ): RemoteSocketDataSource =
-        RemoteSocketDataSourceImpl(socket)
 
     @Provides
     fun provideChallengeApi(retrofit: Retrofit): ChallengeApi =
