@@ -48,8 +48,8 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="320dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
                 android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -110,7 +110,6 @@
                     android:layout_marginBottom="58dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/imageView3"
-                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -135,7 +134,6 @@
                     android:layout_marginBottom="58dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/imageView4"
-                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/imageView"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -162,7 +160,6 @@
                     android:layout_marginBottom="58dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/imageView5"
-                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/imageView3"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -189,7 +186,6 @@
                     android:layout_marginBottom="58dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/imageView4"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -217,8 +213,8 @@
             android:id="@+id/cardView"
             android:layout_width="0dp"
             android:layout_height="64dp"
-            android:layout_marginTop="12dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="0dp"
@@ -245,9 +241,9 @@
                     android:id="@+id/school_name"
                     android:layout_width="wrap_content"
                     android:layout_height="24dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="11dp"
                     android:layout_marginBottom="29dp"
-                    android:layout_marginStart="16dp"
                     android:fontFamily="@font/noto_sans_kr_medium"
                     android:text="대전가온중학교"
                     android:textColor="@color/gray_900"
@@ -260,8 +256,8 @@
                     android:id="@+id/grade_class"
                     android:layout_width="wrap_content"
                     android:layout_height="18dp"
-                    android:fontFamily="@font/noto_sans_kr_regular"
                     android:layout_marginBottom="11dp"
+                    android:fontFamily="@font/noto_sans_kr_regular"
                     android:text="반에 가입되어 있지 않습니다"
                     android:textColor="@color/gray_800"
                     android:textSize="12sp"
@@ -289,8 +285,8 @@
             android:layout_width="0dp"
             android:layout_height="134dp"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="0dp"
             app:layout_constraintEnd_toStartOf="@+id/view"
@@ -354,8 +350,8 @@
             android:layout_width="0dp"
             android:layout_height="134dp"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp"
             android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="0dp"
             app:layout_constraintEnd_toEndOf="parent"
