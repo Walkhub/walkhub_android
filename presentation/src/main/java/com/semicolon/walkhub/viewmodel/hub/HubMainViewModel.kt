@@ -22,7 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HubMainViewModel @Inject constructor(
     private val fetchSchoolRankUseCase: FetchSchoolRankUseCase
-): ViewModel() {
+) : ViewModel() {
 
     private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()
@@ -34,7 +34,7 @@ class HubMainViewModel @Inject constructor(
                     event(Event.FetchSchoolRank(it.toData()))
                 }
             }.onFailure {
-                when(it) {
+                when (it) {
                     is NoInternetException -> event(Event.ErrorMessage("인터넷을 사용할 수 없습니다"))
                     else -> event(Event.ErrorMessage("알 수 없는 에러가 발생했습니다.\\n잠시 후 다시 시도해주세요."))
                 }
@@ -43,7 +43,7 @@ class HubMainViewModel @Inject constructor(
     }
 
     private fun SchoolRankEntity.MySchoolRank.toData() =
-        HubSchoolRankData.MySchool (
+        HubSchoolRankData.MySchool(
             schoolId = schoolId,
             name = name,
             logoImageUrl = logoImageUrl,
@@ -53,7 +53,7 @@ class HubMainViewModel @Inject constructor(
         )
 
     private fun SchoolRankEntity.SchoolRank.toData() =
-        HubSchoolRankData.OtherSchool (
+        HubSchoolRankData.OtherSchool(
             schoolId = schoolId,
             name = name,
             ranking = ranking,

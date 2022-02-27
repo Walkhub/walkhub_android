@@ -14,7 +14,6 @@ import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.base.BaseActivity
 import com.semicolon.walkhub.ui.hub.adapter.HubSearchUserRvAdapter
 import com.semicolon.walkhub.ui.hub.adapter.HubViewPagerAdapter
-import com.semicolon.walkhub.ui.hub.model.MySchoolUserRankData
 import com.semicolon.walkhub.ui.hub.model.UserRankRvData
 import com.semicolon.walkhub.ui.hub.model.toRvData
 import com.semicolon.walkhub.util.invisible

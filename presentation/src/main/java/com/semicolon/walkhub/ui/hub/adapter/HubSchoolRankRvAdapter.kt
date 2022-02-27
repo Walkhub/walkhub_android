@@ -39,7 +39,7 @@ class HubSchoolRankRvAdapter(
                 context.startActivity(intent)
             }
 
-            binding.ivSchool.loadFromUrl(item.logo_image_url)
+            binding.ivSchool.loadFromUrl(item.logoImageUrl)
 
             if (item.name.length > 10) {
                 val schoolName = item.name.substring(0, 11) + "..."
@@ -48,7 +48,7 @@ class HubSchoolRankRvAdapter(
                 binding.tvName.text = item.name
             }
 
-            binding.tvWalkCount.text = "총 ${item.walk_count} 걸음 / 총 ${item.student_count} 명"
+            binding.tvWalkCount.text = "총 ${item.walkCount} 걸음 / 총 ${item.studentCount} 명"
             binding.tvRate.text = item.ranking.toString()
 
             when (item.ranking) {
