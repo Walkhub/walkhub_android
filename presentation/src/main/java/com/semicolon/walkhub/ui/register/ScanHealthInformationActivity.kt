@@ -46,7 +46,7 @@ class ScanHealthInformationActivity : BaseActivity<ActivityScanHealthInformation
         binding.btWo.background =
             ContextCompat.getDrawable(
                 applicationContext,
-                R.drawable.registerbuttondesign
+                R.drawable.buttondesign
             )
     }
 
@@ -60,7 +60,7 @@ class ScanHealthInformationActivity : BaseActivity<ActivityScanHealthInformation
         binding.btMan.background =
             ContextCompat.getDrawable(
                 applicationContext,
-                R.drawable.registerbuttondesign
+                R.drawable.buttondesign
             )
     }
 }
