@@ -52,24 +52,24 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="나중에 하기"
-            android:fontFamily="@font/noto_sans_kr_regular"
-            android:textSize="16dp"
-            android:textColor="#212121"
-            android:layout_marginRight="16dp"
             android:layout_marginTop="16dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
+            android:layout_marginRight="16dp"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:text="나중에 하기"
+            android:textColor="#212121"
+            android:textSize="16dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvMain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="76dp"
             android:fontFamily="@font/noto_sans_kr_bold"
             android:text="건강 정보 입력"
             android:textColor="#212121"
             android:textSize="24dp"
-            android:layout_marginTop="76dp"
             app:layout_constraintLeft_toLeftOf="@id/left_line"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -92,6 +92,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/edittextdesign"
             android:hint="키 입력"
+            android:inputType="number"
             android:paddingLeft="10dp"
             android:textSize="15dp"
             app:layout_constraintLeft_toLeftOf="@id/left_line"
@@ -117,6 +118,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/edittextdesign"
             android:hint="몸무게 입력"
+            android:inputType="number"
             android:paddingLeft="10dp"
             android:textSize="15dp"
             app:layout_constraintLeft_toLeftOf="@id/left_line"
@@ -140,32 +142,32 @@
             android:layout_width="0dp"
             android:layout_height="52dp"
             android:layout_marginTop="20dp"
-            android:text="남성"
             android:background="@drawable/buttondesign"
-            app:layout_constraintTop_toBottomOf="@id/etkg"
+            android:text="남성"
             app:layout_constraintLeft_toLeftOf="@id/left_line"
-            app:layout_constraintRight_toRightOf="@id/middle_line"/>
+            app:layout_constraintRight_toRightOf="@id/middle_line"
+            app:layout_constraintTop_toBottomOf="@id/etkg" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btWo"
             android:layout_width="0dp"
             android:layout_height="52dp"
             android:layout_marginTop="20dp"
-            android:text="여성"
             android:background="@drawable/buttondesign"
-            app:layout_constraintTop_toBottomOf="@id/etkg"
+            android:text="여성"
             app:layout_constraintLeft_toLeftOf="@id/middle_line2"
-            app:layout_constraintRight_toRightOf="@id/right_line"/>
+            app:layout_constraintRight_toRightOf="@id/right_line"
+            app:layout_constraintTop_toBottomOf="@id/etkg" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/bt_continue"
             android:layout_width="0dp"
             android:layout_height="52dp"
             android:background="@drawable/registerbuttondesign"
-            android:text="계속하기"
+            android:gravity="center"
+            android:text="완료하기"
             android:textColor="#EEEEEE"
             android:textSize="19sp"
-            android:gravity="center"
             app:layout_constraintLeft_toLeftOf="@id/left_line"
             app:layout_constraintRight_toRightOf="@id/right_line"
             app:layout_constraintTop_toTopOf="@+id/top_line7" />
