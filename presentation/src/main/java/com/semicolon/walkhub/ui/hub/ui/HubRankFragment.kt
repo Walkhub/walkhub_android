@@ -60,11 +60,12 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
     private fun fetchSchoolUserRank() {
 
         val schoolType = activity?.intent?.getBooleanExtra("type", true)!!
+        val schoolId = activity?.intent?.getIntExtra("schoolId", 0)!!
 
         if (schoolType) {
-            vm.fetchMySchoolUserRank(dateType, rankScope)
+            vm.fetchMySchoolUserRank(rankScope, dateType)
         } else {
-            vm.fetchSchoolUserRank(dateType, rankScope)
+            vm.fetchSchoolUserRank(schoolId, dateType)
         }
     }
 
@@ -75,6 +76,9 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
         }
         is HubUserViewModel.Event.FetchOtherSchoolUserRank -> {
             setUserRvData(event.userRankData.rankList.map { it.toRvData() })
+        }
+        is HubUserViewModel.Event.ErrorMessage -> {
+            showShortToast(event.message)
         }
     }
 
