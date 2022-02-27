@@ -36,7 +36,7 @@ class HubMainViewModel @Inject constructor(
             }.onFailure {
                 when (it) {
                     is NoInternetException -> event(Event.ErrorMessage("인터넷을 사용할 수 없습니다"))
-                    else -> event(Event.ErrorMessage("알 수 없는 에러가 발생했습니다.\\n잠시 후 다시 시도해주세요."))
+                    else -> event(Event.ErrorMessage("알 수 없는 에러가 발생했습니다."))
                 }
             }
         }

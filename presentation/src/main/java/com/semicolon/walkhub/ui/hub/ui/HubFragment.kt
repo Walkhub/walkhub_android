@@ -32,7 +32,6 @@ class HubFragment @Inject constructor(
 ) {
 
     private val vm: HubMainViewModel by viewModels()
-    private val searchViewModel: HubSearchSchoolViewModel by viewModels()
 
     private var moreDateType = MoreDateType.WEEK
 
@@ -45,7 +44,6 @@ class HubFragment @Inject constructor(
         savedInstanceState: Bundle?
     ): View? {
 
-        vm.testLogin()
         vm.fetchSchoolRank(DateType.WEEK)
 
         repeatOnStarted {

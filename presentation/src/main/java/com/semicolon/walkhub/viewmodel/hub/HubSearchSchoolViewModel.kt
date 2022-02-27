@@ -23,7 +23,7 @@ class HubSearchSchoolViewModel @Inject constructor(
     private val searchSchoolUseCase: SearchSchoolUseCase
 ) : ViewModel() {
 
-    private val _eventFlow = MutableEventFlow<HubSearchSchoolViewModel.Event>()
+    private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()
 
     fun searchSchool(school: String, dateType: MoreDateType) {
