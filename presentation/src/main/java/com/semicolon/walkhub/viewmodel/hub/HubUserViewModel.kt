@@ -5,7 +5,18 @@ import androidx.lifecycle.viewModelScope
 import com.semicolon.domain.entity.rank.OurSchoolUserRankEntity
 import com.semicolon.domain.entity.rank.UserRankEntity
 import com.semicolon.domain.enum.DateType
+import com.semicolon.domain.enum.MoreDateType
 import com.semicolon.domain.enum.RankScope
+import com.semicolon.domain.exception.basic.BadRequestException
+import com.semicolon.domain.exception.basic.NoInternetException
+import com.semicolon.domain.exception.basic.NotFoundException
+import com.semicolon.domain.exception.basic.UnauthorizedException
+import com.semicolon.domain.param.rank.FetchOurSchoolUserRankParam
+import com.semicolon.domain.param.rank.FetchUserRankParam
+import com.semicolon.domain.param.rank.SearchUserParam
+import com.semicolon.domain.usecase.rank.FetchOurSchoolUserRankUseCase
+import com.semicolon.domain.usecase.rank.FetchSchoolRankUseCase
+import com.semicolon.domain.usecase.rank.FetchUserRankUseCase
 import com.semicolon.walkhub.ui.hub.model.MySchoolUserRankData
 import com.semicolon.walkhub.ui.hub.model.SchoolUserRankData
 import com.semicolon.walkhub.ui.hub.model.toData
@@ -17,38 +28,45 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HubUserViewModel @Inject constructor(
+    private val fetchOurSchoolUserRankUseCase: FetchOurSchoolUserRankUseCase,
+    private val fetchUserRankUseCase: FetchUserRankUseCase
 ) : ViewModel() {
 
     private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()
 
-    fun fetchMySchoolUserRank(dateType: DateType, scope: RankScope) {
-        val fakeImage = "https://cdn.discordapp.com/attachments/813414875241513010/945239959160373258/91087331-EB82A8EC84B1EC9D84EC9C84ED959C-EAB8B0EBB3B8-EC9584EBB094ED8380-ED9484EBA19CED9584-EC9584EC9DB4ECBD98-ED9A8CEC8389-EC82ACECA784-EC9E90EBA6AC-ED919CEC8B9C-EC9E90-EC9DBCEB9FACEC8AA4ED8AB8-EBB2A1ED84B0.png"
-
-        val fakeData = OurSchoolUserRankEntity(
-            OurSchoolUserRankEntity.Ranking(1, 1, "임세현", fakeImage, 41, 1, 415),
-            listOf(
-                OurSchoolUserRankEntity.Ranking(1, 1, "임세현", fakeImage, 41, 1, 415),
-                OurSchoolUserRankEntity.Ranking(2, 2, "이용진", fakeImage, 51, 2, 1251),
-                OurSchoolUserRankEntity.Ranking(3, 3, "유현명", fakeImage, 3, 3, 61123)
-            )
-        )
-
-        event(Event.FetchMySchoolUserRank(fakeData.toData()))
+    fun fetchMySchoolUserRank(scope: RankScope, dateType: DateType) {
+        viewModelScope.launch {
+            kotlin.runCatching {
+                fetchOurSchoolUserRankUseCase.execute(FetchOurSchoolUserRankParam(scope, dateType))
+                    .collect {
+                        event(Event.FetchMySchoolUserRank(it.toData()))
+                    }
+            }.onFailure {
+                when (it) {
+                    is NoInternetException -> event(Event.ErrorMessage("인터넷을 사용할 수 없습니다"))
+                    is BadRequestException -> event(Event.ErrorMessage("요청하는 형식을 식별할 수 없습니다."))
+                    is NotFoundException -> event(Event.ErrorMessage("요청하는 대상을 찾을 수 없습니다."))
+                    else -> event(Event.ErrorMessage("알 수 없는 에러가 발생했습니다."))
+                }
+            }
+        }
     }
 
-    fun fetchSchoolUserRank(dateType: DateType, scope: RankScope) {
-        val fakeImage = "https://cdn.discordapp.com/attachments/813414875241513010/945239959160373258/91087331-EB82A8EC84B1EC9D84EC9C84ED959C-EAB8B0EBB3B8-EC9584EBB094ED8380-ED9484EBA19CED9584-EC9584EC9DB4ECBD98-ED9A8CEC8389-EC82ACECA784-EC9E90EBA6AC-ED919CEC8B9C-EC9E90-EC9DBCEB9FACEC8AA4ED8AB8-EBB2A1ED84B0.png"
-
-        val fakeData = UserRankEntity(
-            listOf(
-                UserRankEntity.UserRank(1, "감자", 2, 3, 10, 1, fakeImage, 141),
-                UserRankEntity.UserRank(2, "이용진", 2, 2, 15, 2, fakeImage, 1234),
-                UserRankEntity.UserRank(3, "유현명", 3, 1, 23, 3, fakeImage, 1612)
-            )
-        )
-
-        event(Event.FetchOtherSchoolUserRank(fakeData.toData()))
+    fun fetchSchoolUserRank(school: Int, dateType: DateType) {
+        viewModelScope.launch {
+            kotlin.runCatching {
+                fetchUserRankUseCase.execute(FetchUserRankParam(school, dateType)).collect {
+                    event(Event.FetchOtherSchoolUserRank(it.toData()))
+                }
+            }.onFailure {
+                when (it) {
+                    is NoInternetException -> event(Event.ErrorMessage("인터넷을 사용할 수 없습니다"))
+                    is BadRequestException -> event(Event.ErrorMessage("요청하는 형식을 식별할 수 없습니다."))
+                    else -> event(Event.ErrorMessage("알 수 없는 에러가 발생했습니다."))
+                }
+            }
+        }
     }
 
     private fun event(event: Event) {
@@ -60,5 +78,6 @@ class HubUserViewModel @Inject constructor(
     sealed class Event {
         data class FetchMySchoolUserRank(val mySchoolUserRankData: MySchoolUserRankData) : Event()
         data class FetchOtherSchoolUserRank(val userRankData: SchoolUserRankData) : Event()
+        data class ErrorMessage(val message: String) : Event()
     }
 }
