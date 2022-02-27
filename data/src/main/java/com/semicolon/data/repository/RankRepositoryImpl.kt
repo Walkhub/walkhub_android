@@ -45,14 +45,14 @@ class RankRepositoryImpl @Inject constructor(
 
     override suspend fun fetchOurSchoolUserRank(fetchOurSchoolUserRankParam: FetchOurSchoolUserRankParam): Flow<OurSchoolUserRankEntity> =
         OfflineCacheUtil<OurSchoolUserRankEntity>()
-            .remoteData { remoteRankDataSource.fetchOurSchoolUserRank(fetchOurSchoolUserRankParam.scope.toString(), fetchOurSchoolUserRankParam.moreDateType.toString()).toEntity() }
+            .remoteData { remoteRankDataSource.fetchOurSchoolUserRank(fetchOurSchoolUserRankParam.scope.toString(), fetchOurSchoolUserRankParam.dateType.toString()).toEntity() }
             .localData { localRankDataSource.fetchOurSchoolUserRank() }
             .doOnNeedRefresh { localRankDataSource.insertOurSchoolUserRank(it) }
             .createFlow()
 
     override suspend fun searchUser(searchUserParam: SearchUserParam): Flow<SearchUserEntity> =
         OfflineCacheUtil<SearchUserEntity>()
-            .remoteData { remoteRankDataSource.searchUser(searchUserParam.name,searchUserParam.scope.toString(),searchUserParam.moreDateType.toString(),searchUserParam.grade,searchUserParam.classNum).toEntity() }
+            .remoteData { remoteRankDataSource.searchUser(searchUserParam.schoolId,searchUserParam.name,searchUserParam.dateType.toString()).toEntity() }
             .localData { localRankDataSource.searchUser() }
             .doOnNeedRefresh { localRankDataSource.insertSearchUser(it) }
             .createFlow()
