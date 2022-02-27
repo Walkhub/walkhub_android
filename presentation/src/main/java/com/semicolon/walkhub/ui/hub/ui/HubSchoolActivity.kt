@@ -3,6 +3,7 @@ package com.semicolon.walkhub.ui.hub.ui
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +15,7 @@ import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.base.BaseActivity
 import com.semicolon.walkhub.ui.hub.adapter.HubSearchUserRvAdapter
 import com.semicolon.walkhub.ui.hub.adapter.HubViewPagerAdapter
+import com.semicolon.walkhub.ui.hub.model.SearchUserData
 import com.semicolon.walkhub.ui.hub.model.UserRankRvData
 import com.semicolon.walkhub.ui.hub.model.toRvData
 import com.semicolon.walkhub.util.invisible
@@ -32,18 +34,12 @@ class HubSchoolActivity @Inject constructor(
     private var schoolName = "no data"
 
     private lateinit var mAdapter: HubSearchUserRvAdapter
-    private var rvHubUserData = arrayListOf<UserRankRvData>()
+    private var rvHubUserData = arrayListOf<SearchUserData.UserInfo>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val schoolType = intent.getBooleanExtra("type", true)
-
-        if (schoolType) {
-            vm.fetchMySchoolUserRank(DateType.WEEK)
-        } else {
-            vm.fetchSchoolUserRank(DateType.WEEK)
-        }
+        val schoolId = intent.getBooleanExtra("schoolId", true)
 
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
@@ -59,16 +55,16 @@ class HubSchoolActivity @Inject constructor(
 
     private fun handleEvent(event: HubSearchUserViewModel.Event) = when (event) {
 
-        is HubSearchUserViewModel.Event.FetchMySchoolUserRank -> {
-            setUserRank(event.mySchoolUserRankData.rankingList.map { it.toRvData() })
+        is HubSearchUserViewModel.Event.SearchSchool -> {
+            setUserRank(event.userData.userList.map { it })
         }
-        is HubSearchUserViewModel.Event.FetchUserRank -> {
-            setUserRank(event.userRankData.rankList.map { it.toRvData() })
+        is HubSearchUserViewModel.Event.ErrorMessage -> {
+            showShortToast(event.message)
         }
     }
 
 
-    private fun setUserRank(data: List<UserRankRvData>) {
+    private fun setUserRank(data: List<SearchUserData.UserInfo>) {
 
         for (i: Int in 0..data.size - 1) {
             rvHubUserData.add(data[i])
@@ -124,9 +120,9 @@ class HubSchoolActivity @Inject constructor(
         menuInflater.inflate(R.menu.menu_hub_search, menu)
 
         val mSearch = menu.findItem(R.id.action_search)
-        val mSearchView = mSearch.actionView as SearchView
+        val mSearchView = mSearch.actionView as EditText
 
-        mSearchView.queryHint = "학교를 입력하세요"
+        mSearchView.hint = "학교를 입력하세요"
 
         mSearch.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
             override fun onMenuItemActionExpand(p0: MenuItem?): Boolean {
@@ -144,15 +140,10 @@ class HubSchoolActivity @Inject constructor(
             }
         })
 
-        mSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean = menuView(false)
+        mSearchView.background = null
 
-            override fun onQueryTextChange(newText: String): Boolean {
-                mAdapter.filter.filter(newText)
+        // debounce textwatcher 적용하기
 
-                return menuView(true)
-            }
-        })
         return super.onCreateOptionsMenu(menu)
     }
 
