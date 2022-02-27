@@ -12,8 +12,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.register.ui.ScanHealthInformationActivity">
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/left_line"
@@ -28,20 +27,6 @@
             android:layout_height="0dp"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.94" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/top_line"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.05" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/top_line2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.14" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/middle_line"
@@ -64,15 +49,17 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.89" />
 
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:adjustViewBounds="true"
-            android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/photo"
-            app:layout_constraintLeft_toLeftOf="@id/left_line"
-            app:layout_constraintTop_toTopOf="@id/top_line" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="나중에 하기"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:textSize="16dp"
+            android:textColor="#212121"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
 
         <TextView
             android:id="@+id/tvMain"
@@ -82,14 +69,15 @@
             android:text="건강 정보 입력"
             android:textColor="#212121"
             android:textSize="24dp"
+            android:layout_marginTop="76dp"
             app:layout_constraintLeft_toLeftOf="@id/left_line"
-            app:layout_constraintTop_toTopOf="@id/top_line2" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_et"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="13dp"
             android:fontFamily="@font/noto_sans_kr_medium"
             android:text="더 정확한 걸음 분석을 위해 필요한 정보에요.\n건강 정보는 아무에게도 공개되지 않아요."
             android:textColor="#757575"
@@ -101,7 +89,7 @@
             android:id="@+id/eTcm"
             android:layout_width="0dp"
             android:layout_height="52dp"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/edittextdesign"
             android:hint="키 입력"
             android:paddingLeft="10dp"
@@ -126,7 +114,7 @@
             android:id="@+id/etkg"
             android:layout_width="0dp"
             android:layout_height="52dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/edittextdesign"
             android:hint="몸무게 입력"
             android:paddingLeft="10dp"
@@ -151,7 +139,7 @@
             android:id="@+id/btMan"
             android:layout_width="0dp"
             android:layout_height="52dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
             android:text="남성"
             android:background="@drawable/buttondesign"
             app:layout_constraintTop_toBottomOf="@id/etkg"
@@ -162,7 +150,7 @@
             android:id="@+id/btWo"
             android:layout_width="0dp"
             android:layout_height="52dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
             android:text="여성"
             android:background="@drawable/buttondesign"
             app:layout_constraintTop_toBottomOf="@id/etkg"
