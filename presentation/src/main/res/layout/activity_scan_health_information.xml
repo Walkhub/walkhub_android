@@ -10,46 +10,12 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/constraint"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/left_line"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.06" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/right_line"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.94" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/middle_line"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.48" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/middle_line2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.52" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/top_line7"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.89" />
-
         <TextView
+            android:id="@+id/tvLater"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -70,7 +36,8 @@
             android:text="건강 정보 입력"
             android:textColor="#212121"
             android:textSize="24dp"
-            app:layout_constraintLeft_toLeftOf="@id/left_line"
+            android:layout_marginLeft="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -82,7 +49,8 @@
             android:text="더 정확한 걸음 분석을 위해 필요한 정보에요.\n건강 정보는 아무에게도 공개되지 않아요."
             android:textColor="#757575"
             android:textSize="14dp"
-            app:layout_constraintLeft_toLeftOf="@id/left_line"
+            android:layout_marginLeft="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvMain" />
 
         <EditText
@@ -95,8 +63,10 @@
             android:inputType="number"
             android:paddingLeft="10dp"
             android:textSize="15dp"
-            app:layout_constraintLeft_toLeftOf="@id/left_line"
-            app:layout_constraintRight_toRightOf="@id/right_line"
+            android:maxLength="5"
+            android:layout_marginHorizontal="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_et" />
 
         <TextView
@@ -116,13 +86,15 @@
             android:layout_width="0dp"
             android:layout_height="52dp"
             android:layout_marginTop="20dp"
+            android:maxLength="3"
             android:background="@drawable/edittextdesign"
             android:hint="몸무게 입력"
-            android:inputType="number"
+            android:inputType="numberSigned"
             android:paddingLeft="10dp"
             android:textSize="15dp"
-            app:layout_constraintLeft_toLeftOf="@id/left_line"
-            app:layout_constraintRight_toRightOf="@id/right_line"
+            android:layout_marginHorizontal="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/eTcm" />
 
         <TextView
@@ -144,8 +116,10 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/buttondesign"
             android:text="남성"
-            app:layout_constraintLeft_toLeftOf="@id/left_line"
-            app:layout_constraintRight_toRightOf="@id/middle_line"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="4dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/btWo"
             app:layout_constraintTop_toBottomOf="@id/etkg" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -155,8 +129,10 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/buttondesign"
             android:text="여성"
-            app:layout_constraintLeft_toLeftOf="@id/middle_line2"
-            app:layout_constraintRight_toRightOf="@id/right_line"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="16dp"
+            app:layout_constraintLeft_toRightOf="@id/btMan"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/etkg" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -168,8 +144,10 @@
             android:text="완료하기"
             android:textColor="#EEEEEE"
             android:textSize="19sp"
-            app:layout_constraintLeft_toLeftOf="@id/left_line"
-            app:layout_constraintRight_toRightOf="@id/right_line"
-            app:layout_constraintTop_toTopOf="@+id/top_line7" />
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
