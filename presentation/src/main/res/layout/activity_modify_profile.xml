@@ -40,7 +40,7 @@
             android:textSize="12sp"
             android:layout_marginStart="16dp"
             app:layout_constraintStart_toStartOf="@+id/view3"
-            app:layout_constraintTop_toBottomOf="@+id/myschoolName" />
+            app:layout_constraintTop_toBottomOf="@+id/my_school_name" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
