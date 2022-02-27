@@ -260,7 +260,7 @@
                             android:id="@+id/first_rank"
                             android:layout_width="match_parent"
                             android:layout_height="64dp"
-                            android:layout_marginTop="18dp"
+                            android:layout_marginTop="12dp"
                             app:layout_constraintTop_toTopOf="parent">
 
                             <ImageView
@@ -435,12 +435,6 @@
                             app:layout_constraintTop_toBottomOf="@id/third_rank" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:background="#F9F9F9"
-                app:layout_constraintTop_toBottomOf="@id/third"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>
