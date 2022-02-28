@@ -46,6 +46,13 @@ class ExerciseRepositoryImpl @Inject constructor(
             throw e
         }
 
+    override suspend fun pauseMeasureExercise() {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun resumeMeasureExercise() {
+        TODO("Not yet implemented")
+    }
 
     override suspend fun finishMeasureExercise(finishMeasureExerciseParam: FinishMeasureExerciseParam) {
         if (isMeasuring()) try {

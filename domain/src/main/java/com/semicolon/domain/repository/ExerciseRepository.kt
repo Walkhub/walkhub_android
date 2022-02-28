@@ -13,6 +13,10 @@ interface ExerciseRepository {
 
     suspend fun startMeasureExercise(startMeasureExerciseParam: StartMeasureExerciseParam)
 
+    suspend fun pauseMeasureExercise()
+
+    suspend fun resumeMeasureExercise()
+
     suspend fun finishMeasureExercise(finishMeasureExerciseParam: FinishMeasureExerciseParam)
 
     suspend fun isMeasuring(): Boolean
