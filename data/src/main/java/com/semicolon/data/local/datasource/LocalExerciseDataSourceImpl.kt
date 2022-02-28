@@ -8,6 +8,7 @@ import com.semicolon.data.local.param.PeriodParam
 import com.semicolon.data.local.storage.ExerciseInfoDataStorage
 import com.semicolon.data.local.storage.FitnessDataStorage
 import com.semicolon.domain.entity.exercise.DailyExerciseEntity
+import com.semicolon.domain.enum.MeasuringState
 import com.semicolon.domain.exception.exercise.RecordExerciseException
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.awaitClose
@@ -131,7 +132,7 @@ class LocalExerciseDataSourceImpl @Inject constructor(
     override suspend fun fetchExerciseId(): Int =
         exerciseInfoDataStorage.fetchExerciseId()
 
-    override suspend fun isMeasuring(): Boolean =
+    override suspend fun isMeasuring(): MeasuringState =
         exerciseInfoDataStorage.isMeasuring()
 
     override suspend fun startMeasuring(startTimeAsSecond: Long, exerciseId: Int) {

@@ -4,6 +4,7 @@ import com.semicolon.data.local.entity.exercise.LocationRecordEntity
 import com.semicolon.data.local.entity.exercise.WalkRecordEntity
 import com.semicolon.data.local.param.PeriodParam
 import com.semicolon.domain.entity.exercise.DailyExerciseEntity
+import com.semicolon.domain.enum.MeasuringState
 import kotlinx.coroutines.flow.Flow
 
 interface LocalExerciseDataSource {
@@ -20,7 +21,7 @@ interface LocalExerciseDataSource {
 
     suspend fun fetchExerciseId(): Int
 
-    suspend fun isMeasuring(): Boolean
+    suspend fun isMeasuring(): MeasuringState
 
     suspend fun startMeasuring(startTimeAsSecond: Long, exerciseId: Int)
 
