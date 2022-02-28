@@ -2,20 +2,14 @@ package com.semicolon.walkhub.viewmodel.hub
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.semicolon.domain.entity.rank.OurSchoolUserRankEntity
-import com.semicolon.domain.entity.rank.UserRankEntity
 import com.semicolon.domain.enum.DateType
-import com.semicolon.domain.enum.MoreDateType
 import com.semicolon.domain.enum.RankScope
 import com.semicolon.domain.exception.basic.BadRequestException
 import com.semicolon.domain.exception.basic.NoInternetException
 import com.semicolon.domain.exception.basic.NotFoundException
-import com.semicolon.domain.exception.basic.UnauthorizedException
 import com.semicolon.domain.param.rank.FetchOurSchoolUserRankParam
 import com.semicolon.domain.param.rank.FetchUserRankParam
-import com.semicolon.domain.param.rank.SearchUserParam
 import com.semicolon.domain.usecase.rank.FetchOurSchoolUserRankUseCase
-import com.semicolon.domain.usecase.rank.FetchSchoolRankUseCase
 import com.semicolon.domain.usecase.rank.FetchUserRankUseCase
 import com.semicolon.walkhub.ui.hub.model.MySchoolUserRankData
 import com.semicolon.walkhub.ui.hub.model.SchoolUserRankData

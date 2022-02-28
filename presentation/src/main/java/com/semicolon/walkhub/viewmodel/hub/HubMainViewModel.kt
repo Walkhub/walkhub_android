@@ -1,17 +1,11 @@
 package com.semicolon.walkhub.viewmodel.hub
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.semicolon.domain.entity.rank.SchoolRankEntity
 import com.semicolon.domain.enum.DateType
 import com.semicolon.domain.exception.basic.NoInternetException
-import com.semicolon.domain.exception.basic.UnknownException
-import com.semicolon.domain.param.user.PostUserSignInParam
 import com.semicolon.domain.usecase.rank.FetchSchoolRankUseCase
-import com.semicolon.domain.usecase.user.PostUserSignInUseCase
-import com.semicolon.walkhub.R
 import com.semicolon.walkhub.ui.hub.model.HubSchoolRankData
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow

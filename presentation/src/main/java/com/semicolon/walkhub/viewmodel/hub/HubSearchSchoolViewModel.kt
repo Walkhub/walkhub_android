@@ -7,13 +7,11 @@ import com.semicolon.domain.exception.basic.NoInternetException
 import com.semicolon.domain.exception.basic.NotFoundException
 import com.semicolon.domain.param.rank.SearchSchoolParam
 import com.semicolon.domain.usecase.rank.SearchSchoolUseCase
-import com.semicolon.walkhub.ui.hub.model.MySchoolUserRankData
 import com.semicolon.walkhub.ui.hub.model.SearchSchoolData
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -33,7 +31,7 @@ class HubSearchSchoolViewModel @Inject constructor(
                     event(Event.SearchSchool(it.toData()))
                 }
             }.onFailure {
-                when(it) {
+                when (it) {
                     is NoInternetException -> event(Event.ErrorMessage("인터넷을 사용할 수 없습니다"))
                     is NotFoundException -> event(Event.ErrorMessage("요청하는 대상을 찾을 수 없습니다."))
                     else -> event(Event.ErrorMessage("알 수 없는 에러가 발생했습니다."))
@@ -43,7 +41,7 @@ class HubSearchSchoolViewModel @Inject constructor(
     }
 
     fun SearchSchoolEntity.toData() =
-        SearchSchoolData (
+        SearchSchoolData(
             schoolList.map { it.toData() }
         )
 
