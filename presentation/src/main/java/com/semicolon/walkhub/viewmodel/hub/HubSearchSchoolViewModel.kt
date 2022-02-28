@@ -1,32 +1,33 @@
 package com.semicolon.walkhub.viewmodel.hub
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.semicolon.domain.entity.rank.SearchUserEntity
+import androidx.lifecycle.*
+import com.semicolon.domain.entity.rank.SearchSchoolEntity
 import com.semicolon.domain.enum.MoreDateType
 import com.semicolon.domain.exception.basic.NoInternetException
 import com.semicolon.domain.exception.basic.NotFoundException
-import com.semicolon.domain.param.rank.SearchUserParam
-import com.semicolon.domain.usecase.rank.SearchUserUseCase
-import com.semicolon.walkhub.ui.hub.model.SearchUserData
+import com.semicolon.domain.param.rank.SearchSchoolParam
+import com.semicolon.domain.usecase.rank.SearchSchoolUseCase
+import com.semicolon.walkhub.ui.hub.model.SearchSchoolData
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
-import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
-class HubSearchUserViewModel @Inject constructor(
-    private val searchUserUseCase: SearchUserUseCase
+@ExperimentalCoroutinesApi
+@FlowPreview
+class HubSearchSchoolViewModel @Inject constructor(
+    private val searchSchoolUseCase: SearchSchoolUseCase
 ) : ViewModel() {
 
     private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()
 
-    fun searchUser(school: Int, name: String, dateType: MoreDateType) {
+    fun searchSchool(school: String, dateType: MoreDateType) {
         viewModelScope.launch {
             kotlin.runCatching {
-                searchUserUseCase.execute(SearchUserParam(school, name, dateType)).collect() {
+                searchSchoolUseCase.execute(SearchSchoolParam(school, dateType)).collect() {
                     event(Event.SearchSchool(it.toData()))
                 }
             }.onFailure {
@@ -39,16 +40,17 @@ class HubSearchUserViewModel @Inject constructor(
         }
     }
 
-    fun SearchUserEntity.toData() =
-        SearchUserData(
-            userList.map { it.toData() }
+    fun SearchSchoolEntity.toData() =
+        SearchSchoolData(
+            schoolList.map { it.toData() }
         )
 
-    fun SearchUserEntity.UserInfo.toData() =
-        SearchUserData.UserInfo(
-            profileUrl = profileImageUrl,
-            rank = ranking,
-            name = name,
+    fun SearchSchoolEntity.SchoolInfo.toData() =
+        SearchSchoolData.SchoolInfo(
+            schoolId = schoolId,
+            schoolName = schoolName,
+            ranking = ranking,
+            logoImageUrl = logoImageUrl,
             walkCount = walkCount
         )
 
@@ -59,7 +61,7 @@ class HubSearchUserViewModel @Inject constructor(
     }
 
     sealed class Event {
-        data class SearchSchool(val userData: SearchUserData) : Event()
+        data class SearchSchool(val searchSchoolData: SearchSchoolData) : Event()
         data class ErrorMessage(val message: String) : Event()
     }
 }
