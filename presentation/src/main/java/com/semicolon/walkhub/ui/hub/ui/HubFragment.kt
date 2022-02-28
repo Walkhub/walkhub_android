@@ -9,6 +9,7 @@ import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.semicolon.domain.enum.DateType
+import com.semicolon.domain.enum.MoreDateType
 import com.semicolon.walkhub.viewmodel.hub.HubMainViewModel.Event
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.customview.Dropdown
@@ -20,6 +21,7 @@ import com.semicolon.walkhub.ui.hub.adapter.HubSchoolRankRvAdapter
 import com.semicolon.walkhub.ui.hub.model.HubSchoolRankData
 import com.semicolon.walkhub.util.loadCircleFromUrl
 import com.semicolon.walkhub.viewmodel.hub.HubMainViewModel
+import com.semicolon.walkhub.viewmodel.hub.HubSearchSchoolViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -30,6 +32,8 @@ class HubFragment @Inject constructor(
 ) {
 
     private val vm: HubMainViewModel by viewModels()
+
+    private var moreDateType = MoreDateType.WEEK
 
     private var schoolRvData = arrayListOf<HubSchoolRankData.OtherSchool>()
     private lateinit var mAdapter: HubSchoolRankRvAdapter
@@ -51,8 +55,11 @@ class HubFragment @Inject constructor(
 
     private fun handleEvent(event: Event) = when (event) {
         is Event.FetchSchoolRank -> {
-            setMySchool(event.hubSchoolRankData.my_school_rank)
-            setSchoolRank(event.hubSchoolRankData.school_list)
+            setMySchool(event.hubSchoolRankData.mySchoolRank)
+            setSchoolRank(event.hubSchoolRankData.schoolList)
+        }
+        is Event.ErrorMessage -> {
+            showShortToast(event.message)
         }
     }
 
@@ -65,6 +72,12 @@ class HubFragment @Inject constructor(
             val intent = Intent(context, HubSchoolActivity::class.java)
             intent.putExtra("type", true)
             intent.putExtra("name", binding.tvMySchoolName.text)
+            startActivity(intent)
+        }
+
+        binding.etSearchSchool.setOnClickListener {
+            val intent = Intent(context, HubSearchSchoolActivity::class.java)
+            intent.putExtra("dateType", moreDateType.toString())
             startActivity(intent)
         }
     }
@@ -85,8 +98,14 @@ class HubFragment @Inject constructor(
 
     private fun dropDownItemSelect(index: Int) {
         when (index) {
-            0 -> vm.fetchSchoolRank(DateType.WEEK)
-            1 -> vm.fetchSchoolRank(DateType.MONTH)
+            0 -> {
+                moreDateType = MoreDateType.WEEK
+                vm.fetchSchoolRank(DateType.WEEK)
+            }
+            1 -> {
+                moreDateType = MoreDateType.MONTH
+                vm.fetchSchoolRank(DateType.MONTH)
+            }
         }
     }
 
@@ -101,9 +120,9 @@ class HubFragment @Inject constructor(
 
     private fun setMySchool(school: HubSchoolRankData.MySchool) {
 
-        binding.ivMySchool.loadCircleFromUrl(school.logo_image_url)
+        binding.ivMySchool.loadCircleFromUrl(school.logoImageUrl)
         binding.tvMySchoolName.text = school.name
-        binding.tvMySchoolInfo.text = "${school.grade} 학년 ${school.class_num} 반"
+        binding.tvMySchoolInfo.text = "${school.grade} 학년 ${school.classNum} 반"
     }
 
     private fun setSchoolRank(school: List<HubSchoolRankData.OtherSchool>) {

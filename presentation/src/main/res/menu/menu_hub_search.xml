@@ -6,6 +6,6 @@
         android:id="@+id/action_search"
         android:icon="@drawable/ic_hub_search"
         android:title="Search"
-        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:actionViewClass="android.widget.EditText"
         app:showAsAction="ifRoom|collapseActionView" />
 </menu>

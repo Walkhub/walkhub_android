@@ -39,12 +39,10 @@ interface RankApi {
     ): OurSchoolUserRankResponse
 
     //유저검색
-    @GET("ranks/users/search")
+    @GET("ranks/users/search/{school-id}")
     suspend fun searchUser(
+        @Path("school-id") school: Int,
         @Query("name") name: String,
-        @Query("scope") scope: String,
-        @Query("dateType") moreDateType: String,
-        @Query("grade") grade: Int,
-        @Query("classNum") classNum:Int
+        @Query("dateType") dateType: String
     ): SearchUserResponse
 }

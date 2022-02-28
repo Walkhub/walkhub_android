@@ -119,4 +119,8 @@ object Dependency {
         const val glideCore = "com.github.bumptech.glide:glide:${Version.glide}"
         const val glideCompiler = "com.github.bumptech.glide:compiler:${Version.glide}"
     }
+
+    object Socket {
+        const val socketIo = "io.socket:socket.io-client:${Version.socket}"
+    }
 }

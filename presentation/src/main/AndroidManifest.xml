@@ -20,6 +20,9 @@
             android:name=".ui.hub.ui.SignUpClassActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.hub.ui.HubSearchSchoolActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.hub.ui.HubSchoolActivity"
             android:exported="false" />
         <activity

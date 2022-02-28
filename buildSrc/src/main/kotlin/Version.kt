@@ -39,4 +39,5 @@ object Version {
     const val circleImage = "3.1.0"
     const val glide = "4.13.0"
     const val pinEntryEditText = "2.0.6"
+    const val socket = "1.0.0"
 }
