@@ -1,5 +1,7 @@
 package com.semicolon.data.local.storage
 
+import com.semicolon.domain.enum.MeasuringState
+
 interface ExerciseInfoDataStorage {
 
     fun setStartTime(timeAsSecond: Long)
@@ -10,7 +12,7 @@ interface ExerciseInfoDataStorage {
 
     fun fetchExerciseId(): Int
 
-    fun setIsMeasuring(isMeasuring: Boolean)
+    fun setIsMeasuring(isMeasuring: MeasuringState)
 
-    fun isMeasuring(): Boolean
+    fun isMeasuring(): MeasuringState
 }

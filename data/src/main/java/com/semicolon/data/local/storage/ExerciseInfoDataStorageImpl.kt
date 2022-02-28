@@ -5,6 +5,8 @@ import androidx.preference.PreferenceManager
 import com.semicolon.data.local.storage.ExerciseInfoDataStorageImpl.Key.EXERCISE_ID
 import com.semicolon.data.local.storage.ExerciseInfoDataStorageImpl.Key.IS_MEASURING
 import com.semicolon.data.local.storage.ExerciseInfoDataStorageImpl.Key.START_TIME
+import com.semicolon.domain.enum.MeasuringState
+import com.semicolon.domain.enum.toMeasuringState
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
@@ -30,14 +32,16 @@ class ExerciseInfoDataStorageImpl @Inject constructor(
     override fun fetchExerciseId(): Int =
         getSharedPreference().getInt(EXERCISE_ID, -1)
 
-    override fun setIsMeasuring(isMeasuring: Boolean) =
+    override fun setIsMeasuring(isMeasuring: MeasuringState) =
         getSharedPreference().edit().let {
-            it.putBoolean(IS_MEASURING, isMeasuring)
+            it.putInt(IS_MEASURING, isMeasuring.id)
             it.apply()
         }
 
-    override fun isMeasuring(): Boolean =
-        getSharedPreference().getBoolean(IS_MEASURING, false)
+    override fun isMeasuring(): MeasuringState =
+        getSharedPreference()
+            .getInt(IS_MEASURING, MeasuringState.FINISHED.id)
+            .toMeasuringState()
 
     private fun getSharedPreference() =
         PreferenceManager.getDefaultSharedPreferences(context)
