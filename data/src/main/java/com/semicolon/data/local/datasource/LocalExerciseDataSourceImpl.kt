@@ -143,6 +143,10 @@ class LocalExerciseDataSourceImpl @Inject constructor(
         }
     }
 
+    override suspend fun pauseMeasuring() {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun finishMeasuring() {
         exerciseInfoDataStorage.setIsMeasuring(false)
     }

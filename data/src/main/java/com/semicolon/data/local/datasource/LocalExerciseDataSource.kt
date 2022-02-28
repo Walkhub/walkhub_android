@@ -25,5 +25,7 @@ interface LocalExerciseDataSource {
 
     suspend fun startMeasuring(startTimeAsSecond: Long, exerciseId: Int)
 
+    suspend fun pauseMeasuring()
+
     suspend fun finishMeasuring()
 }
