@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="fragment"
+            type="com.semicolon.walkhub.ui.profile.setting.ModifyHealthInfoFragment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:padding="16dp"
+                android:src="@drawable/ic_back_arrow"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:fontFamily="@font/noto_sans_kr_medium"
+                android:gravity="center"
+                android:text="건강정보 수정"
+                android:textColor="@color/gray_800"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+
+            android:id="@+id/view3"
+            android:layout_width="1dp"
+            android:layout_height="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/man_btn"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="4dp"
+            android:background="@drawable/bg_primary_button"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:gravity="center"
+            android:text="남성"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/view3"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="339dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/girl_btn"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/girl_btn"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:gravity="center"
+            android:text="여성"
+            android:textColor="@color/gray_800"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/view3"
+            tools:layout_editor_absoluteY="339dp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/modify_done"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:background="@color/primary_400"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:fontFamily="@font/noto_sans_kr_regular"
+                android:gravity="center"
+                android:text="수정 완료"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
