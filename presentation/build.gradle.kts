@@ -64,7 +64,6 @@ dependencies {
     implementation(Dependency.UI.composeCompiler)
     implementation(Dependency.UI.activityCompose)
     implementation(Dependency.UI.coilCompose)
-    implementation(Dependency.UI.switchbuttton)
 
     testImplementation(Dependency.Test.junit)
     testImplementation(Dependency.Test.mockito)
