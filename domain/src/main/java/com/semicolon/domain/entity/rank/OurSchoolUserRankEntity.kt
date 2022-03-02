@@ -1,7 +1,7 @@
 package com.semicolon.domain.entity.rank
 
 data class OurSchoolUserRankEntity(
-    val myRanking: Ranking,
+    val myRanking: Ranking?,
     val rankingList: List<Ranking>
 ) {
     data class Ranking(
