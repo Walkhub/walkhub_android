@@ -84,7 +84,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/edittextdesign"
-            android:hint="이름(2~10자)"
+            android:hint="번호"
             android:maxLength="30"
             android:paddingLeft="14dp"
             android:singleLine="true"
