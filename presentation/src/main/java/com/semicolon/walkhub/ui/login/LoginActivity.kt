@@ -14,6 +14,8 @@ import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityLoginBinding
+import com.semicolon.walkhub.ui.HomeActivity
+import com.semicolon.walkhub.ui.MainActivity
 import com.semicolon.walkhub.ui.base.BaseActivity
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>(
@@ -29,9 +31,11 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(
         }
 
         binding.btLogin.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+
+        requestPermissions()
     }
 
     private fun loginToast() {
