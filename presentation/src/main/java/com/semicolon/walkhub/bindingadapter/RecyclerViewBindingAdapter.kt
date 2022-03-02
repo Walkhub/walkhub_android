@@ -17,3 +17,17 @@ fun RecyclerView.setList(list: List<RecyclerViewItem>?) {
         (adapter as? RecyclerViewAdapter)?.updateData(list)
     }
 }
+
+@BindingAdapter("horizontalRecyclerItems")
+fun RecyclerView.setHorizontalList(list: List<RecyclerViewItem>?) {
+    if (adapter == null) {
+        adapter = RecyclerViewAdapter()
+        layoutManager = LinearLayoutManager(context).apply {
+            orientation = LinearLayoutManager.HORIZONTAL
+        }
+    }
+
+    if (list != null) {
+        (adapter as? RecyclerViewAdapter)?.updateData(list)
+    }
+}

@@ -36,7 +36,7 @@ class MeasureHomeViewModel @Inject constructor(
                     }
                 }
             }.onFailure {
-
+                it
             }
         }
     }
@@ -55,6 +55,4 @@ class MeasureHomeViewModel @Inject constructor(
             _isDistance.emit(false)
         }
     }
-
-
 }

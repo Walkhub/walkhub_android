@@ -23,6 +23,7 @@ class MeasureHomeActivity :
 
     override fun initView() {
         binding.vm = viewModel
+        viewModel.fetchExerciseRecordList()
         lifecycleScope.launch {
             viewModel.isDistance.collect {
                 setMeasurementUi(it)
