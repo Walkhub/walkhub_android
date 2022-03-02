@@ -17,8 +17,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Walkhub">
         <activity
+            android:name=".ui.measure.MeasuringActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.measure.MeasureHomeActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -54,9 +57,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.HomeActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
 
         <service
             android:name=".fcm.FCMManager"
