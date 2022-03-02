@@ -11,13 +11,17 @@ import com.semicolon.data.local.param.PeriodParam
 import com.semicolon.data.local.storage.ExerciseInfoDataStorage
 import com.semicolon.data.local.storage.FitnessAccumulateDataStorage
 import com.semicolon.data.local.storage.FitnessDataStorage
+import com.semicolon.data.local.storage.SpeedDataStorage
 import com.semicolon.domain.entity.exercise.DailyExerciseEntity
+import com.semicolon.domain.entity.exercise.ExerciseEntity
+import com.semicolon.domain.entity.exercise.GoalEntity
 import com.semicolon.domain.enum.MeasuringState
 import com.semicolon.domain.exception.exercise.RecordExerciseException
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.flow
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.ZoneId
@@ -29,6 +33,7 @@ class LocalExerciseDataSourceImpl @Inject constructor(
     private val fitnessDataStorage: FitnessDataStorage,
     private val exerciseInfoDataStorage: ExerciseInfoDataStorage,
     private val fitnessAccumulateDataStorage: FitnessAccumulateDataStorage,
+    private val speedDataStorage: SpeedDataStorage,
     private val locationRecordDao: LocationRecordDao
 ) : LocalExerciseDataSource {
 
@@ -72,7 +77,7 @@ class LocalExerciseDataSourceImpl @Inject constructor(
                         )
                     )
                 }
-                delay(10000)
+                delay(1000)
             }
             awaitClose {}
         }
@@ -145,6 +150,8 @@ class LocalExerciseDataSourceImpl @Inject constructor(
         if (isMeasuring() == MeasuringState.PAUSED) {
             val pausedTime = startTimeAsSecond - exerciseInfoDataStorage.fetchPausedTime()
             fitnessAccumulateDataStorage.addPausedTime(pausedTime)
+        } else if (isMeasuring() == MeasuringState.FINISHED) {
+            exerciseInfoDataStorage.setFirstStartTime(startTimeAsSecond)
         }
         exerciseInfoDataStorage.run {
             setExerciseId(exerciseId)
@@ -187,4 +194,65 @@ class LocalExerciseDataSourceImpl @Inject constructor(
 
     override suspend fun fetchPausedTime(): Long =
         fitnessAccumulateDataStorage.fetchPausedTime()
+
+    override suspend fun fetchMeasuredExerciseRecord(): Flow<ExerciseEntity> =
+        callbackFlow {
+            repeat(Int.MAX_VALUE) {
+                val startTime = fetchStartTime()
+                val endTime = LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond()
+                val data = fitnessDataStorage.fetchExerciseRecord(
+                    PeriodParam(
+                        startTimeAsSecond = startTime,
+                        endTimeAsSecond = endTime
+                    )
+                )
+                var steps: Int
+                var distance: Int
+                var calories: Float
+                data.addOnSuccessListener {
+                    println(it.buckets)
+                    steps = it.buckets.firstOrNull()
+                        ?.getDataSet(DataType.AGGREGATE_STEP_COUNT_DELTA)!!.dataPoints.firstOrNull()
+                        ?.getValue(Field.FIELD_STEPS)?.asInt() ?: 0
+                    distance = it.buckets.firstOrNull()
+                        ?.getDataSet(DataType.AGGREGATE_DISTANCE_DELTA)!!.dataPoints.firstOrNull()
+                        ?.getValue(Field.FIELD_DISTANCE)?.asFloat()?.toInt() ?: 0
+                    calories = it.buckets.firstOrNull()
+                        ?.getDataSet(DataType.AGGREGATE_CALORIES_EXPENDED)!!.dataPoints.firstOrNull()
+                        ?.getValue(Field.FIELD_CALORIES)?.asFloat() ?: 0f
+
+                    trySend(
+                        ExerciseEntity(
+                            steps,
+                            distance,
+                            calories / 1000
+                        )
+                    )
+                }
+                delay(10000)
+            }
+            awaitClose {}
+        }
+
+    override suspend fun fetchMeasuredTime(): Flow<Long> {
+        val firstStartTime = exerciseInfoDataStorage.fetchFirstStartTime()
+        return flow {
+            repeat(Int.MAX_VALUE) {
+                delay(10000)
+                val curTime = LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond()
+                val measuredTime = curTime - firstStartTime - fetchPausedTime()
+                emit(measuredTime)
+            }
+        }
+    }
+
+    override suspend fun fetchCurrentSpeed(): Flow<Float> =
+        speedDataStorage.fetchCurrentSpeed()
+
+    override suspend fun setGoal(goalEntity: GoalEntity) =
+        exerciseInfoDataStorage.setGoal(goalEntity)
+
+    override suspend fun fetchGoal(): GoalEntity =
+        exerciseInfoDataStorage.fetchGoal()
+
 }

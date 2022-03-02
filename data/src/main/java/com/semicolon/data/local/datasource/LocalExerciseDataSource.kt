@@ -4,6 +4,8 @@ import com.semicolon.data.local.entity.exercise.LocationRecordEntity
 import com.semicolon.data.local.entity.exercise.WalkRecordEntity
 import com.semicolon.data.local.param.PeriodParam
 import com.semicolon.domain.entity.exercise.DailyExerciseEntity
+import com.semicolon.domain.entity.exercise.ExerciseEntity
+import com.semicolon.domain.entity.exercise.GoalEntity
 import com.semicolon.domain.enum.MeasuringState
 import kotlinx.coroutines.flow.Flow
 
@@ -39,4 +41,14 @@ interface LocalExerciseDataSource {
     suspend fun fetchAccumulatedLocationRecord(): List<LocationRecordEntity>
 
     suspend fun fetchPausedTime(): Long
+
+    suspend fun fetchMeasuredExerciseRecord(): Flow<ExerciseEntity>
+
+    suspend fun fetchMeasuredTime(): Flow<Long>
+
+    suspend fun fetchCurrentSpeed(): Flow<Float>
+
+    suspend fun setGoal(goalEntity: GoalEntity)
+
+    suspend fun fetchGoal(): GoalEntity
 }
