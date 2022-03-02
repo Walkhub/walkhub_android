@@ -6,16 +6,8 @@
     <data>
 
         <variable
-            name="recordImageUrl"
-            type="String" />
-
-        <variable
-            name="startAt"
-            type="String" />
-
-        <variable
-            name="location"
-            type="String" />
+            name="record"
+            type="com.semicolon.domain.entity.exercise.ExerciseRecordEntity" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -31,7 +23,7 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:image_url="@{recordImageUrl}"
+                app:image_url="@{record.imageUrl}"
                 android:scaleType="centerCrop"
                 tools:src="@drawable/photo"/>
 
@@ -39,7 +31,7 @@
                 android:id="@+id/measure_header_startAt_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{startAt}"
+                android:text="@{record.startAt}"
                 android:textColor="@color/white"
                 android:layout_marginStart="10dp"
                 app:layout_constraintBottom_toTopOf="@+id/measure_header_location_tv"
@@ -52,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginBottom="15dp"
-                android:text="@{location}"
+                android:text="location"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

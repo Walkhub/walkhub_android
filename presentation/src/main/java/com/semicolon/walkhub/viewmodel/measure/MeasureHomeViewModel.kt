@@ -1,9 +1,13 @@
 package com.semicolon.walkhub.viewmodel.measure
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.semicolon.domain.entity.exercise.ExerciseRecordEntity
 import com.semicolon.domain.usecase.exercise.FetchExerciseRecordListUseCase
+import com.semicolon.walkhub.BR
+import com.semicolon.walkhub.R
+import com.semicolon.walkhub.adapter.RecyclerViewItem
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,23 +21,28 @@ class MeasureHomeViewModel @Inject constructor(
     private val fetchExerciseRecordListUseCase: FetchExerciseRecordListUseCase
 ) : ViewModel() {
 
-    private val _eventFlow = MutableEventFlow<Event>()
-    val eventFlow = _eventFlow.asEventFlow()
-
     private var _isDistance = MutableStateFlow(true)
     val isDistance = _isDistance.asStateFlow()
+
+    private val _measureRecyclerItem = MutableLiveData<List<RecyclerViewItem>>()
+    val measureRecyclerItem  = _measureRecyclerItem
 
     fun fetchExerciseRecordList() {
         viewModelScope.launch {
             kotlin.runCatching {
                 fetchExerciseRecordListUseCase.execute(Unit).collect {
-                    sendEvent(Event.ShowRecordList(it))
+                    _measureRecyclerItem.value = ArrayList<RecyclerViewItem>().apply {
+                        add(RecyclerViewItem(R.layout.item_measure_home_header, it.toRecyclerViewItem(), BR.records))
+                    }
                 }
             }.onFailure {
 
             }
         }
     }
+
+    private fun List<ExerciseRecordEntity>.toRecyclerViewItem() =
+        map { RecyclerViewItem(R.layout.item_measure_home_header_record, it, BR.record) }
 
     fun setIsDistance() {
         viewModelScope.launch {
@@ -47,11 +56,5 @@ class MeasureHomeViewModel @Inject constructor(
         }
     }
 
-    private suspend fun sendEvent(event: Event) {
-        _eventFlow.emit(event)
-    }
 
-    sealed class Event {
-        data class ShowRecordList(val recordList: List<ExerciseRecordEntity>) : Event()
-    }
 }
