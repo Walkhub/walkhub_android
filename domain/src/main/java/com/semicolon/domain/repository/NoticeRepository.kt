@@ -1,7 +1,7 @@
 package com.semicolon.domain.repository
 
 import com.semicolon.domain.entity.notice.NoticeEntity
-import com.semicolon.domain.enum.NoticeType
+import com.semicolon.domain.enums.NoticeType
 import kotlinx.coroutines.flow.Flow
 
 interface NoticeRepository{
