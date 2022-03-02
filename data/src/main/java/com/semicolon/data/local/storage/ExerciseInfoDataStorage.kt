@@ -8,6 +8,10 @@ interface ExerciseInfoDataStorage {
 
     fun fetchStartTime(): Long
 
+    fun setPausedTime(timeAsSecond: Long)
+
+    fun fetchPausedTime(): Long
+
     fun setExerciseId(id: Int)
 
     fun fetchExerciseId(): Int

@@ -23,6 +23,15 @@ class ExerciseInfoDataStorageImpl @Inject constructor(
     override fun fetchStartTime(): Long =
         getSharedPreference().getLong(START_TIME, -1)
 
+    override fun setPausedTime(timeAsSecond: Long) =
+        getSharedPreference().edit().let {
+            it.putLong(PAUSED_TIME, timeAsSecond)
+            it.apply()
+        }
+
+    override fun fetchPausedTime(): Long =
+        getSharedPreference().getLong(PAUSED_TIME, 0)
+
     override fun setExerciseId(id: Int) =
         getSharedPreference().edit().let {
             it.putInt(EXERCISE_ID, id)
@@ -46,10 +55,11 @@ class ExerciseInfoDataStorageImpl @Inject constructor(
     private fun getSharedPreference() =
         PreferenceManager.getDefaultSharedPreferences(context)
 
-    private object Key {
+    companion object Key {
         const val START_TIME = "START_TIME"
         const val EXERCISE_ID = "EXERCISE_ID"
         const val IS_MEASURING = "IS_MEASURING"
+        const val PAUSED_TIME = "PAUSED_TIME"
     }
 
 }
