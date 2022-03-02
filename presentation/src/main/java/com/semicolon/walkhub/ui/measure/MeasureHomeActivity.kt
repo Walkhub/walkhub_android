@@ -41,13 +41,21 @@ class MeasureHomeActivity :
                 value = if (isDistance) 2 else 10
             }
 
+            if (isDistance) {
+                measureSecondNp.run {
+                    displayedValues = distanceCountNumberPickerValues
+                    maxValue = distanceCountNumberPickerValues.size - 1
+                }
+            } else {
+                measureSecondNp.run {
+                    maxValue = walkCountNumberPickerValues.size - 1
+                    displayedValues = walkCountNumberPickerValues
+                }
+            }
+
             measureSecondNp.run {
                 minValue = 0
                 value = 0
-                maxValue =
-                    if (isDistance) distanceCountNumberPickerValues.size - 1 else walkCountNumberPickerValues.size - 1
-                displayedValues =
-                    if (isDistance) distanceCountNumberPickerValues else walkCountNumberPickerValues
             }
 
             kmTv.text = if (isDistance) "km" else "걸음"
