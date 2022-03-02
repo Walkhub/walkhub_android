@@ -11,13 +11,6 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
     R.layout.activity_modify_profile
 ) {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_modify_profile)
-
-
-    }
-
     override fun initView() {
 
     }
