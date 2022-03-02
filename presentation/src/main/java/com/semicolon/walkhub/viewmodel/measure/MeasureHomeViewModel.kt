@@ -14,6 +14,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,16 +28,20 @@ class MeasureHomeViewModel @Inject constructor(
     private val _measureRecyclerItem = MutableLiveData<List<RecyclerViewItem>>()
     val measureRecyclerItem  = _measureRecyclerItem
 
+    private var _startMeasure = MutableEventFlow<Unit>()
+    val startMeasure = _startMeasure.asEventFlow()
+
+
     fun fetchExerciseRecordList() {
         viewModelScope.launch {
-            kotlin.runCatching {
+            try {
                 fetchExerciseRecordListUseCase.execute(Unit).collect {
                     _measureRecyclerItem.value = ArrayList<RecyclerViewItem>().apply {
                         add(RecyclerViewItem(R.layout.item_measure_home_header, it.toRecyclerViewItem(), BR.records))
                     }
                 }
-            }.onFailure {
-                it
+            } catch (e: Exception) {
+                
             }
         }
     }
@@ -53,6 +58,12 @@ class MeasureHomeViewModel @Inject constructor(
     fun setIsNotDistance() {
         viewModelScope.launch {
             _isDistance.emit(false)
+        }
+    }
+
+    fun startMeasure() {
+        viewModelScope.launch {
+            _startMeasure.emit(Unit)
         }
     }
 }

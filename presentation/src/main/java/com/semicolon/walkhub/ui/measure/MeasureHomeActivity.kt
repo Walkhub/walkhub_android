@@ -1,5 +1,6 @@
 package com.semicolon.walkhub.ui.measure
 
+import android.content.Intent
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.semicolon.walkhub.R
@@ -23,15 +24,36 @@ class MeasureHomeActivity :
 
     override fun initView() {
         binding.vm = viewModel
+
         viewModel.fetchExerciseRecordList()
         lifecycleScope.launch {
             viewModel.isDistance.collect {
                 setMeasurementUi(it)
             }
         }
+
         binding.measureHomeBackBtn.setOnClickListener {
             finish()
         }
+
+        observeEvent()
+    }
+
+    private fun observeEvent() {
+        lifecycleScope.launch {
+            viewModel.startMeasure.collect {
+                startMeasure()
+            }
+        }
+    }
+
+    private fun startMeasure() {
+        val intent = Intent(this, MeasuringActivity::class.java).apply {
+            putExtra("isDistance", viewModel.isDistance.value)
+            putExtra("firstNumber", binding.measureFirstNp.value)
+            putExtra("secondNumber", binding.measureSecondNp.value)
+        }
+        startActivity(intent)
     }
 
     private fun setMeasurementUi(isDistance: Boolean) {
@@ -45,15 +67,9 @@ class MeasureHomeActivity :
             }
 
             if (isDistance) {
-                measureSecondNp.run {
-                    displayedValues = distanceCountNumberPickerValues
-                    maxValue = distanceCountNumberPickerValues.size - 1
-                }
+                changeNumberPickerToDistance()
             } else {
-                measureSecondNp.run {
-                    maxValue = walkCountNumberPickerValues.size - 1
-                    displayedValues = walkCountNumberPickerValues
-                }
+                changeNumberPickerToWalk()
             }
 
             measureSecondNp.run {
@@ -63,6 +79,20 @@ class MeasureHomeActivity :
 
             kmTv.text = if (isDistance) "km" else "걸음"
             commaOrColonTv.text = if (isDistance) "." else ","
+        }
+    }
+
+    private fun changeNumberPickerToDistance() {
+        binding.measureSecondNp.run {
+            displayedValues = distanceCountNumberPickerValues
+            maxValue = distanceCountNumberPickerValues.size - 1
+        }
+    }
+
+    private fun changeNumberPickerToWalk() {
+        binding.measureSecondNp.run {
+            maxValue = walkCountNumberPickerValues.size - 1
+            displayedValues = walkCountNumberPickerValues
         }
     }
 }
