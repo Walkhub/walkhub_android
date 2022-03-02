@@ -1,8 +1,13 @@
 package com.semicolon.data.local.storage
 
+import com.semicolon.domain.entity.exercise.GoalEntity
 import com.semicolon.domain.enum.MeasuringState
 
 interface ExerciseInfoDataStorage {
+
+    fun setFirstStartTime(timeAsSecond: Long)
+
+    fun fetchFirstStartTime(): Long
 
     fun setStartTime(timeAsSecond: Long)
 
@@ -19,4 +24,8 @@ interface ExerciseInfoDataStorage {
     fun setIsMeasuring(isMeasuring: MeasuringState)
 
     fun isMeasuring(): MeasuringState
+
+    fun setGoal(goalEntity: GoalEntity)
+
+    fun fetchGoal(): GoalEntity
 }
