@@ -1,12 +1,11 @@
 package com.semicolon.walkhub.ui.measure
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import com.semicolon.walkhub.R
+import com.semicolon.walkhub.databinding.ActivityMeasureHomeBinding
+import com.semicolon.walkhub.ui.base.BaseActivity
 
-class MeasureHomeActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_measure_home)
+class MeasureHomeActivity : BaseActivity<ActivityMeasureHomeBinding>(R.layout.activity_measure_home) {
+
+    override fun initView() {
     }
 }
