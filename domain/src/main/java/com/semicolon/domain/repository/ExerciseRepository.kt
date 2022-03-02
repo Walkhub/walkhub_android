@@ -1,8 +1,6 @@
 package com.semicolon.domain.repository
 
-import com.semicolon.domain.entity.exercise.DailyExerciseEntity
-import com.semicolon.domain.entity.exercise.ExerciseAnalysisResultEntity
-import com.semicolon.domain.entity.exercise.ExerciseRecordEntity
+import com.semicolon.domain.entity.exercise.*
 import com.semicolon.domain.enum.MeasuringState
 import com.semicolon.domain.param.exercise.FinishMeasureExerciseParam
 import com.semicolon.domain.param.exercise.StartMeasureExerciseParam
@@ -27,4 +25,12 @@ interface ExerciseRepository {
     suspend fun fetchExerciseRecordList(): Flow<List<ExerciseRecordEntity>>
 
     suspend fun fetchExerciseAnalysisResult(): Flow<ExerciseAnalysisResultEntity>
+
+    suspend fun fetchMeasuredExerciseRecord(): Flow<ExerciseEntity>
+
+    suspend fun fetchMeasuredTime(): Flow<Long>
+
+    suspend fun fetchCurrentSpeed(): Flow<Float>
+
+    suspend fun fetchGoal(): GoalEntity
 }

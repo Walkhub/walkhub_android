@@ -10,9 +10,7 @@ import com.semicolon.data.remote.request.exercise.toRequest
 import com.semicolon.data.remote.response.exercise.toEntity
 import com.semicolon.data.remote.response.exercise.toEntityList
 import com.semicolon.data.util.toMultipart
-import com.semicolon.domain.entity.exercise.DailyExerciseEntity
-import com.semicolon.domain.entity.exercise.ExerciseAnalysisResultEntity
-import com.semicolon.domain.entity.exercise.ExerciseRecordEntity
+import com.semicolon.domain.entity.exercise.*
 import com.semicolon.domain.enum.MeasuringState
 import com.semicolon.domain.param.exercise.FinishMeasureExerciseParam
 import com.semicolon.domain.param.exercise.StartMeasureExerciseParam
@@ -114,4 +112,16 @@ class ExerciseRepositoryImpl @Inject constructor(
 
     override suspend fun fetchExerciseAnalysisResult(): Flow<ExerciseAnalysisResultEntity> =
         flow { emit(remoteExerciseDataSource.fetchExerciseAnalysisResult().toEntity()) }
+
+    override suspend fun fetchMeasuredExerciseRecord(): Flow<ExerciseEntity> =
+        localExerciseDataSource.fetchMeasuredExerciseRecord()
+
+    override suspend fun fetchMeasuredTime(): Flow<Long> =
+        localExerciseDataSource.fetchMeasuredTime()
+
+    override suspend fun fetchCurrentSpeed(): Flow<Float> =
+        localExerciseDataSource.fetchCurrentSpeed()
+
+    override suspend fun fetchGoal(): GoalEntity =
+        localExerciseDataSource.fetchGoal()
 }
