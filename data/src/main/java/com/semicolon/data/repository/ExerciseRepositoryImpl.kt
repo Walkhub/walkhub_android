@@ -13,6 +13,7 @@ import com.semicolon.data.util.toMultipart
 import com.semicolon.domain.entity.exercise.DailyExerciseEntity
 import com.semicolon.domain.entity.exercise.ExerciseAnalysisResultEntity
 import com.semicolon.domain.entity.exercise.ExerciseRecordEntity
+import com.semicolon.domain.enum.MeasuringState
 import com.semicolon.domain.param.exercise.FinishMeasureExerciseParam
 import com.semicolon.domain.param.exercise.StartMeasureExerciseParam
 import com.semicolon.domain.repository.ExerciseRepository
@@ -47,21 +48,35 @@ class ExerciseRepositoryImpl @Inject constructor(
         }
 
     override suspend fun pauseMeasureExercise() {
-        TODO("Not yet implemented")
+        val period = PeriodParam(
+            localExerciseDataSource.fetchStartTime(),
+            LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond()
+        )
+        val walkRecord = localExerciseDataSource.fetchWalkRecord(period)
+        val locationRecord = localExerciseDataSource.fetchLocationRecord(period)
+        localExerciseDataSource.pauseMeasuring(
+            walkRecord.walkCount,
+            walkRecord.traveledDistanceAsMeter,
+            walkRecord.burnedKilocalories,
+            locationRecord
+        )
     }
 
     override suspend fun resumeMeasureExercise() {
-        TODO("Not yet implemented")
+        val exerciseId = localExerciseDataSource.fetchExerciseId()
+        localExerciseDataSource.startMeasuring(
+            LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond(),
+            exerciseId
+        )
     }
 
     override suspend fun finishMeasureExercise(finishMeasureExerciseParam: FinishMeasureExerciseParam) {
-        if (isMeasuring()) try {
+        if (isMeasuring() == MeasuringState.ONGOING) try {
             val exerciseId = localExerciseDataSource.fetchExerciseId()
-            val period = PeriodParam(
-                localExerciseDataSource.fetchStartTime(),
-                LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond()
-            )
-            val walkRecord = localExerciseDataSource.fetchWalkRecord(period)
+            pauseMeasureExercise()
+            val walkRecord = localExerciseDataSource.fetchAccumulatedRecord()
+            val locationRecord = localExerciseDataSource.fetchAccumulatedLocationRecord()
+            val pausedTime = localExerciseDataSource.fetchPausedTime()
             val imageUrl = if (finishMeasureExerciseParam.verifyImage != null) {
                 remoteImagesDataSource.postImages(
                     listOf(finishMeasureExerciseParam.verifyImage!!.toMultipart())
@@ -69,7 +84,7 @@ class ExerciseRepositoryImpl @Inject constructor(
             } else ""
             remoteExerciseDataSource.sendLocationRecords(
                 exerciseId,
-                localExerciseDataSource.fetchLocationRecord(period).toRequest()
+                locationRecord.toRequest()
             )
             remoteExerciseDataSource.finishMeasureExercise(
                 exerciseId,
@@ -86,7 +101,7 @@ class ExerciseRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun isMeasuring(): Boolean =
+    override suspend fun isMeasuring(): MeasuringState =
         localExerciseDataSource.isMeasuring()
 
     override suspend fun startRecordExercise() {
