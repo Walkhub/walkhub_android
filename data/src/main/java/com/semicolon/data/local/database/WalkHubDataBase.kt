@@ -22,6 +22,7 @@ import com.semicolon.data.local.entity.challenge.ChallengeDetailRoomEntity
 import com.semicolon.data.local.entity.challenge.ChallengeParticipantRoomEntity
 import com.semicolon.data.local.entity.challenge.ChallengeRoomEntity
 import com.semicolon.data.local.entity.exercise.LocationRecordRoomEntity
+import com.semicolon.data.local.entity.level.LevelRoomEntity
 import com.semicolon.data.local.entity.notice.NoticeListRoomEntity
 import com.semicolon.data.local.entity.rank.*
 import com.semicolon.data.local.entity.user.FetchCaloriesLevelRoomEntity
@@ -47,7 +48,8 @@ import com.semicolon.data.local.entity.notification.NotificationRoomEntity
         SearchSchoolRoomEntity::class,
         SearchUserRoomEntity::class,
         UserRankRoomEntity::class,
-        LocationRecordRoomEntity::class
+        LocationRecordRoomEntity::class,
+        LevelRoomEntity::class
     ], version = 1, exportSchema = false
 )
 
