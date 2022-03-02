@@ -8,6 +8,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.socket.client.IO
 import io.socket.client.Socket
+import io.socket.engineio.client.transports.WebSocket
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -18,6 +19,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 object NetWorkModule {
     private const val BASE_URL = "https://server.walkhub.co.kr"
     private const val SOCKET_BASE_URL = "http://211.38.86.92:8081/socket.io"
+
+    private val token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaGxhbHN3bnMiLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNjQ1NjI3MTk0fQ.QmTo38nA_m2Bn2iWK6o2dI0REmxFglFbdEg9IWR9bFQ"
 
     @Provides
     fun provideHttpLoggingInterceptor() = HttpLoggingInterceptor()
@@ -32,8 +35,15 @@ object NetWorkModule {
     ): OkHttpClient =
         OkHttpClient
             .Builder()
-            .addNetworkInterceptor(httpLoggingInterceptor)
-            .addInterceptor(authorizationInterceptor)
+            .addInterceptor(httpLoggingInterceptor)
+            .addInterceptor {
+                it.proceed(
+                    it.request().newBuilder().addHeader(
+                        "Authorization",
+                        token
+                    ).build()
+                )
+            }
             .build()
 
     @Provides
@@ -41,16 +51,18 @@ object NetWorkModule {
         okHttpClient: OkHttpClient
     ): IO.Options {
         val options = IO.Options()
-        options.webSocketFactory = okHttpClient
         options.callFactory = okHttpClient
+        options.webSocketFactory = okHttpClient
+        options.transports = arrayOf(WebSocket.NAME)
         return options
     }
 
     @Provides
     fun provideSocket(
         options: IO.Options
-    ): Socket =
-        IO.socket(SOCKET_BASE_URL, options)
+    ): Socket{
+        return IO.socket(SOCKET_BASE_URL, options)
+    }
 
     @Provides
     fun provideRetrofit(
