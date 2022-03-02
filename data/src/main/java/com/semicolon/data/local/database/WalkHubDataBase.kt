@@ -76,4 +76,5 @@ abstract class WalkHubDataBase : RoomDatabase() {
     abstract fun badgeDao(): BadgeDao
     abstract fun rankDao(): RankDao
     abstract fun locationRecordDao(): LocationRecordDao
+    abstract fun levelDao(): LevelDao
 }
