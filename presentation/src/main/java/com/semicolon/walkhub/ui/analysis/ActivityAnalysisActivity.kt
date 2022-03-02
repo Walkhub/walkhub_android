@@ -11,6 +11,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class ActivityAnalysisActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
