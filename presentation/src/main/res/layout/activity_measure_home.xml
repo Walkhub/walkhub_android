@@ -3,6 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="vm"
+            type="com.semicolon.walkhub.viewmodel.measure.MeasureHomeViewModel" />
+
+        <variable
+            name="isDistance"
+            type="Boolean" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -43,10 +54,12 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/select_distance_cv"
-                android:layout_width="70dp"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="15dp"
+                android:backgroundTint="@{isDistance?@color/primary_400:@color/white}"
+                android:onClick="@{()->vm.setIsDistance()}"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp"
                 app:layout_constraintEnd_toStartOf="@id/select_walk_cv"
@@ -58,16 +71,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="5dp"
                     android:gravity="center"
-                    android:text="거리" />
+                    android:text="거리"
+                    android:textColor="@{isDistance?@color/white:@color/gray_800}"
+                    android:textSize="17sp" />
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/select_walk_cv"
-                android:layout_width="70dp"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="20dp"
+                android:backgroundTint="@{isDistance?@color/white:@color/primary_400}"
+                android:onClick="@{()->vm.setIsNotDistance()}"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -79,7 +96,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="5dp"
                     android:gravity="center"
-                    android:text="걸음수" />
+                    android:text="걸음수"
+                    android:textColor="@{isDistance?@color/gray_800:@color/white}"
+                    android:textSize="17sp" />
             </androidx.cardview.widget.CardView>
 
             <NumberPicker
@@ -117,7 +136,6 @@
                 android:id="@+id/km_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="km"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toTopOf="@+id/start_measure_btn"

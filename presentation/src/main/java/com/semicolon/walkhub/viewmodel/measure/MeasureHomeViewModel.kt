@@ -35,9 +35,15 @@ class MeasureHomeViewModel @Inject constructor(
         }
     }
 
-    fun switchIsDistance() {
+    fun setIsDistance() {
         viewModelScope.launch {
-            _isDistance.emit(!isDistance.value)
+            _isDistance.emit(true)
+        }
+    }
+
+    fun setIsNotDistance() {
+        viewModelScope.launch {
+            _isDistance.emit(false)
         }
     }
 

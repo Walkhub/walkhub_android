@@ -16,6 +16,7 @@
 
     <style name="MeasureNumberPickerTheme" parent="Theme.Walkhub">
         <!-- Set NumberPicker divider color transparent to remove divider -->
+        <item name="android:textSize">20sp</item>
         <item name="colorControlNormal">#00FFFFFF</item>
     </style>
 </resources>
