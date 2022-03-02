@@ -6,17 +6,47 @@ import com.semicolon.domain.entity.rank.SchoolRankEntity
 import com.semicolon.domain.enum.DateType
 import com.semicolon.domain.exception.basic.NoInternetException
 import com.semicolon.domain.usecase.rank.FetchSchoolRankUseCase
+import com.semicolon.domain.usecase.socket.CheeringUseCase
+import com.semicolon.domain.usecase.socket.ConnectedSocketUseCase
 import com.semicolon.walkhub.ui.hub.model.HubSchoolRankData
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HubMainViewModel @Inject constructor(
+    private val connectedSocketUseCase: ConnectedSocketUseCase,
+    private val cheeringUseCase: CheeringUseCase,
     private val fetchSchoolRankUseCase: FetchSchoolRankUseCase
+
 ) : ViewModel() {
+
+    init {
+        connectedSocket()
+        cheeringUseCase()
+    }
+
+    private fun connectedSocket() {
+        viewModelScope.launch {
+            connectedSocketUseCase.execute(Unit)
+        }
+    }
+
+    private fun cheeringUseCase() {
+        viewModelScope.launch {
+            delay(3000)
+            try {
+                cheeringUseCase.execute(5).collect {
+                    println("aaa $it")
+                }
+            }catch (e: Throwable){
+                println("ee $e")
+            }
+        }
+    }
 
     private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()
