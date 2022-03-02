@@ -3,10 +3,10 @@ package com.semicolon.data.local.storage
 import android.content.Context
 import androidx.preference.PreferenceManager
 import com.semicolon.domain.entity.exercise.GoalEntity
-import com.semicolon.domain.enum.GoalType
-import com.semicolon.domain.enum.MeasuringState
-import com.semicolon.domain.enum.toMeasureGoalType
-import com.semicolon.domain.enum.toMeasuringState
+import com.semicolon.domain.enums.GoalType
+import com.semicolon.domain.enums.MeasuringState
+import com.semicolon.domain.enums.toMeasureGoalType
+import com.semicolon.domain.enums.toMeasuringState
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 

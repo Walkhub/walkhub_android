@@ -1,7 +1,7 @@
 package com.semicolon.domain.repository
 
 import com.semicolon.domain.entity.exercise.*
-import com.semicolon.domain.enum.MeasuringState
+import com.semicolon.domain.enums.MeasuringState
 import com.semicolon.domain.param.exercise.FinishMeasureExerciseParam
 import com.semicolon.domain.param.exercise.StartMeasureExerciseParam
 import kotlinx.coroutines.flow.Flow

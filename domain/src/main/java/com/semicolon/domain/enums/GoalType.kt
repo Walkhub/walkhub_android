@@ -1,4 +1,4 @@
-package com.semicolon.domain.enum
+package com.semicolon.domain.enums
 
 enum class GoalType(val value: String) {
     DISTANCE("D"),

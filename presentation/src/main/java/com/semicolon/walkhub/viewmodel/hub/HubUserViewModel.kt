@@ -2,8 +2,8 @@ package com.semicolon.walkhub.viewmodel.hub
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.semicolon.domain.enum.DateType
-import com.semicolon.domain.enum.RankScope
+import com.semicolon.domain.enums.DateType
+import com.semicolon.domain.enums.RankScope
 import com.semicolon.domain.exception.basic.BadRequestException
 import com.semicolon.domain.exception.basic.NoInternetException
 import com.semicolon.domain.exception.basic.NotFoundException

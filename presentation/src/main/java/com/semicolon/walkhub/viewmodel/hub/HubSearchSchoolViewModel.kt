@@ -2,7 +2,7 @@ package com.semicolon.walkhub.viewmodel.hub
 
 import androidx.lifecycle.*
 import com.semicolon.domain.entity.rank.SearchSchoolEntity
-import com.semicolon.domain.enum.MoreDateType
+import com.semicolon.domain.enums.MoreDateType
 import com.semicolon.domain.exception.basic.NoInternetException
 import com.semicolon.domain.exception.basic.NotFoundException
 import com.semicolon.domain.param.rank.SearchSchoolParam

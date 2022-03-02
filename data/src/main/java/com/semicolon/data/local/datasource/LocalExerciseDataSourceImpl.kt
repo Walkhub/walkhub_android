@@ -15,7 +15,7 @@ import com.semicolon.data.local.storage.SpeedDataStorage
 import com.semicolon.domain.entity.exercise.DailyExerciseEntity
 import com.semicolon.domain.entity.exercise.ExerciseEntity
 import com.semicolon.domain.entity.exercise.GoalEntity
-import com.semicolon.domain.enum.MeasuringState
+import com.semicolon.domain.enums.MeasuringState
 import com.semicolon.domain.exception.exercise.RecordExerciseException
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.awaitClose

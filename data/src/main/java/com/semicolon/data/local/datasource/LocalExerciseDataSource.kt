@@ -6,7 +6,7 @@ import com.semicolon.data.local.param.PeriodParam
 import com.semicolon.domain.entity.exercise.DailyExerciseEntity
 import com.semicolon.domain.entity.exercise.ExerciseEntity
 import com.semicolon.domain.entity.exercise.GoalEntity
-import com.semicolon.domain.enum.MeasuringState
+import com.semicolon.domain.enums.MeasuringState
 import kotlinx.coroutines.flow.Flow
 
 interface LocalExerciseDataSource {

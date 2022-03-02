@@ -1,7 +1,7 @@
 package com.semicolon.data.local.storage
 
 import com.semicolon.domain.entity.exercise.GoalEntity
-import com.semicolon.domain.enum.MeasuringState
+import com.semicolon.domain.enums.MeasuringState
 
 interface ExerciseInfoDataStorage {
 
