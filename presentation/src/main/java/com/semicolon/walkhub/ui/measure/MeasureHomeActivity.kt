@@ -29,7 +29,9 @@ class MeasureHomeActivity :
                 setMeasurementUi(it)
             }
         }
-
+        binding.measureHomeBackBtn.setOnClickListener {
+            finish()
+        }
     }
 
     private fun setMeasurementUi(isDistance: Boolean) {

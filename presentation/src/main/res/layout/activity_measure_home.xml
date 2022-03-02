@@ -26,6 +26,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/measure_home_back_btn"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_margin="10dp"
