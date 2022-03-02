@@ -86,7 +86,7 @@
                 android:id="@+id/measure_first_np"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:showDividers="none"
+                android:theme="@style/MeasureNumberPickerTheme"
                 app:layout_constraintEnd_toStartOf="@id/comma_or_colon_tv"
                 app:layout_constraintTop_toBottomOf="@id/select_distance_cv" />
 
@@ -95,7 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="30dp"
-                android:showDividers="none"
+                android:theme="@style/MeasureNumberPickerTheme"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/select_distance_cv" />
