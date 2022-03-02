@@ -78,4 +78,9 @@ object RoomModule {
     fun provideLocationRecordDao(
         walkHubDataBase: WalkHubDataBase
     ): LocationRecordDao = walkHubDataBase.locationRecordDao()
+
+    @Provides
+    fun provideLevelDao(
+        walkHubDataBase: WalkHubDataBase
+    ): LevelDao = walkHubDataBase.levelDao()
 }
