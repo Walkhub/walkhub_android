@@ -49,6 +49,88 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/click_height"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/modify_health_edit_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+            <TextView
+                android:id="@+id/height"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/noto_sans_kr_regular"
+                android:gravity="center"
+                android:text="180"
+                android:textColor="@color/gray_900"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/noto_sans_kr_regular"
+                android:gravity="center"
+                android:text="cm"
+                android:textColor="@color/gray_900"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/click_weight"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/modify_health_edit_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/click_height">
+
+            <TextView
+                android:id="@+id/weight"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/noto_sans_kr_regular"
+                android:gravity="center"
+                android:text="63"
+                android:textColor="@color/gray_900"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/noto_sans_kr_regular"
+                android:gravity="center"
+                android:text="kg"
+                android:textColor="@color/gray_900"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <View
 
             android:id="@+id/view3"
@@ -64,6 +146,7 @@
             android:layout_width="0dp"
             android:layout_height="52dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="4dp"
             android:background="@drawable/bg_primary_button"
             android:fontFamily="@font/noto_sans_kr_regular"
@@ -73,14 +156,15 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toStartOf="@+id/view3"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="339dp" />
+            app:layout_constraintTop_toBottomOf="@+id/click_weight" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/girl_btn"
             android:layout_width="0dp"
             android:layout_height="52dp"
-            android:layout_marginEnd="16dp"
             android:layout_marginStart="4dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/girl_btn"
             android:fontFamily="@font/noto_sans_kr_regular"
             android:gravity="center"
@@ -89,7 +173,7 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/view3"
-            tools:layout_editor_absoluteY="339dp" />
+            app:layout_constraintTop_toBottomOf="@+id/click_weight" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/modify_done"
