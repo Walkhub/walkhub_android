@@ -11,7 +11,7 @@ import com.semicolon.data.remote.response.exercise.toEntity
 import com.semicolon.data.remote.response.exercise.toEntityList
 import com.semicolon.data.util.toMultipart
 import com.semicolon.domain.entity.exercise.*
-import com.semicolon.domain.enum.MeasuringState
+import com.semicolon.domain.enums.MeasuringState
 import com.semicolon.domain.param.exercise.FinishMeasureExerciseParam
 import com.semicolon.domain.param.exercise.StartMeasureExerciseParam
 import com.semicolon.domain.repository.ExerciseRepository

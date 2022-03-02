@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.semicolon.domain.enum.DateType
-import com.semicolon.domain.enum.MoreDateType
+import com.semicolon.domain.enums.DateType
+import com.semicolon.domain.enums.MoreDateType
 import com.semicolon.walkhub.viewmodel.hub.HubMainViewModel.Event
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.customview.Dropdown
@@ -21,7 +21,6 @@ import com.semicolon.walkhub.ui.hub.adapter.HubSchoolRankRvAdapter
 import com.semicolon.walkhub.ui.hub.model.HubSchoolRankData
 import com.semicolon.walkhub.util.loadCircleFromUrl
 import com.semicolon.walkhub.viewmodel.hub.HubMainViewModel
-import com.semicolon.walkhub.viewmodel.hub.HubSearchSchoolViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

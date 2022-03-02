@@ -5,7 +5,7 @@ import com.semicolon.data.remote.datasource.RemoteNoticeDataSource
 import com.semicolon.data.remote.response.notice.toEntity
 import com.semicolon.data.util.OfflineCacheUtil
 import com.semicolon.domain.entity.notice.NoticeEntity
-import com.semicolon.domain.enum.NoticeType
+import com.semicolon.domain.enums.NoticeType
 import com.semicolon.domain.repository.NoticeRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
