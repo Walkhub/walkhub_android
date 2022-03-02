@@ -2,15 +2,26 @@ package com.semicolon.data.local.storage
 
 import android.content.Context
 import androidx.preference.PreferenceManager
-import com.semicolon.data.local.storage.ExerciseInfoDataStorageImpl.Key.EXERCISE_ID
-import com.semicolon.data.local.storage.ExerciseInfoDataStorageImpl.Key.IS_MEASURING
-import com.semicolon.data.local.storage.ExerciseInfoDataStorageImpl.Key.START_TIME
+import com.semicolon.domain.entity.exercise.GoalEntity
+import com.semicolon.domain.enum.GoalType
+import com.semicolon.domain.enum.MeasuringState
+import com.semicolon.domain.enum.toMeasureGoalType
+import com.semicolon.domain.enum.toMeasuringState
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class ExerciseInfoDataStorageImpl @Inject constructor(
     @ApplicationContext private val context: Context
 ) : ExerciseInfoDataStorage {
+
+    override fun setFirstStartTime(timeAsSecond: Long) =
+        getSharedPreference().edit().let {
+            it.putLong(FIRST_START_TIME, timeAsSecond)
+            it.apply()
+        }
+
+    override fun fetchFirstStartTime(): Long =
+        getSharedPreference().getLong(FIRST_START_TIME, -1)
 
     override fun setStartTime(timeAsSecond: Long) =
         getSharedPreference().edit().let {
@@ -21,6 +32,15 @@ class ExerciseInfoDataStorageImpl @Inject constructor(
     override fun fetchStartTime(): Long =
         getSharedPreference().getLong(START_TIME, -1)
 
+    override fun setPausedTime(timeAsSecond: Long) =
+        getSharedPreference().edit().let {
+            it.putLong(PAUSED_TIME, timeAsSecond)
+            it.apply()
+        }
+
+    override fun fetchPausedTime(): Long =
+        getSharedPreference().getLong(PAUSED_TIME, 0)
+
     override fun setExerciseId(id: Int) =
         getSharedPreference().edit().let {
             it.putInt(EXERCISE_ID, id)
@@ -30,22 +50,42 @@ class ExerciseInfoDataStorageImpl @Inject constructor(
     override fun fetchExerciseId(): Int =
         getSharedPreference().getInt(EXERCISE_ID, -1)
 
-    override fun setIsMeasuring(isMeasuring: Boolean) =
+    override fun setIsMeasuring(isMeasuring: MeasuringState) =
         getSharedPreference().edit().let {
-            it.putBoolean(IS_MEASURING, isMeasuring)
+            it.putInt(IS_MEASURING, isMeasuring.id)
             it.apply()
         }
 
-    override fun isMeasuring(): Boolean =
-        getSharedPreference().getBoolean(IS_MEASURING, false)
+    override fun isMeasuring(): MeasuringState =
+        getSharedPreference()
+            .getInt(IS_MEASURING, MeasuringState.FINISHED.id)
+            .toMeasuringState()
+
+    override fun setGoal(goalEntity: GoalEntity) =
+        getSharedPreference().edit().let {
+            it.putInt(GOAL, goalEntity.goal)
+            it.putString(GOAL_TYPE, goalEntity.goalType.value)
+            it.apply()
+        }
+
+    override fun fetchGoal(): GoalEntity {
+        val sharedPreferences = getSharedPreference()
+        val goal = sharedPreferences.getInt(GOAL, 0)
+        val goalType = sharedPreferences.getString(GOAL_TYPE, "")
+        return GoalEntity(goal, goalType?.toMeasureGoalType() ?: GoalType.WALK_COUNT)
+    }
 
     private fun getSharedPreference() =
         PreferenceManager.getDefaultSharedPreferences(context)
 
-    private object Key {
+    companion object Key {
+        const val FIRST_START_TIME = "FIRST_START_TIME"
         const val START_TIME = "START_TIME"
         const val EXERCISE_ID = "EXERCISE_ID"
         const val IS_MEASURING = "IS_MEASURING"
+        const val PAUSED_TIME = "PAUSED_TIME"
+        const val GOAL = "GOAL"
+        const val GOAL_TYPE = "GOAL_TYPE"
     }
 
 }
