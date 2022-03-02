@@ -118,7 +118,7 @@ class LocalExerciseDataSourceImpl @Inject constructor(
                     WalkRecordEntity(
                         traveledDistanceAsMeter = distance,
                         walkCount = steps,
-                        burnedKilocalories = calories
+                        burnedKilocalories = calories / 1000
                     )
                 )
             }
@@ -197,6 +197,7 @@ class LocalExerciseDataSourceImpl @Inject constructor(
 
     override suspend fun fetchMeasuredExerciseRecord(): Flow<ExerciseEntity> =
         callbackFlow {
+            val accumulatedHistory = fetchAccumulatedRecord()
             repeat(Int.MAX_VALUE) {
                 val startTime = fetchStartTime()
                 val endTime = LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond()
@@ -223,9 +224,9 @@ class LocalExerciseDataSourceImpl @Inject constructor(
 
                     trySend(
                         ExerciseEntity(
-                            steps,
-                            distance,
-                            calories / 1000
+                            steps + accumulatedHistory.walkCount,
+                            distance + accumulatedHistory.traveledDistanceAsMeter,
+                            (calories / 1000) + accumulatedHistory.burnedKilocalories
                         )
                     )
                 }
