@@ -89,16 +89,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
-        <com.suke.widget.SwitchButton
+        <androidx.compose.ui.platform.ComposeView
             android:id="@+id/cheerup_swt"
-            android:layout_width="48dp"
-            android:layout_height="28dp"
-            android:layout_marginTop="22dp"
+            android:layout_width="44dp"
+            android:layout_height="24dp"
             android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView8"
-            app:sb_checked="true"
-            app:sb_checked_color="@color/primary_400" />
+            app:layout_constraintTop_toTopOf="@+id/textView2" />
 
 
         <View
@@ -142,16 +140,14 @@
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
 
-        <com.suke.widget.SwitchButton
+        <androidx.compose.ui.platform.ComposeView
             android:id="@+id/notice_swt"
-            android:layout_width="48dp"
-            android:layout_height="28dp"
-            android:layout_marginTop="24dp"
+            android:layout_width="44dp"
+            android:layout_height="24dp"
             android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView9"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6"
-            app:sb_checked="true"
-            app:sb_checked_color="@color/primary_400" />
+            app:layout_constraintTop_toTopOf="@+id/textView9" />
 
         <View
             android:id="@+id/view3"
@@ -194,16 +190,14 @@
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
 
-        <com.suke.widget.SwitchButton
+        <androidx.compose.ui.platform.ComposeView
             android:id="@+id/recommend_swt"
-            android:layout_width="48dp"
-            android:layout_height="28dp"
-            android:layout_marginTop="22dp"
+            android:layout_width="44dp"
+            android:layout_height="24dp"
             android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView11"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3"
-            app:sb_checked="true"
-            app:sb_checked_color="@color/primary_400" />
+            app:layout_constraintTop_toTopOf="@+id/textView11" />
 
         <TextView
             android:id="@+id/textView7"
@@ -219,18 +213,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
-        <com.suke.widget.SwitchButton
+        <androidx.compose.ui.platform.ComposeView
             android:id="@+id/challenge_goal_swt"
-            android:layout_width="48dp"
-            android:layout_height="28dp"
-            android:layout_marginTop="24dp"
+            android:layout_width="44dp"
+            android:layout_height="24dp"
             android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView7"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView11"
-            app:sb_checked="true"
-            app:sb_checked_color="@color/primary_400" />
+            app:layout_constraintTop_toTopOf="@+id/textView7" />
 
         <TextView
+            android:id="@+id/textView12"
             android:layout_width="wrap_content"
             android:layout_height="24dp"
             android:layout_marginStart="16dp"
@@ -243,16 +236,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
-        <com.suke.widget.SwitchButton
+        <androidx.compose.ui.platform.ComposeView
             android:id="@+id/challenge_end_swt"
-            android:layout_width="48dp"
-            android:layout_height="28dp"
-            android:layout_marginTop="24dp"
+            android:layout_width="44dp"
+            android:layout_height="24dp"
             android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView12"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView7"
-            app:sb_checked="true"
-            app:sb_checked_color="@color/primary_400" />
+            app:layout_constraintTop_toTopOf="@+id/textView12" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
