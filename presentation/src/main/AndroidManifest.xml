@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Walkhub">
         <activity
+            android:name=".ui.analysis.ActivityAnalysisActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.hub.ui.HubSearchSchoolActivity"
             android:exported="false" />
         <activity
