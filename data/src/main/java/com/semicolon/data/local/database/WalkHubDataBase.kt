@@ -21,6 +21,7 @@ import com.semicolon.data.local.entity.badge.FetchUserBadgesRoomEntity
 import com.semicolon.data.local.entity.challenge.ChallengeDetailRoomEntity
 import com.semicolon.data.local.entity.challenge.ChallengeParticipantRoomEntity
 import com.semicolon.data.local.entity.challenge.ChallengeRoomEntity
+import com.semicolon.data.local.entity.exercise.LocationRecordRoomEntity
 import com.semicolon.data.local.entity.notice.NoticeListRoomEntity
 import com.semicolon.data.local.entity.rank.*
 import com.semicolon.data.local.entity.user.FetchCaloriesLevelRoomEntity
@@ -45,7 +46,8 @@ import com.semicolon.data.local.entity.notification.NotificationRoomEntity
         SchoolRankRoomEntity::class,
         SearchSchoolRoomEntity::class,
         SearchUserRoomEntity::class,
-        UserRankRoomEntity::class
+        UserRankRoomEntity::class,
+        LocationRecordRoomEntity::class
     ], version = 1, exportSchema = false
 )
 
@@ -71,4 +73,5 @@ abstract class WalkHubDataBase : RoomDatabase() {
     abstract fun noticeDao(): NoticeDao
     abstract fun badgeDao(): BadgeDao
     abstract fun rankDao(): RankDao
+    abstract fun locationRecordDao(): LocationRecordDao
 }
