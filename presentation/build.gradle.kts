@@ -47,6 +47,9 @@ dependencies {
     implementation(project(":data"))
 
     implementation(Dependency.Moshi.moshi)
+    implementation("androidx.appcompat:appcompat:1.4.1")
+    implementation("com.google.android.material:material:1.5.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.3")
     kapt(Dependency.Moshi.moshiCompiler)
     implementation (Dependency.Moshi.moshiKotlin)
 
