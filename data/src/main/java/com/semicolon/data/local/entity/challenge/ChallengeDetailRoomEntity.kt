@@ -3,7 +3,7 @@ package com.semicolon.data.local.entity.challenge
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.semicolon.domain.entity.challenge.ChallengeDetailEntity
-import com.semicolon.domain.enum.toScopeString
+import com.semicolon.domain.enums.toScopeString
 
 @Entity
 data class ChallengeDetailRoomEntity(
