@@ -37,6 +37,12 @@ class ExerciseRepositoryImpl @Inject constructor(
         try {
             val result = remoteExerciseDataSource
                 .startMeasureExercise(startMeasureExerciseParam.toRequest())
+            localExerciseDataSource.setGoal(
+                GoalEntity(
+                    startMeasureExerciseParam.goal,
+                    startMeasureExerciseParam.goalType
+                )
+            )
             localExerciseDataSource.startMeasuring(
                 LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond(),
                 result.exerciseId
