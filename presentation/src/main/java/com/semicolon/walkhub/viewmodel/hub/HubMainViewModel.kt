@@ -3,7 +3,7 @@ package com.semicolon.walkhub.viewmodel.hub
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.semicolon.domain.entity.rank.SchoolRankEntity
-import com.semicolon.domain.enum.DateType
+import com.semicolon.domain.enums.DateType
 import com.semicolon.domain.exception.basic.NoInternetException
 import com.semicolon.domain.usecase.rank.FetchSchoolRankUseCase
 import com.semicolon.walkhub.ui.hub.model.HubSchoolRankData

@@ -15,9 +15,8 @@ import com.semicolon.data.remote.request.exercise.FinishMeasureExerciseRequest
 import com.semicolon.data.remote.request.exercise.toRequest
 import com.semicolon.data.remote.response.exercise.*
 import com.semicolon.data.remote.response.image.ImagesResponse
-import com.semicolon.data.util.toMultipart
 import com.semicolon.domain.entity.exercise.DailyExerciseEntity
-import com.semicolon.domain.enum.GoalType
+import com.semicolon.domain.enums.GoalType
 import com.semicolon.domain.param.exercise.FinishMeasureExerciseParam
 import com.semicolon.domain.param.exercise.StartMeasureExerciseParam
 import kotlinx.coroutines.flow.flow
