@@ -25,7 +25,18 @@ interface LocalExerciseDataSource {
 
     suspend fun startMeasuring(startTimeAsSecond: Long, exerciseId: Int)
 
-    suspend fun pauseMeasuring()
+    suspend fun pauseMeasuring(
+        steps: Int,
+        distanceAsMeter: Int,
+        burnedKilocalories: Float,
+        locationRecord: List<LocationRecordEntity>
+    )
 
     suspend fun finishMeasuring()
+
+    suspend fun fetchAccumulatedRecord(): WalkRecordEntity
+
+    suspend fun fetchAccumulatedLocationRecord(): List<LocationRecordEntity>
+
+    suspend fun fetchPausedTime(): Long
 }

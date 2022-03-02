@@ -2,10 +2,14 @@ package com.semicolon.data.local.datasource
 
 import com.google.android.gms.fitness.data.DataType
 import com.google.android.gms.fitness.data.Field
+import com.semicolon.data.local.dao.LocationRecordDao
 import com.semicolon.data.local.entity.exercise.LocationRecordEntity
 import com.semicolon.data.local.entity.exercise.WalkRecordEntity
+import com.semicolon.data.local.entity.exercise.toEntity
+import com.semicolon.data.local.entity.exercise.toRoomEntity
 import com.semicolon.data.local.param.PeriodParam
 import com.semicolon.data.local.storage.ExerciseInfoDataStorage
+import com.semicolon.data.local.storage.FitnessAccumulateDataStorage
 import com.semicolon.data.local.storage.FitnessDataStorage
 import com.semicolon.domain.entity.exercise.DailyExerciseEntity
 import com.semicolon.domain.enum.MeasuringState
@@ -23,7 +27,9 @@ import kotlin.coroutines.suspendCoroutine
 
 class LocalExerciseDataSourceImpl @Inject constructor(
     private val fitnessDataStorage: FitnessDataStorage,
-    private val exerciseInfoDataStorage: ExerciseInfoDataStorage
+    private val exerciseInfoDataStorage: ExerciseInfoDataStorage,
+    private val fitnessAccumulateDataStorage: FitnessAccumulateDataStorage,
+    private val locationRecordDao: LocationRecordDao
 ) : LocalExerciseDataSource {
 
     override suspend fun fetchDailyExerciseRecordAsFlow(): Flow<DailyExerciseEntity> =
@@ -136,18 +142,49 @@ class LocalExerciseDataSourceImpl @Inject constructor(
         exerciseInfoDataStorage.isMeasuring()
 
     override suspend fun startMeasuring(startTimeAsSecond: Long, exerciseId: Int) {
+        if (isMeasuring() == MeasuringState.PAUSED) {
+            val pausedTime = startTimeAsSecond - exerciseInfoDataStorage.fetchPausedTime()
+            fitnessAccumulateDataStorage.addPausedTime(pausedTime)
+        }
         exerciseInfoDataStorage.run {
             setExerciseId(exerciseId)
             setStartTime(startTimeAsSecond)
-            setIsMeasuring(true)
+            setIsMeasuring(MeasuringState.ONGOING)
         }
     }
 
-    override suspend fun pauseMeasuring() {
-        TODO("Not yet implemented")
+    override suspend fun pauseMeasuring(
+        steps: Int,
+        distanceAsMeter: Int,
+        burnedKilocalories: Float,
+        locationRecord: List<LocationRecordEntity>
+    ) {
+        val curTime = LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond()
+        exerciseInfoDataStorage.setPausedTime(curTime)
+        exerciseInfoDataStorage.setIsMeasuring(MeasuringState.PAUSED)
+        locationRecordDao.addLocationRecords(locationRecord.map { it.toRoomEntity() })
+        fitnessAccumulateDataStorage.accumulate(
+            WalkRecordEntity(
+                walkCount = steps,
+                traveledDistanceAsMeter = distanceAsMeter,
+                burnedKilocalories = burnedKilocalories
+            )
+        )
     }
 
     override suspend fun finishMeasuring() {
-        exerciseInfoDataStorage.setIsMeasuring(false)
+        exerciseInfoDataStorage.setIsMeasuring(MeasuringState.FINISHED)
+        fitnessAccumulateDataStorage.clearAccumulatedData()
+        fitnessAccumulateDataStorage.clearPausedTime()
+        locationRecordDao.clearLocationRecords()
     }
+
+    override suspend fun fetchAccumulatedRecord(): WalkRecordEntity =
+        fitnessAccumulateDataStorage.fetchAccumulatedData()
+
+    override suspend fun fetchAccumulatedLocationRecord(): List<LocationRecordEntity> =
+        locationRecordDao.fetchLocationRecords().map { it.toEntity() }
+
+    override suspend fun fetchPausedTime(): Long =
+        fitnessAccumulateDataStorage.fetchPausedTime()
 }
