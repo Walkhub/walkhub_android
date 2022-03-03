@@ -18,35 +18,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HubMainViewModel @Inject constructor(
-    private val connectedSocketUseCase: ConnectedSocketUseCase,
-    private val cheeringUseCase: CheeringUseCase,
     private val fetchSchoolRankUseCase: FetchSchoolRankUseCase
 
 ) : ViewModel() {
-
-    init {
-        connectedSocket()
-        cheeringUseCase()
-    }
-
-    private fun connectedSocket() {
-        viewModelScope.launch {
-            connectedSocketUseCase.execute(Unit)
-        }
-    }
-
-    private fun cheeringUseCase() {
-        viewModelScope.launch {
-            delay(3000)
-            try {
-                cheeringUseCase.execute(5).collect {
-                    println("aaa $it")
-                }
-            }catch (e: Throwable){
-                println("ee $e")
-            }
-        }
-    }
 
     private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()
