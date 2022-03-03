@@ -22,6 +22,7 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
         countDown()
         startMeasureExercise()
         observeState()
+        observeEvent()
     }
 
     private fun startMeasureExercise() {
@@ -35,7 +36,14 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
             firstValue * 1000 + secondValue
         }
 
-        viewModel.startMeasureExercise(goal, isDistance)
+        binding.isDistance = isDistance
+
+        viewModel.run {
+            startMeasureExercise(goal, isDistance)
+            //fetchMeasuredExercise()
+            //fetchMeasuredTime()
+            //fetchCurrentSpeed()
+        }
     }
 
     private fun countDown() {
@@ -84,10 +92,30 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
             speed.observe(this@MeasuringActivity) {
                 binding.measuringSpeedTv.text = it.toString()
             }
-
         }
     }
 
+    private fun observeEvent() {
+        binding.run {
+            measuringPauseBtn.setOnClickListener {
+                if (viewModel.measuringState.value == MeasureViewModel.MeasureState.PAUSED) {
+                    viewModel.resumeMeasureExercise()
+                } else {
+                    viewModel.pauseMeasureExercise()
+                }
+            }
+            measuringLockBtn.setOnClickListener {
+                viewModel.lockMeasureExercise()
+            }
+            measuringResumeBtn.setOnClickListener {
+                viewModel.resumeMeasureExercise()
+            }
+            measuringFinishBtn.setOnClickListener {
+                viewModel.finishMeasureExercise()
+            }
+        }
+
+    }
     private fun setToDefault() {
         binding.run {
             measuringPauseBtn.setImageResource(R.drawable.ic_measuring_pause)

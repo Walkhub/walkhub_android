@@ -34,7 +34,7 @@ class MeasureViewModel @Inject constructor(
     private val _speed = MutableLiveData(0F)
     val speed: LiveData<Float> = _speed
 
-    private val _measuringState = MutableLiveData<MeasureState>()
+    private val _measuringState = MutableLiveData(MeasureState.ONGOING)
     val measuringState: LiveData<MeasureState> = _measuringState
 
     private val _finishMeasuring = MutableEventFlow<Unit>()
@@ -43,7 +43,8 @@ class MeasureViewModel @Inject constructor(
     fun fetchMeasuredExercise() {
         viewModelScope.launch {
             fetchMeasuredExerciseRecordUseCase.execute(Unit).collect {
-
+                _walkCount.value = it.stepCount
+                _calorie.value = it.burnedKilocalories
             }
         }
     }
@@ -91,7 +92,6 @@ class MeasureViewModel @Inject constructor(
             } catch (e: Exception){
 
             }
-
         }
     }
 
