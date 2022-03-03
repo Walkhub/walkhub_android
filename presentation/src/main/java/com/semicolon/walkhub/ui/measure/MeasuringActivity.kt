@@ -20,11 +20,43 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
             override fun run() {
                 binding.count = count.toString()
                 count -= 1
-                if(count < 0) {
+                if (count < 0) {
                     cancel()
                     binding.measuringReadyCl.visibility = View.INVISIBLE
                 }
             }
         }, 0, 1000)
+    }
+
+    private fun setToDefault() {
+        binding.run {
+            measuringPauseBtn.setImageResource(R.drawable.ic_measuring_pause)
+            measuringPauseBtn.visibility = View.VISIBLE
+            measuringLockBtn.visibility = View.VISIBLE
+
+            measuringResumeBtn.visibility = View.INVISIBLE
+            measuringFinishBtn.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun setToLock() {
+        binding.run {
+            measuringPauseBtn.setImageResource(R.drawable.ic_measuring_un_lock)
+            measuringPauseBtn.visibility = View.VISIBLE
+
+            measuringLockBtn.visibility = View.INVISIBLE
+            measuringResumeBtn.visibility = View.INVISIBLE
+            measuringFinishBtn.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun setToPaused() {
+        binding.run {
+            measuringResumeBtn.visibility = View.VISIBLE
+            measuringFinishBtn.visibility = View.VISIBLE
+
+            measuringLockBtn.visibility = View.INVISIBLE
+            measuringPauseBtn.visibility = View.VISIBLE
+        }
     }
 }
