@@ -73,7 +73,7 @@ class LocalExerciseDataSourceImpl @Inject constructor(
                             steps,
                             minutes.toLong() * 60000,
                             distance,
-                            calories / 1000
+                            calories
                         )
                     )
                 }
