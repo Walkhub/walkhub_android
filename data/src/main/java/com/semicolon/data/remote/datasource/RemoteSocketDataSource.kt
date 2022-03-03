@@ -6,6 +6,8 @@ interface RemoteSocketDataSource {
 
     fun receiveCheering(): String
 
+    fun receiveError(): List<String>
+
     fun disconnected()
 
     fun connectSocket()
