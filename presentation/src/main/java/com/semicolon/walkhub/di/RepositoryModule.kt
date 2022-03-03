@@ -1,5 +1,7 @@
 package com.semicolon.walkhub.di
 
+import com.semicolon.data.remote.datasource.RemoteSocketDataSource
+import com.semicolon.data.remote.datasource.RemoteSocketDataSourceImpl
 import com.semicolon.data.repository.*
 import com.semicolon.domain.repository.*
 import dagger.Binds
@@ -15,6 +17,11 @@ abstract class RepositoryModule {
     abstract fun providesBadgeRepository(
         badgeRepositoryImpl: BadgeRepositoryImpl
     ): BadgeRepository
+
+    @Binds
+    abstract fun providesSocketRepository(
+        socketRepositoryImpl: SocketRepositoryImpl
+    ): SocketRepository
 
     @Binds
     abstract fun provideChallengeRepository(
@@ -50,5 +57,10 @@ abstract class RepositoryModule {
     abstract fun provideUserRepository(
         userRepositoryImpl: UserRepositoryImpl
     ): UserRepository
+
+    @Binds
+    abstract fun provideLevelRepository(
+        levelRepositoryImpl: LevelRepositoryImpl
+    ): LevelRepository
 
 }

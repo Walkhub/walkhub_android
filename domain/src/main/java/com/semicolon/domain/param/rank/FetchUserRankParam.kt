@@ -1,6 +1,6 @@
 package com.semicolon.domain.param.rank
 
-import com.semicolon.domain.enum.DateType
+import com.semicolon.domain.enums.DateType
 
 data class FetchUserRankParam(
     val schoolId: Int,

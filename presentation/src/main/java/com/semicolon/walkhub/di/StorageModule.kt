@@ -24,4 +24,14 @@ abstract class StorageModule {
     abstract fun provideFitnessDataStorage(
         fitnessDataStorageImpl: FitnessDataStorageImpl
     ): FitnessDataStorage
+
+    @Binds
+    abstract fun provideFitnessAccumulateDataStorage(
+        fitnessAccumulateDataStorageImpl: FitnessAccumulateDataStorageImpl
+    ): FitnessAccumulateDataStorage
+
+    @Binds
+    abstract fun provideSpeedDataStorage(
+        speedDataStorageImpl: SpeedDataStorageImpl
+    ): SpeedDataStorage
 }

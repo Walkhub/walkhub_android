@@ -10,20 +10,445 @@
             type="com.semicolon.walkhub.ui.home.HomeFragment" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.home.HomeFragment">
+        android:background="#F9F9F9"
+        android:fillViewport="true"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Home"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+            <TextView
+                android:id="@+id/tv_main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/noto_sans_kr_bold"
+                android:text="Walkhub"
+                android:textColor="#424242"
+                android:textSize="25dp"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/first_CardView"
+                android:layout_width="match_parent"
+                android:layout_height="390dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="12dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                app:cardElevation="0dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_main">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/top_line8"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_begin="306dp"/>
+
+                    <com.semicolon.walkhub.customview.CircularProgressBar
+                        android:id="@+id/cpb"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:layout_marginTop="40dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"/>
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv"
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"
+                        app:layout_constraintBottom_toBottomOf="@id/cpb"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/cpb" />
+
+                    <TextView
+                        android:id="@+id/tv_walk"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:fontFamily="@font/noto_sans_kr_medium"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="#212121"
+                        android:textSize="24sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/iv" />
+
+                    <TextView
+                        android:id="@+id/tv_top"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:fontFamily="@font/noto_sans_kr_regular"
+                        android:gravity="center"
+                        android:text="/7000 걸음"
+                        android:textColor="#424242"
+                        android:textSize="14sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_walk" />
+
+                    <ImageButton
+                        android:id="@+id/bt_clock"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_marginRight="30dp"
+                        android:adjustViewBounds="true"
+                        android:background="@android:color/transparent"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/photo"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="@id/bt_distance"
+                        app:layout_constraintTop_toTopOf="@id/top_line8" />
+
+                    <TextView
+                        android:id="@+id/tvCalories"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/noto_sans_kr_medium"
+                        android:text="0"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"
+                        app:layout_constraintLeft_toLeftOf="@id/bt_clock"
+                        app:layout_constraintRight_toRightOf="@id/bt_clock"
+                        app:layout_constraintTop_toBottomOf="@id/bt_clock" />
+
+                    <ImageButton
+                        android:id="@+id/bt_distance"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:adjustViewBounds="true"
+                        android:background="@android:color/transparent"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/photo"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/top_line8" />
+
+                    <TextView
+                        android:id="@+id/tvDistance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/noto_sans_kr_medium"
+                        android:text="0.00"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"
+                        app:layout_constraintLeft_toLeftOf="@id/bt_distance"
+                        app:layout_constraintRight_toRightOf="@id/bt_distance"
+                        app:layout_constraintTop_toBottomOf="@id/bt_distance" />
+
+                    <ImageButton
+                        android:id="@+id/bt_calories"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_marginLeft="30dp"
+                        android:adjustViewBounds="true"
+                        android:background="@android:color/transparent"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/photo"
+                        app:layout_constraintLeft_toLeftOf="@id/bt_distance"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/top_line8" />
+
+                    <TextView
+                        android:id="@+id/tvTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/noto_sans_kr_medium"
+                        android:text="0"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"
+                        app:layout_constraintLeft_toLeftOf="@id/bt_calories"
+                        app:layout_constraintRight_toRightOf="@id/bt_calories"
+                        app:layout_constraintTop_toBottomOf="@id/bt_calories" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/second_CardView"
+                android:layout_width="match_parent"
+                android:layout_height="96dp"
+                android:layout_marginTop="12dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="12dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                app:cardElevation="0dp"
+                app:layout_constraintTop_toBottomOf="@id/first_CardView">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/whofast"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="누구보다 빠르게"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginTop="24dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="@font/noto_sans_kr_bold"
+                        android:text="지금 바로 기록하기"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"
+                        android:layout_marginBottom="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/whofast" />
+
+                    <ImageButton
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:adjustViewBounds="true"
+                        android:background="@android:color/transparent"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/photo"
+                        android:layout_marginRight="24dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/third"
+                android:layout_width="match_parent"
+                android:layout_height="268dp"
+                android:layout_marginTop="12dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="12dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                app:cardElevation="0dp"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/second_CardView">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/first_rank"
+                            android:layout_width="match_parent"
+                            android:layout_height="64dp"
+                            android:layout_marginTop="12dp"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:id="@+id/iv_profile"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/photo"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/tv_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/noto_sans_kr_medium"
+                                android:text="임세현"
+                                android:textColor="#212121"
+                                android:textSize="16dp"
+                                android:layout_marginLeft="16dp"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:layout_marginTop="11dp"
+                                app:layout_constraintLeft_toRightOf="@id/iv_profile"/>
+
+                            <TextView
+                                android:id="@+id/tv_walkCount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:fontFamily="@font/noto_sans_kr_regular"
+                                android:text="9231 걸음"
+                                android:textColor="#424242"
+                                android:textSize="12dp"
+                                android:layout_marginLeft="16dp"
+                                app:layout_constraintTop_toBottomOf="@id/tv_name"
+                                app:layout_constraintLeft_toRightOf="@id/iv_profile" />
+
+                            <TextView
+                                android:id="@+id/tv_rank"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="5dp"
+                                android:fontFamily="@font/noto_sans_kr_medium"
+                                android:text="1등"
+                                android:textColor="#424242"
+                                android:textSize="16dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/second_rank"
+                            android:layout_width="match_parent"
+                            android:layout_height="64dp"
+                            app:layout_constraintTop_toBottomOf="@id/first_rank">
+
+                            <ImageView
+                                android:id="@+id/iv_profile2"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/photo"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/tv_name2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/noto_sans_kr_medium"
+                                android:text="김재원"
+                                android:textColor="#212121"
+                                android:textSize="16dp"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginTop="11dp"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintLeft_toRightOf="@id/iv_profile2"/>
+                            
+                            <TextView
+                                android:id="@+id/tv_walkCount2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:fontFamily="@font/noto_sans_kr_regular"
+                                android:text="8241 걸음"
+                                android:textColor="#424242"
+                                android:textSize="12dp"
+                                android:layout_marginLeft="16dp"
+                                app:layout_constraintTop_toBottomOf="@id/tv_name2"
+                                app:layout_constraintLeft_toRightOf="@id/iv_profile2" />
+
+                            <TextView
+                                android:id="@+id/tv_rank2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:fontFamily="@font/noto_sans_kr_medium"
+                                android:text="2등"
+                                android:textColor="#424242"
+                                android:textSize="16dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/third_rank"
+                            android:layout_width="match_parent"
+                            android:layout_height="64dp"
+                            app:layout_constraintTop_toBottomOf="@id/second_rank" >
+
+                            <ImageView
+                                android:id="@+id/iv_profile3"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/photo"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/tv_name3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/noto_sans_kr_medium"
+                                android:text="최민준"
+                                android:textColor="#212121"
+                                android:textSize="16dp"
+                                app:layout_constraintLeft_toRightOf="@id/iv_profile3"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginTop="11dp"
+                                app:layout_constraintTop_toTopOf="parent"/>
+
+                            <TextView
+                                android:id="@+id/tv_walkCount3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:fontFamily="@font/noto_sans_kr_regular"
+                                android:text="7983 걸음"
+                                android:textColor="#424242"
+                                android:textSize="12dp"
+                                app:layout_constraintTop_toBottomOf="@id/tv_name3"
+                                app:layout_constraintLeft_toRightOf="@id/iv_profile3"
+                                android:layout_marginLeft="16dp"/>
+
+                            <TextView
+                                android:id="@+id/tv_rank3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="5dp"
+                                android:fontFamily="@font/noto_sans_kr_medium"
+                                android:text="3등"
+                                android:textColor="#424242"
+                                android:textSize="16dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/bt_fetchOurSchoolRank"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@drawable/buttondesign"
+                            android:text="모두 보기"
+                            android:textColor="@color/black"
+                            android:textSize="16dp"
+                            android:layout_marginTop="8dp"
+                            app:layout_constraintTop_toBottomOf="@id/third_rank" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#F9F9F9"
+                app:layout_constraintTop_toBottomOf="@id/third"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>
