@@ -54,13 +54,13 @@ class MeasureViewModel @Inject constructor(
 
     fun startMeasureExercise() {
         viewModelScope.launch {
-            startMeasureExerciseUseCase.execute()
+            //startMeasureExerciseUseCase.execute()
         }
     }
 
     fun finishMeasureExercise() {
         viewModelScope.launch {
-            finishMeasureExerciseUseCase.execute()
+            //finishMeasureExerciseUseCase.execute()
         }
     }
 
