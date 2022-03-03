@@ -18,6 +18,7 @@
         android:theme="@style/Theme.Walkhub">
         <activity
             android:name=".ui.hub.ui.SignUpClassActivity"
+            android:windowSoftInputMode="stateUnchanged|adjustResize"
             android:exported="false" />
         <activity
             android:name=".ui.hub.ui.HubSearchSchoolActivity"
