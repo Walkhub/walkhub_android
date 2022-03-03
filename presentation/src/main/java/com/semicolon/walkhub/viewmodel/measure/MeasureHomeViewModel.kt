@@ -1,5 +1,6 @@
 package com.semicolon.walkhub.viewmodel.measure
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -26,7 +27,7 @@ class MeasureHomeViewModel @Inject constructor(
     val isDistance = _isDistance.asStateFlow()
 
     private val _measureRecyclerItem = MutableLiveData<List<RecyclerViewItem>>()
-    val measureRecyclerItem  = _measureRecyclerItem
+    val measureRecyclerItem: LiveData<List<RecyclerViewItem>>  = _measureRecyclerItem
 
     private var _startMeasure = MutableEventFlow<Unit>()
     val startMeasure = _startMeasure.asEventFlow()
