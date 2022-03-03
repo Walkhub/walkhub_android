@@ -5,9 +5,12 @@ import androidx.lifecycle.viewModelScope
 import com.semicolon.domain.entity.rank.SchoolRankEntity
 import com.semicolon.domain.enum.DateType
 import com.semicolon.domain.exception.basic.NoInternetException
+import com.semicolon.domain.usecase.exercise.FetchExerciseRecordListUseCase
 import com.semicolon.domain.usecase.rank.FetchSchoolRankUseCase
 import com.semicolon.domain.usecase.socket.CheeringUseCase
 import com.semicolon.domain.usecase.socket.ConnectedSocketUseCase
+import com.semicolon.domain.usecase.socket.ReceiveCheeringUseCase
+import com.semicolon.domain.usecase.socket.ReceiveErrorUseCase
 import com.semicolon.walkhub.ui.hub.model.HubSchoolRankData
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
@@ -18,9 +21,54 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HubMainViewModel @Inject constructor(
+    private val connectedSocketUseCase: ConnectedSocketUseCase,
+    private val cheeringUseCase: CheeringUseCase,
+    private val receiveCheeringUseCase: ReceiveCheeringUseCase,
+    private val receiveErrorUseCase: ReceiveErrorUseCase,
     private val fetchSchoolRankUseCase: FetchSchoolRankUseCase
-
 ) : ViewModel() {
+
+    init {
+        connectedSocket()
+        cheeringUseCase()
+        receiveCheering()
+        receiveError()
+    }
+
+    private fun connectedSocket() {
+        viewModelScope.launch {
+            connectedSocketUseCase.execute(Unit)
+        }
+    }
+
+    private fun receiveCheering(){
+        viewModelScope.launch {
+            delay(1000)
+            receiveCheeringUseCase.execute(Unit).collect{
+                println("$it aaa ch")
+            }
+        }
+    }
+
+    private fun receiveError(){
+        viewModelScope.launch {
+            delay(1000)
+            receiveErrorUseCase.execute(Unit).collect{
+                println("$it aaa error")
+            }
+        }
+    }
+
+    private fun cheeringUseCase() {
+        viewModelScope.launch {
+            delay(3000)
+            try {
+                cheeringUseCase.execute(5)
+            }catch (e: Throwable){
+                println("ee $e")
+            }
+        }
+    }
 
     private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()
