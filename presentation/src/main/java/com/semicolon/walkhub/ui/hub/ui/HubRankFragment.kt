@@ -35,7 +35,7 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
     private val userRvData = arrayListOf<UserRankRvData>()
 
     private var dateType = DateType.WEEK
-    private var rankScope = RankScope.ALL
+    private var rankScope = RankScope.SCHOOL
 
     private lateinit var mAdapter: HubUserRvAdapter
 
@@ -68,7 +68,8 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
 
     private fun handleEvent(event: HubUserViewModel.Event) = when (event) {
         is HubUserViewModel.Event.FetchMySchoolUserRank -> {
-            setMyRank(event.mySchoolUserRankData.myRanking)
+//            setMyRank(event.mySchoolUserRankData.myRanking)
+            TODO("고치세요")
             setUserRvData(event.mySchoolUserRankData.rankingList.map { it.toRvData() })
         }
         is HubUserViewModel.Event.FetchOtherSchoolUserRank -> {
@@ -123,7 +124,7 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 ToggleSwitch(
-                    onToggleOn = { setRankScope(RankScope.ALL) },
+                    onToggleOn = { setRankScope(RankScope.SCHOOL) },
                     onToggleOff = { setRankScope(RankScope.CLASS) }
                 )
             }

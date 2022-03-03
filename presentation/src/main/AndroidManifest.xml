@@ -18,7 +18,12 @@
         android:theme="@style/Theme.Walkhub">
         <activity
             android:name=".ui.analysis.ActivityAnalysisActivity"
-            android:exported="true" />
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.register.ScanHealthInformationActivity"
+            android:exported="false" />
+
         <activity
             android:name=".ui.hub.ui.HubSearchSchoolActivity"
             android:exported="false" />
