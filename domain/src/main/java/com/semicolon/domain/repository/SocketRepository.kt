@@ -4,7 +4,11 @@ import kotlinx.coroutines.flow.Flow
 
 interface SocketRepository {
 
-    fun cheering(userId: Int): Flow<String>
+    fun cheering(userId: Int)
+
+    fun receiveCheering(): Flow<String>
+
+    fun receiveError(): Flow<List<String>>
 
     fun connectedSocket()
 
