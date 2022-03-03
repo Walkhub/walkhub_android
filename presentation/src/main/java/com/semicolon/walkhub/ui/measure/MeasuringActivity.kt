@@ -28,14 +28,16 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
     private fun startMeasureExercise() {
         val isDistance = intent.getBooleanExtra("isDistance", true)
         val firstValue = intent.getIntExtra("firstNumber", 0)
-        val secondValue = intent.getIntExtra("secondNumber",0)
+        val secondValue = intent.getIntExtra("secondNumber", 0)
 
-        val goal = if(isDistance) {
-            firstValue * 100 + secondValue
+        val goal = if (isDistance) {
+            if (secondValue != 0) firstValue + 1 else firstValue
         } else {
             firstValue * 1000 + secondValue
         }
 
+        val goalText = "/$goal" + if (isDistance) "km" else "걸음"
+        binding.measuringGoalTv.text = goalText
         binding.isDistance = isDistance
 
         viewModel.run {
@@ -66,7 +68,7 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
     private fun observeState() {
         viewModel.run {
             measuringState.observe(this@MeasuringActivity) {
-                when(it) {
+                when (it) {
                     MeasureViewModel.MeasureState.ONGOING -> {
                         setToDefault()
                     }
@@ -76,6 +78,12 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
                     MeasureViewModel.MeasureState.LOCK -> {
                         setToLock()
                     }
+                }
+            }
+            time.observe(this@MeasuringActivity) {
+                binding.run {
+                    measuringHourTv.text = it.hour.toString()
+                    measuringMinuteTv.text = it.minute.toString()
                 }
             }
             lifecycleScope.launch {
@@ -92,14 +100,15 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
             speed.observe(this@MeasuringActivity) {
                 binding.measuringSpeedTv.text = it.toString()
             }
+            binding.measuringRemainPb.progress = 50
         }
     }
 
     private fun observeEvent() {
         binding.run {
             measuringPauseBtn.setOnClickListener {
-                if (viewModel.measuringState.value == MeasureViewModel.MeasureState.PAUSED) {
-                    viewModel.resumeMeasureExercise()
+                if (viewModel.measuringState.value == MeasureViewModel.MeasureState.LOCK) {
+                    viewModel.unLockMeasureExercise()
                 } else {
                     viewModel.pauseMeasureExercise()
                 }
@@ -113,14 +122,19 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
             measuringFinishBtn.setOnClickListener {
                 viewModel.finishMeasureExercise()
             }
+            measuringBackBtn.setOnClickListener {
+                finish()
+            }
         }
 
     }
+
     private fun setToDefault() {
         binding.run {
             measuringPauseBtn.setImageResource(R.drawable.ic_measuring_pause)
             measuringPauseBtn.visibility = View.VISIBLE
             measuringLockBtn.visibility = View.VISIBLE
+            measuringContentCl.setBackgroundResource(R.color.white)
 
             measuringResumeBtn.visibility = View.INVISIBLE
             measuringFinishBtn.visibility = View.INVISIBLE
@@ -142,9 +156,10 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
         binding.run {
             measuringResumeBtn.visibility = View.VISIBLE
             measuringFinishBtn.visibility = View.VISIBLE
+            measuringContentCl.setBackgroundResource(R.color.gray_500)
 
             measuringLockBtn.visibility = View.INVISIBLE
-            measuringPauseBtn.visibility = View.VISIBLE
+            measuringPauseBtn.visibility = View.INVISIBLE
         }
     }
 }

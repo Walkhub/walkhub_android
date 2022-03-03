@@ -5,13 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.semicolon.domain.enums.GoalType
-import com.semicolon.domain.enums.MeasuringState
 import com.semicolon.domain.param.exercise.StartMeasureExerciseParam
 import com.semicolon.domain.usecase.exercise.*
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import org.threeten.bp.Instant
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.ZoneId
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -34,6 +36,9 @@ class MeasureViewModel @Inject constructor(
     private val _speed = MutableLiveData(0F)
     val speed: LiveData<Float> = _speed
 
+    private val _time = MutableLiveData<LocalDateTime>()
+    val time: LiveData<LocalDateTime> = _time
+
     private val _measuringState = MutableLiveData(MeasureState.ONGOING)
     val measuringState: LiveData<MeasureState> = _measuringState
 
@@ -52,7 +57,7 @@ class MeasureViewModel @Inject constructor(
     fun fetchMeasuredTime() {
         viewModelScope.launch {
             fetchMeasuredTimeUseCase.execute(Unit).collect {
-
+                _time.value = LocalDateTime.ofInstant(Instant.ofEpochSecond(it), ZoneId.systemDefault())
             }
         }
     }
@@ -69,17 +74,21 @@ class MeasureViewModel @Inject constructor(
         _measuringState.value = MeasureState.LOCK
     }
 
+    fun unLockMeasureExercise() {
+        _measuringState.value = MeasureState.ONGOING
+    }
+
     fun pauseMeasureExercise() {
         _measuringState.value = MeasureState.PAUSED
         viewModelScope.launch {
-            pauseMeasureExerciseUseCase.execute(Unit)
+            //pauseMeasureExerciseUseCase.execute(Unit)
         }
     }
 
     fun resumeMeasureExercise() {
         _measuringState.value = MeasureState.ONGOING
         viewModelScope.launch {
-            resumeMeasureExerciseUseCase.execute(Unit)
+            //resumeMeasureExerciseUseCase.execute(Unit)
         }
     }
 
@@ -88,7 +97,7 @@ class MeasureViewModel @Inject constructor(
         val goalType = if (isDistance) GoalType.DISTANCE else GoalType.WALK_COUNT
         viewModelScope.launch {
             try {
-                startMeasureExerciseUseCase.execute(StartMeasureExerciseParam(goal, goalType))
+                //startMeasureExerciseUseCase.execute(StartMeasureExerciseParam(goal, goalType))
             } catch (e: Exception){
 
             }
