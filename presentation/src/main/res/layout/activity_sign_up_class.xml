@@ -11,29 +11,30 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rootView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".activity.SignUpClassActivity">
 
         <ImageView
             android:id="@+id/ivBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:padding="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_back" />
+            app:srcCompat="@drawable/ic_back_arrow" />
 
         <TextView
             android:id="@+id/etTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/noto_sans_kr_bold"
             android:text="반 친구들과 함께 걷고\n내 랭킹 확인하기"
             android:textColor="@color/gray_800"
-            android:textSize="24dp"
+            android:textSize="24sp"
             app:layout_constraintStart_toStartOf="@+id/ivBack"
             app:layout_constraintTop_toBottomOf="@+id/ivBack" />
 
@@ -45,7 +46,7 @@
             android:fontFamily="@font/noto_sans_kr_regular"
             android:text="반 가입코드를 입력해주세요."
             android:textColor="@color/gray_600"
-            android:textSize="14dp"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/etTitle"
             app:layout_constraintTop_toBottomOf="@+id/etTitle" />
 
@@ -91,7 +92,7 @@
             android:singleLine="true"
             android:textColor="@color/gray_900"
             android:textColorHint="@color/gray_400"
-            android:textSize="17dp"
+            android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -111,7 +112,22 @@
             android:paddingBottom="8dp"
             android:text="완료하기"
             android:textColor="@color/white"
-            android:textSize="16dp"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tvSecondNext"
+            android:visibility="gone"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:background="@color/gray_300"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:gravity="center"
+            android:text="완료하기"
+            android:textColor="@color/white"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -125,7 +141,7 @@
             android:fontFamily="@font/noto_sans_kr_regular"
             android:text="올바른 번호를 입력해주세요."
             android:textColor="@color/error_red"
-            android:textSize="14dp"
+            android:textSize="14sp"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="@+id/etNumber"
             app:layout_constraintTop_toBottomOf="@+id/etLore" />
