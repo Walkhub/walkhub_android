@@ -13,14 +13,13 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object NetWorkModule {
     private const val BASE_URL = "https://server.walkhub.co.kr"
     private const val SOCKET_BASE_URL = "http://211.38.86.92:8081/socket.io"
-
-    private val token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaGxhbHN3bnMiLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNjQ1NjI3MTk0fQ.QmTo38nA_m2Bn2iWK6o2dI0REmxFglFbdEg9IWR9bFQ"
 
     @Provides
     fun provideHttpLoggingInterceptor() = HttpLoggingInterceptor()
@@ -36,14 +35,7 @@ object NetWorkModule {
         OkHttpClient
             .Builder()
             .addInterceptor(httpLoggingInterceptor)
-            .addInterceptor {
-                it.proceed(
-                    it.request().newBuilder().addHeader(
-                        "Authorization",
-                        token
-                    ).build()
-                )
-            }
+            .addInterceptor(authorizationInterceptor)
             .build()
 
     @Provides
