@@ -148,13 +148,13 @@ fun ActivityAnalysis(onBackButtonClick: () -> Unit, viewModel: ActivityAnalysisV
 @Composable
 fun LevelCard(card: LevelEntity) {
     CaloriesLevelCard(
-        imageUrl = card.foodImageUrl,
-        name = card.foodName,
-        calories = card.calories,
-        size = card.size,
-        level = card.level,
+        imageUrl = "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/43380b84-6dc9-44fc-8b51-6aef4d9f1faf/커피icon.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220303%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220303T005859Z&X-Amz-Expires=86400&X-Amz-Signature=50863010f7f84127f4b0dfdbaa0d59b8da48e5c0b994ad2bfed0a0c3d2594ddd&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25EC%25BB%25A4%25ED%2594%25BCicon.png%22&x-id=GetObject",
+        name = "카페 라떼",
+        calories = 180,
+        size = "355ml",
+        level = 7,
         progress = 0.5f,
-        message = card.message
+        message = "커피 한 잔 어때요~?"
     )
 }
 
