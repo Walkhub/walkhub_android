@@ -10,19 +10,21 @@ import com.semicolon.domain.usecase.rank.SearchSchoolUseCase
 import com.semicolon.walkhub.ui.hub.model.SearchSchoolData
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@ExperimentalCoroutinesApi
-@FlowPreview
+@HiltViewModel
 class HubSearchSchoolViewModel @Inject constructor(
     private val searchSchoolUseCase: SearchSchoolUseCase
 ) : ViewModel() {
 
     private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()
+
+    private var searchJob: Job? = null
 
     fun searchSchool(school: String, dateType: MoreDateType) {
         viewModelScope.launch {
@@ -37,6 +39,14 @@ class HubSearchSchoolViewModel @Inject constructor(
                     else -> event(Event.ErrorMessage("알 수 없는 에러가 발생했습니다."))
                 }
             }
+        }
+    }
+
+    fun searchSchoolDebounce(school: String, dateType: MoreDateType) {
+        searchJob?.cancel()
+        searchJob = viewModelScope.launch {
+            delay(500L)
+            searchSchool(school, dateType)
         }
     }
 
