@@ -9,7 +9,6 @@ import com.semicolon.walkhub.databinding.ActivitySignUpClassBinding
 import com.semicolon.walkhub.ui.base.BaseActivity
 import com.semicolon.walkhub.util.invisible
 import com.semicolon.walkhub.util.visible
-import com.semicolon.walkhub.util.SoftKeyBoardListener
 
 class SignUpClassActivity : BaseActivity<ActivitySignUpClassBinding>(
     R.layout.activity_sign_up_class
