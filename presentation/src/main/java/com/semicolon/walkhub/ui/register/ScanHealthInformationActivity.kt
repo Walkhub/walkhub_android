@@ -50,7 +50,7 @@ class ScanHealthInformationActivity : BaseActivity<ActivityScanHealthInformation
     }
 
     private fun setTextWatcher1() {
-        binding.eTcm.addTextChangedListener(object : TextWatcher {
+        binding.etCm.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
             }
@@ -82,9 +82,9 @@ class ScanHealthInformationActivity : BaseActivity<ActivityScanHealthInformation
     }
 
     private fun changeContinue() {
-        if (binding.eTcm.length() > 0 && binding.etkg.length() > 0) {
+        if (binding.etCm.length() > 0 && binding.etkg.length() > 0) {
             nextMethod()
-        } else if (binding.eTcm.length() < 1 || binding.etkg.length() < 1) {
+        } else if (binding.etCm.length() < 1 || binding.etkg.length() < 1) {
             binding.btContinue.background = ContextCompat.getDrawable(
                 applicationContext,
                 R.drawable.registerbuttondesign
@@ -111,7 +111,7 @@ class ScanHealthInformationActivity : BaseActivity<ActivityScanHealthInformation
     }
 
     private fun notFinishRegister() {
-        if (binding.eTcm.length() < 1 || binding.etkg.length() < 1) {
+        if (binding.etCm.length() < 1 || binding.etkg.length() < 1) {
             showLongToast("신체 정보를 올바르게 입력해주세요.")
         } else {
             finishRegister()
@@ -166,6 +166,6 @@ class ScanHealthInformationActivity : BaseActivity<ActivityScanHealthInformation
     private fun hideKeyboard() {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.etkg.windowToken, 0)
-        imm.hideSoftInputFromWindow(binding.eTcm.windowToken, 0)
+        imm.hideSoftInputFromWindow(binding.etCm.windowToken, 0)
     }
 }
