@@ -19,7 +19,6 @@ import com.semicolon.walkhub.ui.base.gray800
 import com.semicolon.walkhub.ui.base.primary
 import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
-import org.threeten.bp.ZoneId
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -210,7 +209,7 @@ fun MonthlyGraphLabel(items: List<GraphItem>) {
     val secondPadding = centerOfFirstLabel + 56.dp - (secondLabelWidthDp / 2)
     val thirdPadding = centerOfFirstLabel + 112.dp - (thirdLabelWidthDp / 2)
     val fourthPadding = centerOfFirstLabel + 168.dp - (fourthLabelWidthDp / 2)
-
+    
     Box(
         Modifier
             .padding(vertical = 4.dp)
@@ -284,15 +283,6 @@ fun DayOfWeek.toKoreanString(): String =
         DayOfWeek.FRIDAY -> "금"
         DayOfWeek.SATURDAY -> "토"
         DayOfWeek.SUNDAY -> "일"
-    }
-
-fun List<Int>.toGraphItemList() =
-    this.mapIndexed { idx, steps ->
-        val date = LocalDate.now(ZoneId.systemDefault()).minusDays(27 - idx.toLong())
-        GraphItem(
-            steps = steps,
-            date
-        )
     }
 
 @Preview(showBackground = true)
