@@ -10,9 +10,15 @@ class SocketRepositoryImpl @Inject constructor(
     private val remoteSocketDataSource: RemoteSocketDataSource
 ) : SocketRepository {
 
-    override fun cheering(userId: Int): Flow<String> {
+    override fun cheering(userId: Int) =
         remoteSocketDataSource.sendCheering(userId)
+
+    override fun receiveCheering(): Flow<String> {
         return flow { emit(remoteSocketDataSource.receiveCheering()) }
+    }
+
+    override fun receiveError(): Flow<List<String>> {
+        return flow { emit(remoteSocketDataSource.receiveError()) }
     }
 
     override fun connectedSocket() =
