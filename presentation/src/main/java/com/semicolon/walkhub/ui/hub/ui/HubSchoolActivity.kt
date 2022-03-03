@@ -81,7 +81,7 @@ class HubSchoolActivity @Inject constructor(
 
     private fun setToolbar() {
 
-        schoolName = intent.getStringExtra("name")!!
+        schoolName = intent.getStringExtra("name").toString()
 
         binding.toolbarTitle.text = schoolName
 
@@ -126,9 +126,9 @@ class HubSchoolActivity @Inject constructor(
         menuInflater.inflate(R.menu.menu_hub_search, menu)
 
         val mSearch = menu.findItem(R.id.action_search)
-        val mSearchView = mSearch.actionView as DebouncedTextInputEditText
+        val mSearchView = mSearch.actionView as SearchView
 
-        mSearchView.hint = "학교를 입력하세요"
+        mSearchView.queryHint = "학교를 입력하세요"
 
         mSearch.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
             override fun onMenuItemActionExpand(p0: MenuItem?): Boolean {
@@ -148,15 +148,18 @@ class HubSchoolActivity @Inject constructor(
 
         mSearchView.background = null
 
-        mSearchView.setOnDebounceTextWatcher(lifecycle) { input ->
-            run {
-                if (input.isNotEmpty()) {
-                    lifecycleScope.launchWhenCreated {
-                        vm.searchUser(schoolId, input, HubRankFragment.dateType)
-                    }
+        mSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean = menuView(false)
+
+            override fun onQueryTextChange(newText: String): Boolean {
+
+                if(newText.isNotEmpty()) {
+                    vm.searchUserDebounced(schoolId, newText, HubRankFragment.dateType)
                 }
+
+                return menuView(true)
             }
-        }
+        })
 
         return super.onCreateOptionsMenu(menu)
     }

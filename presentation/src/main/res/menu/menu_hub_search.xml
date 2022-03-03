@@ -6,6 +6,6 @@
         android:id="@+id/action_search"
         android:icon="@drawable/ic_hub_search"
         android:title="Search"
-        app:actionViewClass="com.semicolon.walkhub.ui.analysis.DebouncedTextInputEditText"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView" />
 </menu>
