@@ -7,7 +7,7 @@ data class UserRankRvData(
     val rank: Int
 )
 
-fun OurSchoolUserRankData.Ranking.toRvData() =
+fun MySchoolUserRankData.Ranking.toRvData() =
     UserRankRvData(
         profileUrl = profileImageUrl,
         name = name,
@@ -15,7 +15,7 @@ fun OurSchoolUserRankData.Ranking.toRvData() =
         rank = ranking
     )
 
-fun UserRankData.UserRank.toRvData() =
+fun SchoolUserRankData.UserRank.toRvData() =
     UserRankRvData(
         profileUrl = profileImageUrl,
         name = name,

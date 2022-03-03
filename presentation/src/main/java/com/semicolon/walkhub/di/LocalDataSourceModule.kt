@@ -13,7 +13,7 @@ abstract class LocalDataSourceModule {
     @Binds
     abstract fun provideLocalBadgeDataSource(
         localBadgeDataSourceImpl: LocalBadgeDataSourceImpl
-    ) : LocalBadgeDataSource
+    ): LocalBadgeDataSource
 
     @Binds
     abstract fun provideLocalChallengeDataSource(
@@ -44,5 +44,10 @@ abstract class LocalDataSourceModule {
     abstract fun provideLocalUserDataSource(
         localUserDataSourceImpl: LocalUserDataSourceImpl
     ): LocalUserDataSource
+
+    @Binds
+    abstract fun provideLocalLevelDataSource(
+        localLevelDataSourceImpl: LocalLevelDataSourceImpl
+    ): LocalLevelDataSource
 
 }

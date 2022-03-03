@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.semicolon.data.local.entity.notice.NoticeListRoomEntity
-import com.semicolon.domain.enum.NoticeType
 
 @Dao
 interface NoticeDao {

@@ -7,9 +7,9 @@ import com.semicolon.data.local.datasource.LocalChallengeDataSource
 import com.semicolon.data.local.datasource.LocalChallengeDataSourceImpl
 import com.semicolon.data.local.entity.challenge.*
 import com.semicolon.domain.entity.challenge.ChallengeDetailEntity
-import com.semicolon.domain.enum.ChallengeGoalScope
-import com.semicolon.domain.enum.ChallengeGoalType
-import com.semicolon.domain.enum.ChallengeUserScope
+import com.semicolon.domain.enums.ChallengeGoalScope
+import com.semicolon.domain.enums.ChallengeGoalType
+import com.semicolon.domain.enums.ChallengeUserScope
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test

@@ -1,16 +1,17 @@
 package com.semicolon.data.repository
 
+import com.google.firebase.messaging.FirebaseMessaging
 import com.semicolon.data.local.datasource.LocalUserDataSource
 import com.semicolon.data.remote.datasource.RemoteImagesDataSource
 import com.semicolon.data.remote.datasource.RemoteUserDataSource
 import com.semicolon.data.remote.request.users.*
 import com.semicolon.data.remote.response.users.UserSignInResponse
-import com.semicolon.data.remote.response.users.toEntity
 import com.semicolon.data.util.OfflineCacheUtil
 import com.semicolon.data.util.toMultipart
 import com.semicolon.domain.entity.users.*
 import com.semicolon.domain.param.user.*
 import com.semicolon.domain.repository.UserRepository
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -32,10 +33,14 @@ class UserRepositoryImpl @Inject constructor(
     override suspend fun postUserSignIn(
         postUserSignInParam: PostUserSignInParam
     ) {
-        val response = remoteUserDateSource.postUserSignIn(postUserSignInParam.toRequest())
+        FirebaseMessaging.getInstance().token.addOnSuccessListener {
+            CoroutineScope(Dispatchers.IO).launch {
+                val response = remoteUserDateSource.postUserSignIn(postUserSignInParam.toRequest(it))
+                saveAccount(postUserSignInParam, it)
+                saveToken(response)
+            }
 
-        saveAccount(postUserSignInParam)
-        saveToken(response)
+        }
     }
 
     override suspend fun patchUserChangePassword(
@@ -105,11 +110,11 @@ class UserRepositoryImpl @Inject constructor(
         }
     }
 
-    private suspend fun saveAccount(userSignInParam: PostUserSignInParam) {
+    private suspend fun saveAccount(userSignInParam: PostUserSignInParam, deviceToken: String) {
         localUserDataSource.apply {
             setId(userSignInParam.accountId)
             setPw(userSignInParam.password)
-            setDeviceToken(userSignInParam.deviceToken)
+            setDeviceToken(deviceToken)
         }
     }
 
@@ -159,7 +164,7 @@ class UserRepositoryImpl @Inject constructor(
             schoolName = schoolName
         )
 
-    fun PostUserSignInParam.toRequest() =
+    fun PostUserSignInParam.toRequest(deviceToken: String) =
         UserSignInRequest(
             accountId = accountId,
             password = password,
