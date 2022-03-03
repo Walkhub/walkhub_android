@@ -1,17 +1,21 @@
 package com.semicolon.walkhub.ui.hub.ui
 
+import android.content.ContentValues
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayoutMediator
 import com.semicolon.domain.enum.DateType
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityHubSchoolBinding
 import com.semicolon.walkhub.extensions.repeatOnStarted
+import com.semicolon.walkhub.ui.analysis.DebouncedTextInputEditText
 import com.semicolon.walkhub.ui.base.BaseActivity
 import com.semicolon.walkhub.ui.hub.adapter.HubSearchUserRvAdapter
 import com.semicolon.walkhub.ui.hub.adapter.HubViewPagerAdapter
@@ -36,10 +40,12 @@ class HubSchoolActivity @Inject constructor(
     private lateinit var mAdapter: HubSearchUserRvAdapter
     private var rvHubUserData = arrayListOf<SearchUserData.UserInfo>()
 
+    private var schoolId = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val schoolId = intent.getBooleanExtra("schoolId", true)
+        schoolId = intent.getIntExtra("schoolId", 0)
 
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
@@ -120,7 +126,7 @@ class HubSchoolActivity @Inject constructor(
         menuInflater.inflate(R.menu.menu_hub_search, menu)
 
         val mSearch = menu.findItem(R.id.action_search)
-        val mSearchView = mSearch.actionView as EditText
+        val mSearchView = mSearch.actionView as DebouncedTextInputEditText
 
         mSearchView.hint = "학교를 입력하세요"
 
@@ -142,7 +148,15 @@ class HubSchoolActivity @Inject constructor(
 
         mSearchView.background = null
 
-        // debounce textwatcher 적용하기
+        mSearchView.setOnDebounceTextWatcher(lifecycle) { input ->
+            run {
+                if (input.isNotEmpty()) {
+                    lifecycleScope.launchWhenCreated {
+                        vm.searchUser(schoolId, input, HubRankFragment.dateType)
+                    }
+                }
+            }
+        }
 
         return super.onCreateOptionsMenu(menu)
     }
@@ -161,5 +175,4 @@ class HubSchoolActivity @Inject constructor(
             return false
         }
     }
-
 }
