@@ -21,6 +21,11 @@ class ScanHealthInformationActivity : BaseActivity<ActivityScanHealthInformation
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+    }
+
+    override fun initView() {
+        setTextWatcher1()
+        setTextWatcher2()
 
         binding.btContinue.setOnClickListener {
             notFinishRegister()
@@ -42,11 +47,6 @@ class ScanHealthInformationActivity : BaseActivity<ActivityScanHealthInformation
         binding.constraint.setOnClickListener {
             hideKeyboard()
         }
-    }
-
-    override fun initView() {
-        setTextWatcher1()
-        setTextWatcher2()
     }
 
     private fun setTextWatcher1() {
