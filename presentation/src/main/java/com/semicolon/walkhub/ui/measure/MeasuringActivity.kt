@@ -9,6 +9,7 @@ import java.util.*
 class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activity_measuring) {
 
     override fun initView() {
+        setToDefault()
         countDown()
     }
 
