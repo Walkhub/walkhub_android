@@ -13,6 +13,7 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
     }
 
     private fun countDown() {
+        binding.measuringReadyCl.visibility = View.VISIBLE
         var count = 3
         binding.count = count.toString()
         Timer().schedule(object : TimerTask() {
