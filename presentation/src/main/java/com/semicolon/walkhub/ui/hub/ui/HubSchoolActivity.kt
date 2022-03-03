@@ -11,7 +11,6 @@ import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayoutMediator
-import com.semicolon.domain.enum.DateType
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityHubSchoolBinding
 import com.semicolon.walkhub.extensions.repeatOnStarted
@@ -20,8 +19,6 @@ import com.semicolon.walkhub.ui.base.BaseActivity
 import com.semicolon.walkhub.ui.hub.adapter.HubSearchUserRvAdapter
 import com.semicolon.walkhub.ui.hub.adapter.HubViewPagerAdapter
 import com.semicolon.walkhub.ui.hub.model.SearchUserData
-import com.semicolon.walkhub.ui.hub.model.UserRankRvData
-import com.semicolon.walkhub.ui.hub.model.toRvData
 import com.semicolon.walkhub.util.invisible
 import com.semicolon.walkhub.util.visible
 import com.semicolon.walkhub.viewmodel.hub.HubSearchUserViewModel

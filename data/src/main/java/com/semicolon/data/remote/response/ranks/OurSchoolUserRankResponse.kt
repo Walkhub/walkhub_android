@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import com.semicolon.domain.entity.rank.OurSchoolUserRankEntity
 
 data class OurSchoolUserRankResponse(
-    @SerializedName("my_ranking") val myRanking: Ranking,
+    @SerializedName("my_ranking") val myRanking: Ranking?,
     @SerializedName("ranking_list")val rankingList: List<Ranking>
 )
 {
@@ -32,6 +32,6 @@ data class OurSchoolUserRankResponse(
 
 fun OurSchoolUserRankResponse.toEntity() =
     OurSchoolUserRankEntity(
-        myRanking = myRanking.toEntity(),
+        myRanking = myRanking?.toEntity(),
         rankingList = rankingList.map { it.toEntity() }
     )

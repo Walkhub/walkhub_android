@@ -1,6 +1,5 @@
 package com.semicolon.walkhub.ui.hub.ui
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +7,6 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.semicolon.domain.enum.DateType
 import com.semicolon.domain.enum.MoreDateType
 import com.semicolon.domain.enum.RankScope
 import com.semicolon.walkhub.R
@@ -19,13 +17,11 @@ import com.semicolon.walkhub.databinding.FragmentHubRankBinding
 import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.base.BaseFragment
 import com.semicolon.walkhub.ui.hub.adapter.HubUserRvAdapter
-import com.semicolon.walkhub.ui.hub.model.HubSchoolRankData
 import com.semicolon.walkhub.ui.hub.model.MySchoolUserRankData
 import com.semicolon.walkhub.ui.hub.model.UserRankRvData
 import com.semicolon.walkhub.ui.hub.model.toRvData
 import com.semicolon.walkhub.util.loadCircleFromUrl
 import com.semicolon.walkhub.util.visible
-import com.semicolon.walkhub.viewmodel.hub.HubSearchUserViewModel
 import com.semicolon.walkhub.viewmodel.hub.HubUserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -74,7 +70,8 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
 
     private fun handleEvent(event: HubUserViewModel.Event) = when (event) {
         is HubUserViewModel.Event.FetchMySchoolUserRank -> {
-            setMyRank(event.mySchoolUserRankData.myRanking)
+//            setMyRank(event.mySchoolUserRankData.myRanking)
+            TODO("고치세요")
             setUserRvData(event.mySchoolUserRankData.rankingList.map { it.toRvData() })
         }
         is HubUserViewModel.Event.FetchOtherSchoolUserRank -> {
@@ -129,7 +126,7 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 ToggleSwitch(
-                    onToggleOn = { setRankScope(RankScope.ALL) },
+                    onToggleOn = { setRankScope(RankScope.SCHOOL) },
                     onToggleOff = { setRankScope(RankScope.CLASS) }
                 )
             }
