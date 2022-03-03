@@ -1,6 +1,7 @@
 package com.semicolon.walkhub.ui.profile.setting
 
 import android.os.Bundle
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.databinding.DataBindingUtil
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.customview.ToggleSwitch
@@ -18,6 +19,56 @@ class NoticeSettingActivity : BaseActivity<ActivityNoticeSettingBinding>(
     }
 
     override fun initView() {
+        switch()
+    }
 
+    private fun switch() {
+        binding.cheerupSwt.apply {
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent {
+                ToggleSwitch(
+                    onToggleOn = {},
+                    onToggleOff = {}
+                )
+            }
+        }
+
+        binding.noticeSwt.apply {
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent {
+                ToggleSwitch(
+                    onToggleOn = {},
+                    onToggleOff = {}
+                )
+            }
+        }
+
+        binding.recommendSwt.apply {
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent {
+                ToggleSwitch(
+                    onToggleOn = {},
+                    onToggleOff = {}
+                )
+            }
+        }
+        binding.challengeGoalSwt.apply {
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent {
+                ToggleSwitch(
+                    onToggleOn = {},
+                    onToggleOff = {}
+                )
+            }
+        }
+        binding.challengeEndSwt.apply {
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent {
+                ToggleSwitch(
+                    onToggleOn = {},
+                    onToggleOff = {}
+                )
+            }
+        }
     }
 }
