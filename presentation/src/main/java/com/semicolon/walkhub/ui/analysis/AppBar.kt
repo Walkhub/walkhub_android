@@ -33,7 +33,7 @@ fun AppBar(text: String, onBackButtonClick: () -> Unit) {
                     interactionSource = MutableInteractionSource(),
                     indication = null
                 ) {
-                    onBackButtonClick
+                    onBackButtonClick()
                 },
             painter = painterResource(R.drawable.ic_back_arrow),
             contentDescription = null
