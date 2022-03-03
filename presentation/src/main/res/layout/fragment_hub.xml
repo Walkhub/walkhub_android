@@ -98,7 +98,7 @@
                     android:layout_marginTop="11dp"
                     android:layout_marginBottom="29dp"
                     android:fontFamily="@font/noto_sans_kr_medium"
-                    android:text="학교 이름"
+                    android:text="데이터가 없습니다."
                     android:textColor="@color/gray_900"
                     android:textSize="16dp"
                     app:layout_constraintBottom_toBottomOf="@+id/clMySchool"
