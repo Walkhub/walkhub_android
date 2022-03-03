@@ -68,8 +68,7 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
 
     private fun handleEvent(event: HubUserViewModel.Event) = when (event) {
         is HubUserViewModel.Event.FetchMySchoolUserRank -> {
-//            setMyRank(event.mySchoolUserRankData.myRanking)
-            TODO("고치세요")
+            setMyRank(event.mySchoolUserRankData.myRanking!!)
             setUserRvData(event.mySchoolUserRankData.rankingList.map { it.toRvData() })
         }
         is HubUserViewModel.Event.FetchOtherSchoolUserRank -> {
