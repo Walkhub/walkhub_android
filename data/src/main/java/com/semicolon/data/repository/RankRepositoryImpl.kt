@@ -9,7 +9,7 @@ import com.semicolon.data.remote.response.ranks.search.user.toEntity
 import com.semicolon.data.remote.response.ranks.toEntity
 import com.semicolon.data.util.OfflineCacheUtil
 import com.semicolon.domain.entity.rank.*
-import com.semicolon.domain.enum.DateType
+import com.semicolon.domain.enums.DateType
 import com.semicolon.domain.param.rank.FetchOurSchoolUserRankParam
 import com.semicolon.domain.param.rank.FetchUserRankParam
 import com.semicolon.domain.param.rank.SearchSchoolParam

@@ -20,6 +20,14 @@
             android:name=".ui.hub.ui.SignUpClassActivity"
             android:windowSoftInputMode="stateUnchanged|adjustResize"
             android:exported="false" />
+       <activity
+            android:name=".ui.analysis.ActivityAnalysisActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.register.ScanHealthInformationActivity"
+            android:exported="false" />
+
         <activity
             android:name=".ui.hub.ui.HubSearchSchoolActivity"
             android:exported="false" />

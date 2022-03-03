@@ -3,7 +3,7 @@ package com.semicolon.walkhub.viewmodel.hub
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.semicolon.domain.entity.rank.SearchUserEntity
-import com.semicolon.domain.enum.MoreDateType
+import com.semicolon.domain.enums.MoreDateType
 import com.semicolon.domain.exception.basic.NoInternetException
 import com.semicolon.domain.exception.basic.NotFoundException
 import com.semicolon.domain.param.rank.SearchUserParam

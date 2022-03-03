@@ -7,10 +7,11 @@
 
         <variable
             name="fragment"
-            type="com.semicolon.walkhub.ui.profile.setting.SettingFragment" />
+            type="com.semicolon.walkhub.ui.profile.setting.SettingActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/onfragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

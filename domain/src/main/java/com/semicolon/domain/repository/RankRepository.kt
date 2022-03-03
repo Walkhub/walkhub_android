@@ -1,7 +1,7 @@
 package com.semicolon.domain.repository
 
 import com.semicolon.domain.entity.rank.*
-import com.semicolon.domain.enum.DateType
+import com.semicolon.domain.enums.DateType
 import com.semicolon.domain.param.rank.FetchOurSchoolUserRankParam
 import com.semicolon.domain.param.rank.FetchUserRankParam
 import com.semicolon.domain.param.rank.SearchSchoolParam

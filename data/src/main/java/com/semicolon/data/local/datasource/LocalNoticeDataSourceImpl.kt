@@ -4,7 +4,6 @@ import com.semicolon.data.local.dao.NoticeDao
 import com.semicolon.data.local.entity.notice.toDbEntity
 import com.semicolon.data.local.entity.notice.toEntity
 import com.semicolon.domain.entity.notice.NoticeEntity
-import com.semicolon.domain.enum.NoticeType
 import javax.inject.Inject
 
 class LocalNoticeDataSourceImpl @Inject constructor(
