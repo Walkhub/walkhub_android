@@ -73,6 +73,7 @@ class SignUpClassActivity : BaseActivity<ActivitySignUpClassBinding>(
 
     private fun movePage(page: Int) {
         when (page) {
+            0 -> finish()
             1 -> verifyCode()
             2 -> classNum()
             3 -> signUpClass()
@@ -108,5 +109,8 @@ class SignUpClassActivity : BaseActivity<ActivitySignUpClassBinding>(
     private fun signUpClass() {
         finish()
     }
+
+    override fun onBackPressed() =
+        movePage(--page)
 
 }
