@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.semicolon.domain.enum.MoreDateType
-import com.semicolon.domain.enum.RankScope
+import com.semicolon.domain.enums.MoreDateType
+import com.semicolon.domain.enums.RankScope
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.customview.Dropdown
 import com.semicolon.walkhub.customview.MenuDirection
@@ -36,7 +36,7 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
 
     companion object {
         var dateType = MoreDateType.WEEK
-        var rankScope = RankScope.ALL
+        var rankScope = RankScope.SCHOOL
     }
 
     private lateinit var mAdapter: HubUserRvAdapter
