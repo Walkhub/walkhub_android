@@ -46,6 +46,7 @@ class AuthorizationInterceptor @Inject constructor(
                     TokenRefreshResponse::class.java
                 )
                 authDataStorage.setAccessToken(token.accessToken)
+                authDataStorage.setRefreshToken(token.refreshToken)
                 authDataStorage.setExpiredAt(token.expiredAt)
             } else throw UnauthorizedException()
         }
@@ -61,6 +62,7 @@ class AuthorizationInterceptor @Inject constructor(
 
     data class TokenRefreshResponse(
         @SerializedName("access_token") val accessToken: String,
+        @SerializedName("refresh_token") val refreshToken: String,
         @SerializedName("expired_at") val expiredAt: String,
     )
 }
