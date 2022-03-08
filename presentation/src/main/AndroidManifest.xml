@@ -18,8 +18,14 @@
         android:theme="@style/Theme.Walkhub">
         <activity
             android:name=".ui.splash.SplashActivity"
-            android:theme="@style/splash_theme"
-            android:exported="false" />
+            android:exported="true"
+            android:theme="@style/splash_theme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.hub.ui.SignUpClassActivity"
             android:exported="false"
@@ -59,13 +65,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.HomeActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false" />
 
         <service
             android:name=".fcm.FCMManager"
