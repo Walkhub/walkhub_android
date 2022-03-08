@@ -25,24 +25,34 @@
             android:name=".ui.login.LoginActivity"
             android:exported="false" />
 
-        <activity android:name=".ui.MainActivity"
-            android:exported="false"/>
+        <activity
+            android:name=".ui.MainActivity"
+            android:exported="false" />
 
-        <activity android:name=".ui.register.SearchSchoolActivity"
-            android:exported="false"/>
+        <activity
+            android:name=".ui.register.SearchSchoolActivity"
+            android:exported="false" />
 
-        <activity android:name=".ui.register.agree.AgreeActivity"
-            android:exported="false"/>
+        <activity
+            android:name=".ui.register.agree.AgreeActivity"
+            android:exported="false" />
 
-        <activity android:name=".ui.register.agree.PrivacyActivity"
-            android:exported="false"/>
+        <activity
+            android:name=".ui.register.agree.PrivacyActivity"
+            android:exported="false" />
 
-        <activity android:name=".ui.register.agree.ServiceInstructionActivity"
-            android:exported="false"/>
+        <activity
+            android:name=".ui.register.agree.ServiceInstructionActivity"
+            android:exported="false" />
 
-        <activity android:name=".ui.register.Register"
-            android:exported="false"/>
-        
+        <activity
+            android:name=".ui.register.Register"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.profile.setting.NoticeSettingActivity"
+            android:exported="false" />
+
         <activity
             android:name=".ui.HomeActivity"
             android:exported="true">
@@ -52,7 +62,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-      
+
         <service
             android:name=".fcm.FCMManager"
             android:exported="false">
