@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.semicolon.domain.entity.users.UserMyPageEntity
 import com.semicolon.domain.exception.basic.BadRequestException
 import com.semicolon.domain.exception.basic.NoInternetException
+import com.semicolon.domain.exception.basic.NotFoundException
+import com.semicolon.domain.exception.basic.UnauthorizedException
 import com.semicolon.domain.usecase.user.FetchMypageUseCase
 import com.semicolon.walkhub.ui.profile.model.MyPageData
 import com.semicolon.walkhub.util.MutableEventFlow
@@ -31,8 +33,8 @@ class ProfileViewModel @Inject constructor(
                     }
             }.onFailure {
                 when (it) {
-                    is NoInternetException -> event(Event.ErrorMessage("인터넷에 연결해주세요."))
-                    is BadRequestException -> event(Event.ErrorMessage("요청하는 형식을 식별할 수 없습니다."))
+                    is UnauthorizedException -> event(Event.ErrorMessage("토큰이 만료되었거나 식별할 수 없습니다."))
+                    is NotFoundException -> event(Event.ErrorMessage("요청하는 대상을 찾을 수 없습니다."))
                     else -> event(Event.ErrorMessage("알 수 없는 에러가 발생했습니다."))
                 }
             }
