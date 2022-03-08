@@ -16,6 +16,7 @@
 
     <style name="splash_theme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:statusBarColor" tools:targetApi="l">#FF57B4F1</item>
+        <item name="android:background">#FF57B4F1</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
     </style>
 </resources>
