@@ -3,15 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="fragment"
-            type="com.semicolon.walkhub.ui.profile.setting.AccountInfoFragment" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/onfragment"
+        android:id="@+id/account_info_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
