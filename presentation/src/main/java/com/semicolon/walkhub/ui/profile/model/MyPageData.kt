@@ -5,8 +5,10 @@ data class MyPageData(
     val name: String,
     val profileImageUrl: String,
     val schoolName: String,
+    val schoolImageUrl: String,
     val grade: Int,
     val classNum: Int,
+    val dailyWalkCountGoal: String,
     val titleBadge: TitleBadge,
     val level: Level
 ) {
@@ -17,6 +19,7 @@ data class MyPageData(
     )
 
     data class Level(
+        val levelId: Int,
         val levelName: String,
         val levelImageUrl: String
     )
