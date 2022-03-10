@@ -19,7 +19,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetWorkModule {
     private const val BASE_URL = "https://server.walkhub.co.kr"
-    private const val SOCKET_BASE_URL = "http://211.38.86.92:8081/socket.io"
+    private const val SOCKET_BASE_URL = "http://211.38.86.92:8081"
 
     @Provides
     fun provideHttpLoggingInterceptor() = HttpLoggingInterceptor()
@@ -35,8 +35,14 @@ object NetWorkModule {
         OkHttpClient
             .Builder()
             .addInterceptor(httpLoggingInterceptor)
-            .addInterceptor(authorizationInterceptor)
-            .build()
+            .addInterceptor {
+                it.proceed(
+                    it.request().newBuilder().addHeader(
+                        "Authorization",
+                        "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaGxhbHN3bnMiLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNjQ1NjI3MTk0fQ.QmTo38nA_m2Bn2iWK6o2dI0REmxFglFbdEg9IWR9bFQ"
+                    ).build()
+                )
+            }.build()
 
     @Provides
     fun provideOptions(
@@ -52,7 +58,7 @@ object NetWorkModule {
     @Provides
     fun provideSocket(
         options: IO.Options
-    ): Socket{
+    ): Socket {
         return IO.socket(SOCKET_BASE_URL, options)
     }
 

@@ -43,7 +43,7 @@ class HubMainViewModel @Inject constructor(
 
     private fun receiveCheering(){
         viewModelScope.launch {
-            delay(1000)
+            delay(100)
             receiveCheeringUseCase.execute(Unit).collect{
                 println("$it aaa ch")
             }
@@ -52,7 +52,7 @@ class HubMainViewModel @Inject constructor(
 
     private fun receiveError(){
         viewModelScope.launch {
-            delay(1000)
+            delay(100)
             receiveErrorUseCase.execute(Unit).collect{
                 println("$it aaa error")
             }
@@ -62,11 +62,7 @@ class HubMainViewModel @Inject constructor(
     private fun cheeringUseCase() {
         viewModelScope.launch {
             delay(3000)
-            try {
-                cheeringUseCase.execute(5)
-            }catch (e: Throwable){
-                println("ee $e")
-            }
+            cheeringUseCase.execute(5)
         }
     }
 
