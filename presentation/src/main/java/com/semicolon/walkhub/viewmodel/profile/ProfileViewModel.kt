@@ -47,8 +47,10 @@ class ProfileViewModel @Inject constructor(
             name = name,
             profileImageUrl = profileImageUrl,
             schoolName = schoolName,
+            schoolImageUrl = schoolImageUrl,
             grade = grade,
             classNum = classNum,
+            dailyWalkCountGoal = dailyWalkCountGoal,
             titleBadge = titleBadge.toData(),
             level = level.toData()
         )
@@ -62,6 +64,7 @@ class ProfileViewModel @Inject constructor(
 
     fun UserMyPageEntity.Level.toData() =
         MyPageData.Level(
+            levelId = levelId,
             levelName = levelName,
             levelImageUrl = levelImageUrl
         )
