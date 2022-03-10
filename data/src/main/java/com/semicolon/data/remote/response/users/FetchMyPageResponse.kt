@@ -8,18 +8,21 @@ data class FetchMyPageResponse(
     @SerializedName("name") val name: String,
     @SerializedName("profile_image_url") val profileImageUrl: String,
     @SerializedName("school_name") val schoolName: String,
+    @SerializedName("school_image_url") val schoolImageUrl: String,
     @SerializedName("grade") val grade: Int,
     @SerializedName("class_num") val classNum: Int,
+    @SerializedName("daily_walk_count_goal") val dailyWalkCountGoal : Int,
     @SerializedName("title_badge") val titleBadge: TitleBadge,
     @SerializedName("level") val level: Level
 ) {
     data class TitleBadge(
-        @SerializedName("id") val badgeId: Int,
+        @SerializedName("badge_id") val badgeId: Int,
         @SerializedName("name") val badgeName: String,
         @SerializedName("image_url") val badgeImageUrl: String
     )
 
     data class Level(
+        @SerializedName("level_id") val levelId: Int,
         @SerializedName("name") val levelName: String,
         @SerializedName("image_url") val levelImageUrl: String
     )
@@ -33,6 +36,7 @@ data class FetchMyPageResponse(
 
     fun Level.toEntity() =
         UserMyPageEntity.Level(
+            levelId = levelId,
             levelName = levelName,
             levelImageUrl = levelImageUrl
         )
@@ -45,8 +49,10 @@ fun FetchMyPageResponse.toEntity() =
         name = name,
         profileImageUrl = profileImageUrl,
         schoolName = schoolName,
+        schoolImageUrl = schoolImageUrl,
         grade = grade,
         classNum = classNum,
+        dailyWalkCountGoal = dailyWalkCountGoal,
         titleBadge = titleBadge.toEntity(),
         level = level.toEntity()
     )
