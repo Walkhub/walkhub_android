@@ -13,8 +13,10 @@ data class UserMyPageRoomEntity(
     val name: String,
     val profileImageUrl: String,
     val schoolName: String,
+    val schoolImageUrl: String,
     val grade: Int,
     val classNum: Int,
+    val dailyWalkCountGoal: Int,
     @Embedded val titleBadge: TitleBadge,
     @Embedded val level: Level
 ) {
@@ -25,6 +27,7 @@ data class UserMyPageRoomEntity(
     )
 
     data class Level(
+        val levelId: Int,
         val levelName: String,
         val levelImageUrl: String
     )
@@ -38,6 +41,7 @@ data class UserMyPageRoomEntity(
 
     fun Level.toEntity() =
         UserMyPageEntity.Level(
+            levelId = levelId,
             levelName = levelName,
             levelImageUrl = levelImageUrl
         )
@@ -49,8 +53,10 @@ fun UserMyPageRoomEntity.toEntity() =
         name = name,
         profileImageUrl = profileImageUrl,
         schoolName = schoolName,
+        schoolImageUrl = schoolImageUrl,
         grade = grade,
         classNum = classNum,
+        dailyWalkCountGoal = dailyWalkCountGoal,
         titleBadge = titleBadge.toEntity(),
         level = level.toEntity()
     )
@@ -64,6 +70,7 @@ fun UserMyPageEntity.TitleBadge.toDbEntity() =
 
 fun UserMyPageEntity.Level.toDbEntity() =
     UserMyPageRoomEntity.Level(
+        levelId = levelId,
         levelName = levelName,
         levelImageUrl = levelImageUrl
     )
@@ -74,8 +81,10 @@ fun UserMyPageEntity.toDbEntity() =
         name = name,
         profileImageUrl = profileImageUrl,
         schoolName = schoolName,
+        schoolImageUrl = schoolImageUrl,
         grade = grade,
         classNum = classNum,
+        dailyWalkCountGoal = dailyWalkCountGoal,
         titleBadge = titleBadge.toDbEntity(),
         level = level.toDbEntity()
     )
