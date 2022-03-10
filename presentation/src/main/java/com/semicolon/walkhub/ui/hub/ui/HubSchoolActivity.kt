@@ -1,22 +1,24 @@
 package com.semicolon.walkhub.ui.hub.ui
 
+import android.content.ContentValues
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayoutMediator
-import com.semicolon.domain.enum.DateType
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityHubSchoolBinding
 import com.semicolon.walkhub.extensions.repeatOnStarted
+import com.semicolon.walkhub.ui.analysis.DebouncedTextInputEditText
 import com.semicolon.walkhub.ui.base.BaseActivity
 import com.semicolon.walkhub.ui.hub.adapter.HubSearchUserRvAdapter
 import com.semicolon.walkhub.ui.hub.adapter.HubViewPagerAdapter
-import com.semicolon.walkhub.ui.hub.model.MySchoolUserRankData
-import com.semicolon.walkhub.ui.hub.model.UserRankRvData
-import com.semicolon.walkhub.ui.hub.model.toRvData
+import com.semicolon.walkhub.ui.hub.model.SearchUserData
 import com.semicolon.walkhub.util.invisible
 import com.semicolon.walkhub.util.visible
 import com.semicolon.walkhub.viewmodel.hub.HubSearchUserViewModel
@@ -33,18 +35,14 @@ class HubSchoolActivity @Inject constructor(
     private var schoolName = "no data"
 
     private lateinit var mAdapter: HubSearchUserRvAdapter
-    private var rvHubUserData = arrayListOf<UserRankRvData>()
+    private var rvHubUserData = arrayListOf<SearchUserData.UserInfo>()
+
+    private var schoolId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val schoolType = intent.getBooleanExtra("type", true)
-
-        if (schoolType) {
-            vm.fetchMySchoolUserRank(DateType.WEEK)
-        } else {
-            vm.fetchSchoolUserRank(DateType.WEEK)
-        }
+        schoolId = intent.getIntExtra("schoolId", 0)
 
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
@@ -60,16 +58,16 @@ class HubSchoolActivity @Inject constructor(
 
     private fun handleEvent(event: HubSearchUserViewModel.Event) = when (event) {
 
-        is HubSearchUserViewModel.Event.FetchMySchoolUserRank -> {
-            setUserRank(event.mySchoolUserRankData.rankingList.map { it.toRvData() })
+        is HubSearchUserViewModel.Event.SearchSchool -> {
+            setUserRank(event.userData.userList.map { it })
         }
-        is HubSearchUserViewModel.Event.FetchUserRank -> {
-            setUserRank(event.userRankData.rankList.map { it.toRvData() })
+        is HubSearchUserViewModel.Event.ErrorMessage -> {
+            showShortToast(event.message)
         }
     }
 
 
-    private fun setUserRank(data: List<UserRankRvData>) {
+    private fun setUserRank(data: List<SearchUserData.UserInfo>) {
 
         for (i: Int in 0..data.size - 1) {
             rvHubUserData.add(data[i])
@@ -80,7 +78,7 @@ class HubSchoolActivity @Inject constructor(
 
     private fun setToolbar() {
 
-        schoolName = intent.getStringExtra("name")!!
+        schoolName = intent.getStringExtra("name").toString()
 
         binding.toolbarTitle.text = schoolName
 
@@ -145,15 +143,21 @@ class HubSchoolActivity @Inject constructor(
             }
         })
 
+        mSearchView.background = null
+
         mSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean = menuView(false)
 
             override fun onQueryTextChange(newText: String): Boolean {
-                mAdapter.filter.filter(newText)
+
+                if(newText.isNotEmpty()) {
+                    vm.searchUserDebounced(schoolId, newText, HubRankFragment.dateType)
+                }
 
                 return menuView(true)
             }
         })
+
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -171,5 +175,4 @@ class HubSchoolActivity @Inject constructor(
             return false
         }
     }
-
 }

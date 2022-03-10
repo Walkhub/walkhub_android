@@ -64,6 +64,7 @@ dependencies {
     implementation(Dependency.UI.composeCompiler)
     implementation(Dependency.UI.activityCompose)
     implementation(Dependency.UI.coilCompose)
+    implementation(Dependency.UI.pinEntryEditText)
 
     testImplementation(Dependency.Test.junit)
     testImplementation(Dependency.Test.mockito)
@@ -109,4 +110,8 @@ dependencies {
 
     implementation(Dependency.Glide.glideCore)
     annotationProcessor(Dependency.Glide.glideCompiler)
+
+    implementation(Dependency.Socket.socketIo){
+            exclude (group = "org.json", module = "json")
+    }
 }

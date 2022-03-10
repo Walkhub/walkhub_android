@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="activity"
+            type="com.semicolon.walkhub.ui.hub.ui.SignUpClassActivity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rootView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.SignUpClassActivity">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:padding="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_back_arrow" />
+
+        <TextView
+            android:id="@+id/etTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/noto_sans_kr_bold"
+            android:text="반 친구들과 함께 걷고\n내 랭킹 확인하기"
+            android:textColor="@color/gray_800"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="@+id/ivBack"
+            app:layout_constraintTop_toBottomOf="@+id/ivBack" />
+
+        <TextView
+            android:id="@+id/etLore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:text="반 가입코드를 입력해주세요."
+            android:textColor="@color/gray_600"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/etTitle"
+            app:layout_constraintTop_toBottomOf="@+id/etTitle" />
+
+        <com.alimuzaffar.lib.pin.PinEntryEditText
+            android:id="@+id/etClassCode"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:background="@null"
+            android:cursorVisible="false"
+            android:digits="1234567890"
+            android:gravity="center_vertical"
+            android:inputType="number"
+            android:maxLength="7"
+            android:textColor="@color/gray_900"
+            android:textIsSelectable="false"
+            android:textSize="24dp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etLore"
+            app:pinBackgroundDrawable="@drawable/bg_sign_up_class_et"
+            app:pinBackgroundIsSquare="true"
+            app:pinCharacterSpacing="8dp"
+            app:pinTextBottomPadding="16dp" />
+
+        <EditText
+            android:id="@+id/etNumber"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/edittextdesign"
+            android:hint="번"
+            android:inputType="number"
+            android:maxLength="30"
+            android:paddingLeft="14dp"
+            android:singleLine="true"
+            android:textColor="@color/gray_900"
+            android:textColorHint="@color/gray_400"
+            android:textSize="17sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etLore" />
+
+        <TextView
+            android:id="@+id/tvNext"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_primary_button_off"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:gravity="center"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="완료하기"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tvSecondNext"
+            android:visibility="gone"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:background="@color/gray_300"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:gravity="center"
+            android:text="완료하기"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tvError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="80dp"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:text="올바른 번호를 입력해주세요."
+            android:textColor="@color/error_red"
+            android:textSize="14sp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/etNumber"
+            app:layout_constraintTop_toBottomOf="@+id/etLore" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

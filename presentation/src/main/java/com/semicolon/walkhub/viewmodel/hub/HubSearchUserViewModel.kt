@@ -1,53 +1,69 @@
 package com.semicolon.walkhub.viewmodel.hub
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.semicolon.domain.entity.rank.OurSchoolUserRankEntity
-import com.semicolon.domain.entity.rank.UserRankEntity
-import com.semicolon.domain.enum.DateType
-import com.semicolon.walkhub.ui.hub.model.MySchoolUserRankData
-import com.semicolon.walkhub.ui.hub.model.SchoolUserRankData
-import com.semicolon.walkhub.ui.hub.model.toData
+import com.semicolon.domain.entity.rank.SearchUserEntity
+import com.semicolon.domain.enums.MoreDateType
+import com.semicolon.domain.exception.basic.NoInternetException
+import com.semicolon.domain.exception.basic.NotFoundException
+import com.semicolon.domain.param.rank.SearchUserParam
+import com.semicolon.domain.usecase.rank.SearchUserUseCase
+import com.semicolon.walkhub.ui.hub.model.SearchUserData
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HubSearchUserViewModel @Inject constructor(
+    private val searchUserUseCase: SearchUserUseCase
 ) : ViewModel() {
 
     private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()
 
-    fun fetchMySchoolUserRank(dateType: DateType) {
-        val fakeImage = "https://cdn.discordapp.com/attachments/813414875241513010/945239959160373258/91087331-EB82A8EC84B1EC9D84EC9C84ED959C-EAB8B0EBB3B8-EC9584EBB094ED8380-ED9484EBA19CED9584-EC9584EC9DB4ECBD98-ED9A8CEC8389-EC82ACECA784-EC9E90EBA6AC-ED919CEC8B9C-EC9E90-EC9DBCEB9FACEC8AA4ED8AB8-EBB2A1ED84B0.png"
-        val fakeData = OurSchoolUserRankEntity(
-            OurSchoolUserRankEntity.Ranking(1, 1, "임세현", fakeImage, 41, 1, 415),
-            listOf(
-                OurSchoolUserRankEntity.Ranking(1, 1, "임세현", fakeImage, 41, 1, 415),
-                OurSchoolUserRankEntity.Ranking(2, 2, "이용진", fakeImage, 51, 2, 1251),
-                OurSchoolUserRankEntity.Ranking(3, 3, "유현명", fakeImage, 3, 3, 61123)
-            )
-        )
+    private var searchJob: Job? = null
 
-        event(Event.FetchMySchoolUserRank(fakeData.toData()))
+    fun searchUser(school: Int, name: String, dateType: MoreDateType) {
+        viewModelScope.launch {
+            kotlin.runCatching {
+                searchUserUseCase.execute(SearchUserParam(school, name, dateType)).collect() {
+                    event(Event.SearchSchool(it.toData()))
+                }
+            }.onFailure {
+                when (it) {
+                    is NoInternetException -> event(Event.ErrorMessage("인터넷을 사용할 수 없습니다"))
+                    is NotFoundException -> event(Event.ErrorMessage("요청하는 대상을 찾을 수 없습니다."))
+                    else -> event(Event.ErrorMessage("알 수 없는 에러가 발생했습니다. ${it}"))
+                }
+            }
+        }
     }
 
-    fun fetchSchoolUserRank(dateType: DateType) {
-        val fakeImage = "https://cdn.discordapp.com/attachments/813414875241513010/945239959160373258/91087331-EB82A8EC84B1EC9D84EC9C84ED959C-EAB8B0EBB3B8-EC9584EBB094ED8380-ED9484EBA19CED9584-EC9584EC9DB4ECBD98-ED9A8CEC8389-EC82ACECA784-EC9E90EBA6AC-ED919CEC8B9C-EC9E90-EC9DBCEB9FACEC8AA4ED8AB8-EBB2A1ED84B0.png"
+    fun searchUserDebounced(school: Int, name: String, dateType: MoreDateType) {
+        searchJob?.cancel()
+        searchJob = viewModelScope.launch {
+            delay(500L)
+            searchUser(school, name, dateType)
+        }
+    }
 
-        val fakeData = UserRankEntity(
-            listOf(
-                UserRankEntity.UserRank(1, "감자", 2, 3, 10, 1, fakeImage, 141),
-                UserRankEntity.UserRank(2, "이용진", 2, 2, 15, 2, fakeImage, 1234),
-                UserRankEntity.UserRank(3, "유현명", 3, 1, 23, 3, fakeImage, 1612)
-            )
+    fun SearchUserEntity.toData() =
+        SearchUserData(
+            userList.map { it.toData() }
         )
 
-        event(Event.FetchUserRank(fakeData.toData()))
-    }
+    fun SearchUserEntity.UserInfo.toData() =
+        SearchUserData.UserInfo(
+            profileUrl = profileImageUrl,
+            rank = ranking,
+            name = name,
+            walkCount = walkCount
+        )
 
     private fun event(event: Event) {
         viewModelScope.launch {
@@ -56,7 +72,7 @@ class HubSearchUserViewModel @Inject constructor(
     }
 
     sealed class Event {
-        data class FetchMySchoolUserRank(val mySchoolUserRankData: MySchoolUserRankData) : Event()
-        data class FetchUserRank(val userRankData: SchoolUserRankData) : Event()
+        data class SearchSchool(val userData: SearchUserData) : Event()
+        data class ErrorMessage(val message: String) : Event()
     }
 }

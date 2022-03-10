@@ -3,10 +3,10 @@ package com.semicolon.data.interceptor
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.semicolon.data.local.storage.AuthDataStorage
+import com.semicolon.domain.exception.user.NeedLoginException
 import okhttp3.*
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.ZoneId
-import java.lang.RuntimeException
 import javax.inject.Inject
 
 class AuthorizationInterceptor @Inject constructor(
@@ -14,8 +14,20 @@ class AuthorizationInterceptor @Inject constructor(
 ) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
+        val request = chain.request()
+        val path = request.url().encodedPath()
+        val ignorePath = listOf(
+            "/users/verification-codes",
+            "/users/account-id",
+            "/users/token",
+            "/users/password"
+        )
+        if (ignorePath.contains(path)) return chain.proceed(request)
+        if (path == "/users" && request.method() == "POST") return chain.proceed(request)
+        if (path.contains("/users/accounts/")) return chain.proceed(request)
+
         val expiredAt = authDataStorage.fetchExpiredAt()
-        val currentTime = LocalDateTime.now().atZone(ZoneId.systemDefault()).toLocalDateTime()
+        val currentTime = LocalDateTime.now(ZoneId.systemDefault())
 
         if (expiredAt.isBefore(currentTime)) {
             val client = OkHttpClient()
@@ -34,13 +46,14 @@ class AuthorizationInterceptor @Inject constructor(
                     TokenRefreshResponse::class.java
                 )
                 authDataStorage.setAccessToken(token.accessToken)
+                authDataStorage.setRefreshToken(token.refreshToken)
                 authDataStorage.setExpiredAt(token.expiredAt)
-            } else throw RuntimeException()
+            } else throw NeedLoginException()
         }
 
         val accessToken = authDataStorage.fetchAccessToken()
         return chain.proceed(
-            chain.request().newBuilder().addHeader(
+            request.newBuilder().addHeader(
                 "Authorization",
                 "Bearer $accessToken"
             ).build()
@@ -49,6 +62,7 @@ class AuthorizationInterceptor @Inject constructor(
 
     data class TokenRefreshResponse(
         @SerializedName("access_token") val accessToken: String,
+        @SerializedName("refresh_token") val refreshToken: String,
         @SerializedName("expired_at") val expiredAt: String,
     )
 }

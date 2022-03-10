@@ -11,8 +11,9 @@ import com.google.android.gms.tasks.Task
 import com.semicolon.data.local.param.PeriodParam
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class FitnessDataStorageImpl(
+class FitnessDataStorageImpl @Inject constructor(
     @ApplicationContext private val context: Context
 ) : FitnessDataStorage {
 

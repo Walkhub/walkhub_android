@@ -1,8 +1,8 @@
 package com.semicolon.domain.entity.challenge
 
-import com.semicolon.domain.enum.ChallengeGoalType
-import com.semicolon.domain.enum.ChallengeGoalScope
-import com.semicolon.domain.enum.ChallengeUserScope
+import com.semicolon.domain.enums.ChallengeGoalType
+import com.semicolon.domain.enums.ChallengeGoalScope
+import com.semicolon.domain.enums.ChallengeUserScope
 import org.threeten.bp.LocalDateTime
 
 data class ChallengeDetailEntity(

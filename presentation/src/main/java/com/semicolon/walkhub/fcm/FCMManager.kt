@@ -16,11 +16,6 @@ class FCMManager : FirebaseMessagingService() {
         const val CHANNEL_NAME = "Walkhub"
     }
 
-    override fun onNewToken(token: String) {
-        super.onNewToken(token)
-        TODO("서버로 토큰 전송하는 로직")
-    }
-
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
         if (remoteMessage.data.isNotEmpty()) {

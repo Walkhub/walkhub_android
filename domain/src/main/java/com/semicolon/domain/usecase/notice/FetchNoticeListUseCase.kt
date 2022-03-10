@@ -1,7 +1,7 @@
 package com.semicolon.domain.usecase.notice
 
 import com.semicolon.domain.entity.notice.NoticeEntity
-import com.semicolon.domain.enum.NoticeType
+import com.semicolon.domain.enums.NoticeType
 import com.semicolon.domain.repository.NoticeRepository
 import com.semicolon.domain.usecase.UseCase
 import kotlinx.coroutines.flow.Flow

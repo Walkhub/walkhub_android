@@ -21,6 +21,8 @@ object Dependency {
             "androidx.activity:activity-compose:${Version.activityCompose}"
         const val coilCompose =
             "io.coil-kt:coil-compose:${Version.coilCompose}"
+        const val pinEntryEditText =
+            "com.alimuzaffar.lib:pinentryedittext:${Version.pinEntryEditText}"
     }
 
     object GradlePlugin {
@@ -116,5 +118,9 @@ object Dependency {
     object Glide {
         const val glideCore = "com.github.bumptech.glide:glide:${Version.glide}"
         const val glideCompiler = "com.github.bumptech.glide:compiler:${Version.glide}"
+    }
+
+    object Socket {
+        const val socketIo = "io.socket:socket.io-client:${Version.socket}"
     }
 }
