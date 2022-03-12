@@ -25,13 +25,22 @@ class HubSearchSchoolActivity : BaseActivity<ActivityHubSearchSchoolBinding> (
 
     private lateinit var mAdapter: HubSearchSchoolRvAdapter
 
+    private var dateType = MoreDateType.WEEK
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        dateType = transferDateType(intent.getStringExtra("dateType")!!)
 
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
         }
 
+    }
+
+    private fun transferDateType(dateType: String) = when(dateType) {
+        "MONTH" -> MoreDateType.MONTH
+        else -> MoreDateType.WEEK
     }
 
     private fun handleEvent(event: HubSearchSchoolViewModel.Event) = when (event) {
@@ -46,9 +55,15 @@ class HubSearchSchoolActivity : BaseActivity<ActivityHubSearchSchoolBinding> (
     override fun initView() {
         setAdapter()
         setTextChanged()
+
+        binding.ibBack.setOnClickListener {
+            finish()
+        }
     }
 
     private fun setSchoolData(list: SearchSchoolData) {
+        schoolRvData.clear()
+
         for(i: Int in list.schoolList.indices) {
             schoolRvData.add(list.schoolList.get(i))
         }
@@ -58,14 +73,17 @@ class HubSearchSchoolActivity : BaseActivity<ActivityHubSearchSchoolBinding> (
 
     private fun setAdapter() {
         mAdapter = HubSearchSchoolRvAdapter(schoolRvData)
-        binding.rvSchoolRank.layoutManager = LinearLayoutManager(applicationContext)
-        binding.rvSchoolRank.setHasFixedSize(true)
-        binding.rvSchoolRank.adapter = mAdapter
+
+        binding.rvSchoolRank.apply {
+            layoutManager = LinearLayoutManager(applicationContext)
+            setHasFixedSize(true)
+            adapter = mAdapter
+        }
     }
 
     private fun setTextChanged() {
         binding.etSearch.onTextChanged { s, start, before, count ->
-            vm.searchSchoolDebounce(s.toString(), MoreDateType.WEEK)
+            vm.searchSchoolDebounce(s.toString(), dateType)
         }
     }
 }
