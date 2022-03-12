@@ -74,7 +74,6 @@ class UserRepositoryImpl @Inject constructor(
 
     override suspend fun signUpClass(signUpClassParam: SignUpClassParam) =
         remoteUserDateSource.signUpClass(
-            signUpClassParam.group_id,
             signUpClassParam.toRequest()
         )
 

@@ -6,9 +6,8 @@ import retrofit2.http.*
 
 interface UserApi {
 
-    @POST("users/classes/{section-id}")
+    @POST("users/classes")
     suspend fun signUpClass(
-        @Path("section-id") groupId: Int,
         @Body signUpClassRequest: SignUpClassRequest
     )
 
