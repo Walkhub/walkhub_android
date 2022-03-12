@@ -45,14 +45,12 @@ class HubSchoolActivity @Inject constructor(
     }
 
     override fun initView() {
-
         setToolbar()
         setTab()
         setAdapter()
     }
 
     private fun handleEvent(event: HubSearchUserViewModel.Event) = when (event) {
-
         is HubSearchUserViewModel.Event.SearchSchool -> {
             setUserRank(event.userData.userList.map { it })
         }
@@ -63,6 +61,7 @@ class HubSchoolActivity @Inject constructor(
 
 
     private fun setUserRank(data: List<SearchUserData.UserInfo>) {
+        rvHubUserData.clear()
 
         for (i: Int in 0..data.size - 1) {
             rvHubUserData.add(data[i])
@@ -72,18 +71,19 @@ class HubSchoolActivity @Inject constructor(
     }
 
     private fun setToolbar() {
-
         schoolName = intent.getStringExtra("name").toString()
 
         binding.toolbarTitle.text = schoolName
 
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        supportActionBar?.apply {
+            setDisplayShowTitleEnabled(false)
+            setDisplayHomeAsUpEnabled(true)
+        }
     }
 
     private fun setTab() {
-
         binding.vpHub.adapter = HubViewPagerAdapter(this)
 
         val tabTitles = listOf("랭킹", "정보")
@@ -94,24 +94,23 @@ class HubSchoolActivity @Inject constructor(
     }
 
     private fun setAdapter() {
-
         mAdapter = HubSearchUserRvAdapter(rvHubUserData)
 
-        binding.rvSchool.layoutManager = LinearLayoutManager(this)
-        binding.rvSchool.setHasFixedSize(true)
-        binding.rvSchool.adapter = mAdapter
+        binding.rvSchool.apply {
+            layoutManager = LinearLayoutManager(this@HubSchoolActivity)
+            setHasFixedSize(true)
+            adapter = mAdapter
+        }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        return when (item.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean =
+        when (item.itemId) {
             android.R.id.home -> {
                 finish()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
 
@@ -120,7 +119,7 @@ class HubSchoolActivity @Inject constructor(
         val mSearch = menu.findItem(R.id.action_search)
         val mSearchView = mSearch.actionView as SearchView
 
-        mSearchView.queryHint = "학교를 입력하세요"
+        mSearchView.queryHint = "이름으로 검색하세요"
 
         mSearch.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
             override fun onMenuItemActionExpand(p0: MenuItem?): Boolean {
@@ -145,7 +144,7 @@ class HubSchoolActivity @Inject constructor(
 
             override fun onQueryTextChange(newText: String): Boolean {
 
-                if(newText.isNotEmpty()) {
+                if (newText.isNotEmpty()) {
                     vm.searchUserDebounced(schoolId, newText, HubRankFragment.dateType)
                 }
 

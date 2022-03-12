@@ -57,8 +57,7 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
     }
 
     private fun fetchSchoolUserRank() {
-
-        val schoolType = activity?.intent?.getBooleanExtra("type", true)!!
+        val schoolType = activity?.intent?.getBooleanExtra("type", false)!!
         val schoolId = activity?.intent?.getIntExtra("schoolId", 0)!!
 
         if (schoolType) {
@@ -82,7 +81,6 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
     }
 
     private fun setUserRvData(school: List<UserRankRvData>) {
-
         userRvData.clear()
 
         for (i: Int in 0..school.size - 1) {
@@ -93,14 +91,12 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
     }
 
     override fun initView() {
-
         initSpinner()
         initDropDown()
         setAdapter()
     }
 
     private fun setMyRank(data: MySchoolUserRankData.Ranking) {
-
         binding.clMyRank.visible()
 
         binding.ivMyProfile.loadCircleFromUrl(data.profileImageUrl)
@@ -110,7 +106,6 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
     }
 
     private fun setAdapter() {
-
         mAdapter = HubUserRvAdapter(userRvData)
 
         binding.rvRank.layoutManager = LinearLayoutManager(context)
@@ -120,7 +115,6 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
 
 
     private fun initSpinner() {
-
         binding.cvSwitch.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
@@ -155,13 +149,11 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
     }
 
     private fun setRankScope(_rankScope: RankScope) {
-
         rankScope = _rankScope
         fetchSchoolUserRank()
     }
 
     private fun setDateType(_dateType: MoreDateType) {
-
         dateType = _dateType
         fetchSchoolUserRank()
     }
