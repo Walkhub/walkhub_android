@@ -12,8 +12,6 @@ data class OurSchoolUserRankRoomEntity(
     val rankingList: List<Ranking>
 ) {
     data class Ranking(
-        val classNum: Int,
-        val grade: Int,
         val name: String,
         val profileImageUrl: String,
         val ranking: Int,
@@ -23,8 +21,6 @@ data class OurSchoolUserRankRoomEntity(
 
     fun Ranking.toEntity() =
         OurSchoolUserRankEntity.Ranking(
-            classNum = classNum,
-            grade = grade,
             name = name,
             profileImageUrl = profileImageUrl,
             ranking = ranking,
@@ -41,8 +37,6 @@ fun OurSchoolUserRankRoomEntity.toEntity() =
 
 fun OurSchoolUserRankEntity.Ranking.toDbEntity() =
     OurSchoolUserRankRoomEntity.Ranking(
-        classNum = classNum,
-        grade = grade,
         name = name,
         profileImageUrl = profileImageUrl,
         ranking = ranking,
