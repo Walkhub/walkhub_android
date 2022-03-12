@@ -28,9 +28,9 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="14dp"
                 android:fontFamily="@font/noto_sans_kr_medium"
-                android:text="허브"
+                android:text="@string/hub"
                 android:textColor="@color/gray_800"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,11 +43,11 @@
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/bg_hub_edit_text"
                 android:fontFamily="@font/noto_sans_kr_regular"
-                android:text="학교 검색"
+                android:text="@string/search_school"
                 android:gravity="center_vertical"
                 android:paddingLeft="20dp"
                 android:textColor="@color/gray_500"
-                android:textSize="14dp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -59,9 +59,9 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/noto_sans_kr_medium"
-                android:text="내 학교"
+                android:text="@string/my_school"
                 android:textColor="@color/gray_900"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/etSearchSchool" />
 
@@ -98,9 +98,9 @@
                     android:layout_marginTop="11dp"
                     android:layout_marginBottom="29dp"
                     android:fontFamily="@font/noto_sans_kr_medium"
-                    android:text="데이터가 없습니다."
+                    android:text="@string/no_data"
                     android:textColor="@color/gray_900"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/clMySchool"
                     app:layout_constraintStart_toEndOf="@+id/ivMySchool"
                     app:layout_constraintTop_toTopOf="@+id/clMySchool" />
@@ -114,7 +114,7 @@
                     android:fontFamily="@font/noto_sans_kr_regular"
                     android:text="1학년 1반"
                     android:textColor="@color/gray_800"
-                    android:textSize="12dp"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@+id/clMySchool"
                     app:layout_constraintStart_toStartOf="@+id/tvMySchoolName"
                     app:layout_constraintTop_toTopOf="@+id/clMySchool" />
@@ -129,9 +129,9 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/noto_sans_kr_medium"
-                android:text="걸음수 Top 100"
+                android:text="@string/walkcount_top_100"
                 android:textColor="@color/gray_900"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/clMySchool" />
 
