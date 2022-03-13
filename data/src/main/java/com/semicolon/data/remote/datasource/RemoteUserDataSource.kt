@@ -9,7 +9,6 @@ import com.semicolon.domain.entity.users.UserProfileEntity
 
 interface RemoteUserDataSource {
     suspend fun signUpClass(
-        groupId: Int,
         signUpClassRequest: SignUpClassRequest
     )
 
