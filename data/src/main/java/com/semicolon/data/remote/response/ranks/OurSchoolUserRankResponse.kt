@@ -9,8 +9,6 @@ data class OurSchoolUserRankResponse(
 )
 {
     data class Ranking(
-        @SerializedName("class_num") val classNum: Int,
-        @SerializedName("grade") val grade: Int,
         @SerializedName("name") val name: String,
         @SerializedName("profile_image_url") val profileImageUrl: String,
         @SerializedName("ranking") val ranking: Int,
@@ -20,8 +18,6 @@ data class OurSchoolUserRankResponse(
 
     fun Ranking.toEntity() =
         OurSchoolUserRankEntity.Ranking(
-            classNum = classNum,
-            grade = grade,
             name = name,
             profileImageUrl = profileImageUrl,
             ranking = ranking,
