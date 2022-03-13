@@ -16,7 +16,7 @@ data class FetchUserProfileResponse(
 ) {
 
     data class TitleBadge(
-        @SerializedName("id") val badgeId: Int,
+        @SerializedName("badge_id") val badgeId: Int,
         @SerializedName("name") val badgeName: String,
         @SerializedName("image_url") val badgeImageUrl: String
     )
