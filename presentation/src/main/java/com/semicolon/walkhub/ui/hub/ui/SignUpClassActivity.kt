@@ -3,17 +3,29 @@ package com.semicolon.walkhub.ui.hub.ui
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivitySignUpClassBinding
 import com.semicolon.walkhub.ui.base.BaseActivity
 import com.semicolon.walkhub.util.invisible
+import com.semicolon.walkhub.util.onTextChanged
 import com.semicolon.walkhub.util.visible
+import com.semicolon.walkhub.viewmodel.hub.SignUpClassViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import org.jetbrains.annotations.NotNull
 
+@AndroidEntryPoint
 class SignUpClassActivity : BaseActivity<ActivitySignUpClassBinding>(
     R.layout.activity_sign_up_class
 ) {
+
+    private val vm: SignUpClassViewModel by viewModels()
+
     private var page: Int = 1
+
+    private var classCode: String ?= null
+    private var number: Int ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +49,7 @@ class SignUpClassActivity : BaseActivity<ActivitySignUpClassBinding>(
         binding.etClassCode.setOnPinEnteredListener { str ->
             if (str.length <= 7) {
                 if (str.toString() == "1234567") {
+                    classCode = str.toString()
                     movePage(++page)
                     binding.tvError.invisible()
                 } else {
@@ -47,28 +60,22 @@ class SignUpClassActivity : BaseActivity<ActivitySignUpClassBinding>(
             }
         }
 
-        binding.etNumber.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (p0?.length!! >= 4) {
-                    binding.tvNext.background =
-                        ContextCompat.getDrawable(applicationContext, R.drawable.bg_primary_button)
-                    binding.tvSecondNext.background =
-                        ContextCompat.getDrawable(applicationContext, R.color.primary_400)
-                } else {
-                    binding.tvNext.background =
-                        ContextCompat.getDrawable(
-                            applicationContext,
-                            R.drawable.bg_primary_button_off
-                        )
-                    binding.tvSecondNext.background =
-                        ContextCompat.getDrawable(applicationContext, R.color.gray_300)
-                }
+        binding.etNumber.onTextChanged { s, start, before, count ->
+            if (s?.length!! >= 4) {
+                binding.tvNext.background =
+                    ContextCompat.getDrawable(applicationContext, R.drawable.bg_primary_button)
+                binding.tvSecondNext.background =
+                    ContextCompat.getDrawable(applicationContext, R.color.primary_400)
+            } else {
+                binding.tvNext.background =
+                    ContextCompat.getDrawable(
+                        applicationContext,
+                        R.drawable.bg_primary_button_off
+                    )
+                binding.tvSecondNext.background =
+                    ContextCompat.getDrawable(applicationContext, R.color.gray_300)
             }
-
-            override fun afterTextChanged(p0: Editable?) {}
-        })
+        }
     }
 
     private fun movePage(page: Int) {
@@ -102,12 +109,13 @@ class SignUpClassActivity : BaseActivity<ActivitySignUpClassBinding>(
         binding.etLore.text = "반에서 사용하는 번호를 입력해주세요."
 
         binding.tvSecondNext.setOnClickListener {
+            number = binding.etNumber.text.toString().toInt()
             movePage(++page)
         }
     }
 
     private fun signUpClass() {
-        finish()
+        vm.signUpClass(classCode!!, number!!)
     }
 
     override fun onBackPressed() =
