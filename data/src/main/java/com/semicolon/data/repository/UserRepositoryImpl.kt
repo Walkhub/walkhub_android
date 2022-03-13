@@ -74,7 +74,6 @@ class UserRepositoryImpl @Inject constructor(
 
     override suspend fun signUpClass(signUpClassParam: SignUpClassParam) =
         remoteUserDateSource.signUpClass(
-            signUpClassParam.group_id,
             signUpClassParam.toRequest()
         )
 
@@ -139,19 +138,21 @@ class UserRepositoryImpl @Inject constructor(
     fun PatchUserHealthParam.toRequest() =
         PatchUserHealthRequest(
             height = height,
-            weight = weight
+            weight = weight,
+            sex = sex
         )
 
     fun UpdateProfileParam.toRequest(profileImageUrl: String) =
         UpdateProfileRequest(
             name = name,
             profileImageUrl = profileImageUrl,
-            sex = sex
+            schoolId = schoolId
         )
 
     fun VerifyPhoneNumberSignUpParam.toRequest() =
         VerifyPhoneNumberSignUpRequest(
-            phoneNumber = phoneNumber
+            phoneNumber = phoneNumber,
+            authCode = authCode
         )
 
     fun PostUserSignUpParam.toRequest() =
@@ -160,8 +161,11 @@ class UserRepositoryImpl @Inject constructor(
             password = password,
             name = name,
             phoneNumber = phoneNumber,
-            authCode = authCode,
-            schoolName = schoolName
+            height = height,
+            weight = weight,
+            sex = sex,
+            schoolId = schoolId,
+            authCode = authCode
         )
 
     fun PostUserSignInParam.toRequest(deviceToken: String) =

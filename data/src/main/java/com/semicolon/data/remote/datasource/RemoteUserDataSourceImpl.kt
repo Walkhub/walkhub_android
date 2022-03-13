@@ -81,9 +81,9 @@ class RemoteUserDataSourceImpl @Inject constructor(
         .sendRequest()
 
     override suspend fun signUpClass(
-        groupId: Int, signUpClassRequest: SignUpClassRequest
+        signUpClassRequest: SignUpClassRequest
     ) = HttpHandler<Unit>()
-        .httpRequest { userApi.signUpClass(groupId, signUpClassRequest) }
+        .httpRequest { userApi.signUpClass(signUpClassRequest) }
         .sendRequest()
 
     override suspend fun userReissue(refreshToken: String): UserReissueResponse =
