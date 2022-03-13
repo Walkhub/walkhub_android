@@ -5,7 +5,7 @@ import com.semicolon.domain.entity.rank.OurSchoolUserRankEntity
 
 data class OurSchoolUserRankResponse(
     @SerializedName("my_ranking") val myRanking: Ranking?,
-    @SerializedName("ranking_list")val rankingList: List<Ranking>
+    @SerializedName("rank_list")val rankingList: List<Ranking>
 )
 {
     data class Ranking(

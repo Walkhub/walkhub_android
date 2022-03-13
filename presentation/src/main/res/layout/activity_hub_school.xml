@@ -40,7 +40,7 @@
                     android:fontFamily="@font/noto_sans_kr_medium"
                     android:text="학교 이름"
                     android:textColor="@color/gray_800"
-                    android:textSize="16dp" />
+                    android:textSize="16sp" />
 
             </androidx.appcompat.widget.Toolbar>
 
@@ -80,12 +80,12 @@
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="랭킹" />
+                    android:text="@string/rank" />
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="정보" />
+                    android:text="@string/info" />
             </com.google.android.material.tabs.TabLayout>
 
             <androidx.viewpager2.widget.ViewPager2

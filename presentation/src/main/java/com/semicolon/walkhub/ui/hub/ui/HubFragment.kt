@@ -35,6 +35,7 @@ class HubFragment @Inject constructor(
     private var moreDateType = MoreDateType.WEEK
 
     private var schoolRvData = arrayListOf<HubSchoolRankData.OtherSchool>()
+
     private lateinit var mAdapter: HubSchoolRankRvAdapter
 
     override fun onCreateView(
@@ -63,7 +64,6 @@ class HubFragment @Inject constructor(
     }
 
     override fun initView() {
-
         setAdapter()
         initDropDown()
 
@@ -88,7 +88,7 @@ class HubFragment @Inject constructor(
                 Dropdown(
                     menuDirection = MenuDirection.LEFT,
                     items = arrayOf("지난주", "지난달"),
-                    defaultItemIndex = 1,
+                    defaultItemIndex = 0,
                     onItemSelected = { index, _ -> dropDownItemSelect(index) }
                 )
             }
@@ -109,16 +109,16 @@ class HubFragment @Inject constructor(
     }
 
     private fun setAdapter() {
-
         mAdapter = HubSchoolRankRvAdapter(schoolRvData)
 
-        binding.rvHubRank.layoutManager = LinearLayoutManager(context)
-        binding.rvHubRank.setHasFixedSize(true)
-        binding.rvHubRank.adapter = mAdapter
+        binding.rvHubRank.apply {
+            layoutManager = LinearLayoutManager(context)
+            setHasFixedSize(true)
+            adapter = mAdapter
+        }
     }
 
     private fun setMySchool(school: HubSchoolRankData.MySchool) {
-
         binding.ivMySchool.loadCircleFromUrl(school.logoImageUrl)
         binding.tvMySchoolName.text = school.name
         binding.tvMySchoolInfo.text = "${school.grade} 학년 ${school.classNum} 반"
