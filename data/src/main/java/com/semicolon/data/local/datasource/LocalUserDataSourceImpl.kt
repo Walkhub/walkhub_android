@@ -4,9 +4,7 @@ import com.semicolon.data.local.dao.UserDao
 import com.semicolon.data.local.entity.user.toDbEntity
 import com.semicolon.data.local.entity.user.toEntity
 import com.semicolon.data.local.storage.AuthDataStorage
-import com.semicolon.domain.entity.users.FetchCaloriesLevelEntity
-import com.semicolon.domain.entity.users.UserMyPageEntity
-import com.semicolon.domain.entity.users.UserProfileEntity
+import com.semicolon.domain.entity.users.*
 import org.threeten.bp.LocalDateTime
 import javax.inject.Inject
 
@@ -34,6 +32,34 @@ class LocalUserDataSourceImpl @Inject constructor(
 
     override suspend fun insertCaloriesLevelList(fetchCaloriesLevelEntity: FetchCaloriesLevelEntity) {
         userDao.insertCaloriesLevelList(fetchCaloriesLevelEntity.toDbEntity())
+    }
+
+    override suspend fun fetchDailyGoal(): FetchDailyGoalEntity =
+        userDao.fetchDailyGoal().toEntity()
+
+    override suspend fun insertDailyGoal(fetchDailyGoalEntity: FetchDailyGoalEntity) {
+        userDao.insertDailyGoal(fetchDailyGoalEntity.toDbEntity())
+    }
+
+    override suspend fun fetchInfo(): FetchInfoEntity =
+        userDao.fetchInfo().toEntity()
+
+    override suspend fun insertInfo(fetchInfoEntity: FetchInfoEntity) {
+        userDao.insertInfo(fetchInfoEntity.toDbEntity())
+    }
+
+    override suspend fun fetchUserHealth(): FetchUserHealthEntity =
+        userDao.fetchUserHealth().toEntity()
+
+    override suspend fun insertUserHealth(fetchUserHealthEntity: FetchUserHealthEntity) {
+        userDao.insertUserHealth(fetchUserHealthEntity.toDbEntity())
+    }
+
+    override suspend fun fetchAuthInfo(): FetchAuthInfoEntity =
+        userDao.fetchAuthInfo().toEntity()
+
+    override suspend fun insertAuthInfo(fetchAuthInfoEntity: FetchAuthInfoEntity) {
+        userDao.insertAuthInfo(fetchAuthInfoEntity.toDbEntity())
     }
 
     override suspend fun setAccessToken(token: String) {
