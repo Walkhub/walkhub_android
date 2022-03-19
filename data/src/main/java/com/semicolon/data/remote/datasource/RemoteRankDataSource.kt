@@ -10,11 +10,11 @@ import com.semicolon.data.remote.response.ranks.search.user.SearchUserResponse
 interface RemoteRankDataSource {
     suspend fun fetchSchoolRank(dateType: String): SchoolRankResponse
 
-    suspend fun searchSchool(name: String, moreDateType: String): SearchSchoolResponse
+    suspend fun searchSchool(name: String, dateType: String): SearchSchoolResponse
 
     suspend fun fetchUserRank(schoolId: Int, dateType: String): UserRankResponse
 
     suspend fun fetchOurSchoolUserRank(scope: String, moreDateType: String): OurSchoolUserRankResponse
 
-    suspend fun searchUser(school: Int, name: String, dateType: String): SearchUserResponse
+    suspend fun searchUser(school: Int, name: String, moredateType: String): SearchUserResponse
 }
