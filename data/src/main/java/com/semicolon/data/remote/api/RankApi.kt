@@ -21,7 +21,7 @@ interface RankApi {
     @GET("ranks/schools/search")
     suspend fun searchSchool(
         @Query("name") name: String,
-        @Query("schoolDateType") moreDateType: String
+        @Query("schoolDateType") dateType: String
     ): SearchSchoolResponse
 
     //유저랭킹조회
@@ -43,6 +43,6 @@ interface RankApi {
     suspend fun searchUser(
         @Path("school-id") school: Int,
         @Query("name") name: String,
-        @Query("dateType") dateType: String
+        @Query("dateType") moredateType: String
     ): SearchUserResponse
 }

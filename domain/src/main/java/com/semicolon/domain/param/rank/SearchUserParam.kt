@@ -5,5 +5,5 @@ import com.semicolon.domain.enums.MoreDateType
 data class SearchUserParam(
     val schoolId: Int,
     val name: String,
-    val dateType: MoreDateType
+    val moreDateType: MoreDateType
 )
