@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivitySettingBinding
 import com.semicolon.walkhub.ui.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
 class SettingActivity : BaseFragment<ActivitySettingBinding>(
     R.layout.activity_setting
