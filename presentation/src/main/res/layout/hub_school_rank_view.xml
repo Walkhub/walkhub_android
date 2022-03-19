@@ -11,7 +11,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="64dp">
+        android:layout_height="64dp"
+        android:background="@color/white">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ivSchool"
@@ -34,7 +35,7 @@
             android:fontFamily="@font/noto_sans_kr_medium"
             android:text="고등학교 이름"
             android:textColor="@color/gray_900"
-            android:textSize="16dp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ivSchool"
             app:layout_constraintTop_toTopOf="parent" />
@@ -48,7 +49,7 @@
             android:fontFamily="@font/noto_sans_kr_regular"
             android:text="총 0 걸음 / 0명"
             android:textColor="@color/gray_800"
-            android:textSize="12dp"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tvName"
             app:layout_constraintTop_toTopOf="parent" />
@@ -71,7 +72,7 @@
             android:fontFamily="@font/noto_sans_kr_medium"
             android:text="1등"
             android:textColor="@color/gray_900"
-            android:textSize="16dp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

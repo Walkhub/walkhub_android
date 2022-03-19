@@ -5,8 +5,6 @@ data class OurSchoolUserRankEntity(
     val rankingList: List<Ranking>
 ) {
     data class Ranking(
-        val classNum: Int,
-        val grade: Int,
         val name: String,
         val profileImageUrl: String,
         val ranking: Int,

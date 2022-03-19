@@ -24,7 +24,6 @@ data class SchoolRankRoomEntity(
         val schoolId: Int,
         val name: String,
         val logoImageUrl: String,
-        val walkCount: Int,
         val grade: Int,
         val classNum: Int
     )
@@ -44,7 +43,6 @@ data class SchoolRankRoomEntity(
             schoolId = schoolId,
             name = name,
             logoImageUrl = logoImageUrl,
-            walkCount = walkCount,
             grade = grade,
             classNum = classNum
         )
@@ -61,7 +59,6 @@ fun SchoolRankEntity.MySchoolRank.toDbEntity() =
         schoolId = schoolId,
         name = name,
         logoImageUrl = logoImageUrl,
-        walkCount = walkCount,
         grade = grade,
         classNum = classNum
     )

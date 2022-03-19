@@ -7,6 +7,9 @@ data class UserSignUpRequest(
     @SerializedName("password") val password: String,
     @SerializedName("name") val name: String,
     @SerializedName("phone_number") val phoneNumber: String,
-    @SerializedName("auth_code") val authCode: String,
-    @SerializedName("school_name") val schoolName: String,
+    @SerializedName("height") val height: Double,
+    @SerializedName("weight") val weight: Double,
+    @SerializedName("sex") val sex: String,
+    @SerializedName("school_id") val schoolId: Int,
+    @SerializedName("auth_code") val authCode: String
 )
