@@ -17,19 +17,19 @@ class SettingActivity : BaseFragment<ActivitySettingBinding>(
         }
 
         binding.modifyHealthInfo.setOnClickListener {
-            val fragment = ModifyHealthFragment()
-            supportFragmentManager()
-                .beginTransaction()
-                .add(R.id.onfragment, fragment)
-                .commit()
+//            val fragment = ModifyHealthFragment()
+//            supportFragmentManager()
+//                .beginTransaction()
+//                .add(R.id.onfragment, fragment)
+//                .commit()
         }
         binding.modifyLoginInfo.setOnClickListener {
 
         }
 
         binding.notificationSetting.setOnClickListener {
-            val intent = Intent(context, NoticeSettingActivity::class.java)
-            startActivity(intent)
+//            val intent = Intent(context, NoticeSettingActivity::class.java)
+//            startActivity(intent)
         }
 
         binding.ask.setOnClickListener {

@@ -17,17 +17,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Walkhub">
         <activity
+            android:name=".ui.splash.SplashActivity"
+            android:exported="true"
+            android:noHistory="true"
+            android:theme="@style/splash_theme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".ui.hub.ui.SignUpClassActivity"
-            android:windowSoftInputMode="stateUnchanged|adjustResize"
-            android:exported="false" />
-       <activity
+            android:exported="false"
+            android:windowSoftInputMode="stateUnchanged|adjustResize" />
+        <activity
             android:name=".ui.analysis.ActivityAnalysisActivity"
             android:exported="false" />
-
         <activity
             android:name=".ui.register.ScanHealthInformationActivity"
             android:exported="false" />
-
         <activity
             android:name=".ui.hub.ui.HubSearchSchoolActivity"
             android:exported="false" />
@@ -68,13 +77,7 @@
 
         <activity
             android:name=".ui.HomeActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false" />
 
         <service
             android:name=".fcm.FCMManager"
