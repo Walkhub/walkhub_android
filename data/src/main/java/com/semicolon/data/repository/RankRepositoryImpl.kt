@@ -34,7 +34,7 @@ class RankRepositoryImpl @Inject constructor(
             .remoteData {
                 remoteRankDataSource.searchSchool(
                     searchSchoolParam.name,
-                    searchSchoolParam.dateType.toString()
+                    searchSchoolParam.moreDateType.toString()
                 ).toEntity()
             }
             .localData { localRankDataSource.searchSchool() }
@@ -71,7 +71,7 @@ class RankRepositoryImpl @Inject constructor(
                 remoteRankDataSource.searchUser(
                     searchUserParam.schoolId,
                     searchUserParam.name,
-                    searchUserParam.moreDateType.toString()
+                    searchUserParam.dateType.toString()
                 ).toEntity()
             }
             .localData { localRankDataSource.searchUser() }
