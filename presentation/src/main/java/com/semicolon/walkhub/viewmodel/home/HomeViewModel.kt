@@ -59,7 +59,6 @@ class HomeViewModel @Inject constructor(
                 when (it) {
                     is NullPointerException -> {}
                     is NoInternetException -> event(Event.ErrorMessage("오늘 학교 학생들의 랭킹을 받아오는 것에 실패하였습니다."))
-                    else -> {}
                 }
             }
         }
