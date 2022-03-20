@@ -13,9 +13,6 @@ data class UserRankRoomEntity(
     data class UserRank(
         val userId: Int,
         val name: String,
-        val grade: Int,
-        val classNum: Int,
-        val number: Int,
         val ranking: Int,
         val profileImageUrl: String,
         val walkCount: Int
@@ -25,9 +22,6 @@ data class UserRankRoomEntity(
         UserRankEntity.UserRank(
             userId = userId,
             name = name,
-            grade = grade,
-            classNum = classNum,
-            number = number,
             ranking = ranking,
             profileImageUrl = profileImageUrl,
             walkCount = walkCount
@@ -43,9 +37,6 @@ fun UserRankEntity.UserRank.toDbEntity() =
     UserRankRoomEntity.UserRank(
         userId = userId,
         name = name,
-        grade = grade,
-        classNum = classNum,
-        number = number,
         ranking = ranking,
         profileImageUrl = profileImageUrl,
         walkCount = walkCount
