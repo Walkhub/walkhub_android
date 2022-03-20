@@ -43,7 +43,7 @@ class HubSearchSchoolViewModel @Inject constructor(
         }
     }
 
-    fun searchSchoolDebounce(school: String, dateType: MoreDateType) {
+    fun searchSchoolDebounce(school: String, dateType: DateType) {
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
             delay(500L)
