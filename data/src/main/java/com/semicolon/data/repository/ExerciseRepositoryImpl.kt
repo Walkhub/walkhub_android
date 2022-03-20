@@ -96,7 +96,8 @@ class ExerciseRepositoryImpl @Inject constructor(
                     walkRecord.walkCount,
                     walkRecord.traveledDistanceAsMeter * 100,
                     walkRecord.burnedKilocalories.toInt(),
-                    imageUrl
+                    imageUrl,
+                    pausedTime
                 )
             )
             localExerciseDataSource.finishMeasuring()
