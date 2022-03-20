@@ -1,8 +1,8 @@
 package com.semicolon.domain.param.rank
 
-import com.semicolon.domain.enums.MoreDateType
+import com.semicolon.domain.enums.DateType
 
 data class SearchSchoolParam (
     val name: String,
-    val dateType: MoreDateType
+    val dateType: DateType
 )

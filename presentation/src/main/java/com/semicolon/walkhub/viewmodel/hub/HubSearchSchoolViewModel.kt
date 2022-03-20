@@ -2,6 +2,7 @@ package com.semicolon.walkhub.viewmodel.hub
 
 import androidx.lifecycle.*
 import com.semicolon.domain.entity.rank.SearchSchoolEntity
+import com.semicolon.domain.enums.DateType
 import com.semicolon.domain.enums.MoreDateType
 import com.semicolon.domain.exception.basic.NoInternetException
 import com.semicolon.domain.exception.basic.NotFoundException
@@ -26,7 +27,7 @@ class HubSearchSchoolViewModel @Inject constructor(
 
     private var searchJob: Job? = null
 
-    fun searchSchool(school: String, dateType: MoreDateType) {
+    fun searchSchool(school: String, dateType: DateType) {
         viewModelScope.launch {
             kotlin.runCatching {
                 searchSchoolUseCase.execute(SearchSchoolParam(school, dateType)).collect() {
