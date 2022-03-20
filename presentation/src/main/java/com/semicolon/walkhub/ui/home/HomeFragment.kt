@@ -33,7 +33,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     ): View? {
 
         vm.fetchHomeValue()
-//        vm.fetchSchoolRank()
+        
 
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
@@ -47,7 +47,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
         }
 
         is HomeViewModel.Event.FetchSchoolRank -> {
-//            setSchoolRank(event.rankData)
+
         }
 
         is HomeViewModel.Event.ErrorMessage -> {
