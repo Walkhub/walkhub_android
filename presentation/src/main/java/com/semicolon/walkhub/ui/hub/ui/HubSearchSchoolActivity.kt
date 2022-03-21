@@ -3,6 +3,7 @@ package com.semicolon.walkhub.ui.hub.ui
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.semicolon.domain.enums.DateType
 import com.semicolon.domain.enums.MoreDateType
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityHubSearchSchoolBinding
@@ -25,7 +26,7 @@ class HubSearchSchoolActivity : BaseActivity<ActivityHubSearchSchoolBinding> (
 
     private lateinit var mAdapter: HubSearchSchoolRvAdapter
 
-    private var dateType = MoreDateType.WEEK
+    private var dateType = DateType.WEEK
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,8 +40,8 @@ class HubSearchSchoolActivity : BaseActivity<ActivityHubSearchSchoolBinding> (
     }
 
     private fun transferDateType(dateType: String) = when(dateType) {
-        "MONTH" -> MoreDateType.MONTH
-        else -> MoreDateType.WEEK
+        "MONTH" -> DateType.MONTH
+        else -> DateType.WEEK
     }
 
     private fun handleEvent(event: HubSearchSchoolViewModel.Event) = when (event) {

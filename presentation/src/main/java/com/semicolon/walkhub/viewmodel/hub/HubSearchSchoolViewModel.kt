@@ -15,6 +15,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,7 +28,7 @@ class HubSearchSchoolViewModel @Inject constructor(
 
     private var searchJob: Job? = null
 
-    fun searchSchool(school: String, dateType: DateType) {
+    private fun searchSchool(school: String, dateType: DateType) {
         viewModelScope.launch {
             kotlin.runCatching {
                 searchSchoolUseCase.execute(SearchSchoolParam(school, dateType)).collect() {
@@ -43,7 +44,7 @@ class HubSearchSchoolViewModel @Inject constructor(
         }
     }
 
-    fun searchSchoolDebounce(school: String, dateType: MoreDateType) {
+    fun searchSchoolDebounce(school: String, dateType: DateType) {
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
             delay(500L)
