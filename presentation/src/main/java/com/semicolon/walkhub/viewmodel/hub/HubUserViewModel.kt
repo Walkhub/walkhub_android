@@ -2,7 +2,7 @@ package com.semicolon.walkhub.viewmodel.hub
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.semicolon.domain.enums.DateType
+import com.semicolon.domain.enums.MoreDateType
 import com.semicolon.domain.enums.RankScope
 import com.semicolon.domain.exception.basic.BadRequestException
 import com.semicolon.domain.exception.basic.NoInternetException
@@ -29,7 +29,7 @@ class HubUserViewModel @Inject constructor(
     private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()
 
-    fun fetchMySchoolUserRank(scope: RankScope, dateType: DateType) {
+    fun fetchMySchoolUserRank(scope: RankScope, dateType: MoreDateType) {
         viewModelScope.launch {
             kotlin.runCatching {
                 fetchOurSchoolUserRankUseCase.execute(FetchOurSchoolUserRankParam(scope, dateType))
@@ -47,7 +47,7 @@ class HubUserViewModel @Inject constructor(
         }
     }
 
-    fun fetchSchoolUserRank(school: Int, dateType: DateType) {
+    fun fetchSchoolUserRank(school: Int, dateType: MoreDateType) {
         viewModelScope.launch {
             kotlin.runCatching {
                 fetchUserRankUseCase.execute(FetchUserRankParam(school, dateType)).collect {

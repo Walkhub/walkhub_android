@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.semicolon.domain.entity.exercise.DailyExerciseEntity
 import com.semicolon.domain.entity.rank.OurSchoolUserRankEntity
 import com.semicolon.domain.enums.DateType
+import com.semicolon.domain.enums.MoreDateType
 import com.semicolon.domain.enums.RankScope
 import com.semicolon.domain.exception.basic.NoInternetException
 import com.semicolon.domain.param.rank.FetchOurSchoolUserRankParam
@@ -48,9 +49,9 @@ class HomeViewModel @Inject constructor(
 
     fun fetchSchoolRank() {
         viewModelScope.launch {
-            fetchOurSchoolUserRankUseCase.execute(FetchOurSchoolUserRankParam(RankScope.SCHOOL, DateType.DAY))
+            fetchOurSchoolUserRankUseCase.execute(FetchOurSchoolUserRankParam(RankScope.SCHOOL, MoreDateType.DAY))
             kotlin.runCatching {
-                fetchOurSchoolUserRankUseCase.execute(FetchOurSchoolUserRankParam(RankScope.SCHOOL, DateType.DAY)).collect{ entity ->
+                fetchOurSchoolUserRankUseCase.execute(FetchOurSchoolUserRankParam(RankScope.SCHOOL, MoreDateType.DAY)).collect{ entity ->
                     event(Event.FetchSchoolRank(entity.rankingList.map { rank -> rank.toData() }))
                 }
             }.onFailure {
@@ -58,7 +59,6 @@ class HomeViewModel @Inject constructor(
                 when (it) {
                     is NullPointerException -> {}
                     is NoInternetException -> event(Event.ErrorMessage("오늘 학교 학생들의 랭킹을 받아오는 것에 실패하였습니다."))
-                    else -> event(Event.ErrorMessage("알 수 없는 에러가 발생했습니다."))
                 }
             }
         }

@@ -3,8 +3,8 @@ package com.semicolon.walkhub.ui.hub.ui
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.EditText
 import androidx.activity.viewModels
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayoutMediator
 import com.semicolon.walkhub.R
@@ -32,10 +32,12 @@ class HubSchoolActivity @Inject constructor(
     private lateinit var mAdapter: HubSearchUserRvAdapter
     private var rvHubUserData = arrayListOf<SearchUserData.UserInfo>()
 
+    private var schoolId = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val schoolId = intent.getBooleanExtra("schoolId", true)
+        schoolId = intent.getIntExtra("schoolId", 0)
 
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
@@ -43,14 +45,12 @@ class HubSchoolActivity @Inject constructor(
     }
 
     override fun initView() {
-
         setToolbar()
         setTab()
         setAdapter()
     }
 
     private fun handleEvent(event: HubSearchUserViewModel.Event) = when (event) {
-
         is HubSearchUserViewModel.Event.SearchSchool -> {
             setUserRank(event.userData.userList.map { it })
         }
@@ -61,6 +61,7 @@ class HubSchoolActivity @Inject constructor(
 
 
     private fun setUserRank(data: List<SearchUserData.UserInfo>) {
+        rvHubUserData.clear()
 
         for (i: Int in 0..data.size - 1) {
             rvHubUserData.add(data[i])
@@ -70,18 +71,19 @@ class HubSchoolActivity @Inject constructor(
     }
 
     private fun setToolbar() {
-
-        schoolName = intent.getStringExtra("name")!!
+        schoolName = intent.getStringExtra("name").toString()
 
         binding.toolbarTitle.text = schoolName
 
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        supportActionBar?.apply {
+            setDisplayShowTitleEnabled(false)
+            setDisplayHomeAsUpEnabled(true)
+        }
     }
 
     private fun setTab() {
-
         binding.vpHub.adapter = HubViewPagerAdapter(this)
 
         val tabTitles = listOf("랭킹", "정보")
@@ -92,33 +94,32 @@ class HubSchoolActivity @Inject constructor(
     }
 
     private fun setAdapter() {
-
         mAdapter = HubSearchUserRvAdapter(rvHubUserData)
 
-        binding.rvSchool.layoutManager = LinearLayoutManager(this)
-        binding.rvSchool.setHasFixedSize(true)
-        binding.rvSchool.adapter = mAdapter
+        binding.rvSchool.apply {
+            layoutManager = LinearLayoutManager(this@HubSchoolActivity)
+            setHasFixedSize(true)
+            adapter = mAdapter
+        }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        return when (item.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean =
+        when (item.itemId) {
             android.R.id.home -> {
                 finish()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
 
         menuInflater.inflate(R.menu.menu_hub_search, menu)
 
         val mSearch = menu.findItem(R.id.action_search)
-        val mSearchView = mSearch.actionView as EditText
+        val mSearchView = mSearch.actionView as SearchView
 
-        mSearchView.hint = "학교를 입력하세요"
+        mSearchView.queryHint = "이름으로 검색하세요"
 
         mSearch.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
             override fun onMenuItemActionExpand(p0: MenuItem?): Boolean {
@@ -138,7 +139,18 @@ class HubSchoolActivity @Inject constructor(
 
         mSearchView.background = null
 
-        // debounce textwatcher 적용하기
+        mSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean = menuView(false)
+
+            override fun onQueryTextChange(newText: String): Boolean {
+
+                if (newText.isNotEmpty()) {
+                    vm.searchUserDebounced(schoolId, newText, HubRankFragment.dateType)
+                }
+
+                return menuView(true)
+            }
+        })
 
         return super.onCreateOptionsMenu(menu)
     }
@@ -157,5 +169,4 @@ class HubSchoolActivity @Inject constructor(
             return false
         }
     }
-
 }
