@@ -35,6 +35,7 @@ class ProfileViewModel @Inject constructor(
                 when (it) {
                     is UnauthorizedException -> event(Event.ErrorMessage("토큰이 만료되었거나 식별할 수 없습니다."))
                     is NotFoundException -> event(Event.ErrorMessage("요청하는 대상을 찾을 수 없습니다."))
+                    is NoInternetException -> event(Event.ErrorMessage("인터넷에 연결되지 않았습니다."))
                     else -> event(Event.ErrorMessage("알 수 없는 에러가 발생했습니다."))
                 }
             }
