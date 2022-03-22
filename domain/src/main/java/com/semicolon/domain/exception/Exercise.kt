@@ -1,4 +1,4 @@
-package com.semicolon.domain.exception.exercise
+package com.semicolon.domain.exception
 
 import java.lang.RuntimeException
 
