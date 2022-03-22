@@ -5,7 +5,7 @@ import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import android.os.Process
-import com.semicolon.domain.exception.user.NeedLoginException
+import com.semicolon.domain.exception.NeedLoginException
 import com.semicolon.walkhub.ui.HomeActivity
 import kotlin.system.exitProcess
 
