@@ -1,5 +1,6 @@
 package com.semicolon.data.util
 
+
 import com.semicolon.domain.exception.*
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
@@ -59,6 +60,8 @@ class HttpHandler<T> {
             throw NoInternetException()
         } catch (e: SocketTimeoutException) {
             throw TimeoutException()
+        } catch (e: NeedLoginException) {
+            throw e
         } catch (e: Throwable) {
             throw UnknownException()
         }
