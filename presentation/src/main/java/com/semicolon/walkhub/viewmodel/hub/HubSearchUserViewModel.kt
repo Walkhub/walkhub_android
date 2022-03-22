@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.semicolon.domain.entity.rank.SearchUserEntity
 import com.semicolon.domain.enums.MoreDateType
-import com.semicolon.domain.exception.basic.NoInternetException
-import com.semicolon.domain.exception.basic.NotFoundException
+import com.semicolon.domain.exception.NoInternetException
+import com.semicolon.domain.exception.NotFoundException
 import com.semicolon.domain.param.rank.SearchUserParam
 import com.semicolon.domain.usecase.rank.SearchUserUseCase
 import com.semicolon.walkhub.ui.hub.model.SearchUserData

@@ -1,4 +1,4 @@
-package com.semicolon.domain.exception.user
+package com.semicolon.domain.exception
 
 import java.io.IOException
 

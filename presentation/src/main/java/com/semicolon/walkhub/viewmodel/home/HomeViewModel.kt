@@ -4,15 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.semicolon.domain.entity.exercise.DailyExerciseEntity
 import com.semicolon.domain.entity.rank.OurSchoolUserRankEntity
-import com.semicolon.domain.enums.DateType
 import com.semicolon.domain.enums.MoreDateType
 import com.semicolon.domain.enums.RankScope
-import com.semicolon.domain.exception.basic.NoInternetException
+import com.semicolon.domain.exception.NoInternetException
 import com.semicolon.domain.param.rank.FetchOurSchoolUserRankParam
 import com.semicolon.domain.usecase.exercise.FetchDailyExerciseRecordUseCase
 import com.semicolon.domain.usecase.exercise.StartRecordExerciseUseCase
 import com.semicolon.domain.usecase.rank.FetchOurSchoolUserRankUseCase
-import com.semicolon.walkhub.ui.home.HomeFragment
 import com.semicolon.walkhub.ui.home.model.HomeData
 import com.semicolon.walkhub.ui.home.model.RankData
 import com.semicolon.walkhub.util.MutableEventFlow

@@ -4,9 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.semicolon.domain.enums.MoreDateType
 import com.semicolon.domain.enums.RankScope
-import com.semicolon.domain.exception.basic.BadRequestException
-import com.semicolon.domain.exception.basic.NoInternetException
-import com.semicolon.domain.exception.basic.NotFoundException
+import com.semicolon.domain.exception.BadRequestException
+import com.semicolon.domain.exception.NoInternetException
+import com.semicolon.domain.exception.NotFoundException
 import com.semicolon.domain.param.rank.FetchOurSchoolUserRankParam
 import com.semicolon.domain.param.rank.FetchUserRankParam
 import com.semicolon.domain.usecase.rank.FetchOurSchoolUserRankUseCase
