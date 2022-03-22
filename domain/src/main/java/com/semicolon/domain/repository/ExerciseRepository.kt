@@ -33,4 +33,6 @@ interface ExerciseRepository {
     suspend fun fetchCurrentSpeed(): Flow<Float>
 
     suspend fun fetchGoal(): GoalEntity
+
+    suspend fun fetchExercisingUserList(): Flow<List<ExercisingUserEntity>>
 }

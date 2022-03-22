@@ -131,4 +131,7 @@ class ExerciseRepositoryImpl @Inject constructor(
 
     override suspend fun fetchGoal(): GoalEntity =
         localExerciseDataSource.fetchGoal()
+
+    override suspend fun fetchExercisingUserList(): Flow<List<ExercisingUserEntity>> =
+        flow { emit(remoteExerciseDataSource.fetchExercisingUserList().toEntityList()) }
 }
