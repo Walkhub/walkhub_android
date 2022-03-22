@@ -1,8 +1,8 @@
 package com.semicolon.domain.enums
 
 enum class GoalType(val value: String) {
-    DISTANCE("D"),
-    WALK_COUNT("W")
+    DISTANCE("DISTANCE"),
+    WALK_COUNT("WALK")
 }
 
 fun String.toMeasureGoalType() =

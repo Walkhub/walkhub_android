@@ -199,6 +199,7 @@ class LocalExerciseDataSourceImpl @Inject constructor(
         callbackFlow {
             val accumulatedHistory = fetchAccumulatedRecord()
             repeat(Int.MAX_VALUE) {
+                delay(1000)
                 val startTime = fetchStartTime()
                 val endTime = LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond()
                 val data = fitnessDataStorage.fetchExerciseRecord(
@@ -230,7 +231,7 @@ class LocalExerciseDataSourceImpl @Inject constructor(
                         )
                     )
                 }
-                delay(10000)
+                delay(2000)
             }
             awaitClose {}
         }
