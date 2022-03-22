@@ -2,24 +2,18 @@ package com.semicolon.walkhub.viewmodel.analysis
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.semicolon.domain.entity.exercise.DailyExerciseEntity
 import com.semicolon.domain.entity.exercise.ExerciseAnalysisResultEntity
 import com.semicolon.domain.entity.level.LevelEntity
-import com.semicolon.domain.exception.basic.NoInternetException
-import com.semicolon.domain.param.user.PostUserSignInParam
+import com.semicolon.domain.exception.NoInternetException
 import com.semicolon.domain.usecase.exercise.FetchDailyExerciseRecordUseCase
 import com.semicolon.domain.usecase.exercise.FetchExerciseAnalysisResultUseCase
 import com.semicolon.domain.usecase.level.FetchLevelListUseCase
-import com.semicolon.domain.usecase.user.PostUserSignInUseCase
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
-import com.semicolon.walkhub.viewmodel.hub.HubSearchSchoolViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.math.log
 
 @HiltViewModel
 class ActivityAnalysisViewModel @Inject constructor(

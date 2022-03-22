@@ -3,9 +3,8 @@ package com.semicolon.walkhub.viewmodel.hub
 import androidx.lifecycle.*
 import com.semicolon.domain.entity.rank.SearchSchoolEntity
 import com.semicolon.domain.enums.DateType
-import com.semicolon.domain.enums.MoreDateType
-import com.semicolon.domain.exception.basic.NoInternetException
-import com.semicolon.domain.exception.basic.NotFoundException
+import com.semicolon.domain.exception.NoInternetException
+import com.semicolon.domain.exception.NotFoundException
 import com.semicolon.domain.param.rank.SearchSchoolParam
 import com.semicolon.domain.usecase.rank.SearchSchoolUseCase
 import com.semicolon.walkhub.ui.hub.model.SearchSchoolData
@@ -15,7 +14,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel

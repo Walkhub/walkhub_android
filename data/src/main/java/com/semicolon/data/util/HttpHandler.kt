@@ -1,6 +1,6 @@
 package com.semicolon.data.util
 
-import com.semicolon.domain.exception.basic.*
+import com.semicolon.domain.exception.*
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
