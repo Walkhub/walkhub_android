@@ -40,7 +40,7 @@
                     android:fontFamily="@font/noto_sans_kr_regular"
                     android:text="학교"
                     android:textColor="@color/gray_700"
-                    android:textSize="14dp" />
+                    android:textSize="14sp" />
 
                 <androidx.compose.ui.platform.ComposeView
                     android:id="@+id/cvSwitch"
@@ -56,7 +56,7 @@
                     android:fontFamily="@font/noto_sans_kr_regular"
                     android:text="반"
                     android:textColor="@color/gray_700"
-                    android:textSize="14dp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -93,7 +93,7 @@
                 android:paddingBottom="10dp"
                 android:text="반 가입하고 랭킹 확인하기"
                 android:textColor="@color/white"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -115,37 +115,37 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/ivMyProfile"
-                    android:layout_marginTop="12dp"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="18dp"
+                    android:layout_marginTop="12dp"
                     android:src="@color/gray_300"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:layout_marginTop="3dp"
                     android:id="@+id/tvMyName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
+                    android:layout_marginTop="3dp"
                     android:fontFamily="@font/noto_sans_kr_medium"
                     android:text="홍길동(나)"
                     android:textColor="@color/gray_900"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     app:layout_constraintStart_toEndOf="@+id/ivMyProfile"
                     app:layout_constraintTop_toTopOf="@+id/ivMyProfile" />
 
                 <TextView
-                    android:layout_marginBottom="3dp"
                     android:id="@+id/tvMyWalkCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
+                    android:layout_marginBottom="3dp"
                     android:fontFamily="@font/noto_sans_kr_regular"
                     android:text="0 걸음"
                     android:textColor="@color/gray_700"
-                    android:textSize="12dp"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@+id/ivMyProfile"
                     app:layout_constraintStart_toEndOf="@+id/ivMyProfile" />
 
@@ -157,17 +157,18 @@
                     android:fontFamily="@font/noto_sans_kr_medium"
                     android:text="0등"
                     android:textColor="@color/gray_800"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/ivMyProfile"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@+id/ivMyProfile" />
 
                 <ProgressBar
-                    android:layout_marginTop="20dp"
                     android:id="@+id/pbMy"
                     style="@android:style/Widget.Material.ProgressBar.Horizontal"
                     android:layout_width="0dp"
                     android:layout_height="8dp"
                     android:layout_marginStart="18dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginEnd="18dp"
                     android:max="100"
                     android:progress="50"
@@ -182,9 +183,9 @@
                     android:layout_marginStart="18dp"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/noto_sans_kr_regular"
-                    android:text="현재 소속 중인 반이 없어요."
+                    android:text="@string/no_school_message"
                     android:textColor="@color/gray_700"
-                    android:textSize="12dp"
+                    android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/pbMy" />
 
@@ -197,7 +198,7 @@
                     android:fontFamily="@font/noto_sans_kr_regular"
                     android:text="0 걸음"
                     android:textColor="@color/gray_600"
-                    android:textSize="12dp"
+                    android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/pbMy" />
 

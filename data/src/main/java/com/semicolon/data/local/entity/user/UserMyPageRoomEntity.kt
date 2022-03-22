@@ -3,9 +3,7 @@ package com.semicolon.data.local.entity.user
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.semicolon.data.remote.response.users.FetchUserProfileResponse
 import com.semicolon.domain.entity.users.UserMyPageEntity
-import com.semicolon.domain.entity.users.UserProfileEntity
 
 @Entity(tableName = "userMyPage")
 data class UserMyPageRoomEntity(

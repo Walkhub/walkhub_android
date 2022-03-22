@@ -25,10 +25,8 @@ import com.semicolon.data.local.entity.exercise.LocationRecordRoomEntity
 import com.semicolon.data.local.entity.level.LevelRoomEntity
 import com.semicolon.data.local.entity.notice.NoticeListRoomEntity
 import com.semicolon.data.local.entity.rank.*
-import com.semicolon.data.local.entity.user.FetchCaloriesLevelRoomEntity
-import com.semicolon.data.local.entity.user.UserMyPageRoomEntity
-import com.semicolon.data.local.entity.user.UserProfileRoomEntity
 import com.semicolon.data.local.entity.notification.NotificationRoomEntity
+import com.semicolon.data.local.entity.user.*
 
 @Database(
     entities = [
@@ -49,7 +47,11 @@ import com.semicolon.data.local.entity.notification.NotificationRoomEntity
         SearchUserRoomEntity::class,
         UserRankRoomEntity::class,
         LocationRecordRoomEntity::class,
-        LevelRoomEntity::class
+        LevelRoomEntity::class,
+        FetchAuthInfoRoomEntity::class,
+        FetchDailyGoalRoomEntity::class,
+        FetchInfoRoomEntity::class,
+        FetchUserHealthRoomEntity::class
     ], version = 1, exportSchema = false
 )
 

@@ -17,15 +17,21 @@
 
         <ImageView
             android:id="@+id/ibBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="19dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:padding="16dp"
             android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="@+id/etSearch"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
+            android:background="@android:color/transparent"
             android:id="@+id/etSearch"
+            android:hint="학교 이름으로 검색하기"
+            android:textColor="@color/gray_900"
+            android:textSize="16sp"
+            android:fontFamily="@font/noto_sans_kr_regular"
             android:layout_width="0dp"
             android:layout_height="56dp"
             app:layout_constraintEnd_toEndOf="parent"

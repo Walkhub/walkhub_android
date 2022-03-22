@@ -8,8 +8,6 @@ data class MySchoolUserRankData(
 ) {
 
     data class Ranking(
-        val classNum: Int,
-        val grade: Int,
         val name: String,
         val profileImageUrl: String,
         val ranking: Int,
@@ -26,8 +24,6 @@ fun OurSchoolUserRankEntity.toData() =
 
 fun OurSchoolUserRankEntity.Ranking.toData() =
     MySchoolUserRankData.Ranking(
-        classNum = classNum,
-        grade = grade,
         name = name,
         profileImageUrl = profileImageUrl,
         ranking = ranking,

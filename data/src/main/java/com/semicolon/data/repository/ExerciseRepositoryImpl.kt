@@ -96,7 +96,8 @@ class ExerciseRepositoryImpl @Inject constructor(
                     walkRecord.walkCount,
                     walkRecord.traveledDistanceAsMeter * 100,
                     walkRecord.burnedKilocalories.toInt(),
-                    imageUrl
+                    imageUrl,
+                    pausedTime
                 )
             )
             localExerciseDataSource.finishMeasuring()
@@ -130,4 +131,7 @@ class ExerciseRepositoryImpl @Inject constructor(
 
     override suspend fun fetchGoal(): GoalEntity =
         localExerciseDataSource.fetchGoal()
+
+    override suspend fun fetchExercisingUserList(): Flow<List<ExercisingUserEntity>> =
+        flow { emit(remoteExerciseDataSource.fetchExercisingUserList().toEntityList()) }
 }

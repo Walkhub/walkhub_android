@@ -4,14 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.semicolon.domain.entity.exercise.DailyExerciseEntity
 import com.semicolon.domain.entity.rank.OurSchoolUserRankEntity
-import com.semicolon.domain.enums.DateType
+import com.semicolon.domain.enums.MoreDateType
 import com.semicolon.domain.enums.RankScope
-import com.semicolon.domain.exception.basic.NoInternetException
+import com.semicolon.domain.exception.NoInternetException
 import com.semicolon.domain.param.rank.FetchOurSchoolUserRankParam
 import com.semicolon.domain.usecase.exercise.FetchDailyExerciseRecordUseCase
 import com.semicolon.domain.usecase.exercise.StartRecordExerciseUseCase
 import com.semicolon.domain.usecase.rank.FetchOurSchoolUserRankUseCase
-import com.semicolon.walkhub.ui.home.HomeFragment
 import com.semicolon.walkhub.ui.home.model.HomeData
 import com.semicolon.walkhub.ui.home.model.RankData
 import com.semicolon.walkhub.util.MutableEventFlow
@@ -48,9 +47,9 @@ class HomeViewModel @Inject constructor(
 
     fun fetchSchoolRank() {
         viewModelScope.launch {
-            fetchOurSchoolUserRankUseCase.execute(FetchOurSchoolUserRankParam(RankScope.SCHOOL, DateType.DAY))
+            fetchOurSchoolUserRankUseCase.execute(FetchOurSchoolUserRankParam(RankScope.SCHOOL, MoreDateType.DAY))
             kotlin.runCatching {
-                fetchOurSchoolUserRankUseCase.execute(FetchOurSchoolUserRankParam(RankScope.SCHOOL, DateType.DAY)).collect{ entity ->
+                fetchOurSchoolUserRankUseCase.execute(FetchOurSchoolUserRankParam(RankScope.SCHOOL, MoreDateType.DAY)).collect{ entity ->
                     event(Event.FetchSchoolRank(entity.rankingList.map { rank -> rank.toData() }))
                 }
             }.onFailure {
@@ -58,7 +57,6 @@ class HomeViewModel @Inject constructor(
                 when (it) {
                     is NullPointerException -> {}
                     is NoInternetException -> event(Event.ErrorMessage("오늘 학교 학생들의 랭킹을 받아오는 것에 실패하였습니다."))
-                    else -> {}
                 }
             }
         }

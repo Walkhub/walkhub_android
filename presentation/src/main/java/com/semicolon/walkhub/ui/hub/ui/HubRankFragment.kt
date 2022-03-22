@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.semicolon.domain.enums.DateType
+import com.semicolon.domain.enums.MoreDateType
 import com.semicolon.domain.enums.RankScope
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.customview.Dropdown
@@ -34,8 +34,10 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
 
     private val userRvData = arrayListOf<UserRankRvData>()
 
-    private var dateType = DateType.WEEK
-    private var rankScope = RankScope.SCHOOL
+    companion object {
+        var dateType = MoreDateType.WEEK
+        var rankScope = RankScope.SCHOOL
+    }
 
     private lateinit var mAdapter: HubUserRvAdapter
 
@@ -55,8 +57,7 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
     }
 
     private fun fetchSchoolUserRank() {
-
-        val schoolType = activity?.intent?.getBooleanExtra("type", true)!!
+        val schoolType = activity?.intent?.getBooleanExtra("type", false)!!
         val schoolId = activity?.intent?.getIntExtra("schoolId", 0)!!
 
         if (schoolType) {
@@ -68,8 +69,7 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
 
     private fun handleEvent(event: HubUserViewModel.Event) = when (event) {
         is HubUserViewModel.Event.FetchMySchoolUserRank -> {
-//            setMyRank(event.mySchoolUserRankData.myRanking)
-            TODO("고치세요")
+            event.mySchoolUserRankData.myRanking?.let { setMyRank(it)}
             setUserRvData(event.mySchoolUserRankData.rankingList.map { it.toRvData() })
         }
         is HubUserViewModel.Event.FetchOtherSchoolUserRank -> {
@@ -81,7 +81,6 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
     }
 
     private fun setUserRvData(school: List<UserRankRvData>) {
-
         userRvData.clear()
 
         for (i: Int in 0..school.size - 1) {
@@ -92,14 +91,12 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
     }
 
     override fun initView() {
-
         initSpinner()
         initDropDown()
         setAdapter()
     }
 
     private fun setMyRank(data: MySchoolUserRankData.Ranking) {
-
         binding.clMyRank.visible()
 
         binding.ivMyProfile.loadCircleFromUrl(data.profileImageUrl)
@@ -109,7 +106,6 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
     }
 
     private fun setAdapter() {
-
         mAdapter = HubUserRvAdapter(userRvData)
 
         binding.rvRank.layoutManager = LinearLayoutManager(context)
@@ -119,7 +115,6 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
 
 
     private fun initSpinner() {
-
         binding.cvSwitch.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
@@ -136,7 +131,7 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 Dropdown(
-                    items = arrayOf("지난주", "지난달"),
+                    items = arrayOf("어제", "지난주", "지난달"),
                     defaultItemIndex = 1,
                     menuDirection = MenuDirection.LEFT,
                     onItemSelected = { index, _ -> dropDownItemSelect(index) }
@@ -147,20 +142,19 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
 
     private fun dropDownItemSelect(index: Int) {
         when (index) {
-            0 -> setDateType(DateType.WEEK)
-            1 -> setDateType(DateType.MONTH)
+            0 -> setDateType(MoreDateType.DAY)
+            1 -> setDateType(MoreDateType.WEEK)
+            2 -> setDateType(MoreDateType.MONTH)
         }
     }
 
-    private fun setRankScope(rankScope: RankScope) {
-
-        this.rankScope = rankScope
+    private fun setRankScope(_rankScope: RankScope) {
+        rankScope = _rankScope
         fetchSchoolUserRank()
     }
 
-    private fun setDateType(dateType: DateType) {
-
-        this.dateType = dateType
+    private fun setDateType(_dateType: MoreDateType) {
+        dateType = _dateType
         fetchSchoolUserRank()
     }
 }

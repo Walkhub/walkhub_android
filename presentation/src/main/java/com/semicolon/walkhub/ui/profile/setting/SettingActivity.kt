@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivitySettingBinding
 import com.semicolon.walkhub.ui.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
 class SettingActivity : BaseFragment<ActivitySettingBinding>(
     R.layout.activity_setting
@@ -17,19 +18,19 @@ class SettingActivity : BaseFragment<ActivitySettingBinding>(
         }
 
         binding.modifyHealthInfo.setOnClickListener {
-            val fragment = ModifyHealthFragment()
-            supportFragmentManager()
-                .beginTransaction()
-                .add(R.id.onfragment, fragment)
-                .commit()
+//            val fragment = ModifyHealthFragment()
+//            supportFragmentManager()
+//                .beginTransaction()
+//                .add(R.id.onfragment, fragment)
+//                .commit()
         }
         binding.modifyLoginInfo.setOnClickListener {
 
         }
 
         binding.notificationSetting.setOnClickListener {
-            val intent = Intent(context, NoticeSettingActivity::class.java)
-            startActivity(intent)
+//            val intent = Intent(context, NoticeSettingActivity::class.java)
+//            startActivity(intent)
         }
 
         binding.ask.setOnClickListener {
