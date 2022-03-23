@@ -20,24 +20,19 @@ import androidx.databinding.DataBindingUtil
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityRegisterBinding
 import com.semicolon.walkhub.ui.base.BaseActivity
+import com.semicolon.walkhub.util.invisible
 import com.semicolon.walkhub.util.visible
 
 class Register : BaseActivity<ActivityRegisterBinding>(
     R.layout.activity_register
 ) {
 
-    var page = 1
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
+    override fun initView() {
         binding.constraint.setOnClickListener {
             hideKeyboard()
         }
 
         movePage(1)
-
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
     }
 
     private fun setTextWatcher(subject: Int) {
@@ -50,7 +45,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 when (subject) {
                     1 -> {
-                        if (p0?.length!! < 2) {
+                        if (p0?.length in 1..1) {
                             binding.btContinue.background = ContextCompat.getDrawable(
                                 applicationContext, R.drawable.registerbuttondesign
                             )
@@ -59,7 +54,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
                             binding.tvWarning.text = "이름은 최소 2자 이상이여야 합니다."
                         }
 
-                        if (p0.length > 10) {
+                        if (p0?.length !!> 10) {
                             binding.btContinue.background = ContextCompat.getDrawable(
                                 applicationContext, R.drawable.registerbuttondesign
                             )
@@ -74,6 +69,10 @@ class Register : BaseActivity<ActivityRegisterBinding>(
                             )
 
                             binding.tvWarning.visibility = View.GONE
+                        }
+
+                        if (p0.length in 0..0) {
+                            binding.tvWarning.invisible()
                         }
                     }
 
@@ -316,9 +315,5 @@ class Register : BaseActivity<ActivityRegisterBinding>(
     private fun hideKeyboard() {
         val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.etName.windowToken, 0)
-    }
-
-    override fun initView() {
-
     }
 }
