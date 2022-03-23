@@ -27,6 +27,9 @@ object Version {
     const val sharedPreference = "1.1.1"
     const val mockitoKotlin = "2.2.0"
     const val mockitoInline = "2.21.0"
+    const val fcm = "20.1.0"
+    const val service = "4.3.10"
+    const val message = "23.0.0"
     const val tedPermission = "3.3.0"
     const val jetpackCompose = "1.1.0"
     const val activityCompose = "1.4.0"
@@ -35,4 +38,6 @@ object Version {
     const val moshiKotlin = "1.8.0"
     const val circleImage = "3.1.0"
     const val glide = "4.13.0"
+    const val pinEntryEditText = "2.0.6"
+    const val socket = "1.0.0"
 }

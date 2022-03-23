@@ -14,28 +14,15 @@
         android:layout_width="match_parent"
         android:layout_height="64dp">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline12"
-            android:layout_width="1dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.09" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline13"
-            android:layout_width="1dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.91" />
-
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ivUserProfile"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
+            android:layout_marginStart="32dp"
             android:src="@color/gray_300"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline12"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -48,7 +35,7 @@
             android:fontFamily="@font/noto_sans_kr_medium"
             android:text="이름이 없습니다."
             android:textColor="@color/gray_900"
-            android:textSize="16dp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ivUserProfile"
             app:layout_constraintTop_toTopOf="parent" />
@@ -62,7 +49,7 @@
             android:fontFamily="@font/noto_sans_kr_regular"
             android:text="0 걸음"
             android:textColor="@color/gray_800"
-            android:textSize="12dp"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tvName"
             app:layout_constraintTop_toTopOf="parent" />
@@ -71,12 +58,13 @@
             android:id="@+id/tvRate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
             android:fontFamily="@font/noto_sans_kr_medium"
             android:text="1등"
             android:textColor="@color/gray_900"
-            android:textSize="16dp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline13"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 

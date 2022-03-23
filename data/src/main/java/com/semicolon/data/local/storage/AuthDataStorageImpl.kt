@@ -10,6 +10,7 @@ import com.semicolon.data.local.storage.AuthDataStorageImpl.Key.EXPIRED_AT
 import com.semicolon.data.local.storage.AuthDataStorageImpl.Key.REFRESH_TOKEN
 import com.semicolon.data.util.toLocalDateTime
 import dagger.hilt.android.qualifiers.ApplicationContext
+import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalDateTime
 import javax.inject.Inject
 
@@ -59,7 +60,7 @@ class AuthDataStorageImpl @Inject constructor(
     }
 
     override fun fetchExpiredAt(): LocalDateTime =
-        getSharedPreference().getString(EXPIRED_AT, "empty")?.toLocalDateTime()!!
+        getSharedPreference().getString(EXPIRED_AT, LocalDateTime.now().toString())?.toLocalDateTime()!!
 
     override fun setDeviceToken(deviceToken: String) {
         getSharedPreference().edit().let {

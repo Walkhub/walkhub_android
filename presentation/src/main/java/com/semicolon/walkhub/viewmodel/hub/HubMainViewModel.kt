@@ -2,31 +2,66 @@ package com.semicolon.walkhub.viewmodel.hub
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.semicolon.walkhub.ui.hub.model.HubSchoolRank
+import com.semicolon.domain.entity.rank.SchoolRankEntity
+import com.semicolon.domain.enums.DateType
+import com.semicolon.domain.exception.NoInternetException
+import com.semicolon.domain.usecase.rank.FetchSchoolRankUseCase
+import com.semicolon.walkhub.ui.hub.model.HubSchoolRankData
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.lang.NullPointerException
 import javax.inject.Inject
 
 @HiltViewModel
 class HubMainViewModel @Inject constructor(
-): ViewModel() {
+    private val fetchSchoolRankUseCase: FetchSchoolRankUseCase
+) : ViewModel() {
 
     private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()
 
-    fun fetchSchoolRank() {
-        val mySchool = HubSchoolRank.MySchool(1, "대덕소프트웨어마이스터고등학교", "http://goo.gl/gEgYUd", 1123213, 1, 1)
-        val otherSchool: List<HubSchoolRank.OtherSchool> = listOf(
-            HubSchoolRank.OtherSchool(2, "대전문지중학교", 1, 1312, "http://goo.gl/gEgYUd", 1123123),
-            HubSchoolRank.OtherSchool(3, "대전가오고등학교", 2, 151, "http://goo.gl/gEgYUd", 14124),
-            HubSchoolRank.OtherSchool(4, "대전가오중학교", 3, 918, "http://goo.gl/gEgYUd", 11614)
-        )
-        val data = HubSchoolRank(mySchool, otherSchool)
-
-        event(Event.FetchSchoolRank(data))
+    fun fetchSchoolRank(dateType: DateType) {
+        viewModelScope.launch {
+            kotlin.runCatching {
+                fetchSchoolRankUseCase.execute(dateType).collect {
+                    event(Event.FetchSchoolRank(it.toData()))
+                }
+            }.onFailure {
+                when (it) {
+                    is NoInternetException -> event(Event.ErrorMessage("인터넷을 사용할 수 없습니다"))
+                    is NullPointerException -> event(Event.ErrorMessage("데이터가 없습니다."))
+                    else -> event(Event.ErrorMessage("알 수 없는 에러가 발생했습니다. ${it}"))
+                }
+            }
+        }
     }
+
+    private fun SchoolRankEntity.MySchoolRank.toData() =
+        HubSchoolRankData.MySchool(
+            schoolId = schoolId,
+            name = name,
+            logoImageUrl = logoImageUrl,
+            grade = grade,
+            classNum = classNum
+        )
+
+    private fun SchoolRankEntity.SchoolRank.toData() =
+        HubSchoolRankData.OtherSchool(
+            schoolId = schoolId,
+            name = name,
+            ranking = ranking,
+            studentCount = studentCount,
+            logoImageUrl = logoImageUrl,
+            walkCount = walkCount
+        )
+
+    private fun SchoolRankEntity.toData() =
+        HubSchoolRankData(
+            mySchoolRank.toData(),
+            schoolList = schoolRankList.map { it.toData() }
+        )
 
     private fun event(event: Event) {
         viewModelScope.launch {
@@ -35,6 +70,7 @@ class HubMainViewModel @Inject constructor(
     }
 
     sealed class Event {
-        data class FetchSchoolRank(val hubSchoolRank: HubSchoolRank) : Event()
+        data class FetchSchoolRank(val hubSchoolRankData: HubSchoolRankData) : Event()
+        data class ErrorMessage(val message: String) : Event()
     }
 }

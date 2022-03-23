@@ -17,71 +17,64 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@color/gray_50"
             tools:context=".activity.MainActivity">
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline3"
-                android:layout_width="1dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.04" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline4"
-                android:layout_width="1dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.96" />
 
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="14dp"
                 android:fontFamily="@font/noto_sans_kr_medium"
-                android:text="허브"
+                android:text="@string/hub"
                 android:textColor="@color/gray_800"
-                android:textSize="20dp"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
-                android:id="@+id/editText"
+            <TextView
+                android:id="@+id/etSearchSchool"
                 android:layout_width="0dp"
                 android:layout_height="44dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/bg_hub_edit_text"
                 android:fontFamily="@font/noto_sans_kr_regular"
-                android:hint="학교 검색"
+                android:text="@string/search_school"
+                android:gravity="center_vertical"
                 android:paddingLeft="20dp"
-                android:textColor="@color/gray_900"
-                android:textSize="14dp"
-                app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
+                android:textColor="@color/gray_500"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/noto_sans_kr_medium"
-                android:text="내 학교"
+                android:text="@string/my_school"
                 android:textColor="@color/gray_900"
-                android:textSize="16dp"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
-                app:layout_constraintTop_toBottomOf="@+id/editText" />
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etSearchSchool" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clMySchool"
                 android:layout_width="0dp"
                 android:layout_height="64dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/bg_hub_my_school"
-                app:layout_constraintEnd_toEndOf="@id/guideline4"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@id/guideline3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView2">
 
 
@@ -105,9 +98,9 @@
                     android:layout_marginTop="11dp"
                     android:layout_marginBottom="29dp"
                     android:fontFamily="@font/noto_sans_kr_medium"
-                    android:text="학교 이름"
+                    android:text="@string/no_data"
                     android:textColor="@color/gray_900"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/clMySchool"
                     app:layout_constraintStart_toEndOf="@+id/ivMySchool"
                     app:layout_constraintTop_toTopOf="@+id/clMySchool" />
@@ -121,7 +114,7 @@
                     android:fontFamily="@font/noto_sans_kr_regular"
                     android:text="1학년 1반"
                     android:textColor="@color/gray_800"
-                    android:textSize="12dp"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@+id/clMySchool"
                     app:layout_constraintStart_toStartOf="@+id/tvMySchoolName"
                     app:layout_constraintTop_toTopOf="@+id/clMySchool" />
@@ -133,21 +126,21 @@
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/noto_sans_kr_medium"
-                android:text="걸음수 Top 100"
+                android:text="@string/walkcount_top_100"
                 android:textColor="@color/gray_900"
-                android:textSize="16dp"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/clMySchool" />
 
-            <Spinner
-                android:id="@+id/spHubMain"
+            <androidx.compose.ui.platform.ComposeView
+                android:id="@+id/cvWeekDropDown"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="right"
                 app:layout_constraintBottom_toBottomOf="@+id/textView10"
-                app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView10" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -165,9 +158,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
-                app:layout_constraintBottom_toBottomOf="@+id/editText"
-                app:layout_constraintEnd_toEndOf="@+id/editText"
-                app:layout_constraintTop_toTopOf="@+id/editText"
+                app:layout_constraintBottom_toBottomOf="@+id/etSearchSchool"
+                app:layout_constraintEnd_toEndOf="@+id/etSearchSchool"
+                app:layout_constraintTop_toTopOf="@+id/etSearchSchool"
                 app:srcCompat="@drawable/ic_hub_search" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,14 +1,13 @@
 package com.semicolon.walkhub.di
 
-import android.content.Context
-import com.semicolon.data.local.storage.AuthDataStorage
-import com.semicolon.data.local.storage.AuthDataStorageImpl
+import com.semicolon.data.interceptor.AuthorizationInterceptor
 import com.semicolon.data.remote.api.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import io.socket.client.IO
+import io.socket.client.Socket
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -18,6 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 @InstallIn(SingletonComponent::class)
 object NetWorkModule {
     private const val BASE_URL = "https://server.walkhub.co.kr"
+    private const val SOCKET_BASE_URL = "http://211.38.86.92:8081/socket.io"
 
     @Provides
     fun provideHttpLoggingInterceptor() = HttpLoggingInterceptor()
@@ -28,20 +28,29 @@ object NetWorkModule {
     @Provides
     fun provideOkHttpClient(
         httpLoggingInterceptor: HttpLoggingInterceptor,
-        authDataStorage: AuthDataStorage
+        authorizationInterceptor: AuthorizationInterceptor
     ): OkHttpClient =
         OkHttpClient
             .Builder()
             .addNetworkInterceptor(httpLoggingInterceptor)
-            .addInterceptor {
-                it.proceed(
-                    it.request().newBuilder().addHeader(
-                        "Authorization",
-                        "Bearer ${authDataStorage.fetchAccessToken()}"
-                    ).build()
-                )
-            }
+            .addInterceptor(authorizationInterceptor)
             .build()
+
+    @Provides
+    fun provideOptions(
+        okHttpClient: OkHttpClient
+    ): IO.Options {
+        val options = IO.Options()
+        options.webSocketFactory = okHttpClient
+        options.callFactory = okHttpClient
+        return options
+    }
+
+    @Provides
+    fun provideSocket(
+        options: IO.Options
+    ): Socket =
+        IO.socket(SOCKET_BASE_URL, options)
 
     @Provides
     fun provideRetrofit(
@@ -54,30 +63,38 @@ object NetWorkModule {
             .build()
 
     @Provides
-    fun provideChallengeApi(retrofit: Retrofit) : ChallengeApi =
+    fun provideChallengeApi(retrofit: Retrofit): ChallengeApi =
         retrofit.create(ChallengeApi::class.java)
 
     @Provides
-    fun provideExerciseApi(retrofit: Retrofit) : ExerciseApi =
+    fun provideExerciseApi(retrofit: Retrofit): ExerciseApi =
         retrofit.create(ExerciseApi::class.java)
 
     @Provides
-    fun provideImageApi(retrofit: Retrofit) : ImagesApi =
+    fun provideImageApi(retrofit: Retrofit): ImagesApi =
         retrofit.create(ImagesApi::class.java)
 
     @Provides
-    fun provideNoticeApi(retrofit: Retrofit) : NoticesApi =
+    fun provideNoticeApi(retrofit: Retrofit): NoticesApi =
         retrofit.create(NoticesApi::class.java)
 
     @Provides
-    fun provideRankApi(retrofit: Retrofit) : RankApi =
+    fun provideNotificationApi(retrofit: Retrofit): NotificationApi =
+        retrofit.create(NotificationApi::class.java)
+
+    @Provides
+    fun provideRankApi(retrofit: Retrofit): RankApi =
         retrofit.create(RankApi::class.java)
 
     @Provides
-    fun provideSchoolApi(retrofit: Retrofit) : SchoolApi =
+    fun provideSchoolApi(retrofit: Retrofit): SchoolApi =
         retrofit.create(SchoolApi::class.java)
 
     @Provides
-    fun provideUserApi(retrofit: Retrofit) : UserApi =
+    fun provideUserApi(retrofit: Retrofit): UserApi =
         retrofit.create(UserApi::class.java)
+
+    @Provides
+    fun provideLevelApi(retrofit: Retrofit): LevelApi =
+        retrofit.create(LevelApi::class.java)
 }

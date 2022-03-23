@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("dagger.hilt.android.plugin")
+    id("com.google.gms.google-services")
     kotlin("android")
     kotlin("kapt")
 }
@@ -63,6 +64,7 @@ dependencies {
     implementation(Dependency.UI.composeCompiler)
     implementation(Dependency.UI.activityCompose)
     implementation(Dependency.UI.coilCompose)
+    implementation(Dependency.UI.pinEntryEditText)
 
     testImplementation(Dependency.Test.junit)
     testImplementation(Dependency.Test.mockito)
@@ -94,6 +96,9 @@ dependencies {
     implementation(Dependency.WorkManager.ktx)
     implementation(Dependency.WorkManager.hiltExtension)
 
+    implementation(Dependency.FireBase.fcm)
+    implementation(Dependency.FireBase.message)
+    
     implementation(Dependency.GooglePlayService.fitness)
     implementation(Dependency.GooglePlayService.auth)
 
@@ -105,4 +110,8 @@ dependencies {
 
     implementation(Dependency.Glide.glideCore)
     annotationProcessor(Dependency.Glide.glideCompiler)
+
+    implementation(Dependency.Socket.socketIo){
+            exclude (group = "org.json", module = "json")
+    }
 }

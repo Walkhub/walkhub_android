@@ -21,12 +21,15 @@ object Dependency {
             "androidx.activity:activity-compose:${Version.activityCompose}"
         const val coilCompose =
             "io.coil-kt:coil-compose:${Version.coilCompose}"
+        const val pinEntryEditText =
+            "com.alimuzaffar.lib:pinentryedittext:${Version.pinEntryEditText}"
     }
 
     object GradlePlugin {
         const val android = "com.android.tools.build:gradle:${Version.gradle}"
         const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Version.kotlin}"
         const val hilt = "com.google.dagger:hilt-android-gradle-plugin:${Version.hilt}"
+        const val service = "com.google.gms:google-services:${Version.service}"
     }
 
     object Test {
@@ -97,6 +100,11 @@ object Dependency {
         const val ktx = "androidx.work:work-runtime-ktx:${Version.workManager}"
         const val hiltExtension = "androidx.hilt:hilt-work:${Version.workManagerHiltExtension}"
     }
+    
+    object FireBase {
+        const val fcm = "com.google.firebase:firebase-analytics-ktx:${Version.fcm}"
+        const val message = "com.google.firebase:firebase-messaging:${Version.message}"
+    }
 
     object Permission {
         const val tedPermission =
@@ -110,5 +118,9 @@ object Dependency {
     object Glide {
         const val glideCore = "com.github.bumptech.glide:glide:${Version.glide}"
         const val glideCompiler = "com.github.bumptech.glide:compiler:${Version.glide}"
+    }
+
+    object Socket {
+        const val socketIo = "io.socket:socket.io-client:${Version.socket}"
     }
 }

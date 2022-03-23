@@ -19,9 +19,9 @@ class RemoteRankDataSourceImpl @Inject constructor(
             .httpRequest { rankApi.fetchSchoolRank(dateType) }
             .sendRequest()
 
-    override suspend fun searchSchool(name: String, moreDateType: String): SearchSchoolResponse =
+    override suspend fun searchSchool(name: String, dateType: String): SearchSchoolResponse =
         HttpHandler<SearchSchoolResponse>()
-            .httpRequest { rankApi.searchSchool(name, moreDateType) }
+            .httpRequest { rankApi.searchSchool(name, dateType) }
             .sendRequest()
 
     override suspend fun fetchUserRank(
@@ -40,16 +40,13 @@ class RemoteRankDataSourceImpl @Inject constructor(
             .sendRequest()
 
     override suspend fun searchUser(
+        school: Int,
         name: String,
-        scope: String,
-        moreDateType: String,
-        grade: Int,
-        classNum: Int
+        moredateType: String
     ): SearchUserResponse =
         HttpHandler<SearchUserResponse>()
-            .httpRequest { rankApi.searchUser(name, scope, moreDateType, grade, classNum) }
+            .httpRequest { rankApi.searchUser(school, name, moredateType) }
             .sendRequest()
-
 }
 
 

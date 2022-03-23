@@ -3,9 +3,9 @@ package com.semicolon.domain.usecase.challenge
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import com.semicolon.domain.entity.challenge.ChallengeEntity
-import com.semicolon.domain.enum.ChallengeGoalScope
-import com.semicolon.domain.enum.ChallengeGoalType
-import com.semicolon.domain.enum.ChallengeUserScope
+import com.semicolon.domain.enums.ChallengeGoalScope
+import com.semicolon.domain.enums.ChallengeGoalType
+import com.semicolon.domain.enums.ChallengeUserScope
 import com.semicolon.domain.repository.ChallengeRepository
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
