@@ -316,4 +316,15 @@ class Register : BaseActivity<ActivityRegisterBinding>(
         val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.etName.windowToken, 0)
     }
+
+    private var backPressedTime : Long = 0
+    override fun onBackPressed() {
+        if (System.currentTimeMillis() - backPressedTime < 2000) {
+            finish()
+            return
+        }
+
+        showShortToast("한번 더 누르시면 회원가입이 종료되며 내용은 저장되지 않습니다.")
+        backPressedTime = System.currentTimeMillis()
+    }
 }
