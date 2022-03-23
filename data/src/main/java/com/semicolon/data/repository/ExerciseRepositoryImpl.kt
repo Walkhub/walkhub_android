@@ -75,7 +75,7 @@ class ExerciseRepositoryImpl @Inject constructor(
     }
 
     override suspend fun finishMeasureExercise(finishMeasureExerciseParam: FinishMeasureExerciseParam) {
-        if (isMeasuring() == MeasuringState.ONGOING) try {
+        if (isMeasuring() == MeasuringState.PAUSED) try {
             val exerciseId = localExerciseDataSource.fetchExerciseId()
             pauseMeasureExercise()
             val walkRecord = localExerciseDataSource.fetchAccumulatedRecord()
