@@ -1,4 +1,4 @@
-package com.semicolon.walkhub.ui.profile.setting
+package com.semicolon.walkhub.ui.profile.setting.ui
 
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.FragmentAccountInfoBinding

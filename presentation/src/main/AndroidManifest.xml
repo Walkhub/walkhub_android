@@ -72,7 +72,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".ui.profile.setting.NoticeSettingActivity"
+            android:name=".ui.profile.setting.ui.NoticeSettingActivity"
             android:exported="false" />
 
         <activity

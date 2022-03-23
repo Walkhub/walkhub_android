@@ -7,7 +7,7 @@
 
         <variable
             name="activity"
-            type="com.semicolon.walkhub.ui.profile.setting.NoticeSettingActivity" />
+            type="com.semicolon.walkhub.ui.profile.setting.ui.NoticeSettingActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

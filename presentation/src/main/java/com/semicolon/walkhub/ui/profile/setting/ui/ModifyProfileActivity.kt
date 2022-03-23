@@ -1,4 +1,4 @@
-package com.semicolon.walkhub.ui.profile.setting
+package com.semicolon.walkhub.ui.profile.setting.ui
 
 import android.content.Intent
 import android.os.Bundle
