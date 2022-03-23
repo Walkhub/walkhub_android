@@ -69,7 +69,8 @@
 
         <activity
             android:name=".ui.register.Register"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
 
         <activity
             android:name=".ui.profile.setting.NoticeSettingActivity"
