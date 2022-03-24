@@ -42,9 +42,6 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
 
         viewModel.run {
             startMeasureExercise(goal, isDistance)
-            //fetchMeasuredExercise()
-            //fetchMeasuredTime()
-            //fetchCurrentSpeed()
         }
     }
 

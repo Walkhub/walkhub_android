@@ -81,14 +81,14 @@ class MeasureViewModel @Inject constructor(
     fun pauseMeasureExercise() {
         _measuringState.value = MeasureState.PAUSED
         viewModelScope.launch {
-            //pauseMeasureExerciseUseCase.execute(Unit)
+            pauseMeasureExerciseUseCase.execute(Unit)
         }
     }
 
     fun resumeMeasureExercise() {
         _measuringState.value = MeasureState.ONGOING
         viewModelScope.launch {
-            //resumeMeasureExerciseUseCase.execute(Unit)
+            resumeMeasureExerciseUseCase.execute(Unit)
         }
     }
 
@@ -97,7 +97,10 @@ class MeasureViewModel @Inject constructor(
         val goalType = if (isDistance) GoalType.DISTANCE else GoalType.WALK_COUNT
         viewModelScope.launch {
             try {
-                //startMeasureExerciseUseCase.execute(StartMeasureExerciseParam(goal, goalType))
+                startMeasureExerciseUseCase.execute(StartMeasureExerciseParam(goal, goalType))
+                fetchMeasuredExercise()
+                fetchMeasuredTime()
+                fetchCurrentSpeed()
             } catch (e: Exception){
 
             }
