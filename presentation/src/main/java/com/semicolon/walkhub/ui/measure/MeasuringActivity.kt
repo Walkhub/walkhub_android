@@ -6,8 +6,10 @@ import androidx.lifecycle.lifecycleScope
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityMeasuringBinding
 import com.semicolon.walkhub.ui.base.BaseActivity
+import com.semicolon.walkhub.util.toRealPath
 import com.semicolon.walkhub.viewmodel.measure.MeasureViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import gun0912.tedimagepicker.builder.TedImagePicker
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -82,11 +84,6 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
                     measuringMinuteTv.text = it.minute.toString()
                 }
             }
-            lifecycleScope.launch {
-                finishMeasuring.collect {
-                    TODO("Finish and start 사진찍기")
-                }
-            }
             walkCount.observe(this@MeasuringActivity) {
                 binding.measuringWalkTv.text = it.toString()
             }
@@ -115,14 +112,36 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
             measuringResumeBtn.setOnClickListener {
                 viewModel.resumeMeasureExercise()
             }
+
+            val requestPhotoComment = "인증사진을 찍어주세요"
             measuringFinishBtn.setOnClickListener {
-                viewModel.finishMeasureExercise()
+                viewModel.fetchFinishPhoto()
+                showShortToast(requestPhotoComment)
             }
             measuringBackBtn.setOnClickListener {
-                viewModel.finishMeasureExercise()
+                viewModel.fetchFinishPhoto()
+                showShortToast(requestPhotoComment)
             }
         }
+        viewModel.run {
+            lifecycleScope.launch {
+                fetchPhoto.collect {
+                    finishMeasure()
+                }
 
+                finishMeasuring.collect {
+                    viewModel.finishMeasureExercise()
+                }
+
+                requestPhoto.collect {
+                    showShortToast("사진을 입력해주세요")
+                }
+
+                finishActivity.collect {
+                    finish()
+                }
+            }
+        }
     }
 
     private fun setToDefaultState() {
@@ -156,6 +175,16 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
 
             measuringLockBtn.visibility = View.INVISIBLE
             measuringPauseBtn.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun finishMeasure() {
+        fetchDoneImage()
+    }
+
+    private fun fetchDoneImage() {
+        TedImagePicker.with(this).start {
+            viewModel.setImageUri(it.toRealPath(this))
         }
     }
 }

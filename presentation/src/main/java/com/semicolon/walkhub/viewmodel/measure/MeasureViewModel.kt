@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.semicolon.domain.enums.GoalType
+import com.semicolon.domain.param.exercise.FinishMeasureExerciseParam
 import com.semicolon.domain.param.exercise.StartMeasureExerciseParam
 import com.semicolon.domain.usecase.exercise.*
 import com.semicolon.walkhub.util.MutableEventFlow
@@ -14,6 +15,7 @@ import kotlinx.coroutines.launch
 import org.threeten.bp.Instant
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.ZoneId
+import java.io.File
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -43,9 +45,19 @@ class MeasureViewModel @Inject constructor(
     private val _measuringState = MutableLiveData(MeasureState.ONGOING)
     val measuringState: LiveData<MeasureState> = _measuringState
 
+    private val _fetchPhoto = MutableEventFlow<Unit>()
+    val fetchPhoto = _fetchPhoto.asEventFlow()
+
     private val _finishMeasuring = MutableEventFlow<Unit>()
     val finishMeasuring = _finishMeasuring.asEventFlow()
 
+    private val _requestPhoto = MutableEventFlow<Unit>()
+    val requestPhoto = _requestPhoto.asEventFlow()
+
+    private val _finishActivity = MutableEventFlow<Unit>()
+    val finishActivity = _finishActivity.asEventFlow()
+
+    private var _finishPhotoUri: String? = null
 
     fun startMeasureExercise(goal: Int, isDistance: Boolean) {
         _measuringState.value = MeasureState.ONGOING
@@ -56,7 +68,7 @@ class MeasureViewModel @Inject constructor(
                 fetchMeasuredExercise()
                 fetchMeasuredTime()
                 fetchCurrentSpeed()
-            } catch (e: Exception){
+            } catch (e: Exception) {
 
             }
         }
@@ -74,7 +86,8 @@ class MeasureViewModel @Inject constructor(
     private fun fetchMeasuredTime() {
         viewModelScope.launch {
             fetchMeasuredTimeUseCase.execute(Unit).collect {
-                _time.value = LocalDateTime.ofInstant(Instant.ofEpochSecond(it), ZoneId.systemDefault())
+                _time.value =
+                    LocalDateTime.ofInstant(Instant.ofEpochSecond(it), ZoneId.systemDefault())
             }
         }
     }
@@ -109,7 +122,27 @@ class MeasureViewModel @Inject constructor(
         }
     }
 
+    fun fetchFinishPhoto() {
+        viewModelScope.launch {
+            _fetchPhoto.emit(Unit)
+        }
+    }
+
     fun finishMeasureExercise() {
+        viewModelScope.launch {
+            if (_finishPhotoUri != null) {
+                val imageFile = File(_finishPhotoUri!!)
+                val param = FinishMeasureExerciseParam(imageFile)
+                finishMeasureExerciseUseCase.execute(param)
+                _finishActivity.emit(Unit)
+            } else {
+                _requestPhoto.emit(Unit)
+            }
+        }
+    }
+
+    fun setImageUri(uri: String) {
+        this._finishPhotoUri = uri
         viewModelScope.launch {
             _finishMeasuring.emit(Unit)
         }
