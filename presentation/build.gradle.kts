@@ -51,7 +51,7 @@ dependencies {
     implementation("com.google.android.material:material:1.5.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.3")
     kapt(Dependency.Moshi.moshiCompiler)
-    implementation (Dependency.Moshi.moshiKotlin)
+    implementation(Dependency.Moshi.moshiKotlin)
 
     implementation(Dependency.coreKtx)
     implementation(Dependency.appcompat)
@@ -92,15 +92,15 @@ dependencies {
     implementation(Dependency.Lifecycle.liveData)
     implementation(Dependency.Lifecycle.runTime)
 
-    implementation (Dependency.Navigation.navigationFragment)
-    implementation (Dependency.Navigation.navigationUi)
+    implementation(Dependency.Navigation.navigationFragment)
+    implementation(Dependency.Navigation.navigationUi)
 
     implementation(Dependency.WorkManager.ktx)
     implementation(Dependency.WorkManager.hiltExtension)
 
     implementation(Dependency.FireBase.fcm)
     implementation(Dependency.FireBase.message)
-    
+
     implementation(Dependency.GooglePlayService.fitness)
     implementation(Dependency.GooglePlayService.auth)
 
@@ -113,7 +113,9 @@ dependencies {
     implementation(Dependency.Glide.glideCore)
     annotationProcessor(Dependency.Glide.glideCompiler)
 
-    implementation(Dependency.Socket.socketIo){
-            exclude (group = "org.json", module = "json")
+    implementation(Dependency.Socket.socketIo) {
+        exclude(group = "org.json", module = "json")
     }
+
+    implementation(Dependency.TedImagePicker.tedImagePicker)
 }

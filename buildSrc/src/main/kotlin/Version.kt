@@ -39,4 +39,5 @@ object Version {
     const val circleImage = "3.1.0"
     const val glide = "4.13.0"
     const val socket = "1.0.0"
+    const val tedImagePicker = "1.2.7"
 }

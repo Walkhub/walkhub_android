@@ -98,7 +98,7 @@ object Dependency {
         const val ktx = "androidx.work:work-runtime-ktx:${Version.workManager}"
         const val hiltExtension = "androidx.hilt:hilt-work:${Version.workManagerHiltExtension}"
     }
-    
+
     object FireBase {
         const val fcm = "com.google.firebase:firebase-analytics-ktx:${Version.fcm}"
         const val message = "com.google.firebase:firebase-messaging:${Version.message}"
@@ -120,5 +120,9 @@ object Dependency {
 
     object Socket {
         const val socketIo = "io.socket:socket.io-client:${Version.socket}"
+    }
+
+    object TedImagePicker {
+        const val tedImagePicker = "io.github.ParkSangGwon:tedimagepicker:${Version.tedImagePicker}"
     }
 }
