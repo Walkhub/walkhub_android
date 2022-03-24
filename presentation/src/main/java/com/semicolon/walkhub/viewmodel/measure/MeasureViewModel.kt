@@ -24,7 +24,8 @@ class MeasureViewModel @Inject constructor(
     private val fetchCurrentSpeedUseCase: FetchCurrentSpeedUseCase,
     private val pauseMeasureExerciseUseCase: PauseMeasureExerciseUseCase,
     private val resumeMeasureExerciseUseCase: ResumeMeasureExerciseUseCase,
-    private val startMeasureExerciseUseCase: StartMeasureExerciseUseCase
+    private val startMeasureExerciseUseCase: StartMeasureExerciseUseCase,
+    private val finishMeasureExerciseUseCase: FinishMeasureExerciseUseCase
 ) : ViewModel() {
 
     private val _walkCount = MutableLiveData(0)
@@ -45,7 +46,23 @@ class MeasureViewModel @Inject constructor(
     private val _finishMeasuring = MutableEventFlow<Unit>()
     val finishMeasuring = _finishMeasuring.asEventFlow()
 
-    fun fetchMeasuredExercise() {
+
+    fun startMeasureExercise(goal: Int, isDistance: Boolean) {
+        _measuringState.value = MeasureState.ONGOING
+        val goalType = if (isDistance) GoalType.DISTANCE else GoalType.WALK_COUNT
+        viewModelScope.launch {
+            try {
+                startMeasureExerciseUseCase.execute(StartMeasureExerciseParam(goal, goalType))
+                fetchMeasuredExercise()
+                fetchMeasuredTime()
+                fetchCurrentSpeed()
+            } catch (e: Exception){
+
+            }
+        }
+    }
+
+    private fun fetchMeasuredExercise() {
         viewModelScope.launch {
             fetchMeasuredExerciseRecordUseCase.execute(Unit).collect {
                 _walkCount.value = it.stepCount
@@ -54,7 +71,7 @@ class MeasureViewModel @Inject constructor(
         }
     }
 
-    fun fetchMeasuredTime() {
+    private fun fetchMeasuredTime() {
         viewModelScope.launch {
             fetchMeasuredTimeUseCase.execute(Unit).collect {
                 _time.value = LocalDateTime.ofInstant(Instant.ofEpochSecond(it), ZoneId.systemDefault())
@@ -62,10 +79,10 @@ class MeasureViewModel @Inject constructor(
         }
     }
 
-    fun fetchCurrentSpeed() {
+    private fun fetchCurrentSpeed() {
         viewModelScope.launch {
             fetchCurrentSpeedUseCase.execute(Unit).collect {
-
+                _speed.value = it
             }
         }
     }
@@ -89,21 +106,6 @@ class MeasureViewModel @Inject constructor(
         _measuringState.value = MeasureState.ONGOING
         viewModelScope.launch {
             resumeMeasureExerciseUseCase.execute(Unit)
-        }
-    }
-
-    fun startMeasureExercise(goal: Int, isDistance: Boolean) {
-        _measuringState.value = MeasureState.ONGOING
-        val goalType = if (isDistance) GoalType.DISTANCE else GoalType.WALK_COUNT
-        viewModelScope.launch {
-            try {
-                startMeasureExerciseUseCase.execute(StartMeasureExerciseParam(goal, goalType))
-                fetchMeasuredExercise()
-                fetchMeasuredTime()
-                fetchCurrentSpeed()
-            } catch (e: Exception){
-
-            }
         }
     }
 

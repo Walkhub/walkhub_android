@@ -3,7 +3,6 @@ package com.semicolon.walkhub.ui.measure
 import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.semicolon.domain.enums.MeasuringState
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityMeasuringBinding
 import com.semicolon.walkhub.ui.base.BaseActivity
@@ -18,8 +17,8 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
     private val viewModel: MeasureViewModel by viewModels()
 
     override fun initView() {
-        setToDefault()
-        countDown()
+        setToDefaultState()
+        countDownToStartMeasure()
         startMeasureExercise()
         observeState()
         observeEvent()
@@ -45,7 +44,7 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
         }
     }
 
-    private fun countDown() {
+    private fun countDownToStartMeasure() {
         binding.measuringReadyCl.visibility = View.VISIBLE
         var count = 3
         binding.count = count.toString()
@@ -64,16 +63,16 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
 
     private fun observeState() {
         viewModel.run {
-            measuringState.observe(this@MeasuringActivity) {
-                when (it) {
+            measuringState.observe(this@MeasuringActivity) { state ->
+                when (state) {
                     MeasureViewModel.MeasureState.ONGOING -> {
-                        setToDefault()
+                        setToDefaultState()
                     }
                     MeasureViewModel.MeasureState.PAUSED -> {
-                        setToPaused()
+                        setToPausedState()
                     }
                     MeasureViewModel.MeasureState.LOCK -> {
-                        setToLock()
+                        setToLockState()
                     }
                 }
             }
@@ -120,13 +119,13 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
                 viewModel.finishMeasureExercise()
             }
             measuringBackBtn.setOnClickListener {
-                finish()
+                viewModel.finishMeasureExercise()
             }
         }
 
     }
 
-    private fun setToDefault() {
+    private fun setToDefaultState() {
         binding.run {
             measuringPauseBtn.setImageResource(R.drawable.ic_measuring_pause)
             measuringPauseBtn.visibility = View.VISIBLE
@@ -138,7 +137,7 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
         }
     }
 
-    private fun setToLock() {
+    private fun setToLockState() {
         binding.run {
             measuringPauseBtn.setImageResource(R.drawable.ic_measuring_un_lock)
             measuringPauseBtn.visibility = View.VISIBLE
@@ -149,7 +148,7 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
         }
     }
 
-    private fun setToPaused() {
+    private fun setToPausedState() {
         binding.run {
             measuringResumeBtn.visibility = View.VISIBLE
             measuringFinishBtn.visibility = View.VISIBLE
