@@ -93,7 +93,9 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
             speed.observe(this@MeasuringActivity) {
                 binding.measuringSpeedTv.text = it.toString()
             }
-            binding.measuringRemainPb.progress = 50
+            percentage.observe(this@MeasuringActivity) {
+                binding.measuringRemainPb.progress = it
+            }
         }
     }
 

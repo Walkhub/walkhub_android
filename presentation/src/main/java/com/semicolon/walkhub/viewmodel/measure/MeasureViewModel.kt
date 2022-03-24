@@ -33,6 +33,8 @@ class MeasureViewModel @Inject constructor(
     private val _walkCount = MutableLiveData(0)
     val walkCount: LiveData<Int> = _walkCount
 
+    var goal = 0
+
     private val _calorie = MutableLiveData(0F)
     val calorie: LiveData<Float> = _calorie
 
@@ -41,6 +43,9 @@ class MeasureViewModel @Inject constructor(
 
     private val _time = MutableLiveData<LocalDateTime>()
     val time: LiveData<LocalDateTime> = _time
+
+    private val _percentage = MutableLiveData<Int>() //TODO(걸음수 혹은 거리가 바뀔때 마다 값을 바꿔줘야함 _percentage.value = (값)/(goal) * 100)
+    val percentage: LiveData<Int> = _percentage
 
     private val _measuringState = MutableLiveData(MeasureState.ONGOING)
     val measuringState: LiveData<MeasureState> = _measuringState
@@ -61,6 +66,7 @@ class MeasureViewModel @Inject constructor(
 
     fun startMeasureExercise(goal: Int, isDistance: Boolean) {
         _measuringState.value = MeasureState.ONGOING
+        this.goal = goal
         val goalType = if (isDistance) GoalType.DISTANCE else GoalType.WALK_COUNT
         viewModelScope.launch {
             try {
