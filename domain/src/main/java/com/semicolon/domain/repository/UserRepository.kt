@@ -55,4 +55,22 @@ interface UserRepository {
     )
 
     suspend fun fetchCaloriesLevel() : Flow<FetchCaloriesLevelEntity>
+
+    suspend fun deleteAccount()
+
+    suspend fun deleteClass()
+
+    suspend fun checkAccountOverlap(accountId: String)
+
+    suspend fun checkClassCode(code: String)
+
+    suspend fun changeIndependence(userId: Int)
+
+    suspend fun fetchDailyGoal(): Flow<FetchDailyGoalEntity>
+
+    suspend fun fetchInfo(): Flow<FetchInfoEntity>
+
+    suspend fun fetchUserHealth(): Flow<FetchUserHealthEntity>
+
+    suspend fun fetchAuthInfo(): Flow<FetchAuthInfoEntity>
 }

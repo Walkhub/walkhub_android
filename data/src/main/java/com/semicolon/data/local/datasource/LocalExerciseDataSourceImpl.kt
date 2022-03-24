@@ -16,7 +16,7 @@ import com.semicolon.domain.entity.exercise.DailyExerciseEntity
 import com.semicolon.domain.entity.exercise.ExerciseEntity
 import com.semicolon.domain.entity.exercise.GoalEntity
 import com.semicolon.domain.enums.MeasuringState
-import com.semicolon.domain.exception.exercise.RecordExerciseException
+import com.semicolon.domain.exception.RecordExerciseException
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -199,6 +199,7 @@ class LocalExerciseDataSourceImpl @Inject constructor(
         callbackFlow {
             val accumulatedHistory = fetchAccumulatedRecord()
             repeat(Int.MAX_VALUE) {
+                delay(1000)
                 val startTime = fetchStartTime()
                 val endTime = LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond()
                 val data = fitnessDataStorage.fetchExerciseRecord(
@@ -230,7 +231,7 @@ class LocalExerciseDataSourceImpl @Inject constructor(
                         )
                     )
                 }
-                delay(10000)
+                delay(2000)
             }
             awaitClose {}
         }

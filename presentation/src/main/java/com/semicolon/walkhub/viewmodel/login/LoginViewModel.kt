@@ -1,19 +1,16 @@
 package com.semicolon.walkhub.viewmodel.login
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.semicolon.domain.exception.basic.NoInternetException
-import com.semicolon.domain.exception.basic.NotFoundException
+import com.semicolon.domain.exception.NoInternetException
 import com.semicolon.domain.param.user.PostUserSignInParam
 import com.semicolon.domain.usecase.user.PostUserSignInUseCase
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
-import com.semicolon.walkhub.viewmodel.home.HomeViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,9 +24,9 @@ class LoginViewModel @Inject constructor(
     fun postLogin(accountId: String, password: String) {
         viewModelScope.launch() {
             kotlin.runCatching {
-                async {
+                withContext(Dispatchers.Default) {
                     postUserSignInUseCase.execute(PostUserSignInParam(accountId, password))
-                }.await()
+                }
             }.onSuccess {
                 event(Event.Success(""))
             }.onFailure {

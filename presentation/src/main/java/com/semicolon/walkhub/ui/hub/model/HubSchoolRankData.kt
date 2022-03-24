@@ -9,7 +9,6 @@ data class HubSchoolRankData(
         val schoolId: Int,
         val name: String,
         val logoImageUrl: String,
-        val walkCount: Int,
         val grade: Int,
         val classNum: Int
     )

@@ -14,14 +14,14 @@ interface RankApi {
     //학교랭킹조회
     @GET("ranks/schools")
     suspend fun fetchSchoolRank(
-        @Query("dateType") dateType: String
+        @Query("schoolDateType") dateType: String
     ): SchoolRankResponse
 
     //학교검색
     @GET("ranks/schools/search")
     suspend fun searchSchool(
         @Query("name") name: String,
-        @Query("dateType") moreDateType: String
+        @Query("schoolDateType") dateType: String
     ): SearchSchoolResponse
 
     //유저랭킹조회
@@ -43,6 +43,6 @@ interface RankApi {
     suspend fun searchUser(
         @Path("school-id") school: Int,
         @Query("name") name: String,
-        @Query("dateType") dateType: String
+        @Query("dateType") moredateType: String
     ): SearchUserResponse
 }

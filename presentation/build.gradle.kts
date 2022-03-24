@@ -67,6 +67,7 @@ dependencies {
     implementation(Dependency.UI.composeCompiler)
     implementation(Dependency.UI.activityCompose)
     implementation(Dependency.UI.coilCompose)
+    implementation(Dependency.UI.pinEntryEditText)
 
     testImplementation(Dependency.Test.junit)
     testImplementation(Dependency.Test.mockito)

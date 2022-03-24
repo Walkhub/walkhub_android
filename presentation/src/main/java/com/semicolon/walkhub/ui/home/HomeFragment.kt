@@ -34,7 +34,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     ): View? {
 
         vm.fetchHomeValue()
-        vm.fetchSchoolRank()
+        
 
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
@@ -48,7 +48,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
         }
 
         is HomeViewModel.Event.FetchSchoolRank -> {
-            setSchoolRank(event.rankData)
+
         }
 
         is HomeViewModel.Event.ErrorMessage -> {
@@ -59,10 +59,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     override fun initView() {
         binding.firstCardView.setOnClickListener {
             val intent = Intent(context, ActivityAnalysisActivity::class.java)
-            startActivity(intent)
-        }
-        binding.secondCardView.setOnClickListener {
-            val intent = Intent(context, MeasureHomeActivity::class.java)
             startActivity(intent)
         }
         Glide.with(this)

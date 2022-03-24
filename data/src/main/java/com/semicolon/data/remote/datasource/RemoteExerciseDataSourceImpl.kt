@@ -8,6 +8,7 @@ import com.semicolon.data.remote.request.exercise.StartMeasureExerciseRequest
 import com.semicolon.data.remote.response.exercise.ExerciseAnalysisResultResponse
 import com.semicolon.data.remote.response.exercise.ExerciseIdResponse
 import com.semicolon.data.remote.response.exercise.ExerciseRecordListResponse
+import com.semicolon.data.remote.response.exercise.ExercisingUserListResponse
 import com.semicolon.data.util.HttpHandler
 import javax.inject.Inject
 
@@ -49,5 +50,10 @@ class RemoteExerciseDataSourceImpl @Inject constructor(
     override suspend fun fetchExerciseAnalysisResult(): ExerciseAnalysisResultResponse =
         HttpHandler<ExerciseAnalysisResultResponse>()
             .httpRequest { exerciseApi.fetchExerciseAnalysisResult() }
+            .sendRequest()
+
+    override suspend fun fetchExercisingUserList(): ExercisingUserListResponse =
+        HttpHandler<ExercisingUserListResponse>()
+            .httpRequest { exerciseApi.fetchExercisingUserList() }
             .sendRequest()
 }

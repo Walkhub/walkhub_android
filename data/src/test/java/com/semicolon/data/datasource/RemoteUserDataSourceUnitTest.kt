@@ -7,6 +7,7 @@ import com.semicolon.data.remote.datasource.RemoteUserDataSource
 import com.semicolon.data.remote.datasource.RemoteUserDataSourceImpl
 import com.semicolon.data.remote.request.users.*
 import com.semicolon.data.remote.response.users.*
+import com.semicolon.domain.entity.users.UserProfileEntity
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -20,7 +21,8 @@ class RemoteUserDataSourceUnitTest {
     @Test
     fun testVerifyUserPhoneNumber() {
         val request = VerifyPhoneNumberSignUpRequest(
-            "010-0000-0000"
+            "010-0000-0000",
+            "대덕소프트웨어마이스터고"
         )
         runBlocking {
             val dataSourceResult = remoteUserDataSource.verifyUserPhoneNumber(request)
@@ -35,7 +37,10 @@ class RemoteUserDataSourceUnitTest {
             "password",
             "김재원",
             "010-0000-0000",
-            "abc",
+            175.0,
+            60.0,
+            "male",
+            1,
             "대덕소프트웨어마이스터고"
         )
         runBlocking {
@@ -88,7 +93,11 @@ class RemoteUserDataSourceUnitTest {
         val response = UserSignInResponse(
             "accessToken",
             "2020-12-12-T10:12",
-            "refreshToken"
+            "refreshToken",
+            "authority",
+            175.0,
+            60.0,
+            "male"
         )
         runBlocking {
             whenever(userApi.userSignIn(request)).thenReturn(
@@ -120,15 +129,18 @@ class RemoteUserDataSourceUnitTest {
             "김재원",
             "https://testImageUrl",
             "대덕소프트웨어마이스터고",
-            3,
+            "https://testImageUrl",
             2,
+            3,
+            10000,
             FetchMyPageResponse.TitleBadge(
                 14,
                 "뱃지",
                 "https://testImageUrl"
             ),
             FetchMyPageResponse.Level(
-                "레벨",
+                3,
+                "아이스티",
                 "https://testImageUrl"
             )
         )
@@ -214,7 +226,8 @@ class RemoteUserDataSourceUnitTest {
     fun testPatchUserHealth() {
         val request = PatchUserHealthRequest(
             182.2,
-            80
+            80,
+            "male"
         )
         runBlocking {
             val dataSourceResult = remoteUserDataSource.patchUserHealth(request)
@@ -229,7 +242,7 @@ class RemoteUserDataSourceUnitTest {
             3202
         )
         runBlocking {
-            val dataSourceResult = remoteUserDataSource.signUpClass(request.number, request)
+            val dataSourceResult = remoteUserDataSource.signUpClass(SignUpClassRequest("대덕소프트웨어마이스터고",1))
             assertEquals(Unit, dataSourceResult)
         }
     }

@@ -5,8 +5,10 @@ data class UserMyPageEntity(
     val name: String,
     val profileImageUrl: String,
     val schoolName: String,
+    val schoolImageUrl: String,
     val grade: Int,
     val classNum: Int,
+    val dailyWalkCountGoal: Int,
     val titleBadge: TitleBadge,
     val level: Level
 ) {
@@ -17,6 +19,7 @@ data class UserMyPageEntity(
     )
 
     data class Level(
+        val levelId: Int,
         val levelName: String,
         val levelImageUrl: String
     )
