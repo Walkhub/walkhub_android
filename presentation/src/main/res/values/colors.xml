@@ -19,4 +19,5 @@
     <color name="gray_900">#212121</color>
     <color name="primary_400">#57B4F1</color>
     <color name="error_red">#F04D51</color>
+    <color name="gray_150">#E3E3E3</color>
 </resources>

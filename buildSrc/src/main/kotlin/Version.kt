@@ -40,4 +40,5 @@ object Version {
     const val glide = "4.13.0"
     const val pinEntryEditText = "2.0.6"
     const val socket = "1.0.0"
+    const val tedImagePicker = "1.2.7"
 }

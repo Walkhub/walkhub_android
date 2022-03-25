@@ -14,6 +14,7 @@ import com.semicolon.walkhub.ui.analysis.ActivityAnalysisActivity
 import com.semicolon.walkhub.ui.base.BaseFragment
 import com.semicolon.walkhub.ui.home.model.HomeData
 import com.semicolon.walkhub.ui.home.model.RankData
+import com.semicolon.walkhub.ui.measure.MeasureHomeActivity
 import com.semicolon.walkhub.util.isVisible
 import com.semicolon.walkhub.util.loadCircleFromUrl
 import com.semicolon.walkhub.viewmodel.home.HomeViewModel

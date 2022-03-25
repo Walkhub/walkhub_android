@@ -1,11 +1,25 @@
 package com.semicolon.walkhub.viewmodel.measure
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.semicolon.domain.enums.GoalType
+import com.semicolon.domain.param.exercise.FinishMeasureExerciseParam
+import com.semicolon.domain.param.exercise.StartMeasureExerciseParam
 import com.semicolon.domain.usecase.exercise.*
+import com.semicolon.walkhub.util.MutableEventFlow
+import com.semicolon.walkhub.util.asEventFlow
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import org.threeten.bp.Instant
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.ZoneId
+import java.io.File
+import java.lang.Exception
 import javax.inject.Inject
 
+@HiltViewModel
 class MeasureViewModel @Inject constructor(
     private val fetchMeasuredExerciseRecordUseCase: FetchMeasuredExerciseRecordUseCase,
     private val fetchMeasuredTimeUseCase: FetchMeasuredTimeUseCase,
@@ -16,52 +30,134 @@ class MeasureViewModel @Inject constructor(
     private val finishMeasureExerciseUseCase: FinishMeasureExerciseUseCase
 ) : ViewModel() {
 
-    fun fetchMeasuredExercise() {
+    private val _walkCount = MutableLiveData(0)
+    val walkCount: LiveData<Int> = _walkCount
+
+    var goal = 0
+
+    private val _calorie = MutableLiveData(0F)
+    val calorie: LiveData<Float> = _calorie
+
+    private val _speed = MutableLiveData(0F)
+    val speed: LiveData<Float> = _speed
+
+    private val _time = MutableLiveData<LocalDateTime>()
+    val time: LiveData<LocalDateTime> = _time
+
+    private val _percentage = MutableLiveData<Int>() //TODO(걸음수 혹은 거리가 바뀔때 마다 값을 바꿔줘야함 _percentage.value = (값)/(goal) * 100)
+    val percentage: LiveData<Int> = _percentage
+
+    private val _measuringState = MutableLiveData(MeasureState.ONGOING)
+    val measuringState: LiveData<MeasureState> = _measuringState
+
+    private val _fetchPhoto = MutableEventFlow<Unit>()
+    val fetchPhoto = _fetchPhoto.asEventFlow()
+
+    private val _finishMeasuring = MutableEventFlow<Unit>()
+    val finishMeasuring = _finishMeasuring.asEventFlow()
+
+    private val _requestPhoto = MutableEventFlow<Unit>()
+    val requestPhoto = _requestPhoto.asEventFlow()
+
+    private val _finishActivity = MutableEventFlow<Unit>()
+    val finishActivity = _finishActivity.asEventFlow()
+
+    private var _finishPhotoUri: String? = null
+
+    fun startMeasureExercise(goal: Int, isDistance: Boolean) {
+        _measuringState.value = MeasureState.ONGOING
+        this.goal = goal
+        val goalType = if (isDistance) GoalType.DISTANCE else GoalType.WALK_COUNT
+        viewModelScope.launch {
+            try {
+                startMeasureExerciseUseCase.execute(StartMeasureExerciseParam(goal, goalType))
+                fetchMeasuredExercise()
+                fetchMeasuredTime()
+                fetchCurrentSpeed()
+            } catch (e: Exception) {
+
+            }
+        }
+    }
+
+    private fun fetchMeasuredExercise() {
         viewModelScope.launch {
             fetchMeasuredExerciseRecordUseCase.execute(Unit).collect {
-
+                _walkCount.value = it.stepCount
+                _calorie.value = it.burnedKilocalories
             }
         }
     }
 
-    fun fetchMeasuredTime() {
+    private fun fetchMeasuredTime() {
         viewModelScope.launch {
             fetchMeasuredTimeUseCase.execute(Unit).collect {
-
+                _time.value =
+                    LocalDateTime.ofInstant(Instant.ofEpochSecond(it), ZoneId.systemDefault())
             }
         }
     }
 
-    fun fetchCurrentSpeed() {
+    private fun fetchCurrentSpeed() {
         viewModelScope.launch {
             fetchCurrentSpeedUseCase.execute(Unit).collect {
-
+                _speed.value = it
             }
         }
+    }
+
+    fun lockMeasureExercise() {
+        _measuringState.value = MeasureState.LOCK
+    }
+
+    fun unLockMeasureExercise() {
+        _measuringState.value = MeasureState.ONGOING
     }
 
     fun pauseMeasureExercise() {
+        _measuringState.value = MeasureState.PAUSED
         viewModelScope.launch {
             pauseMeasureExerciseUseCase.execute(Unit)
         }
     }
 
     fun resumeMeasureExercise() {
+        _measuringState.value = MeasureState.ONGOING
         viewModelScope.launch {
             resumeMeasureExerciseUseCase.execute(Unit)
         }
     }
 
-    fun startMeasureExercise() {
+    fun fetchFinishPhoto() {
         viewModelScope.launch {
-            //startMeasureExerciseUseCase.execute()
+            _fetchPhoto.emit(Unit)
         }
     }
 
     fun finishMeasureExercise() {
         viewModelScope.launch {
-            //finishMeasureExerciseUseCase.execute()
+            if (_finishPhotoUri != null) {
+                val imageFile = File(_finishPhotoUri!!)
+                val param = FinishMeasureExerciseParam(imageFile)
+                finishMeasureExerciseUseCase.execute(param)
+                _finishActivity.emit(Unit)
+            } else {
+                _requestPhoto.emit(Unit)
+            }
         }
+    }
+
+    fun setImageUri(uri: String) {
+        this._finishPhotoUri = uri
+        viewModelScope.launch {
+            _finishMeasuring.emit(Unit)
+        }
+    }
+
+    enum class MeasureState {
+        ONGOING,
+        PAUSED,
+        LOCK
     }
 
 }

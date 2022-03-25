@@ -35,8 +35,27 @@
             android:name=".ui.analysis.ActivityAnalysisActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.measure.MeasuringActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.register.ScanHealthInformationActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".ui.analysis.ActivityAnalysisActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.measure.MeasureHomeActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
         <activity
             android:name=".ui.hub.ui.HubSearchSchoolActivity"
             android:exported="false" />
