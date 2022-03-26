@@ -9,6 +9,7 @@ buildscript {
         classpath(Dependency.GradlePlugin.kotlin)
         classpath(Dependency.GradlePlugin.hilt)
         classpath(Dependency.GradlePlugin.service)
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")
     }
 }
 

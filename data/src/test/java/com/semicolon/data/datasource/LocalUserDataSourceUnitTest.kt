@@ -27,15 +27,19 @@ class LocalUserDataSourceUnitTest {
         "김재원",
         "https://testImageUrl",
         "대덕소프트웨어마이스터고",
-        3,
+        "https://testImageUrl",
         2,
-        UserMyPageEntity.TitleBadge(
-            14,
-            "뱃지",
-            "https://testImageUrl"
-        ),
+            3,
+            10000,
+            UserMyPageEntity.TitleBadge(
+                3,
+                "gold",
+                "https://testImageUrl"
+            )
+        ,
         UserMyPageEntity.Level(
-            "레벨",
+            3,
+            "아이스티",
             "https://testImageUrl"
         )
     )

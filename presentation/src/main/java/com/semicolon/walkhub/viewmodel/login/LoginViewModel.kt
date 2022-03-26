@@ -8,8 +8,9 @@ import com.semicolon.domain.usecase.user.PostUserSignInUseCase
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.async
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,9 +24,9 @@ class LoginViewModel @Inject constructor(
     fun postLogin(accountId: String, password: String) {
         viewModelScope.launch() {
             kotlin.runCatching {
-                async {
+                withContext(Dispatchers.Default) {
                     postUserSignInUseCase.execute(PostUserSignInParam(accountId, password))
-                }.await()
+                }
             }.onSuccess {
                 event(Event.Success(""))
             }.onFailure {
