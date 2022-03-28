@@ -8,7 +8,7 @@ data class MyPageData(
     val schoolImageUrl: String,
     val grade: Int,
     val classNum: Int,
-    val dailyWalkCountGoal: String,
+    val dailyWalkCountGoal: Int,
     val titleBadge: TitleBadge,
     val level: Level
 ) {
