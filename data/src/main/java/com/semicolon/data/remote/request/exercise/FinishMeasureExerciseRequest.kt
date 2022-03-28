@@ -6,5 +6,6 @@ data class FinishMeasureExerciseRequest(
     @SerializedName("walk_count") val walkCount: Int,
     @SerializedName("distance") val distanceAsCentimeter: Int,
     @SerializedName("calorie") val kilocalorie: Int,
-    @SerializedName("image_url") val imageUrl: String
+    @SerializedName("image_url") val imageUrl: String,
+    @SerializedName("paused_time") val pausedTime: Long
 )

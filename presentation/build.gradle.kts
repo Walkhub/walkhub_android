@@ -48,7 +48,7 @@ dependencies {
 
     implementation(Dependency.Moshi.moshi)
     kapt(Dependency.Moshi.moshiCompiler)
-    implementation (Dependency.Moshi.moshiKotlin)
+    implementation(Dependency.Moshi.moshiKotlin)
 
     implementation(Dependency.coreKtx)
     implementation(Dependency.appcompat)
@@ -64,6 +64,7 @@ dependencies {
     implementation(Dependency.UI.composeCompiler)
     implementation(Dependency.UI.activityCompose)
     implementation(Dependency.UI.coilCompose)
+    implementation(Dependency.UI.pinEntryEditText)
 
     testImplementation(Dependency.Test.junit)
     testImplementation(Dependency.Test.mockito)
@@ -89,15 +90,15 @@ dependencies {
     implementation(Dependency.Lifecycle.liveData)
     implementation(Dependency.Lifecycle.runTime)
 
-    implementation (Dependency.Navigation.navigationFragment)
-    implementation (Dependency.Navigation.navigationUi)
+    implementation(Dependency.Navigation.navigationFragment)
+    implementation(Dependency.Navigation.navigationUi)
 
     implementation(Dependency.WorkManager.ktx)
     implementation(Dependency.WorkManager.hiltExtension)
 
     implementation(Dependency.FireBase.fcm)
     implementation(Dependency.FireBase.message)
-    
+
     implementation(Dependency.GooglePlayService.fitness)
     implementation(Dependency.GooglePlayService.auth)
 
@@ -110,7 +111,9 @@ dependencies {
     implementation(Dependency.Glide.glideCore)
     annotationProcessor(Dependency.Glide.glideCompiler)
 
-    implementation(Dependency.Socket.socketIo){
-            exclude (group = "org.json", module = "json")
+    implementation(Dependency.Socket.socketIo) {
+        exclude(group = "org.json", module = "json")
     }
+
+    implementation(Dependency.TedImagePicker.tedImagePicker)
 }

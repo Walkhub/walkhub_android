@@ -9,7 +9,7 @@ import com.semicolon.data.remote.response.ranks.search.user.toEntity
 import com.semicolon.data.remote.response.ranks.toEntity
 import com.semicolon.data.util.OfflineCacheUtil
 import com.semicolon.domain.entity.rank.*
-import com.semicolon.domain.enum.DateType
+import com.semicolon.domain.enums.DateType
 import com.semicolon.domain.param.rank.FetchOurSchoolUserRankParam
 import com.semicolon.domain.param.rank.FetchUserRankParam
 import com.semicolon.domain.param.rank.SearchSchoolParam
@@ -34,7 +34,7 @@ class RankRepositoryImpl @Inject constructor(
             .remoteData {
                 remoteRankDataSource.searchSchool(
                     searchSchoolParam.name,
-                    searchSchoolParam.moreDateType.toString()
+                    searchSchoolParam.dateType.toString()
                 ).toEntity()
             }
             .localData { localRankDataSource.searchSchool() }
@@ -71,7 +71,7 @@ class RankRepositoryImpl @Inject constructor(
                 remoteRankDataSource.searchUser(
                     searchUserParam.schoolId,
                     searchUserParam.name,
-                    searchUserParam.dateType.toString()
+                    searchUserParam.moreDateType.toString()
                 ).toEntity()
             }
             .localData { localRankDataSource.searchUser() }

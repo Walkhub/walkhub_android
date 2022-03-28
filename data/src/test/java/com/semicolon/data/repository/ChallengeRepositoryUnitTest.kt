@@ -7,9 +7,9 @@ import com.semicolon.data.remote.datasource.RemoteChallengeDateSource
 import com.semicolon.domain.entity.challenge.ChallengeDetailEntity
 import com.semicolon.domain.entity.challenge.ChallengeEntity
 import com.semicolon.domain.entity.challenge.ChallengeParticipantEntity
-import com.semicolon.domain.enum.ChallengeGoalScope
-import com.semicolon.domain.enum.ChallengeGoalType
-import com.semicolon.domain.enum.ChallengeUserScope
+import com.semicolon.domain.enums.ChallengeGoalScope
+import com.semicolon.domain.enums.ChallengeGoalType
+import com.semicolon.domain.enums.ChallengeUserScope
 import com.semicolon.domain.repository.ChallengeRepository
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals

@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.semicolon.domain.enum.DateType
-import com.semicolon.domain.enum.MoreDateType
+import com.semicolon.domain.enums.DateType
+import com.semicolon.domain.enums.MoreDateType
 import com.semicolon.walkhub.viewmodel.hub.HubMainViewModel.Event
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.customview.Dropdown
@@ -21,7 +21,6 @@ import com.semicolon.walkhub.ui.hub.adapter.HubSchoolRankRvAdapter
 import com.semicolon.walkhub.ui.hub.model.HubSchoolRankData
 import com.semicolon.walkhub.util.loadCircleFromUrl
 import com.semicolon.walkhub.viewmodel.hub.HubMainViewModel
-import com.semicolon.walkhub.viewmodel.hub.HubSearchSchoolViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -36,6 +35,7 @@ class HubFragment @Inject constructor(
     private var moreDateType = MoreDateType.WEEK
 
     private var schoolRvData = arrayListOf<HubSchoolRankData.OtherSchool>()
+
     private lateinit var mAdapter: HubSchoolRankRvAdapter
 
     override fun onCreateView(
@@ -64,7 +64,6 @@ class HubFragment @Inject constructor(
     }
 
     override fun initView() {
-
         setAdapter()
         initDropDown()
 
@@ -89,7 +88,7 @@ class HubFragment @Inject constructor(
                 Dropdown(
                     menuDirection = MenuDirection.LEFT,
                     items = arrayOf("지난주", "지난달"),
-                    defaultItemIndex = 1,
+                    defaultItemIndex = 0,
                     onItemSelected = { index, _ -> dropDownItemSelect(index) }
                 )
             }
@@ -110,16 +109,16 @@ class HubFragment @Inject constructor(
     }
 
     private fun setAdapter() {
-
         mAdapter = HubSchoolRankRvAdapter(schoolRvData)
 
-        binding.rvHubRank.layoutManager = LinearLayoutManager(context)
-        binding.rvHubRank.setHasFixedSize(true)
-        binding.rvHubRank.adapter = mAdapter
+        binding.rvHubRank.apply {
+            layoutManager = LinearLayoutManager(context)
+            setHasFixedSize(true)
+            adapter = mAdapter
+        }
     }
 
     private fun setMySchool(school: HubSchoolRankData.MySchool) {
-
         binding.ivMySchool.loadCircleFromUrl(school.logoImageUrl)
         binding.tvMySchoolName.text = school.name
         binding.tvMySchoolInfo.text = "${school.grade} 학년 ${school.classNum} 반"

@@ -8,12 +8,10 @@ import com.semicolon.domain.entity.rank.OurSchoolUserRankEntity
 @Entity(tableName = "ourschoolUserRank")
 data class OurSchoolUserRankRoomEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    @Embedded val myRanking: Ranking,
+    @Embedded val myRanking: Ranking?,
     val rankingList: List<Ranking>
 ) {
     data class Ranking(
-        val classNum: Int,
-        val grade: Int,
         val name: String,
         val profileImageUrl: String,
         val ranking: Int,
@@ -23,8 +21,6 @@ data class OurSchoolUserRankRoomEntity(
 
     fun Ranking.toEntity() =
         OurSchoolUserRankEntity.Ranking(
-            classNum = classNum,
-            grade = grade,
             name = name,
             profileImageUrl = profileImageUrl,
             ranking = ranking,
@@ -35,14 +31,12 @@ data class OurSchoolUserRankRoomEntity(
 
 fun OurSchoolUserRankRoomEntity.toEntity() =
     OurSchoolUserRankEntity(
-        myRanking = myRanking.toEntity(),
+        myRanking = myRanking?.toEntity(),
         rankingList = rankingList.map { it.toEntity() }
     )
 
 fun OurSchoolUserRankEntity.Ranking.toDbEntity() =
     OurSchoolUserRankRoomEntity.Ranking(
-        classNum = classNum,
-        grade = grade,
         name = name,
         profileImageUrl = profileImageUrl,
         ranking = ranking,
@@ -52,7 +46,7 @@ fun OurSchoolUserRankEntity.Ranking.toDbEntity() =
 
 fun OurSchoolUserRankEntity.toDbEntity() =
     OurSchoolUserRankRoomEntity(
-        myRanking = myRanking.toDbEntity(),
+        myRanking = myRanking?.toDbEntity(),
         rankingList = rankingList.map { it.toDbEntity() }
     )
 
