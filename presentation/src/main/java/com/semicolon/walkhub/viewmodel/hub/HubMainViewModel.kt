@@ -6,10 +6,15 @@ import com.semicolon.domain.entity.rank.SchoolRankEntity
 import com.semicolon.domain.enums.DateType
 import com.semicolon.domain.exception.NoInternetException
 import com.semicolon.domain.usecase.rank.FetchSchoolRankUseCase
+import com.semicolon.domain.usecase.socket.CheeringUseCase
+import com.semicolon.domain.usecase.socket.ConnectedSocketUseCase
+import com.semicolon.domain.usecase.socket.ReceiveCheeringUseCase
+import com.semicolon.domain.usecase.socket.ReceiveErrorUseCase
 import com.semicolon.walkhub.ui.hub.model.HubSchoolRankData
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.lang.NullPointerException
 import javax.inject.Inject
