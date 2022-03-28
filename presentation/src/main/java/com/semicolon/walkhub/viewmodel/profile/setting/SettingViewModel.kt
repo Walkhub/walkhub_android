@@ -46,9 +46,9 @@ class SettingViewModel @Inject constructor(
                 }
             }.onFailure {
                 when (it) {
-                    is NoInternetException -> event(Event.ErrorMessage("인터넷을 사용할 수 없습니다"))
-                    is UnauthorizedException -> event(Event.ErrorMessage("토큰이 만료되었거나 식별 할 수 없습니다."))
-                    else -> event(Event.ErrorMessage("알 수 없는 에러가 발생했습니다."))
+                    is NoInternetException -> event(Event.ErrorMessage("인터넷에 연결되어있지 않습니다."))
+                    is UnauthorizedException -> event(Event.ErrorMessage("세션이 만료되었습니다. 다시 시도해주세요."))
+                    else -> event(Event.ErrorMessage("에러가 발생했습니다."))
                 }
             }
         }
@@ -62,9 +62,9 @@ class SettingViewModel @Inject constructor(
                 }
             }.onFailure {
                 when (it) {
-                    is NoInternetException -> event(Event.ErrorMessage("인터넷을 사용할 수 없습니다"))
-                    is UnauthorizedException -> event(Event.ErrorMessage("토큰이 만료되었거나 식별 할 수 없습니다."))
-                    else -> event(Event.ErrorMessage("알 수 없는 에러가 발생했습니다."))
+                    is NoInternetException -> event(Event.ErrorMessage("인터넷에 연결되어있지 않습니다."))
+                    is UnauthorizedException -> event(Event.ErrorMessage("세션이 만료되었습니다. 다시 시도해주세요."))
+                    else -> event(Event.ErrorMessage("에러가 발생했습니다."))
                 }
             }
         }
@@ -78,9 +78,9 @@ class SettingViewModel @Inject constructor(
                 }
             }.onFailure {
                 when (it) {
-                    is NoInternetException -> event(Event.ErrorMessage("인터넷을 사용할 수 없습니다"))
-                    is UnauthorizedException -> event(Event.ErrorMessage("토큰이 만료되었거나 식별 할 수 없습니다."))
-                    else -> event(Event.ErrorMessage("알 수 없는 에러가 발생했습니다."))
+                    is NoInternetException -> event(Event.ErrorMessage("인터넷에 연결되어있지 않습니다."))
+                    is UnauthorizedException -> event(Event.ErrorMessage("세션이 만료되었습니다. 다시 시도해주세요."))
+                    else -> event(Event.ErrorMessage("에러가 발생했습니다."))
                 }
             }
         }
@@ -90,14 +90,12 @@ class SettingViewModel @Inject constructor(
         viewModelScope.launch {
             kotlin.runCatching {
                 patchUserHealthUseCase.execute(PatchUserHealthParam(height, weight, sex))
-            }.onSuccess {
-                event(Event.Success(""))
             }.onFailure {
                 when (it) {
-                    is NoInternetException -> event(Event.ErrorMessage("인터넷을 사용할 수 없습니다"))
-                    is BadRequestException -> event(Event.ErrorMessage("요청 형식을 식별할 수 없습니다."))
-                    is UnauthorizedException -> event(Event.ErrorMessage("토큰이 만료되었거나 식별 할 수 없습니다."))
-                    else -> event(Event.ErrorMessage("알 수 없는 에러가 발생했습니다."))
+                    is NoInternetException -> event(Event.ErrorMessage("인터넷에 연결되어있지 않습니다."))
+                    is BadRequestException -> event(Event.ErrorMessage("요청이 잘못되었습니다. 입력 값을 확인해주세요."))
+                    is UnauthorizedException -> event(Event.ErrorMessage("세션이 만료되었습니다. 다시 시도해주세요."))
+                    else -> event(Event.ErrorMessage("에러가 발생했습니다."))
                 }
             }
         }
@@ -113,15 +111,13 @@ class SettingViewModel @Inject constructor(
                         accountId, phoneNumber, authcode, newPassword
                     )
                 )
-            }.onSuccess {
-                event(Event.Success(""))
             }.onFailure {
                 when (it) {
-                    is BadRequestException -> event(Event.ErrorMessage("요청 형식을 식별할 수 없습니다."))
-                    is UnauthorizedException -> event(Event.ErrorMessage("토큰이 만료되었거나 식별 할 수 없습니다."))
+                    is BadRequestException -> event(Event.ErrorMessage("요청이 잘못되었습니다. 입력 값을 확인해주세요."))
+                    is UnauthorizedException -> event(Event.ErrorMessage("세션이 만료되었습니다. 다시 시도해주세요."))
                     is NotFoundException -> event(Event.ErrorMessage("요청하는 대상을 확인할 수 없습니다."))
-                    is NoInternetException -> event(Event.ErrorMessage("인터넷에 연결할 수 없습니다."))
-                    else -> event(Event.ErrorMessage("알 수 없는 에러가 발생했습니다."))
+                    is NoInternetException -> event(Event.ErrorMessage("인터넷에 연결되어있지 않습니다."))
+                    else -> event(Event.ErrorMessage("에러가 발생했습니다."))
                 }
             }
         }
@@ -131,14 +127,12 @@ class SettingViewModel @Inject constructor(
         viewModelScope.launch {
             kotlin.runCatching {
                 updateProfileUseCase.execute(UpdateProfileParam(name, profileImage, schoolId))
-            }.onSuccess {
-                event(Event.Success(""))
             }.onFailure {
                 when (it) {
-                    is UnauthorizedException -> event(Event.ErrorMessage("토큰이 만료되었거나 식별할 수 없습니다."))
+                    is UnauthorizedException -> event(Event.ErrorMessage("세션이 만료되었습니다. 다시 시도해주세요."))
                     is BadRequestException -> event(Event.ErrorMessage("요청 형식을 식별할 수 없습니다."))
-                    is NoInternetException -> event(Event.ErrorMessage("인터넷에 연결할 수 없습니다."))
-                    else -> event(Event.ErrorMessage("알 수 없는 에러가 발생했습니다."))
+                    is NoInternetException -> event(Event.ErrorMessage("인터넷에 연결되어있지 않습니다."))
+                    else -> event(Event.ErrorMessage("에러가 발생했습니다."))
                 }
             }
         }
@@ -148,14 +142,12 @@ class SettingViewModel @Inject constructor(
         viewModelScope.launch {
             kotlin.runCatching {
                 deleteClassUseCase.execute(Unit)
-            }.onSuccess {
-                event(Event.Success(""))
             }.onFailure {
                 when (it) {
-                    is NotFoundException -> event(Event.ErrorMessage("요청 대상을 찾을 수 없습니다."))
-                    is UnauthorizedException -> event(Event.ErrorMessage("토큰이 만료되었거나 식별할 수 없습니다."))
+                    is NotFoundException -> event(Event.ErrorMessage("요청하는 대상을 확인할 수 없습니다."))
+                    is UnauthorizedException -> event(Event.ErrorMessage("세션이 만료되었습니다. 다시 시도해주세요."))
                     is NoInternetException -> event(Event.ErrorMessage("인터넷에 연결할 수 없습니다."))
-                    else -> event(Event.ErrorMessage("알 수 없는 에러가 발생했습니다."))
+                    else -> event(Event.ErrorMessage("에러가 발생했습니다."))
                 }
             }
         }
@@ -165,14 +157,12 @@ class SettingViewModel @Inject constructor(
         viewModelScope.launch {
             kotlin.runCatching {
                 deleteAccountUseCase.execute(Unit)
-            }.onSuccess {
-                event(Event.Success(""))
             }.onFailure {
                 when (it) {
-                    is NotFoundException -> event(Event.ErrorMessage("요청 대상을 찾을 수 없습니다."))
-                    is UnauthorizedException -> event(Event.ErrorMessage("토큰이 만료되었거나 식별할 수 없습니다."))
+                    is NotFoundException -> event(Event.ErrorMessage("요청하는 대상을 확인할 수 없습니다."))
+                    is UnauthorizedException -> event(Event.ErrorMessage("세션이 만료되었습니다. 다시 시도해주세요."))
                     is NoInternetException -> event(Event.ErrorMessage("인터넷에 연결할 수 없습니다."))
-                    else -> event(Event.ErrorMessage("알 수 없는 에러가 발생했습니다."))
+                    else -> event(Event.ErrorMessage("에러가 발생했습니다."))
                 }
             }
         }
