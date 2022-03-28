@@ -14,7 +14,6 @@ import androidx.core.content.ContextCompat
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityRegisterBinding
 import com.semicolon.walkhub.ui.base.BaseActivity
-import com.semicolon.walkhub.ui.register.searchschool.SearchSchoolActivity
 import com.semicolon.walkhub.util.visible
 
 class Register : BaseActivity<ActivityRegisterBinding>(
@@ -117,7 +116,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
                                     )
 
                                 binding.tvWarning.visible()
-                                binding.tvWarning.setTextColor(Color.parseColor("primary_400"))
+                                binding.tvWarning.setTextColor(Color.parseColor("#57B4F1"))
                             }
 
                             p0?.length!! < 6 -> {
@@ -199,7 +198,11 @@ class Register : BaseActivity<ActivityRegisterBinding>(
 
                     if (cer.length < 5) {
                         showShortToast("올바른 형식의 인증번호를 입력해주세요.")
-                    } else movePage(4)
+                    }
+                    else if (cer.length > 5){
+                        showShortToast("인증번호를 올바르게 입력해주세요.")
+                    }
+                    else movePage(4)
                 }
             }
             4 -> {
@@ -231,6 +234,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
 
             6 -> {
                 sendSchool()
+                hideKeyboard()
 
                 binding.etName.setOnClickListener {
                     val intent = Intent(this, SearchSchoolActivity::class.java)
