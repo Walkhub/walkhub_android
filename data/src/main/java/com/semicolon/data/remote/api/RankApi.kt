@@ -20,8 +20,7 @@ interface RankApi {
     //학교검색
     @GET("ranks/schools/search")
     suspend fun searchSchool(
-        @Query("name") name: String,
-        @Query("schoolDateType") dateType: String
+        @Query("name") name: String
     ): SearchSchoolResponse
 
     //유저랭킹조회

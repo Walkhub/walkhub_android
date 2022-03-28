@@ -1,4 +1,4 @@
-package com.semicolon.walkhub.viewmodel.hub
+package com.semicolon.walkhub.viewmodel.register
 
 import androidx.lifecycle.*
 import com.semicolon.domain.entity.rank.SearchSchoolEntity
@@ -8,6 +8,7 @@ import com.semicolon.domain.exception.NotFoundException
 import com.semicolon.domain.param.rank.SearchSchoolParam
 import com.semicolon.domain.usecase.rank.SearchSchoolUseCase
 import com.semicolon.walkhub.ui.hub.model.SearchSchoolData
+import com.semicolon.walkhub.ui.register.model.SecondSearchSchoolData
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +18,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HubSearchSchoolViewModel @Inject constructor(
+class SearchSchoolViewModel @Inject constructor(
     private val searchSchoolUseCase: SearchSchoolUseCase
 ) : ViewModel() {
 
@@ -26,10 +27,10 @@ class HubSearchSchoolViewModel @Inject constructor(
 
     private var searchJob: Job? = null
 
-    private fun searchSchool(school: String, dateType: DateType) {
+    private fun searchSchool(school: String) {
         viewModelScope.launch {
             kotlin.runCatching {
-                searchSchoolUseCase.execute(SearchSchoolParam(school, dateType)).collect() {
+                searchSchoolUseCase.execute(school).collect() {
                     event(Event.SearchSchool(it.toData()))
                 }
             }.onFailure {
@@ -42,15 +43,15 @@ class HubSearchSchoolViewModel @Inject constructor(
         }
     }
 
-    fun searchSchoolDebounce(school: String, dateType: DateType) {
+    fun searchSchoolDebounce(school: String) {
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
             delay(500L)
-            searchSchool(school, dateType)
+            searchSchool(school)
         }
     }
 
-    fun SearchSchoolEntity.toData() =
+    private fun SearchSchoolEntity.toData() =
         SearchSchoolData(
             schoolList.map { it.toData() }
         )
@@ -72,6 +73,7 @@ class HubSearchSchoolViewModel @Inject constructor(
 
     sealed class Event {
         data class SearchSchool(val searchSchoolData: SearchSchoolData) : Event()
+        data class SearchSchoolTwo(val secondSearchSchoolData: SecondSearchSchoolData) : Event()
         data class ErrorMessage(val message: String) : Event()
     }
 }
