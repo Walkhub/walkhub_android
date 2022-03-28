@@ -35,14 +35,8 @@ object NetWorkModule {
         OkHttpClient
             .Builder()
             .addInterceptor(httpLoggingInterceptor)
-            .addInterceptor {
-                it.proceed(
-                    it.request().newBuilder().addHeader(
-                        "Authorization",
-                        "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaGxhbHN3bnMiLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNjQ1NjI3MTk0fQ.QmTo38nA_m2Bn2iWK6o2dI0REmxFglFbdEg9IWR9bFQ"
-                    ).build()
-                )
-            }.build()
+            .addInterceptor(authorizationInterceptor)
+            .build()
 
     @Provides
     fun provideOptions(
