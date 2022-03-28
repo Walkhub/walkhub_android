@@ -11,7 +11,7 @@ data class FetchMyPageResponse(
     @SerializedName("school_image_url") val schoolImageUrl: String,
     @SerializedName("grade") val grade: Int,
     @SerializedName("class_num") val classNum: Int,
-    @SerializedName("daily_walk_count_goal") val dailyWalkCountGoal: Int,
+    @SerializedName("daily_walk_count_goal") val dailyWalkCountGoal : Int,
     @SerializedName("title_badge") val titleBadge: TitleBadge,
     @SerializedName("level") val level: Level
 ) {
