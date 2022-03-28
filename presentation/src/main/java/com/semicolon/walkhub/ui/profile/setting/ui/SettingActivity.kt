@@ -16,7 +16,7 @@ class SettingActivity : BaseFragment<ActivitySettingBinding>(
         }
 
         binding.modifyHealthInfo.setOnClickListener {
-            val fragment = ModifyHealthFragment()
+            val fragment = ModifyHealthInfoFragment()
 //            supportFragmentManager()
 //                .beginTransaction()
 //                .add(R.id.onfragment, fragment)
