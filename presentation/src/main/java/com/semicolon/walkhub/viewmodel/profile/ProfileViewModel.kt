@@ -3,10 +3,9 @@ package com.semicolon.walkhub.viewmodel.profile
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.semicolon.domain.entity.users.UserMyPageEntity
-import com.semicolon.domain.exception.basic.BadRequestException
-import com.semicolon.domain.exception.basic.NoInternetException
-import com.semicolon.domain.exception.basic.NotFoundException
-import com.semicolon.domain.exception.basic.UnauthorizedException
+import com.semicolon.domain.exception.NoInternetException
+import com.semicolon.domain.exception.NotFoundException
+import com.semicolon.domain.exception.UnauthorizedException
 import com.semicolon.domain.usecase.user.FetchMypageUseCase
 import com.semicolon.walkhub.ui.profile.model.MyPageData
 import com.semicolon.walkhub.util.MutableEventFlow
