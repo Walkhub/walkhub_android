@@ -14,6 +14,7 @@ import com.semicolon.walkhub.ui.analysis.ActivityAnalysisActivity
 import com.semicolon.walkhub.ui.base.BaseFragment
 import com.semicolon.walkhub.ui.home.model.HomeData
 import com.semicolon.walkhub.ui.home.model.RankData
+import com.semicolon.walkhub.ui.measure.MeasureHomeActivity
 import com.semicolon.walkhub.util.isVisible
 import com.semicolon.walkhub.util.loadCircleFromUrl
 import com.semicolon.walkhub.viewmodel.home.HomeViewModel
@@ -33,7 +34,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     ): View? {
 
         vm.fetchHomeValue()
-        vm.fetchSchoolRank()
+        
 
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
@@ -47,7 +48,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
         }
 
         is HomeViewModel.Event.FetchSchoolRank -> {
-            setSchoolRank(event.rankData)
+
         }
 
         is HomeViewModel.Event.ErrorMessage -> {

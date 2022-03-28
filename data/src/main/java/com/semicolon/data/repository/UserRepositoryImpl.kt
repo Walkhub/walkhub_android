@@ -35,7 +35,8 @@ class UserRepositoryImpl @Inject constructor(
     ) {
         FirebaseMessaging.getInstance().token.addOnSuccessListener {
             CoroutineScope(Dispatchers.IO).launch {
-                val response = remoteUserDateSource.postUserSignIn(postUserSignInParam.toRequest(it))
+                val response =
+                    remoteUserDateSource.postUserSignIn(postUserSignInParam.toRequest(it))
                 saveAccount(postUserSignInParam, it)
                 saveToken(response)
             }
@@ -74,7 +75,6 @@ class UserRepositoryImpl @Inject constructor(
 
     override suspend fun signUpClass(signUpClassParam: SignUpClassParam) =
         remoteUserDateSource.signUpClass(
-            signUpClassParam.group_id,
             signUpClassParam.toRequest()
         )
 
@@ -100,6 +100,54 @@ class UserRepositoryImpl @Inject constructor(
             .remoteData { remoteUserDateSource.fetchCaloriesLevelList() }
             .localData { localUserDataSource.fetchCaloriesLevelList() }
             .doOnNeedRefresh { localUserDataSource.insertCaloriesLevelList(it) }
+            .createFlow()
+
+    override suspend fun deleteAccount() {
+        remoteUserDateSource.deleteAccount()
+    }
+
+    override suspend fun deleteClass() {
+        remoteUserDateSource.deleteClass()
+    }
+
+    override suspend fun checkAccountOverlap(accountId: String) {
+        remoteUserDateSource.checkClassCode(accountId)
+    }
+
+    override suspend fun checkClassCode(code: String) {
+        remoteUserDateSource.checkClassCode(code)
+    }
+
+    override suspend fun changeIndependence(userId: Int) {
+        remoteUserDateSource.changeIndependence(userId)
+    }
+
+    override suspend fun fetchDailyGoal(): Flow<FetchDailyGoalEntity> =
+        OfflineCacheUtil<FetchDailyGoalEntity>()
+            .remoteData { remoteUserDateSource.fetchDailyGoal() }
+            .localData { localUserDataSource.fetchDailyGoal() }
+            .doOnNeedRefresh { localUserDataSource.insertDailyGoal(it) }
+            .createFlow()
+
+    override suspend fun fetchInfo(): Flow<FetchInfoEntity> =
+        OfflineCacheUtil<FetchInfoEntity>()
+            .remoteData { remoteUserDateSource.fetchInfo() }
+            .localData { localUserDataSource.fetchInfo() }
+            .doOnNeedRefresh { localUserDataSource.insertInfo(it) }
+            .createFlow()
+
+    override suspend fun fetchUserHealth(): Flow<FetchUserHealthEntity> =
+        OfflineCacheUtil<FetchUserHealthEntity>()
+            .remoteData { remoteUserDateSource.fetchUserHealth() }
+            .localData { localUserDataSource.fetchUserHealth() }
+            .doOnNeedRefresh { localUserDataSource.insertUserHealth(it) }
+            .createFlow()
+
+    override suspend fun fetchAuthInfo(): Flow<FetchAuthInfoEntity> =
+        OfflineCacheUtil<FetchAuthInfoEntity>()
+            .remoteData { remoteUserDateSource.fetchAuthInfo() }
+            .localData { localUserDataSource.fetchAuthInfo() }
+            .doOnNeedRefresh { localUserDataSource.insertAuthInfo(it) }
             .createFlow()
 
     private suspend fun saveToken(userSignInResponse: UserSignInResponse) {
@@ -139,19 +187,21 @@ class UserRepositoryImpl @Inject constructor(
     fun PatchUserHealthParam.toRequest() =
         PatchUserHealthRequest(
             height = height,
-            weight = weight
+            weight = weight,
+            sex = sex
         )
 
     fun UpdateProfileParam.toRequest(profileImageUrl: String) =
         UpdateProfileRequest(
             name = name,
             profileImageUrl = profileImageUrl,
-            sex = sex
+            schoolId = schoolId
         )
 
     fun VerifyPhoneNumberSignUpParam.toRequest() =
         VerifyPhoneNumberSignUpRequest(
-            phoneNumber = phoneNumber
+            phoneNumber = phoneNumber,
+            authCode = authCode
         )
 
     fun PostUserSignUpParam.toRequest() =
@@ -160,8 +210,11 @@ class UserRepositoryImpl @Inject constructor(
             password = password,
             name = name,
             phoneNumber = phoneNumber,
-            authCode = authCode,
-            schoolName = schoolName
+            height = height,
+            weight = weight,
+            sex = sex,
+            schoolId = schoolId,
+            authCode = authCode
         )
 
     fun PostUserSignInParam.toRequest(deviceToken: String) =

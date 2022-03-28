@@ -20,7 +20,6 @@ data class SchoolRankResponse(
         @SerializedName("school_id") val schoolId: Int,
         @SerializedName("name") val name: String,
         @SerializedName("logo_image_url") val logoImageUrl: String,
-        @SerializedName("walk_count") val walkCount: Int,
         @SerializedName("grade") val grade: Int,
         @SerializedName("class_num") val classNum: Int
     )
@@ -40,7 +39,6 @@ data class SchoolRankResponse(
             schoolId = schoolId,
             name = name,
             logoImageUrl = logoImageUrl,
-            walkCount = walkCount,
             grade = grade,
             classNum = classNum
         )

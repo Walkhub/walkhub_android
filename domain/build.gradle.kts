@@ -1,6 +1,5 @@
 plugins {
     id("com.android.library")
-    id("com.google.gms.google-services")
     kotlin("android")
 }
 
