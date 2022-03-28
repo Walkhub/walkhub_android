@@ -13,5 +13,16 @@ data class ChallengeEntity(
     val imageUrl: String,
     val userScope: ChallengeUserScope,
     val goalScope: ChallengeGoalScope,
-    val goalType: ChallengeGoalType
-)
+    val goalType: ChallengeGoalType,
+    val award: String,
+    val writer: Writer,
+    val participantCount: Int,
+    val participantList: List<ChallengeParticipantEntity>
+) {
+
+    data class Writer(
+        val userId: Long,
+        val name: String,
+        val profileImageUrl: String
+    )
+}
