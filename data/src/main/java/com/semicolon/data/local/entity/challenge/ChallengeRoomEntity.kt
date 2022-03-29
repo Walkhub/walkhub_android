@@ -7,7 +7,6 @@ import com.semicolon.domain.entity.challenge.ChallengeEntity
 import com.semicolon.domain.entity.challenge.ChallengeParticipantEntity
 import com.semicolon.domain.enums.toGoalScope
 import com.semicolon.domain.enums.toGoalType
-import com.semicolon.domain.enums.toUserScope
 import com.semicolon.domain.enums.toScopeString
 
 @Entity(tableName = "challenge")
@@ -19,7 +18,6 @@ data class ChallengeRoomEntity(
     var imageUrl: String,
     var goalType: String,
     var goalScope: String,
-    var userScope: String,
     var award: String,
     var writerId: Long,
     var writerName: String,
@@ -35,7 +33,6 @@ fun ChallengeRoomEntity.toEntity() =
         startAt = startAt.toLocalDateTime(),
         endAt = endAt.toLocalDateTime(),
         imageUrl = imageUrl,
-        userScope = userScope.toUserScope(),
         goalScope = goalScope.toGoalScope(),
         goalType = goalType.toGoalType(),
         award = award,
@@ -58,7 +55,6 @@ fun ChallengeEntity.toDbEntity() =
         startAt = startAt.toString(),
         endAt = endAt.toString(),
         imageUrl = imageUrl,
-        userScope = userScope.toScopeString(),
         goalScope = goalScope.toScopeString(),
         goalType = goalType.toScopeString(),
         award = award,
