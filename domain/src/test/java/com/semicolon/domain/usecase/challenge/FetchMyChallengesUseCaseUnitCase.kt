@@ -3,9 +3,9 @@ package com.semicolon.domain.usecase.challenge
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import com.semicolon.domain.entity.challenge.ChallengeEntity
+import com.semicolon.domain.entity.challenge.ChallengeParticipantEntity
 import com.semicolon.domain.enums.ChallengeGoalScope
 import com.semicolon.domain.enums.ChallengeGoalType
-import com.semicolon.domain.enums.ChallengeUserScope
 import com.semicolon.domain.repository.ChallengeRepository
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
@@ -24,13 +24,26 @@ class FetchMyChallengesUseCaseUnitCase {
         val challengeId = 12
         val challengeEntity = ChallengeEntity(
             challengeId,
-            "삼천보 걷기",
+            "삼천보걷기",
             LocalDateTime.MIN,
             LocalDateTime.MAX,
             "https://testImageUrl",
-            ChallengeUserScope.ALL,
             ChallengeGoalScope.ALL,
-            ChallengeGoalType.WALK
+            ChallengeGoalType.ETC,
+            "award",
+            writer = ChallengeEntity.Writer(
+                12L,
+                "JaeWon",
+                "https://testImageUrl"
+            ),
+            participantCount = 12,
+            participantList = listOf(
+                ChallengeParticipantEntity(
+                    12L,
+                    "JaeWon",
+                    "https://testImageUrl"
+                )
+            )
         )
 
         val challengeList = listOf(
