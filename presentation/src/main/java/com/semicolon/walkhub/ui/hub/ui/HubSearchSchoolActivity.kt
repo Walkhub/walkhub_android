@@ -11,7 +11,7 @@ import com.semicolon.walkhub.ui.base.BaseActivity
 import com.semicolon.walkhub.ui.hub.adapter.HubSearchSchoolRvAdapter
 import com.semicolon.walkhub.ui.hub.model.SearchSchoolData
 import com.semicolon.walkhub.util.onTextChanged
-import com.semicolon.walkhub.viewmodel.register.SearchSchoolViewModel
+import com.semicolon.walkhub.viewmodel.hub.HubSearchSchoolViewModel
 
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,7 +20,7 @@ class HubSearchSchoolActivity : BaseActivity<ActivityHubSearchSchoolBinding> (
     R.layout.activity_hub_search_school
 ) {
 
-    private val vm: SearchSchoolViewModel by viewModels()
+    private val vm: HubSearchSchoolViewModel by viewModels()
 
     private val schoolRvData = arrayListOf<SearchSchoolData.SchoolInfo>()
 
@@ -44,14 +44,13 @@ class HubSearchSchoolActivity : BaseActivity<ActivityHubSearchSchoolBinding> (
         else -> DateType.WEEK
     }
 
-    private fun handleEvent(event: SearchSchoolViewModel.Event) = when (event) {
-        is SearchSchoolViewModel.Event.SearchSchool -> {
+    private fun handleEvent(event: HubSearchSchoolViewModel.Event) = when (event) {
+        is HubSearchSchoolViewModel.Event.SearchSchool -> {
             setSchoolData(event.searchSchoolData)
         }
-        is SearchSchoolViewModel.Event.ErrorMessage -> {
+        is HubSearchSchoolViewModel.Event.ErrorMessage -> {
             showShortToast(event.message)
         }
-        else -> {}
     }
 
     override fun initView() {

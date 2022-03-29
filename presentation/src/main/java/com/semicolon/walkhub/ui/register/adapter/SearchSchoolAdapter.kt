@@ -26,8 +26,8 @@ class SearchSchoolAdapter (
 
         fun bind(item: SecondSearchSchoolData.SchoolInfo) {
 
-            binding.ivSchool.loadFromUrl(item.SchoolProfile)
-            binding.tvSchool.text = item.SchoolName
+            binding.ivSchool.loadFromUrl(item.logoImageUrl)
+            binding.tvSchool.text = item.schoolName
 
             binding.executePendingBindings()
         }
