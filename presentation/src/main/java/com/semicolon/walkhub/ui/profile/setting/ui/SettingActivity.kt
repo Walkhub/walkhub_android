@@ -26,6 +26,12 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>(
             transaction.commit()
         }
         binding.modifyLoginInfo.setOnClickListener {
+            val bundle = Bundle()
+            val fragmentA = AccountInfoFragment()
+            fragmentA.arguments = bundle
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.add(R.id.account_info_fragment, fragmentA)
+            transaction.commit()
         }
 
         binding.notificationSetting.setOnClickListener {
