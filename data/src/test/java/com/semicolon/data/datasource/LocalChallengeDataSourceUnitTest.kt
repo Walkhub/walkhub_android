@@ -7,6 +7,7 @@ import com.semicolon.data.local.datasource.LocalChallengeDataSource
 import com.semicolon.data.local.datasource.LocalChallengeDataSourceImpl
 import com.semicolon.data.local.entity.challenge.*
 import com.semicolon.domain.entity.challenge.ChallengeDetailEntity
+import com.semicolon.domain.entity.challenge.ChallengeParticipantEntity
 import com.semicolon.domain.enums.ChallengeGoalScope
 import com.semicolon.domain.enums.ChallengeGoalType
 import com.semicolon.domain.enums.ChallengeUserScope
@@ -30,8 +31,17 @@ class LocalChallengeDataSourceUnitTest {
         "https://testImageUrl",
         "ALL",
         "ALL",
-        "WALK"
-    )
+        "WALK",
+        13L,
+        "김재원",
+        "https://testImageUrl",
+        13,
+        listOf(ChallengeParticipantEntity(
+            13L,
+            "김재",
+            "https://testImageUrl"
+        ))
+        )
 
     private val challengeRoomList = listOf(
         challengeRoomEntity

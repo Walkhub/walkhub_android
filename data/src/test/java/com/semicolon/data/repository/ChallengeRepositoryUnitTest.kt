@@ -31,9 +31,22 @@ class ChallengeRepositoryUnitTest {
         LocalDateTime.MIN,
         LocalDateTime.MAX,
         "https://testImageUrl",
-        ChallengeUserScope.ALL,
         ChallengeGoalScope.ALL,
-        ChallengeGoalType.ETC
+        ChallengeGoalType.ETC,
+        "award",
+        writer = ChallengeEntity.Writer(
+            12L,
+            "JaeWon",
+            "https://testImageUrl"
+        ),
+        participantCount = 12,
+        participantList = listOf(
+            ChallengeParticipantEntity(
+                12L,
+                "JaeWon",
+                "https://testImageUrl"
+            )
+        )
     )
 
     private val challengeList = listOf(
