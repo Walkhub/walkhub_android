@@ -156,7 +156,8 @@ class ChallengeViewModel @Inject constructor(
     ): String =
         "${startAt.year}/" +
                 "${String.format("%02d", startAt.monthValue)}/" +
-                "${String.format("%02d", startAt.dayOfMonth)} ~ " +
+                String.format("%02d", startAt.dayOfMonth) +
+                " ~ " +
                 "${endAt.year}/" +
                 "${String.format("%02d", endAt.monthValue)}/" +
                 String.format("%02d", endAt.dayOfMonth)

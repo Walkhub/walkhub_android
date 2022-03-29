@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -12,66 +10,79 @@
             type="com.semicolon.walkhub.viewmodel.challenge.ChallengeViewModel.ChallengeItemViewModel" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginVertical="14dp"
-        android:onClick="@{()->vm.onClick()}"
-        app:cardCornerRadius="10dp">
+        android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white">
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="14dp"
+            android:onClick="@{()->vm.onClick()}"
+            app:cardCornerRadius="10dp">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/challenge_item_iv"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                app:image_url="@{vm.imageUrl}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/my_challenge_title_tv"
-                android:layout_width="0dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="13dp"
-                android:text="@{vm.title}"
-                android:textColor="@color/black"
-                android:textSize="17sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/challenge_item_iv"
-                app:layout_constraintTop_toTopOf="@id/challenge_item_iv"
-                tools:text="정기챌린지 - 대전함께걷기" />
+                android:background="@color/white">
 
-            <TextView
-                android:id="@+id/my_challenge_writer_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="13dp"
-                android:text="@{vm.writerName}"
-                android:textColor="@color/black_87"
-                android:textSize="14sp"
-                app:layout_constraintStart_toEndOf="@id/challenge_item_iv"
-                app:layout_constraintTop_toBottomOf="@id/my_challenge_title_tv"
-                tools:text="대전광역시체육학과" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/challenge_item_iv"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    app:image_url="@{vm.imageUrl}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="13dp"
-                android:text="@{vm.periodText}"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/my_challenge_writer_tv"
-                app:layout_constraintTop_toBottomOf="@id/my_challenge_title_tv"
-                tools:text="2022/02/12 ~ 2022/02/15" />
+                <TextView
+                    android:id="@+id/my_challenge_title_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="13dp"
+                    android:text="@{vm.title}"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/challenge_item_iv"
+                    app:layout_constraintTop_toTopOf="@id/challenge_item_iv"
+                    tools:text="정기챌린지 - 대전함께걷기" />
 
+                <TextView
+                    android:id="@+id/my_challenge_writer_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="13dp"
+                    android:text="@{vm.writerName}"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toEndOf="@id/challenge_item_iv"
+                    app:layout_constraintTop_toBottomOf="@id/my_challenge_title_tv"
+                    tools:text="대전광역시체육학과" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="13dp"
+                    android:text="@{vm.periodText}"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/my_challenge_writer_tv"
+                    app:layout_constraintTop_toBottomOf="@id/my_challenge_title_tv"
+                    tools:text="2022/02/12 ~ 2022/02/15" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="18dp"
+                    android:background="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/challenge_item_iv" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+    </FrameLayout>
 </layout>
