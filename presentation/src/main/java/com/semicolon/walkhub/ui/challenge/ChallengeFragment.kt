@@ -14,6 +14,6 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding>(
 
     override fun initView() {
         vm.fetchChallenges()
-        
+
     }
 }
