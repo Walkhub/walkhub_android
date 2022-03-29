@@ -143,9 +143,20 @@
                     android:layout_height="20dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginBottom="12dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/challenge_goal_dot"
                     tools:src="@drawable/img_cheering" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    app:layout_constraintBottom_toBottomOf="@id/challenge_participant_3_iv"
+                    app:layout_constraintStart_toEndOf="@id/challenge_participant_3_iv"
+                    app:layout_constraintTop_toTopOf="@id/challenge_participant_3_iv"
+                    tools:text="정지우,홍정현,박상우 외 176명 참여 중입니다." />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
     </FrameLayout>
