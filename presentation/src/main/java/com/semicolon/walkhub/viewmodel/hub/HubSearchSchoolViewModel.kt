@@ -1,11 +1,9 @@
-package com.semicolon.walkhub.viewmodel.register
+package com.semicolon.walkhub.viewmodel.hub
 
 import androidx.lifecycle.*
 import com.semicolon.domain.entity.rank.SearchSchoolEntity
-import com.semicolon.domain.enums.DateType
 import com.semicolon.domain.exception.NoInternetException
 import com.semicolon.domain.exception.NotFoundException
-import com.semicolon.domain.param.rank.SearchSchoolParam
 import com.semicolon.domain.usecase.rank.SearchSchoolUseCase
 import com.semicolon.walkhub.ui.hub.model.SearchSchoolData
 import com.semicolon.walkhub.ui.register.model.SecondSearchSchoolData
@@ -18,7 +16,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchSchoolViewModel @Inject constructor(
+class HubSearchSchoolViewModel @Inject constructor(
     private val searchSchoolUseCase: SearchSchoolUseCase
 ) : ViewModel() {
 
@@ -35,8 +33,8 @@ class SearchSchoolViewModel @Inject constructor(
                 }
             }.onFailure {
                 when (it) {
-                    is NoInternetException -> event(Event.ErrorMessage("인터넷을 사용할 수 없습니다"))
-                    is NotFoundException -> event(Event.ErrorMessage("요청하는 대상을 찾을 수 없습니다."))
+                    is NoInternetException -> event(Event.ErrorMessage("인터넷 연결을 확인해주세요."))
+                    is NotFoundException -> event(Event.ErrorMessage("해당 학교는 존제하지 않습니다."))
                     else -> event(Event.ErrorMessage("알 수 없는 에러가 발생했습니다."))
                 }
             }
@@ -73,7 +71,6 @@ class SearchSchoolViewModel @Inject constructor(
 
     sealed class Event {
         data class SearchSchool(val searchSchoolData: SearchSchoolData) : Event()
-        data class SearchSchoolTwo(val secondSearchSchoolData: SecondSearchSchoolData) : Event()
         data class ErrorMessage(val message: String) : Event()
     }
 }
