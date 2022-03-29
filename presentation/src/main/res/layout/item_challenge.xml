@@ -38,7 +38,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/my_challenge_title_tv"
+                    android:id="@+id/challenge_title_tv"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="13dp"
@@ -51,7 +51,7 @@
                     tools:text="정기챌린지 - 대전함께걷기" />
 
                 <TextView
-                    android:id="@+id/my_challenge_writer_tv"
+                    android:id="@+id/challenge_writer_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="13dp"
@@ -59,7 +59,7 @@
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     app:layout_constraintStart_toEndOf="@id/challenge_item_iv"
-                    app:layout_constraintTop_toBottomOf="@id/my_challenge_title_tv"
+                    app:layout_constraintTop_toBottomOf="@id/challenge_title_tv"
                     tools:text="대전광역시체육학과" />
 
                 <TextView
@@ -69,8 +69,8 @@
                     android:text="@{vm.periodText}"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/my_challenge_writer_tv"
-                    app:layout_constraintTop_toBottomOf="@id/my_challenge_title_tv"
+                    app:layout_constraintStart_toEndOf="@id/challenge_writer_tv"
+                    app:layout_constraintTop_toBottomOf="@id/challenge_title_tv"
                     tools:text="2022/02/12 ~ 2022/02/15" />
 
                 <View
