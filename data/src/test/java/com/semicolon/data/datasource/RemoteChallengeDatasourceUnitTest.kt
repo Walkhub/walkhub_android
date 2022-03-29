@@ -29,7 +29,20 @@ class RemoteChallengeDatasourceUnitTest {
             "https://testImageUrl",
             "ALL",
             "ALL",
-            "WALK"
+            ChallengeListResponse.User(
+                13L,
+                "JaeWon",
+                "https://testImageUrl"
+            ),
+            "award",
+            13,
+            listOf(
+                ChallengeListResponse.User(
+                    14L,
+                    "JaeWon",
+                    "https://testImageUrl"
+                )
+            )
         )
     )
 
