@@ -41,8 +41,22 @@ class ChallengeViewModel @Inject constructor(
 
                 myChallenges.zip(challenges) { my, all ->
                     _challengeItems.value = ArrayList<RecyclerViewItem>().apply {
+                        add(
+                            RecyclerViewItem(
+                                itemLayoutId = R.layout.item_challenge_title,
+                                variableId = BR.title,
+                                data = "참여 중인 챌린지"
+                            )
+                        )
                         addAll(
                             my.toMyRecyclerItem()
+                        )
+                        add(
+                            RecyclerViewItem(
+                                itemLayoutId = R.layout.item_challenge_title,
+                                variableId = BR.title,
+                                data = "전체 챌린지"
+                            )
                         )
                         addAll(
                             all.toRecyclerItem()
