@@ -6,6 +6,9 @@ import com.gun0912.tedpermission.provider.TedPermissionProvider.context
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivitySettingBinding
 import com.semicolon.walkhub.ui.base.BaseActivity
+import com.semicolon.walkhub.ui.profile.setting.ui.ModifyHealthInfoFragment
+import com.semicolon.walkhub.ui.profile.setting.ui.ModifyProfileActivity
+import com.semicolon.walkhub.ui.profile.setting.ui.NoticeSettingActivity
 
 class SettingActivity : BaseActivity<ActivitySettingBinding>(
     R.layout.activity_setting
