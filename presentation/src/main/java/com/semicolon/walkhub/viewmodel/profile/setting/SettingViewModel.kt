@@ -13,9 +13,9 @@ import com.semicolon.domain.param.user.PatchUserChangePasswordParam
 import com.semicolon.domain.param.user.PatchUserHealthParam
 import com.semicolon.domain.param.user.UpdateProfileParam
 import com.semicolon.domain.usecase.user.*
-import com.semicolon.walkhub.ui.profile.setting.model.*
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
+import com.semicolon.walkhub.viewmodel.home.HomeViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.io.File
@@ -31,8 +31,6 @@ class SettingViewModel @Inject constructor(
     private val fetchUserHealthUseCase: FetchUserHealthUseCase,
     private val fetchAuthInfoUseCase: FetchAuthInfoUseCase,
     private val deleteClassUseCase: DeleteClassUseCase
-
-
 ) : ViewModel() {
 
     private val _eventFlow = MutableEventFlow<Event>()
@@ -41,7 +39,9 @@ class SettingViewModel @Inject constructor(
     fun fetchUserHealth() {
         viewModelScope.launch {
             kotlin.runCatching {
-                fetchUserHealthUseCase.execute(Unit)
+                fetchUserHealthUseCase.execute(Unit).collect {
+                        event(Event.FetchUserHealth(it.toData()))
+                    }
             }.onFailure {
                 when (it) {
                     is NoInternetException -> event(Event.ErrorMessage("인터넷에 연결되어있지 않습니다."))
@@ -55,7 +55,9 @@ class SettingViewModel @Inject constructor(
     fun fetchAuthInfo() {
         viewModelScope.launch {
             kotlin.runCatching {
-                fetchAuthInfoUseCase.execute(Unit)
+                fetchAuthInfoUseCase.execute(Unit).collect {
+                        event(Event.FetchAuthInfo(it.toData()))
+                    }
             }.onFailure {
                 when (it) {
                     is NoInternetException -> event(Event.ErrorMessage("인터넷에 연결되어있지 않습니다."))
@@ -69,7 +71,9 @@ class SettingViewModel @Inject constructor(
     fun fetchInfo() {
         viewModelScope.launch {
             kotlin.runCatching {
-                fetchInfoUseCase.execute(Unit)
+                fetchInfoUseCase.execute(Unit).collect {
+                        event(Event.FetchInfo(it.toData()))
+                    }
             }.onFailure {
                 when (it) {
                     is NoInternetException -> event(Event.ErrorMessage("인터넷에 연결되어있지 않습니다."))
@@ -162,6 +166,29 @@ class SettingViewModel @Inject constructor(
         }
     }
 
+    private fun FetchUserHealthEntity.toData() =
+        FetchUserHealthEntity(
+            height = height,
+            weight = weight,
+            sex = sex
+        )
+
+    private fun FetchAuthInfoEntity.toData() =
+        FetchAuthInfoEntity(
+            accountId = accountId,
+            phoneNumber = phoneNumber
+        )
+
+    private fun FetchInfoEntity.toData() =
+        FetchInfoEntity(
+            name = name,
+            profileImageUrl = profileImageUrl,
+            schoolName = schoolName,
+            grade = grade,
+            classNum = classNum
+        )
+
+
     private fun event(event: Event) {
         viewModelScope.launch {
             _eventFlow.emit(event)
@@ -169,6 +196,9 @@ class SettingViewModel @Inject constructor(
     }
 
     sealed class Event {
+        data class FetchInfo(val fetchInfoData: FetchInfoEntity) : Event()
+        data class FetchUserHealth(val fetchUserHealthData: FetchUserHealthEntity) : Event()
+        data class FetchAuthInfo(val fetchAuthInfoData: FetchAuthInfoEntity) : Event()
         data class Success(val message: String) : Event()
         data class ErrorMessage(val message: String) : SettingViewModel.Event()
     }
