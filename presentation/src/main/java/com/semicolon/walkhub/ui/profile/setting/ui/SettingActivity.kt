@@ -40,13 +40,13 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>(
         }
 
         binding.ask.setOnClickListener {
-
+            //TODO: 문의하기 디자인이 추가되야됨
         }
         binding.versionInfo.setOnClickListener {
-
+            //TODO: 버젼정보
         }
         binding.logout.setOnClickListener {
-
+            //TODO: 로그아웃은 뷰모델 나오고
         }
     }
 }
