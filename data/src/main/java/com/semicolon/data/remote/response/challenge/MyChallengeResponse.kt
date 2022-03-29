@@ -2,12 +2,11 @@ package com.semicolon.data.remote.response.challenge
 
 import com.google.gson.annotations.SerializedName
 import com.semicolon.data.util.toLocalDateTime
-import com.semicolon.domain.entity.challenge.ChallengeEntity
-import com.semicolon.domain.entity.challenge.ChallengeParticipantEntity
+import com.semicolon.domain.entity.challenge.MyChallengeEntity
 import com.semicolon.domain.enums.toGoalScope
 import com.semicolon.domain.enums.toGoalType
 
-data class ChallengeListResponse(
+data class MyChallengeResponse(
     @SerializedName("challenge_list") val challengeList: List<ChallengeResponse>
 ) {
     data class ChallengeResponse(
@@ -20,9 +19,7 @@ data class ChallengeListResponse(
         @SerializedName("goal_scope") val goalScope: String,
         @SerializedName("goal_type") val goalType: String,
         @SerializedName("writer") val writer: User,
-        @SerializedName("award") val award: String,
-        @SerializedName("participant_count") val participantCount: Int,
-        @SerializedName("participant_list") val participantList: List<User>
+        @SerializedName("total_walk_count") val totalWalkCount: Int
     )
 
     data class User(
@@ -31,10 +28,8 @@ data class ChallengeListResponse(
         @SerializedName("profile_image_url") val profileImageUrl: String
     )
 
-
-
-    fun ChallengeResponse.toEntity(): ChallengeEntity =
-        ChallengeEntity(
+    fun ChallengeResponse.toEntity() =
+        MyChallengeEntity(
             id = id,
             name = name,
             startAt = startAt.toLocalDateTime(),
@@ -44,26 +39,15 @@ data class ChallengeListResponse(
             goalScope = goalScope.toGoalScope(),
             goalType = goalType.toGoalType(),
             writer = writer.toWriterEntity(),
-            award = award,
-            participantCount = participantCount,
-            participantList = participantList.map { it.toParticipantEntity() }
+            totalWalkCount = totalWalkCount
         )
 
-    private fun User.toWriterEntity(): ChallengeEntity.Writer =
-        ChallengeEntity.Writer(
-            userId = userId,
-            name = name,
-            profileImageUrl = profileImageUrl
-        )
-
-    private fun User.toParticipantEntity(): ChallengeParticipantEntity =
-        ChallengeParticipantEntity(
+    private fun User.toWriterEntity(): MyChallengeEntity.Writer =
+        MyChallengeEntity.Writer(
             id = userId,
             name = name,
             profileImageUrl = profileImageUrl
         )
 }
-
-fun ChallengeListResponse.toEntity(): List<ChallengeEntity> =
+fun MyChallengeResponse.toEntity(): List<MyChallengeEntity> =
     challengeList.map { it.toEntity() }
-
