@@ -28,13 +28,22 @@ class ChallengeViewModel @Inject constructor(
                 val challenges = fetchChallengesUseCase.execute(Unit)
 
                 myChallenges.zip(challenges) { my, all ->
-                    _challengeItems.value = listOf(
-                        my.map {
-                            RecyclerViewItem(
-                                
-                            )
-                        }
-                    )
+                    _challengeItems.value = ArrayList<RecyclerViewItem>().apply {
+                        addAll(
+                            my.map {
+                                RecyclerViewItem(
+
+                                )
+                            }
+                        )
+                        addAll(
+                            all.map {
+                                RecyclerViewItem(
+
+                                )
+                            }
+                        )
+                    }
                 }
             }
 
