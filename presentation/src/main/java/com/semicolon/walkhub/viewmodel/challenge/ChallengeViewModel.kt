@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.semicolon.domain.entity.challenge.ChallengeEntity
 import com.semicolon.domain.entity.challenge.ChallengeParticipantEntity
+import com.semicolon.domain.entity.challenge.MyChallengeEntity
 import com.semicolon.domain.enums.ChallengeGoalScope
 import com.semicolon.domain.enums.ChallengeGoalType
 import com.semicolon.domain.usecase.challenge.FetchChallengesUseCase
@@ -41,17 +42,10 @@ class ChallengeViewModel @Inject constructor(
                 myChallenges.zip(challenges) { my, all ->
                     _challengeItems.value = ArrayList<RecyclerViewItem>().apply {
                         addAll(
-                            my.map { challenge ->
-                                RecyclerViewItem(
-                                    itemLayoutId = R.layout.item_challenge_my,
-                                    data = MyChallengeItemViewModel(
-                                        challenge
-                                    )
-                                )
-                            }
+                            my.toMyRecyclerItem()
                         )
                         addAll(
-                            all.toItemViewModel()
+                            all.toRecyclerItem()
                         )
                     }
                 }
@@ -70,10 +64,8 @@ class ChallengeViewModel @Inject constructor(
         val title: String,
         val imageUrl: String,
         val writerName: String,
-        val startAt: String,
-        val endAt: String,
-        val goal: Int,
-        val totalWalkCount: Int
+        val periodText: String,
+        val percentage: Int
     ) {
         fun onClick() {
             viewModelScope.launch {
@@ -97,7 +89,7 @@ class ChallengeViewModel @Inject constructor(
         }
     }
 
-    private fun ChallengeEntity.toItemViewModel(): ChallengeItemViewModel {
+    private fun ChallengeEntity.toRecyclerItem(): ChallengeItemViewModel {
         val periodText = if (goalScope == ChallengeGoalScope.DAY) "하루 한번" else "기간 내"
         val typeText = if (goalType == ChallengeGoalType.DISTANCE) "KM 달성" else "걸음 달성"
         val goalText = "$periodText  $goal  $typeText"
@@ -111,12 +103,39 @@ class ChallengeViewModel @Inject constructor(
         )
     }
 
-    private fun List<ChallengeEntity>.toItemViewModel(): List<RecyclerViewItem> =
+    private fun List<ChallengeEntity>.toRecyclerItem(): List<RecyclerViewItem> =
         map {
             RecyclerViewItem(
                 itemLayoutId = R.layout.item_challenge,
                 variableId = BR.vm,
-                data = it.toItemViewModel()
+                data = it.toRecyclerItem()
+            )
+        }
+
+    private fun MyChallengeEntity.toRecyclerItem(): MyChallengeItemViewModel {
+        val percentage = totalWalkCount / goal * 100
+        val periodText = "${startAt.year}/" +
+                "${String.format("%02d", startAt.monthValue)}/" +
+                "${String.format("%02d", startAt.dayOfMonth)} ~ " +
+                "${endAt.year}/" +
+                "${String.format("%02d", endAt.monthValue)}/" +
+                String.format("%02d", endAt.dayOfMonth)
+        return MyChallengeItemViewModel(
+            id = id,
+            title = name,
+            imageUrl = imageUrl,
+            writerName = writer.name,
+            percentage = percentage,
+            periodText = periodText
+        )
+    }
+
+    private fun List<MyChallengeEntity>.toMyRecyclerItem(): List<RecyclerViewItem> =
+        map {
+            RecyclerViewItem(
+                itemLayoutId = R.layout.item_challenge_my,
+                variableId = BR.vm,
+                data = it.toRecyclerItem()
             )
         }
 }
