@@ -75,8 +75,8 @@
 
                 <View
                     android:id="@+id/challenge_goal_dot"
-                    android:layout_width="1dp"
-                    android:layout_height="1dp"
+                    android:layout_width="2dp"
+                    android:layout_height="2dp"
                     android:layout_marginStart="18dp"
                     android:layout_marginTop="18dp"
                     android:background="@drawable/dot_black"
@@ -84,17 +84,38 @@
                     app:layout_constraintTop_toBottomOf="@id/challenge_item_iv" />
 
                 <TextView
+                    android:id="@+id/challenge_goal_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="@id/challenge_goal_dot"
+                    android:layout_marginStart="10dp"
+                    android:text="@{vm.goal}"
+                    android:textColor="@color/black"
                     app:layout_constraintBottom_toBottomOf="@id/challenge_goal_dot"
                     app:layout_constraintStart_toStartOf="@id/challenge_goal_dot"
-                    android:layout_marginStart="10dp"
-                    android:textColor="@color/black"
+                    app:layout_constraintTop_toTopOf="@id/challenge_goal_dot"
                     tools:text="기간 내 30 걸을 달성" />
 
+                <View
+                    android:id="@+id/challenge_award_dot"
+                    android:layout_width="2dp"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="18dp"
+                    android:background="@drawable/dot_gray"
+                    app:layout_constraintStart_toEndOf="@id/challenge_goal_tv"
+                    app:layout_constraintTop_toBottomOf="@id/challenge_item_iv"
+                    app:layout_goneMarginStart="10dp" />
 
-
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@{vm.award}"
+                    android:textColor="@color/gray_700"
+                    app:layout_constraintBottom_toBottomOf="@id/challenge_award_dot"
+                    app:layout_constraintStart_toEndOf="@id/challenge_award_dot"
+                    app:layout_constraintTop_toTopOf="@id/challenge_award_dot"
+                    tools:text="체육 수행평가 성적" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
     </FrameLayout>
