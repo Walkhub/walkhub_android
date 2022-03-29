@@ -13,7 +13,7 @@ import com.semicolon.walkhub.ui.base.BaseActivity
 import com.semicolon.walkhub.ui.register.adapter.SearchSchoolAdapter
 import com.semicolon.walkhub.ui.register.model.SecondSearchSchoolData
 import com.semicolon.walkhub.util.onTextChanged
-import com.semicolon.walkhub.viewmodel.register.SearchSchoolViewModel
+import com.semicolon.walkhub.viewmodel.SearchSchoolViewModel
 
 class SearchSchoolActivity : BaseActivity<ActivitySearchSchoolBinding>(
     R.layout.activity_search_school
@@ -24,8 +24,6 @@ class SearchSchoolActivity : BaseActivity<ActivitySearchSchoolBinding>(
 
     private lateinit var mAdapter: SearchSchoolAdapter
 
-    private var dateType = DateType.WEEK
-
     private fun handleEvent(event: SearchSchoolViewModel.Event) = when (event) {
         is SearchSchoolViewModel.Event.SearchSchoolTwo -> {
             setSchoolData(event.secondSearchSchoolData)
@@ -33,7 +31,6 @@ class SearchSchoolActivity : BaseActivity<ActivitySearchSchoolBinding>(
         is SearchSchoolViewModel.Event.ErrorMessage -> {
             showShortToast(event.message)
         }
-        else -> {}
     }
 
     override fun initView() {
