@@ -65,7 +65,9 @@ class ChallengeViewModel @Inject constructor(
         val imageUrl: String,
         val writerName: String,
         val periodText: String,
-        val percentage: Int
+        val percentage: Int,
+        val current: Int,
+        val goal: Int
     ) {
         fun onClick() {
             viewModelScope.launch {
@@ -126,7 +128,9 @@ class ChallengeViewModel @Inject constructor(
             imageUrl = imageUrl,
             writerName = writer.name,
             percentage = percentage,
-            periodText = periodText
+            periodText = periodText,
+            goal = goal,
+            current = totalWalkCount
         )
     }
 

@@ -51,7 +51,7 @@
                 android:id="@+id/my_challenge_writer_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
+                android:layout_marginHorizontal="13dp"
                 android:text="@{vm.writerName}"
                 android:textColor="@color/black_87"
                 android:textSize="14sp"
@@ -62,7 +62,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
+                android:layout_marginHorizontal="13dp"
                 android:text="@{vm.periodText}"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -87,8 +87,32 @@
                     android:layout_height="8dp"
                     android:layout_gravity="center"
                     android:layout_marginHorizontal="3dp"
+                    android:progress="@{vm.percentage}"
                     android:progressDrawable="@drawable/measuring_progressbar" />
             </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="13dp"
+                android:layout_marginStart="13dp"
+                android:textColor="@color/gray_600"
+                app:current_text="@{vm.current}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/my_challenge_pb_fl"
+                tools:text="현재130걸음" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="13dp"
+                android:textColor="@color/gray_800"
+                app:goal_text="@{vm.goal}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/my_challenge_pb_fl"
+                tools:text="10000걸음" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>
