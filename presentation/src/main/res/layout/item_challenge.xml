@@ -74,13 +74,26 @@
                     tools:text="2022/02/12 ~ 2022/02/15" />
 
                 <View
+                    android:id="@+id/challenge_goal_dot"
                     android:layout_width="1dp"
                     android:layout_height="1dp"
                     android:layout_marginStart="18dp"
                     android:layout_marginTop="18dp"
-                    android:background="@color/black"
+                    android:background="@drawable/dot_black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/challenge_item_iv" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="@id/challenge_goal_dot"
+                    app:layout_constraintBottom_toBottomOf="@id/challenge_goal_dot"
+                    app:layout_constraintStart_toStartOf="@id/challenge_goal_dot"
+                    android:layout_marginStart="10dp"
+                    android:textColor="@color/black"
+                    tools:text="기간 내 30 걸을 달성" />
+
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
