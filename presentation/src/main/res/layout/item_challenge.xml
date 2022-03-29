@@ -116,6 +116,36 @@
                     app:layout_constraintStart_toEndOf="@id/challenge_award_dot"
                     app:layout_constraintTop_toTopOf="@id/challenge_award_dot"
                     tools:text="체육 수행평가 성적" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/challenge_participant_3_iv"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintStart_toStartOf="@id/challenge_participant_2_iv"
+                    app:layout_constraintTop_toBottomOf="@id/challenge_goal_dot"
+                    tools:src="@drawable/img_cheering" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/challenge_participant_2_iv"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintStart_toStartOf="@id/challenge_participant_1_iv"
+                    app:layout_constraintTop_toBottomOf="@id/challenge_goal_dot"
+                    tools:src="@drawable/img_cheering" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/challenge_participant_1_iv"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/challenge_goal_dot"
+                    tools:src="@drawable/img_cheering" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
     </FrameLayout>
