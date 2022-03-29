@@ -38,12 +38,10 @@ class SettingViewModel @Inject constructor(
     private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()
 
-    private fun fetchUserHealth() {
+    fun fetchUserHealth() {
         viewModelScope.launch {
             kotlin.runCatching {
-                fetchUserHealthUseCase.execute(Unit).collect() {
-                    event(Event.FetchUserHealth(it.toData()))
-                }
+                fetchUserHealthUseCase.execute(Unit)
             }.onFailure {
                 when (it) {
                     is NoInternetException -> event(Event.ErrorMessage("인터넷에 연결되어있지 않습니다."))
@@ -54,12 +52,10 @@ class SettingViewModel @Inject constructor(
         }
     }
 
-    private fun fetchAuthInfo() {
+    fun fetchAuthInfo() {
         viewModelScope.launch {
             kotlin.runCatching {
-                fetchAuthInfoUseCase.execute(Unit).collect() {
-                    event(Event.FetchAuthInfo(it.toData()))
-                }
+                fetchAuthInfoUseCase.execute(Unit)
             }.onFailure {
                 when (it) {
                     is NoInternetException -> event(Event.ErrorMessage("인터넷에 연결되어있지 않습니다."))
@@ -70,12 +66,10 @@ class SettingViewModel @Inject constructor(
         }
     }
 
-    private fun fetchInfo() {
+    fun fetchInfo() {
         viewModelScope.launch {
             kotlin.runCatching {
-                fetchInfoUseCase.execute(Unit).collect() {
-                    event(Event.FetchInfo(it.toData()))
-                }
+                fetchInfoUseCase.execute(Unit)
             }.onFailure {
                 when (it) {
                     is NoInternetException -> event(Event.ErrorMessage("인터넷에 연결되어있지 않습니다."))
@@ -86,7 +80,7 @@ class SettingViewModel @Inject constructor(
         }
     }
 
-    private fun patchUserHealth(height: Double, weight: Int, sex: String) {
+    fun patchUserHealth(height: Double, weight: Int, sex: String) {
         viewModelScope.launch {
             kotlin.runCatching {
                 patchUserHealthUseCase.execute(PatchUserHealthParam(height, weight, sex))
@@ -101,7 +95,7 @@ class SettingViewModel @Inject constructor(
         }
     }
 
-    private fun patchUserChangePassword(
+    fun patchUserChangePassword(
         accountId: String, phoneNumber: String, authcode: String, newPassword: String
     ) {
         viewModelScope.launch {
@@ -123,7 +117,7 @@ class SettingViewModel @Inject constructor(
         }
     }
 
-    private fun updateProfile(name: String, profileImage: File?, schoolId: String) {
+    fun updateProfile(name: String, profileImage: File?, schoolId: String) {
         viewModelScope.launch {
             kotlin.runCatching {
                 updateProfileUseCase.execute(UpdateProfileParam(name, profileImage, schoolId))
@@ -138,7 +132,7 @@ class SettingViewModel @Inject constructor(
         }
     }
 
-    private fun deleteClass() {
+    fun deleteClass() {
         viewModelScope.launch {
             kotlin.runCatching {
                 deleteClassUseCase.execute(Unit)
@@ -153,7 +147,7 @@ class SettingViewModel @Inject constructor(
         }
     }
 
-    private fun deleteAccount() {
+    fun deleteAccount() {
         viewModelScope.launch {
             kotlin.runCatching {
                 deleteAccountUseCase.execute(Unit)
@@ -168,29 +162,6 @@ class SettingViewModel @Inject constructor(
         }
     }
 
-
-    private fun FetchUserHealthEntity.toData() =
-        FetchUserHealthData(
-            height = height,
-            weight = weight,
-            sex = sex
-        )
-
-    private fun FetchAuthInfoEntity.toData() =
-        FetchAuthInfoData(
-            accountId = accountId,
-            phoneNumber = phoneNumber
-        )
-
-    private fun FetchInfoEntity.toData() =
-        FetchInfoData(
-            name = name,
-            profileImageUrl = profileImageUrl,
-            schoolName = schoolName,
-            grade = grade,
-            classNum = classNum
-        )
-
     private fun event(event: Event) {
         viewModelScope.launch {
             _eventFlow.emit(event)
@@ -198,12 +169,6 @@ class SettingViewModel @Inject constructor(
     }
 
     sealed class Event {
-        data class PatchUserChagnePassword(val patchUserChangePasswordData: PatchUserChangePasswordData) : Event()
-        data class FetchInfo(val fetchInfoData: FetchInfoData) : Event()
-        data class FetchUserHealth(val fetchUserHealthData: FetchUserHealthData) : Event()
-        data class UpdateProfile(val updateProfileData: UpdateProfileData) : Event()
-        data class FetchAuthInfo(val fetchAuthInfoData: FetchAuthInfoData) : Event()
-        data class PatchUserHealth(val patchUserHealthData: PatchUserHealthData) : Event()
         data class Success(val message: String) : Event()
         data class ErrorMessage(val message: String) : SettingViewModel.Event()
     }
