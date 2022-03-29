@@ -1,11 +1,13 @@
 package com.semicolon.walkhub.ui.profile.setting.ui
 
 import android.content.Intent
+import android.os.Bundle
+import com.gun0912.tedpermission.provider.TedPermissionProvider.context
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivitySettingBinding
-import com.semicolon.walkhub.ui.base.BaseFragment
+import com.semicolon.walkhub.ui.base.BaseActivity
 
-class SettingActivity : BaseFragment<ActivitySettingBinding>(
+class SettingActivity : BaseActivity<ActivitySettingBinding>(
     R.layout.activity_setting
 ) {
 
@@ -16,19 +18,19 @@ class SettingActivity : BaseFragment<ActivitySettingBinding>(
         }
 
         binding.modifyHealthInfo.setOnClickListener {
-            val fragment = ModifyHealthInfoFragment()
-//            supportFragmentManager()
-//                .beginTransaction()
-//                .add(R.id.onfragment, fragment)
-//                .commit()
+            val bundle = Bundle()
+            val fragmentA = ModifyHealthInfoFragment()
+            fragmentA.arguments = bundle
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.add(R.id.modify_health_info_cl, fragmentA)
+            transaction.commit()
         }
         binding.modifyLoginInfo.setOnClickListener {
-
         }
 
         binding.notificationSetting.setOnClickListener {
-//            val intent = Intent(context, NoticeSettingActivity::class.java)
-//            startActivity(intent)
+            val intent = Intent(context, NoticeSettingActivity::class.java)
+            startActivity(intent)
         }
 
         binding.ask.setOnClickListener {
