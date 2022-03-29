@@ -8,6 +8,7 @@ import com.semicolon.data.local.entity.badge.FetchUserBadgesRoomEntity
 import com.semicolon.data.local.entity.notice.NoticeListRoomEntity
 import com.semicolon.data.local.entity.rank.*
 import com.semicolon.data.local.entity.user.FetchCaloriesLevelRoomEntity
+import com.semicolon.domain.entity.challenge.ChallengeParticipantEntity
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
@@ -253,3 +254,26 @@ class RankUserRankTypeConverter(
 
 }
 
+@ProvidedTypeConverter
+class ChallengeParticipantTypeConverter(
+    private val moshi: Moshi
+) {
+
+    @TypeConverter
+    fun fromString(value: String): List<ChallengeParticipantEntity>? {
+        val listType = Types.newParameterizedType(List::class.java, ChallengeParticipantEntity::class.java)
+        val adapter: JsonAdapter<List<ChallengeParticipantEntity>> = moshi.adapter(listType)
+        return adapter.fromJson(value)
+    }
+
+    @TypeConverter
+    fun fromList(type: List<ChallengeParticipantEntity>): String {
+        val listType = Types.newParameterizedType(
+            List::class.java,
+            SearchSchoolRoomEntity.SchoolInfo::class.java
+        )
+        val adapter: JsonAdapter<List<ChallengeParticipantEntity>> = moshi.adapter(listType)
+        return adapter.toJson(type)
+    }
+
+}

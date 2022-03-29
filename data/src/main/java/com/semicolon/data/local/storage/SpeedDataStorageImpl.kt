@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.location.LocationManager
 import androidx.core.app.ActivityCompat
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import javax.inject.Inject
@@ -23,6 +24,7 @@ class SpeedDataStorageImpl @Inject constructor(
                 locationManager.requestLocationUpdates(
                     LocationManager.GPS_PROVIDER, 0, 0f
                 ) { location -> if (location.hasSpeed()) trySend(location.speed) }
+            awaitClose()
         }
     }
 

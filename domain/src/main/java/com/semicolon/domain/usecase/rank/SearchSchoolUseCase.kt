@@ -9,8 +9,8 @@ import javax.inject.Inject
 
 class SearchSchoolUseCase @Inject constructor(
     private val rankRepository: RankRepository
-) : UseCase<SearchSchoolParam, Flow<SearchSchoolEntity>>() {
+) : UseCase<String, Flow<SearchSchoolEntity>>() {
 
-    override suspend fun execute(data: SearchSchoolParam): Flow<SearchSchoolEntity> =
+    override suspend fun execute(data: String): Flow<SearchSchoolEntity> =
         rankRepository.searchSchool(data)
 }

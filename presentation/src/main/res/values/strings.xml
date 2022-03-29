@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Walkhub</string>
+    <string name="no_school_message">현재 소속 중인 반이 없어요.</string>
+    <string name="hub">허브</string>
+    <string name="search_school">학교 검색</string>
+    <string name="my_school">내 학교</string>
+    <string name="no_data">데이터가 없습니다</string>
+    <string name="walkcount_top_100">걸음수 Top 100</string>
+    <string name="finish">완료하기</string>
+    <string name="error_number">올바른 번호를 입력해주세요.</string>
+    <string name="rank">랭킹</string>
+    <string name="info">정보</string>
 </resources>

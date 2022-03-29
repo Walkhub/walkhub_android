@@ -13,6 +13,37 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
+        <ImageButton
+            android:id="@+id/btBack"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/photo"
+            android:scaleType="fitCenter"
+            android:background="@android:color/transparent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+        
+        <com.semicolon.walkhub.ui.analysis.DebouncedTextInputEditText
+            android:id="@+id/etSchool"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:hint="학교 이름으로 검색하기"
+            android:textColorHint="#9E9E9E"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:background="@android:color/transparent"
+            android:layout_marginHorizontal="20dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="1dp"
+            app:layout_constraintLeft_toRightOf="@id/btBack"
+            app:layout_constraintRight_toRightOf="parent"/>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSchoolRank"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/etSchool"
+            app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

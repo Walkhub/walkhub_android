@@ -29,12 +29,11 @@ class RankRepositoryImpl @Inject constructor(
             .doOnNeedRefresh { localRankDataSource.insertSchoolRank(it) }
             .createFlow()
 
-    override suspend fun searchSchool(searchSchoolParam: SearchSchoolParam): Flow<SearchSchoolEntity> =
+    override suspend fun searchSchool(name: String): Flow<SearchSchoolEntity> =
         OfflineCacheUtil<SearchSchoolEntity>()
             .remoteData {
                 remoteRankDataSource.searchSchool(
-                    searchSchoolParam.name,
-                    searchSchoolParam.moreDateType.toString()
+                    name
                 ).toEntity()
             }
             .localData { localRankDataSource.searchSchool() }
@@ -71,7 +70,7 @@ class RankRepositoryImpl @Inject constructor(
                 remoteRankDataSource.searchUser(
                     searchUserParam.schoolId,
                     searchUserParam.name,
-                    searchUserParam.dateType.toString()
+                    searchUserParam.moreDateType.toString()
                 ).toEntity()
             }
             .localData { localRankDataSource.searchUser() }

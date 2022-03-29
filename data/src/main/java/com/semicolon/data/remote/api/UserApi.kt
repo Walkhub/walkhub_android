@@ -6,9 +6,8 @@ import retrofit2.http.*
 
 interface UserApi {
 
-    @POST("users/classes/{section-id}")
+    @POST("users/classes")
     suspend fun signUpClass(
-        @Path("section-id") groupId: Int,
         @Body signUpClassRequest: SignUpClassRequest
     )
 
@@ -27,7 +26,7 @@ interface UserApi {
         @Body updateProfileRequest: UpdateProfileRequest
     )
 
-    @PATCH("users/school")
+    @PATCH("users/schools")
     suspend fun patchSchool(
         @Body school_id: Int
     )
@@ -73,4 +72,37 @@ interface UserApi {
 
     @GET("users/levels/list")
     suspend fun fetchCaloriesLevelList(): FetchCaloriesLevelResponse
+
+    @DELETE("users")
+    suspend fun deleteAccount()
+
+    @DELETE("users/classes")
+    suspend fun deleteClass()
+
+    @HEAD("users/account-id")
+    suspend fun checkAccountOverlap(
+        @Body account_id: String
+    )
+
+    @HEAD("users/classes")
+    suspend fun checkClassCode(
+        @Body code: String
+    )
+
+    @PATCH("users/{user-id}/independence")
+    suspend fun changeIndependence(
+        @Path("user-id") userId: Int
+    )
+
+    @GET("users/goal")
+    suspend fun fetchDailyGoal(): FetchDailyGoalResponse
+
+    @GET("users/info")
+    suspend fun fetchInfo(): FetchInfoResponse
+
+    @GET("users/health")
+    suspend fun fetchUserHealth(): FetchUserHealthResponse
+
+    @GET("auth/info")
+    suspend fun fetchAuthInfo(): FetchAuthInfoResponse
 }

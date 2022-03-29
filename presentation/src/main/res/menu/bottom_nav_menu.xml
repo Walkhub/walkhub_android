@@ -3,22 +3,22 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_nav_home"
+        android:icon="@drawable/ic_home"
         android:title="홈" />
 
     <item
         android:id="@+id/navigation_hub"
-        android:icon="@drawable/ic_nav_hub"
+        android:icon="@drawable/ic_hub"
         android:title="허브" />
 
     <item
         android:id="@+id/navigation_challenge"
-        android:icon="@drawable/ic_nav_challenge"
+        android:icon="@drawable/ic_challenge"
         android:title="챌린지" />
 
     <item
         android:id="@+id/navigation_profile"
-        android:icon="@drawable/ic_nav_profile"
+        android:icon="@drawable/ic_profile"
         android:title="프로필" />
 
 </menu>
