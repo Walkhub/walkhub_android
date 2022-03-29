@@ -1,11 +1,9 @@
-package com.semicolon.walkhub.ui.profile.setting
+package com.semicolon.walkhub.ui.profile.setting.ui
 
 import android.content.Intent
-import android.os.Bundle
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivitySettingBinding
 import com.semicolon.walkhub.ui.base.BaseFragment
-import dagger.hilt.android.AndroidEntryPoint
 
 class SettingActivity : BaseFragment<ActivitySettingBinding>(
     R.layout.activity_setting
@@ -18,7 +16,7 @@ class SettingActivity : BaseFragment<ActivitySettingBinding>(
         }
 
         binding.modifyHealthInfo.setOnClickListener {
-//            val fragment = ModifyHealthFragment()
+            val fragment = ModifyHealthInfoFragment()
 //            supportFragmentManager()
 //                .beginTransaction()
 //                .add(R.id.onfragment, fragment)
