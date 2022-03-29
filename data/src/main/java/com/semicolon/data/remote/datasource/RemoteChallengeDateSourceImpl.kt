@@ -9,6 +9,7 @@ import com.semicolon.data.util.HttpHandler
 import com.semicolon.domain.entity.challenge.ChallengeDetailEntity
 import com.semicolon.domain.entity.challenge.ChallengeEntity
 import com.semicolon.domain.entity.challenge.ChallengeParticipantEntity
+import com.semicolon.domain.entity.challenge.MyChallengeEntity
 import javax.inject.Inject
 
 class RemoteChallengeDateSourceImpl @Inject constructor(
@@ -35,7 +36,7 @@ class RemoteChallengeDateSourceImpl @Inject constructor(
             .httpRequest { challengeApi.getChallengeParticipants(challengeId) }
             .sendRequest().toEntity()
 
-    override suspend fun fetchMyChallenges(): List<ChallengeEntity> =
+    override suspend fun fetchMyChallenges(): List<MyChallengeEntity> =
         HttpHandler<ChallengeListResponse>()
             .httpRequest { challengeApi.getMyChallenges() }
             .sendRequest().toEntity()

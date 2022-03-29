@@ -4,9 +4,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.semicolon.domain.entity.challenge.ChallengeEntity
+import com.semicolon.domain.entity.challenge.ChallengeParticipantEntity
+import com.semicolon.domain.enums.ChallengeGoalScope
+import com.semicolon.domain.enums.ChallengeGoalType
 import com.semicolon.domain.usecase.challenge.FetchChallengesUseCase
 import com.semicolon.domain.usecase.challenge.FetchMyChallengesUseCase
+import com.semicolon.walkhub.BR
+import com.semicolon.walkhub.R
 import com.semicolon.walkhub.adapter.RecyclerViewItem
+import com.semicolon.walkhub.util.MutableEventFlow
+import com.semicolon.walkhub.util.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.zip
 import kotlinx.coroutines.launch
@@ -21,6 +29,9 @@ class ChallengeViewModel @Inject constructor(
     private val _challengeItems = MutableLiveData<List<RecyclerViewItem>>()
     val challengeItems: LiveData<List<RecyclerViewItem>> = _challengeItems
 
+    private val _event = MutableEventFlow<Event>()
+    val event = _event.asEventFlow()
+
     fun fetchChallenges() {
         viewModelScope.launch {
             kotlin.runCatching {
@@ -30,18 +41,17 @@ class ChallengeViewModel @Inject constructor(
                 myChallenges.zip(challenges) { my, all ->
                     _challengeItems.value = ArrayList<RecyclerViewItem>().apply {
                         addAll(
-                            my.map {
+                            my.map { challenge ->
                                 RecyclerViewItem(
-
+                                    itemLayoutId = R.layout.item_challenge_my,
+                                    data = MyChallengeItemViewModel(
+                                        challenge
+                                    )
                                 )
                             }
                         )
                         addAll(
-                            all.map {
-                                RecyclerViewItem(
-
-                                )
-                            }
+                            all.toItemViewModel()
                         )
                     }
                 }
@@ -49,4 +59,64 @@ class ChallengeViewModel @Inject constructor(
 
         }
     }
+
+    sealed class Event {
+
+        data class ChallengeClick(val id: Long) : Event()
+    }
+
+    inner class MyChallengeItemViewModel(
+        val id: Long,
+        val title: String,
+        val imageUrl: String,
+        val writerName: String,
+        val startAt: String,
+        val endAt: String,
+        val goal: Int,
+        val totalWalkCount: Int
+    ) {
+        fun onClick() {
+            viewModelScope.launch {
+                _event.emit(Event.ChallengeClick(id))
+            }
+        }
+    }
+
+    inner class ChallengeItemViewModel(
+        val id: Long,
+        val goal: String,
+        val award: String,
+        val imageUrl: String,
+        val participantCount: Int,
+        val participantList: List<ChallengeParticipantEntity>
+    ) {
+        fun onClick() {
+            viewModelScope.launch {
+                _event.emit(Event.ChallengeClick(id))
+            }
+        }
+    }
+
+    private fun ChallengeEntity.toItemViewModel(): ChallengeItemViewModel {
+        val periodText = if (goalScope == ChallengeGoalScope.DAY) "하루 한번" else "기간 내"
+        val typeText = if (goalType == ChallengeGoalType.DISTANCE) "KM 달성" else "걸음 달성"
+        val goalText = "$periodText  $goal  $typeText"
+        return ChallengeItemViewModel(
+            id = id,
+            award = award,
+            imageUrl = imageUrl,
+            participantCount = participantCount,
+            participantList = participantList,
+            goal = goalText
+        )
+    }
+
+    private fun List<ChallengeEntity>.toItemViewModel(): List<RecyclerViewItem> =
+        map {
+            RecyclerViewItem(
+                itemLayoutId = R.layout.item_challenge,
+                variableId = BR.vm,
+                data = it.toItemViewModel()
+            )
+        }
 }

@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName
 import com.semicolon.data.util.toLocalDateTime
 import com.semicolon.domain.entity.challenge.ChallengeEntity
 import com.semicolon.domain.entity.challenge.ChallengeParticipantEntity
+import com.semicolon.domain.entity.challenge.MyChallengeEntity
 import com.semicolon.domain.enums.toGoalScope
 import com.semicolon.domain.enums.toGoalType
 
