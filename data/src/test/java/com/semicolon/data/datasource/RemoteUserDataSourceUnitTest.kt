@@ -22,7 +22,6 @@ class RemoteUserDataSourceUnitTest {
     fun testVerifyUserPhoneNumber() {
         val request = VerifyPhoneNumberSignUpRequest(
             "010-0000-0000",
-            "대덕소프트웨어마이스터고"
         )
         runBlocking {
             val dataSourceResult = remoteUserDataSource.verifyUserPhoneNumber(request)
