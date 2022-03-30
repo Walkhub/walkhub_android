@@ -17,8 +17,8 @@ data class ChallengeListResponse(
         @SerializedName("end_at") val endAt: String,
         @SerializedName("image_url") val imageUrl: String,
         @SerializedName("goal") val goal: Int,
-        @SerializedName("goal_scope") val goalScope: String,
         @SerializedName("goal_type") val goalType: String,
+        @SerializedName("goal_scope") val goalScope: String,
         @SerializedName("writer") val writer: User,
         @SerializedName("award") val award: String,
         @SerializedName("participant_count") val participantCount: Int,
@@ -30,7 +30,6 @@ data class ChallengeListResponse(
         @SerializedName("name") val name: String,
         @SerializedName("profile_image_url") val profileImageUrl: String
     )
-
 
 
     fun ChallengeResponse.toEntity(): ChallengeEntity =
