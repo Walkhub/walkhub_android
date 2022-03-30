@@ -9,8 +9,10 @@ data class FetchUserProfileResponse(
     @SerializedName("name") val name: String,
     @SerializedName("profile_image_url") val profileImageUrl: String,
     @SerializedName("school_name") val schoolName: String,
+    @SerializedName("school_image_url") val schoolImageUrl: String,
     @SerializedName("grade") val grade: Int,
     @SerializedName("class_num") val classNum: Int,
+    @SerializedName("daily_walk_count_goal") val dailyWalkCountGoal: Int,
     @SerializedName("title_badge") val titleBadge: TitleBadge,
     @SerializedName("level") val level: Level
 ) {
@@ -46,8 +48,10 @@ fun FetchUserProfileResponse.toEntity() =
         name = name,
         profileImageUrl = profileImageUrl,
         schoolName = schoolName,
+        schoolImageUrl = schoolImageUrl,
         grade = grade,
         classNum = classNum,
         titleBadge = titleBadge.toEntity(),
+        dailyWalkCountGoal = dailyWalkCountGoal,
         level = level.toEntity()
     )
