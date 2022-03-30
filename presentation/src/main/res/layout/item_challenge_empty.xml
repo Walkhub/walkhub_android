@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="title"
+            name="comment"
             type="String" />
     </data>
 
@@ -18,14 +18,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="18dp"
-            android:layout_marginStart="16dp"
-            android:text="@{title}"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            android:text="@{comment}"
+            android:textColor="@color/gray_700"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="참여중인 첼린지" />
+            tools:text="참여중인 챌린지가 없어요." />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

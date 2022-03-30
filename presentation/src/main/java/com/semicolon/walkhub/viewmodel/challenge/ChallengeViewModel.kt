@@ -48,9 +48,19 @@ class ChallengeViewModel @Inject constructor(
                                 data = "참여 중인 챌린지"
                             )
                         )
-                        addAll(
-                            my.toMyRecyclerItem()
-                        )
+                        if (my.isNotEmpty()) {
+                            addAll(
+                                my.toMyRecyclerItem()
+                            )
+                        } else {
+                            add(
+                                RecyclerViewItem(
+                                    itemLayoutId = R.layout.item_challenge_empty,
+                                    variableId = BR.comment,
+                                    data = "참여 중인 챌린지가 없어요."
+                                )
+                            )
+                        }
                         add(
                             RecyclerViewItem(
                                 itemLayoutId = R.layout.item_challenge_title,
@@ -58,13 +68,22 @@ class ChallengeViewModel @Inject constructor(
                                 data = "전체 챌린지"
                             )
                         )
-                        addAll(
-                            all.toRecyclerItem()
-                        )
+                        if (all.isNotEmpty()) {
+                            addAll(
+                                all.toRecyclerItem()
+                            )
+                        } else {
+                            add(
+                                RecyclerViewItem(
+                                    itemLayoutId = R.layout.item_challenge_empty,
+                                    variableId = BR.comment,
+                                    data = "참여 할 수 있는 챌린지가 없어요."
+                                )
+                            )
+                        }
                     }
                 }
             }
-
         }
     }
 

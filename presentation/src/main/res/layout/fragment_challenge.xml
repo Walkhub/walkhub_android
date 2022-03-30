@@ -36,5 +36,4 @@
             app:layout_constraintTop_toBottomOf="@id/challenge_title"
             app:recyclerItems="@{vm.challengeItems}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>
