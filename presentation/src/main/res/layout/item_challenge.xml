@@ -123,6 +123,7 @@
                     android:layout_height="20dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="20dp"
+                    app:image_url="@{vm.thirdParticipantImage}"
                     app:layout_constraintStart_toStartOf="@id/challenge_participant_2_iv"
                     app:layout_constraintTop_toBottomOf="@id/challenge_goal_dot"
                     tools:src="@drawable/img_cheering" />
@@ -133,6 +134,7 @@
                     android:layout_height="20dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="20dp"
+                    app:image_url="@{vm.secondParticipantImage}"
                     app:layout_constraintStart_toStartOf="@id/challenge_participant_1_iv"
                     app:layout_constraintTop_toBottomOf="@id/challenge_goal_dot"
                     tools:src="@drawable/img_cheering" />
@@ -144,6 +146,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="12dp"
+                    app:image_url="@{vm.firstParticipantImage}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/challenge_goal_dot"
@@ -153,6 +156,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
+                    android:text="@{vm.participantText}"
                     app:layout_constraintBottom_toBottomOf="@id/challenge_participant_3_iv"
                     app:layout_constraintStart_toEndOf="@id/challenge_participant_3_iv"
                     app:layout_constraintTop_toTopOf="@id/challenge_participant_3_iv"

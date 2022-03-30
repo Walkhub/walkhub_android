@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.semicolon.domain.entity.challenge.ChallengeEntity
-import com.semicolon.domain.entity.challenge.ChallengeParticipantEntity
 import com.semicolon.domain.entity.challenge.MyChallengeEntity
 import com.semicolon.domain.enums.ChallengeGoalScope
 import com.semicolon.domain.enums.ChallengeGoalType
@@ -100,7 +99,10 @@ class ChallengeViewModel @Inject constructor(
         val award: String,
         val imageUrl: String,
         val participantCount: Int,
-        val participantList: List<ChallengeParticipantEntity>
+        val firstParticipantImage: String,
+        val secondParticipantImage: String,
+        val thirdParticipantImage: String,
+        val participantText: String
     ) {
         fun onClick() {
             viewModelScope.launch {
@@ -113,16 +115,35 @@ class ChallengeViewModel @Inject constructor(
         val periodText = if (goalScope == ChallengeGoalScope.DAY) "하루 한번" else "기간 내"
         val typeText = if (goalType == ChallengeGoalType.DISTANCE) "KM 달성" else "걸음 달성"
         val goalText = "$periodText  $goal  $typeText"
+
+        val firstParticipantImage = participantList.getOrNull(0)?.profileImageUrl ?: ""
+        val secondParticipantImage = participantList.getOrNull(1)?.profileImageUrl ?: ""
+        val thirdParticipantImage = participantList.getOrNull(2)?.profileImageUrl ?: ""
+
+        val participantCountText = "$participantCount 명 참여 중입니다."
+
+        val firstParticipantText =
+            if (participantList.size > 2) "${participantList[2].name}," else ""
+        val secondParticipantText =
+            if (participantList.size > 1) "${participantList[1].name}," else ""
+        val thirdParticipantText =
+            if (participantList.isNotEmpty()) "${participantList[0].name} 외 " else ""
+        val participantText =
+            firstParticipantText + secondParticipantText + thirdParticipantText + participantCountText
+
         return ChallengeItemViewModel(
             id = id,
             title = name,
             award = award,
             imageUrl = imageUrl,
             participantCount = participantCount,
-            participantList = participantList,
+            firstParticipantImage = firstParticipantImage,
+            secondParticipantImage = secondParticipantImage,
+            thirdParticipantImage = thirdParticipantImage,
             goal = goalText,
             writerName = writer.name,
-            periodText = periodText(startAt, endAt)
+            periodText = periodText(startAt, endAt),
+            participantText = participantText
         )
     }
 
