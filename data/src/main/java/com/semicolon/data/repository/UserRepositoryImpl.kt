@@ -200,8 +200,7 @@ class UserRepositoryImpl @Inject constructor(
 
     fun VerifyPhoneNumberSignUpParam.toRequest() =
         VerifyPhoneNumberSignUpRequest(
-            phoneNumber = phoneNumber,
-            authCode = authCode
+            phoneNumber = phoneNumber
         )
 
     fun PostUserSignUpParam.toRequest() =
