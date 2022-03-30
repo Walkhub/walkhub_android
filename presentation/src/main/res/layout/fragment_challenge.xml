@@ -6,25 +6,35 @@
     <data>
 
         <variable
-            name="fragment"
-            type="com.semicolon.walkhub.ui.challenge.ChallengeFragment" />
+            name="vm"
+            type="com.semicolon.walkhub.viewmodel.challenge.ChallengeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/gray_50"
         tools:context=".ui.challenge.ChallengeFragment">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/challenge_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Challenge"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            android:layout_margin="20dp"
+            android:text="챌린지"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/challenge_title"
+            app:recyclerItems="@{vm.challengeItems}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

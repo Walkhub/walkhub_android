@@ -13,7 +13,7 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding>(
     private val vm: ChallengeViewModel by viewModels()
 
     override fun initView() {
+        binding.vm = vm
         vm.fetchChallenges()
-
     }
 }
