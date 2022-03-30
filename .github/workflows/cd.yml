@@ -25,6 +25,9 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
+      - name: Run test
+        run: ./gradlew test
+
       - name: Build Release AAB
         id: buildRelease
         run: ./gradlew bundleRelease
