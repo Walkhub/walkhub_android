@@ -10,6 +10,7 @@ import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.FragmentProfileBinding
 import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.base.BaseFragment
+import com.semicolon.walkhub.ui.home.model.HomeData
 import com.semicolon.walkhub.ui.profile.model.MyPageData
 import com.semicolon.walkhub.ui.profile.setting.ui.SettingActivity
 import com.semicolon.walkhub.util.loadCircleFromUrl
@@ -30,6 +31,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
     ): View? {
 
         vm.fetchMyPage()
+        vm.fetchHomeValue()
 
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
@@ -41,6 +43,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
     private fun handleEvent(event: ProfileViewModel.Event) = when (event) {
         is ProfileViewModel.Event.FetchMyPage -> {
             setProfileValue(event.myPageData)
+        }
+
+        is ProfileViewModel.Event.FetchHomeValue -> {
+            setHomeValue(event.homeData)
         }
 
         is ProfileViewModel.Event.ErrorMessage -> {
@@ -55,9 +61,16 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
         }
     }
 
+    private fun setHomeValue(homeData: HomeData) {
+        val calories = String.format("%.1f", homeData.burnedKilocalories)
+        binding.walkCount.text = homeData.stepCount.toString()
+        binding.calorie.text = calories
+        binding.distance.text = homeData.traveledDistanceAsMeter.toString()
+        binding.walkTime.text = (homeData.exerciseTimeAsMilli / 60000).toString()
+    }
+
     private fun setProfileValue(profileData: MyPageData) {
         binding.name.text = profileData.name
-        binding.walkCount.text = profileData.dailyWalkCountGoal.toString()
         binding.gradeClass.text = profileData.grade.toString()
         binding.schoolName.text = profileData.schoolName
         binding.badgeName.text = profileData.titleBadge.badgeName
@@ -67,6 +80,5 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
         profileData.titleBadge.badgeImageUrl.let { binding.badgeImage.loadFromUrl(it) }
         profileData.level.levelImageUrl.let { binding.rating.loadFromUrl(it) }
     }
-
 
 }
