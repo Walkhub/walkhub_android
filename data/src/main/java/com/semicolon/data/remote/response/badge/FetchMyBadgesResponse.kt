@@ -8,18 +8,20 @@ data class FetchMyBadgesResponse(
     @SerializedName("badge_list") val badgeList: List<Badge>
 ) {
     data class Badge(
-        @SerializedName("id") val badgeId: Int,
-        @SerializedName("image_url") val badgeImageUrl: String,
-        @SerializedName("name") val badgeName: String,
-        @SerializedName("is_mine") val mine: Boolean
+        @SerializedName("badge_id") val badgeId: Int,
+        @SerializedName("name") val name: String,
+        @SerializedName("image_url") val imageUrl: String,
+        @SerializedName("is_mine") val mine: Boolean,
+        @SerializedName("condition") val condition: String
     )
 
     fun Badge.toEntity() =
         FetchMyBadgesEntity.Badge(
             badgeId = badgeId,
-            badgeImageUrl = badgeImageUrl,
-            badgeName = badgeName,
-            mine = mine
+            name = name,
+            imageUrl = imageUrl,
+            mine = mine,
+            condition = condition
         )
 }
 
