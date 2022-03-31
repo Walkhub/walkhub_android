@@ -5,8 +5,8 @@ data class FetchMyBadgesEntity(
 ) {
     data class Badge(
         val badgeId: Int,
-        val name: String,
-        val imageUrl: String,
+        val badgeName: String,
+        val badgeImageUrl: String,
         val mine: Boolean,
         val condition: String
     )

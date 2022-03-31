@@ -18,8 +18,8 @@ data class FetchMyBadgesResponse(
     fun Badge.toEntity() =
         FetchMyBadgesEntity.Badge(
             badgeId = badgeId,
-            name = name,
-            imageUrl = imageUrl,
+            badgeName = name,
+            badgeImageUrl = imageUrl,
             mine = mine,
             condition = condition
         )
