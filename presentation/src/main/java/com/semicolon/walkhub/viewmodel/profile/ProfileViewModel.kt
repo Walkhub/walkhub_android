@@ -77,7 +77,7 @@ class ProfileViewModel @Inject constructor(
     }
 
     sealed class Event {
-        data class FetchMyPage(val rankData: MyPageData): Event()
+        data class FetchMyPage(val myPageData: MyPageData): Event()
         data class ErrorMessage(val message: String) : Event()
     }
 }
