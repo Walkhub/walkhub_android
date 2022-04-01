@@ -45,7 +45,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
             setProfileValue(event.myPageData)
         }
 
-        is ProfileViewModel.Event.FetchHomeValue -> {
+        is ProfileViewModel.Event.FetchHome -> {
             setHomeValue(event.homeData)
         }
 
