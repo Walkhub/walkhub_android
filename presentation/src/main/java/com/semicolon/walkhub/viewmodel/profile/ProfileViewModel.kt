@@ -52,7 +52,7 @@ class ProfileViewModel @Inject constructor(
             startRecordExerciseUseCase.execute(Unit)
             kotlin.runCatching {
                 fetchDailyExerciseRecordUseCase.execute(Unit).collect {
-                    event(ProfileViewModel.Event.FetchHomeValue(it.toData()))
+                    event(Event.FetchHome(it.toData()))
                 }
             }.onFailure {
                 when (it) {
@@ -107,7 +107,7 @@ class ProfileViewModel @Inject constructor(
     }
 
     sealed class Event {
-        data class FetchHomeValue(val homeData: HomeData): Event()
+        data class FetchHome(val homeData: HomeData): Event()
         data class FetchMyPage(val myPageData: MyPageData): Event()
         data class ErrorMessage(val message: String) : Event()
     }
