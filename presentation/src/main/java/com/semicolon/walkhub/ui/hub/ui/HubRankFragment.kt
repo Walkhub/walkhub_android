@@ -20,6 +20,7 @@ import com.semicolon.walkhub.ui.hub.adapter.HubUserRvAdapter
 import com.semicolon.walkhub.ui.hub.model.MySchoolUserRankData
 import com.semicolon.walkhub.ui.hub.model.UserRankRvData
 import com.semicolon.walkhub.ui.hub.model.toRvData
+import com.semicolon.walkhub.util.invisible
 import com.semicolon.walkhub.util.loadCircleFromUrl
 import com.semicolon.walkhub.util.visible
 import com.semicolon.walkhub.viewmodel.hub.HubUserViewModel
@@ -71,6 +72,12 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
         is HubUserViewModel.Event.FetchMySchoolUserRank -> {
             event.mySchoolUserRankData.myRanking?.let { setMyRank(it)}
             setUserRvData(event.mySchoolUserRankData.rankingList.map { it.toRvData() })
+
+            if(event.mySchoolUserRankData.isJoinedClass) {
+                binding.tvJoinClass.invisible()
+            } else {
+                binding.tvJoinClass.visible()
+            }
         }
         is HubUserViewModel.Event.FetchOtherSchoolUserRank -> {
             setUserRvData(event.userRankData.rankList.map { it.toRvData() })
