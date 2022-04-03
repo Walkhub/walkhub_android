@@ -6,7 +6,6 @@ import com.semicolon.domain.exception.NoInternetException
 import com.semicolon.domain.exception.NotFoundException
 import com.semicolon.domain.usecase.rank.SearchSchoolUseCase
 import com.semicolon.walkhub.ui.hub.model.SearchSchoolData
-import com.semicolon.walkhub.ui.register.model.SecondSearchSchoolData
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
