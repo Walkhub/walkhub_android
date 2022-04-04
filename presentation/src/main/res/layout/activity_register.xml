@@ -6,7 +6,7 @@
     <data>
         <variable
             name="activity"
-            type="com.semicolon.walkhub.ui.register.Register" />
+            type="com.semicolon.walkhub.ui.register.ui.Register" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -100,6 +100,30 @@
                     android:textSize="17dp" />
 
                 <TextView
+                    android:id="@+id/tv_minute"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05"
+                    android:textColor="#57B4F1"
+                    android:textSize="15sp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/devide"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/devide"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" : "
+                    android:textColor="#57B4F1"
+                    android:textSize="15sp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/tv_second"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
                     android:id="@+id/tv_second"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -112,17 +136,6 @@
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tv_minute"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="05 : "
-                    android:textColor="#57B4F1"
-                    android:textSize="15sp"
-                    android:visibility="invisible"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintRight_toLeftOf="@id/tv_second"
-                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
