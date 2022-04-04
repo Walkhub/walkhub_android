@@ -7,7 +7,6 @@ import com.semicolon.walkhub.databinding.FragmentChallengeBinding
 import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.base.BaseFragment
 import com.semicolon.walkhub.viewmodel.challenge.ChallengeViewModel
-import kotlinx.coroutines.flow.collect
 
 class ChallengeFragment : BaseFragment<FragmentChallengeBinding>(
     R.layout.fragment_challenge
