@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.semicolon.domain.exception.ConflictException
 import com.semicolon.domain.exception.NoInternetException
 import com.semicolon.domain.param.user.SignUpClassParam
+import com.semicolon.domain.usecase.user.CheckClassCodeUseCase
 import com.semicolon.domain.usecase.user.SignUpClassUseCase
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
@@ -14,7 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignUpClassViewModel @Inject constructor(
-    private val signUpClassUseCase: SignUpClassUseCase
+    private val signUpClassUseCase: SignUpClassUseCase,
+    private val checkClassCodeUseCase: CheckClassCodeUseCase
 ) : ViewModel() {
 
     private val _eventFlow = MutableEventFlow<Event>()
@@ -36,6 +38,18 @@ class SignUpClassViewModel @Inject constructor(
         }
     }
 
+    fun checkClassCode(code: String) {
+        viewModelScope.launch {
+            kotlin.runCatching {
+                checkClassCodeUseCase.execute(code)
+            }.onFailure {
+                event(Event.ClassCodeState(false))
+            }.onSuccess {
+                event(Event.ClassCodeState(true))
+            }
+        }
+    }
+
     private fun event(event: Event) {
         viewModelScope.launch {
             _eventFlow.emit(event)
@@ -43,6 +57,7 @@ class SignUpClassViewModel @Inject constructor(
     }
 
     sealed class Event {
+        data class ClassCodeState(val code: Boolean) : Event()
         data class Success(val state: Boolean) : Event()
         data class ErrorMessage(val message: String) : Event()
     }
