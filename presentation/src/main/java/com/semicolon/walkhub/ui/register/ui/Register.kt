@@ -1,9 +1,8 @@
-package com.semicolon.walkhub.ui.register
+package com.semicolon.walkhub.ui.register.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
-import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
@@ -15,21 +14,26 @@ import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityRegisterBinding
 import com.semicolon.walkhub.ui.base.BaseActivity
 import com.semicolon.walkhub.util.visible
+import android.os.CountDownTimer
+import android.widget.TextView
+import com.semicolon.walkhub.ui.register.SearchSchoolActivity
+
 
 class Register : BaseActivity<ActivityRegisterBinding>(
     R.layout.activity_register
 ) {
-
-    var page = 1
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
+    var textView: TextView? = null
+    var textView2: TextView? = null
+    var a: Int? = null
+    override fun initView() {
         binding.constraint.setOnClickListener {
             hideKeyboard()
         }
 
         movePage(1)
+
+        textView = findViewById(R.id.tv_minute)
+        textView2 = findViewById(R.id.tv_second)
 
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
     }
@@ -198,11 +202,9 @@ class Register : BaseActivity<ActivityRegisterBinding>(
 
                     if (cer.length < 5) {
                         showShortToast("올바른 형식의 인증번호를 입력해주세요.")
-                    }
-                    else if (cer.length > 5){
+                    } else if (cer.length > 5) {
                         showShortToast("인증번호를 올바르게 입력해주세요.")
-                    }
-                    else movePage(4)
+                    } else movePage(4)
                 }
             }
             4 -> {
@@ -224,9 +226,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
 
                     if (password.length in 1..7) {
                         showShortToast("8자 이상의 비밀번호를 입력해주세요.")
-                    }
-
-                    else if (password.length > 7) {
+                    } else if (password.length > 7) {
                         movePage(6)
                     }
                 }
@@ -280,6 +280,31 @@ class Register : BaseActivity<ActivityRegisterBinding>(
         binding.tvMinute.visible()
         binding.tvSecond.visible()
         binding.etName.hint = "인증번호입력"
+        binding.devide.visible()
+
+        object : CountDownTimer(300000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                val num = (millisUntilFinished / 1000).toInt()
+                textView?.text = (num/60).toString()
+                textView2?.text = (num%60).toString()
+
+                when (num) {
+                    0 -> {
+                        a = textView?.text.toString().toInt()
+                        a!! - 1
+                        textView?.text = a.toString()
+                        textView2?.text = 60.toString()
+                    }
+                }
+            }
+
+            override fun onFinish() {
+                textView?.text = "0"
+                textView2?.text = "00"
+                textView?.setTextColor((Color.parseColor("#F04D51")))
+                textView2?.setTextColor((Color.parseColor("#F04D51")))
+            }
+        }.start()
     }
 
     private fun sendId() {
@@ -289,6 +314,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
         binding.tvMain.text = "아이디"
         binding.tvEt.visible()
         binding.tvEt.text = "아이디는 (5~30)자 포함"
+        binding.devide.visibility = View.GONE
         binding.btReCer.visibility = View.GONE
         binding.tvMinute.visibility = View.GONE
         binding.tvSecond.visibility = View.GONE
@@ -315,9 +341,5 @@ class Register : BaseActivity<ActivityRegisterBinding>(
     private fun hideKeyboard() {
         val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.etName.windowToken, 0)
-    }
-
-    override fun initView() {
-
     }
 }
