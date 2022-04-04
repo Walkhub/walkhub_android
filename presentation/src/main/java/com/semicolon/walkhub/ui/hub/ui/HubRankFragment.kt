@@ -1,7 +1,6 @@
 package com.semicolon.walkhub.ui.hub.ui
 
-import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -79,6 +78,12 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
         is HubUserViewModel.Event.FetchMySchoolUserRank -> {
             event.mySchoolUserRankData.let { setMyRank(it) }
             setUserRvData(event.mySchoolUserRankData.rankingList.map { it.toRvData() })
+
+            if(event.mySchoolUserRankData.isJoinedClass) {
+                binding.tvJoinClass.invisible()
+            } else {
+                binding.tvJoinClass.visible()
+            }
         }
         is HubUserViewModel.Event.FetchOtherSchoolUserRank -> {
             setUserRvData(event.userRankData.rankList.map { it.toRvData() })
@@ -102,6 +107,10 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
         initSpinner()
         initDropDown()
         setAdapter()
+
+        binding.tvJoinClass.setOnClickListener {
+            startActivity(Intent(context, SignUpClassActivity::class.java))
+        }
     }
 
     @SuppressLint("SetTextI18n")

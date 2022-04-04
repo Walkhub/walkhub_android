@@ -69,9 +69,10 @@
                 app:layout_constraintTop_toTopOf="@+id/lnTypeSwitch" />
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tvJoinClass"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="52dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
@@ -83,7 +84,6 @@
                 android:text="반 가입하고 랭킹 확인하기"
                 android:textColor="@color/white"
                 android:textSize="16sp"
-                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
