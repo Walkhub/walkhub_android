@@ -1,5 +1,6 @@
 package com.semicolon.walkhub.ui.hub.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -101,6 +102,10 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
         initSpinner()
         initDropDown()
         setAdapter()
+
+        binding.tvJoinClass.setOnClickListener {
+            startActivity(Intent(context, SignUpClassActivity::class.java))
+        }
     }
 
     private fun setMyRank(data: MySchoolUserRankData.Ranking) {
