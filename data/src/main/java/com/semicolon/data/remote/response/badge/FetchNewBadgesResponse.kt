@@ -8,9 +8,9 @@ data class FetchNewBadgesResponse(
     @SerializedName("badge_list") val badgeList: List<Badge>
 ) {
     data class Badge(
-        @SerializedName("id") val badgeId: Int,
-        @SerializedName("image_url") val badgeImageUrl: String,
-        @SerializedName("name") val badgeName: String
+        @SerializedName("badge_id") val badgeId: Int,
+        @SerializedName("name") val badgeName: String,
+        @SerializedName("image_url") val badgeImageUrl: String
     )
 
     fun Badge.toEntity() =

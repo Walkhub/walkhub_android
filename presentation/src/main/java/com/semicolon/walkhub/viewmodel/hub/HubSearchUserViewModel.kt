@@ -37,7 +37,7 @@ class HubSearchUserViewModel @Inject constructor(
                 when (it) {
                     is NoInternetException -> event(Event.ErrorMessage("인터넷을 사용할 수 없습니다"))
                     is NotFoundException -> event(Event.ErrorMessage("요청하는 대상을 찾을 수 없습니다."))
-                    else -> event(Event.ErrorMessage("알 수 없는 에러가 발생했습니다. ${it}"))
+                    else -> event(Event.ErrorMessage("알 수 없는 에러가 발생했습니다."))
                 }
             }
         }

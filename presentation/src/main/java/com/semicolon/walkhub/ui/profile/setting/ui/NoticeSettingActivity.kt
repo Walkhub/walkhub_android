@@ -1,4 +1,4 @@
-package com.semicolon.walkhub.ui.profile.setting
+package com.semicolon.walkhub.ui.profile.setting.ui
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.Modifier

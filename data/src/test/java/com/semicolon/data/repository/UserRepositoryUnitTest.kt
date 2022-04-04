@@ -39,7 +39,7 @@ class UserRepositoryUnitTest {
     fun testVerifyUserPhoneNumber() {
         runBlocking {
             val repositoryResult =
-                userRepository.verifyUserPhoneNumber(VerifyPhoneNumberSignUpParam("010-2100-2936","asdf"))
+                userRepository.verifyUserPhoneNumber(VerifyPhoneNumberSignUpParam("010-2100-2936"))
             assertEquals(Unit, repositoryResult)
         }
     }
