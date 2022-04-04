@@ -83,7 +83,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".ui.register.Register"
+            android:name=".ui.register.ui.Register"
             android:exported="false" />
 
         <activity

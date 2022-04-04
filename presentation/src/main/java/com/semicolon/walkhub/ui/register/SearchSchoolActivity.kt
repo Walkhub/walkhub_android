@@ -5,7 +5,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.semicolon.domain.enums.DateType
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivitySearchSchoolBinding
 import com.semicolon.walkhub.extensions.repeatOnStarted
