@@ -16,15 +16,24 @@ import com.semicolon.walkhub.ui.base.BaseActivity
 import com.semicolon.walkhub.util.visible
 import android.os.CountDownTimer
 import android.widget.TextView
+import androidx.activity.viewModels
+import com.semicolon.walkhub.extensions.repeatOnStarted
+import com.semicolon.walkhub.ui.MainActivity
 import com.semicolon.walkhub.ui.register.SearchSchoolActivity
+import com.semicolon.walkhub.viewmodel.login.LoginViewModel
+import com.semicolon.walkhub.viewmodel.register.RegisterViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class Register : BaseActivity<ActivityRegisterBinding>(
     R.layout.activity_register
 ) {
+    private val vm: RegisterViewModel by viewModels()
+
     var textView: TextView? = null
     var textView2: TextView? = null
     var a: Int? = null
+
     override fun initView() {
         binding.constraint.setOnClickListener {
             hideKeyboard()
@@ -36,6 +45,19 @@ class Register : BaseActivity<ActivityRegisterBinding>(
         textView2 = findViewById(R.id.tv_second)
 
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+
+        repeatOnStarted {
+            vm.eventFlow.collect { event -> handleEvent(event) }
+        }
+    }
+
+    private fun handleEvent(event: RegisterViewModel.Event) = when (event) {
+        is RegisterViewModel.Event.Success -> {
+            movePage(5)
+        }
+        is RegisterViewModel.Event.ErrorMessage -> {
+            showShortToast(event.message)
+        }
     }
 
     private fun setTextWatcher(subject: Int) {
@@ -215,7 +237,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
 
                     if (id.length < 4) {
                         showShortToast("5자 이상의 아이디를 입력해주세요.")
-                    } else movePage(5)
+                    } else checkPhone()
                 }
             }
             5 -> {
@@ -244,6 +266,10 @@ class Register : BaseActivity<ActivityRegisterBinding>(
         }
     }
 
+    private fun checkPhone() {
+        vm.checkId(binding.etName.text.toString())
+    }
+
     private fun viewGone() {
         binding.run {
             etName.text = null
@@ -257,7 +283,6 @@ class Register : BaseActivity<ActivityRegisterBinding>(
 
     private fun enterName() {
         setTextWatcher(1)
-
     }
 
     private fun enterPhone() {
@@ -276,10 +301,10 @@ class Register : BaseActivity<ActivityRegisterBinding>(
 
         binding.tvEt.visibility = View.GONE
         binding.tvWarning.visibility = View.GONE
+        binding.etName.hint = "인증번호입력"
         binding.btReCer.visible()
         binding.tvMinute.visible()
         binding.tvSecond.visible()
-        binding.etName.hint = "인증번호입력"
         binding.devide.visible()
 
         object : CountDownTimer(300000, 1000) {
@@ -301,6 +326,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
             override fun onFinish() {
                 textView?.text = "0"
                 textView2?.text = "00"
+                binding.devide.setTextColor((Color.parseColor("#F04D51")))
                 textView?.setTextColor((Color.parseColor("#F04D51")))
                 textView2?.setTextColor((Color.parseColor("#F04D51")))
             }
