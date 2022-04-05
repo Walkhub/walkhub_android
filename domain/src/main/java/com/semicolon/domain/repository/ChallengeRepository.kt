@@ -3,6 +3,7 @@ package com.semicolon.domain.repository
 import com.semicolon.domain.entity.challenge.ChallengeEntity
 import com.semicolon.domain.entity.challenge.ChallengeDetailEntity
 import com.semicolon.domain.entity.challenge.ChallengeParticipantEntity
+import com.semicolon.domain.entity.challenge.MyChallengeEntity
 import kotlinx.coroutines.flow.Flow
 
 interface ChallengeRepository {
@@ -14,5 +15,5 @@ interface ChallengeRepository {
 
     suspend fun postParticipateChallenge(id: Int)
 
-    suspend fun fetchMyChallenges(): Flow<List<ChallengeEntity>>
+    suspend fun fetchMyChallenges(): Flow<List<MyChallengeEntity>>
 }

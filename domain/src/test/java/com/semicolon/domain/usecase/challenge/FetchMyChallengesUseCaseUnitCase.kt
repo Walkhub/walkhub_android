@@ -2,8 +2,7 @@ package com.semicolon.domain.usecase.challenge
 
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
-import com.semicolon.domain.entity.challenge.ChallengeEntity
-import com.semicolon.domain.entity.challenge.ChallengeParticipantEntity
+import com.semicolon.domain.entity.challenge.MyChallengeEntity
 import com.semicolon.domain.enums.ChallengeGoalScope
 import com.semicolon.domain.enums.ChallengeGoalType
 import com.semicolon.domain.repository.ChallengeRepository
@@ -21,29 +20,22 @@ class FetchMyChallengesUseCaseUnitCase {
 
     @Test
     fun testFetchMyChallengesUseCase() {
-        val challengeId = 12
-        val challengeEntity = ChallengeEntity(
+        val challengeId = 12L
+        val challengeEntity = MyChallengeEntity(
             challengeId,
             "삼천보걷기",
             LocalDateTime.MIN,
             LocalDateTime.MAX,
             "https://testImageUrl",
-            ChallengeGoalScope.ALL,
-            ChallengeGoalType.ETC,
-            "award",
-            writer = ChallengeEntity.Writer(
+            goalScope = ChallengeGoalScope.ALL,
+            goalType = ChallengeGoalType.ETC,
+            goal = 3000,
+            writer = MyChallengeEntity.Writer(
                 12L,
                 "JaeWon",
                 "https://testImageUrl"
             ),
-            participantCount = 12,
-            participantList = listOf(
-                ChallengeParticipantEntity(
-                    12L,
-                    "JaeWon",
-                    "https://testImageUrl"
-                )
-            )
+            totalWalkCount = 10000
         )
 
         val challengeList = listOf(

@@ -18,6 +18,9 @@
         android:theme="@style/Theme.Walkhub"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.challenge.ChallengeDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.splash.SplashActivity"
             android:exported="true"
             android:noHistory="true"
@@ -50,8 +53,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
         <activity
             android:name=".ui.hub.ui.HubSearchSchoolActivity"
             android:exported="false" />
@@ -61,31 +62,24 @@
         <activity
             android:name=".ui.login.LoginActivity"
             android:exported="false" />
-
         <activity
             android:name=".ui.MainActivity"
             android:exported="false" />
-
         <activity
             android:name=".ui.register.SearchSchoolActivity"
             android:exported="false" />
-
         <activity
             android:name=".ui.register.agree.AgreeActivity"
             android:exported="false" />
-
         <activity
             android:name=".ui.register.agree.PrivacyActivity"
             android:exported="false" />
-
         <activity
             android:name=".ui.register.agree.ServiceInstructionActivity"
             android:exported="false" />
-
         <activity
             android:name=".ui.register.Register"
             android:exported="false" />
-
         <activity
             android:name=".ui.profile.setting.ui.SettingActivity"
             android:exported="false" />
@@ -93,7 +87,6 @@
         <activity
             android:name=".ui.profile.setting.ui.NoticeSettingActivity"
             android:exported="false" />
-
         <activity
             android:name=".ui.HomeActivity"
             android:exported="false" />

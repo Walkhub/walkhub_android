@@ -29,19 +29,22 @@ class LocalChallengeDataSourceUnitTest {
         "2022-12-12T12:12",
         "2022-12-12T12:12",
         "https://testImageUrl",
-        "ALL",
+        3000,
         "ALL",
         "WALK",
+        "award",
         13L,
         "김재원",
         "https://testImageUrl",
-        13,
-        listOf(ChallengeParticipantEntity(
-            13L,
-            "김재",
-            "https://testImageUrl"
-        ))
-        )
+        participantList = listOf(
+            ChallengeParticipantEntity(
+                13L,
+                "김재",
+                "https://testImageUrl"
+            )
+        ),
+        participantCount = 13
+    )
 
     private val challengeRoomList = listOf(
         challengeRoomEntity
