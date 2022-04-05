@@ -41,50 +41,54 @@ class ChallengeViewModel @Inject constructor(
 
                 myChallenges.zip(challenges) { my, all ->
                     _challengeItems.value = ArrayList<RecyclerViewItem>().apply {
-                        add(
-                            RecyclerViewItem(
-                                itemLayoutId = R.layout.item_challenge_title,
-                                variableId = BR.title,
-                                data = "참여 중인 챌린지"
-                            )
-                        )
+                        addTitleItem("참여 중인 챌린지")
                         if (my.isNotEmpty()) {
                             addAll(
                                 my.toMyRecyclerItem()
                             )
                         } else {
-                            add(
-                                RecyclerViewItem(
-                                    itemLayoutId = R.layout.item_challenge_empty,
-                                    variableId = BR.comment,
-                                    data = "참여 중인 챌린지가 없어요."
-                                )
-                            )
+                            addEmptyCommentItem("참여 중인 챌린지가 없어요.")
                         }
-                        add(
-                            RecyclerViewItem(
-                                itemLayoutId = R.layout.item_challenge_title,
-                                variableId = BR.title,
-                                data = "전체 챌린지"
-                            )
-                        )
+
+                        addTitleItem("전체 챌린지")
                         if (all.isNotEmpty()) {
                             addAll(
                                 all.toRecyclerItem()
                             )
                         } else {
-                            add(
-                                RecyclerViewItem(
-                                    itemLayoutId = R.layout.item_challenge_empty,
-                                    variableId = BR.comment,
-                                    data = "참여 할 수 있는 챌린지가 없어요."
-                                )
-                            )
+                            addEmptyCommentItem("참여 할 수 있는 챌린지가 없어요.")
                         }
                     }
                 }
+            }.onFailure {
+                _challengeItems.value = ArrayList<RecyclerViewItem>().apply {
+                    addTitleItem("참여 중인 챌린지")
+                    addEmptyCommentItem("참여 중인 챌린지가 없어요.")
+                    addTitleItem("전체 챌린지")
+                    addEmptyCommentItem("참여 할 수 있는 챌린지가 없어요.")
+                }
             }
         }
+    }
+
+    private fun MutableList<RecyclerViewItem>.addTitleItem(title: String) {
+        add(
+            RecyclerViewItem(
+                itemLayoutId = R.layout.item_challenge_title,
+                variableId = BR.title,
+                data = title
+            )
+        )
+    }
+
+    private fun MutableList<RecyclerViewItem>.addEmptyCommentItem(comment: String) {
+        add(
+            RecyclerViewItem(
+                itemLayoutId = R.layout.item_challenge_empty,
+                variableId = BR.comment,
+                data = comment
+            )
+        )
     }
 
     sealed class Event {
