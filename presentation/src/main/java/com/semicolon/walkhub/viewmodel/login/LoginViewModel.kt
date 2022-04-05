@@ -34,8 +34,8 @@ class LoginViewModel @Inject constructor(
             }.onFailure {
                 when (it) {
                     is NoInternetException -> event(Event.ErrorMessage("인터넷 연결을 하시고 로그인을 시도해주세요."))
-                    is BadRequestException -> event(Event.ErrorMessage("400"))
-                    is NotFoundException -> event(Event.ErrorMessage("404"))
+                    is BadRequestException -> event(Event.ErrorMessage("잘못된 요청입니다."))
+                    is NotFoundException -> event(Event.ErrorMessage("아이디나 비밀번호가 틀립니다."))
                     else -> event(Event.ErrorMessage("로그인 정보가 틀립니다."))
                 }
             }
