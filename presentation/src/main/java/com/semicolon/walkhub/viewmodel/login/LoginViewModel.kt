@@ -2,7 +2,9 @@ package com.semicolon.walkhub.viewmodel.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.semicolon.domain.exception.BadRequestException
 import com.semicolon.domain.exception.NoInternetException
+import com.semicolon.domain.exception.NotFoundException
 import com.semicolon.domain.param.user.PostUserSignInParam
 import com.semicolon.domain.usecase.user.PostUserSignInUseCase
 import com.semicolon.walkhub.util.MutableEventFlow
@@ -32,6 +34,8 @@ class LoginViewModel @Inject constructor(
             }.onFailure {
                 when (it) {
                     is NoInternetException -> event(Event.ErrorMessage("인터넷 연결을 하시고 로그인을 시도해주세요."))
+                    is BadRequestException -> event(Event.ErrorMessage("400"))
+                    is NotFoundException -> event(Event.ErrorMessage("404"))
                     else -> event(Event.ErrorMessage("로그인 정보가 틀립니다."))
                 }
             }
