@@ -2,17 +2,13 @@ package com.semicolon.walkhub.ui.hub.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
-import androidx.annotation.NonNull
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.semicolon.domain.enums.MoreDateType
 import com.semicolon.domain.enums.RankScope
 import com.semicolon.walkhub.R
@@ -79,7 +75,7 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
             event.mySchoolUserRankData.let { setMyRank(it) }
             setUserRvData(event.mySchoolUserRankData.rankingList.map { it.toRvData() })
 
-            if(event.mySchoolUserRankData.isJoinedClass) {
+            if (event.mySchoolUserRankData.isJoinedClass) {
                 binding.tvJoinClass.invisible()
             } else {
                 binding.tvJoinClass.visible()
@@ -113,14 +109,14 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
         }
     }
 
-    @SuppressLint("SetTextI18n")
+    @Suppress("SetTextI18n")
     private fun setMyRank(data: MySchoolUserRankData) {
         binding.clMyRank.visible()
         data.myRanking?.ranking?.plus(1)
 
         val topWalkCount =
             if (data.myRanking?.ranking!! <= 1) 0
-            else data.rankingList.get(data.myRanking.ranking-2).walkCount
+            else data.rankingList.get(data.myRanking.ranking - 2).walkCount
         val downWalkCount =
             if (data.myRanking.ranking >= data.rankingList.size) 0
             else data.rankingList.get(data.myRanking.ranking).walkCount
