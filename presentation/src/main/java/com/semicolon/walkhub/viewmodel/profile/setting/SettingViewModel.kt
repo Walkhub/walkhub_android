@@ -199,7 +199,6 @@ class SettingViewModel @Inject constructor(
         data class FetchInfo(val fetchInfoData: FetchInfoEntity) : Event()
         data class FetchUserHealth(val fetchUserHealthData: FetchUserHealthEntity) : Event()
         data class FetchAuthInfo(val fetchAuthInfoData: FetchAuthInfoEntity) : Event()
-        data class Success(val message: String) : Event()
         data class ErrorMessage(val message: String) : SettingViewModel.Event()
     }
 }
