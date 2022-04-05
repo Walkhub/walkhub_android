@@ -86,7 +86,7 @@ interface UserApi {
 
     @HEAD("users/account-id")
     suspend fun checkAccountOverlap(
-        @Body account_id: String
+        @Query("accountId") accountId: String
     )
 
     @HEAD("users/classes")
