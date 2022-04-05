@@ -1,9 +1,9 @@
 package com.semicolon.walkhub.di
 
 import android.app.Application
-import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
 import com.jakewharton.threetenabp.AndroidThreeTen
+import com.semicolon.data.background.worker.SynchronizeExerciseWorkerFactory
 import com.semicolon.walkhub.util.WalkhubExceptionHandler
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
@@ -12,7 +12,7 @@ import javax.inject.Inject
 class WalkHubApplication : Application(), Configuration.Provider {
 
     @Inject
-    lateinit var workerFactory: HiltWorkerFactory
+    lateinit var workerFactory: SynchronizeExerciseWorkerFactory
 
     override fun getWorkManagerConfiguration(): Configuration =
         Configuration.Builder()
