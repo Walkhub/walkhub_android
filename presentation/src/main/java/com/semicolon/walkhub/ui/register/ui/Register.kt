@@ -52,9 +52,14 @@ class Register : BaseActivity<ActivityRegisterBinding>(
     }
 
     private fun handleEvent(event: RegisterViewModel.Event) = when (event) {
-        is RegisterViewModel.Event.Success -> {
+        is RegisterViewModel.Event.SuccessVerityPhone -> {
+            movePage(3)
+        }
+
+        is RegisterViewModel.Event.SuccessId -> {
             movePage(5)
         }
+
         is RegisterViewModel.Event.ErrorMessage -> {
             showShortToast(event.message)
         }
@@ -210,7 +215,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
                 binding.btContinue.setOnClickListener {
                     val phone = binding.etName.text.toString()
 
-                    if (phone.length in 11..11) movePage(3)
+                    if (phone.length in 11..11) verifyPhone()
                     else {
                         showShortToast("전화번호를 올바르게 입력해주세요.")
                     }
@@ -266,6 +271,10 @@ class Register : BaseActivity<ActivityRegisterBinding>(
         }
     }
 
+    private fun verifyPhone() {
+        vm.verifyPhone(binding.etName.text.toString().toInt())
+    }
+
     private fun checkPhone() {
         vm.checkId(binding.etName.text.toString())
     }
@@ -310,8 +319,8 @@ class Register : BaseActivity<ActivityRegisterBinding>(
         object : CountDownTimer(300000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 val num = (millisUntilFinished / 1000).toInt()
-                textView?.text = (num/60).toString()
-                textView2?.text = (num%60).toString()
+                textView?.text = (num / 60).toString()
+                textView2?.text = (num % 60).toString()
 
                 when (num) {
                     0 -> {
