@@ -13,8 +13,10 @@ data class UserProfileRoomEntity(
     val name: String,
     val profileImageUrl: String,
     val schoolName: String,
+    val schoolImageUrl: String,
     val grade: Int,
     val classNum: Int,
+    val dailyWalkCountGoal: Int,
     @Embedded val titleBadge: TitleBadge,
     @Embedded val level: Level
 ) {
@@ -49,8 +51,10 @@ fun UserProfileRoomEntity.toEntity() =
         name = name,
         profileImageUrl = profileImageUrl,
         schoolName = schoolName,
+        schoolImageUrl = schoolImageUrl,
         grade = grade,
         classNum = classNum,
+        dailyWalkCountGoal = dailyWalkCountGoal,
         titleBadge = titleBadge.toEntity(),
         level = level.toEntity()
     )
@@ -74,8 +78,10 @@ fun UserProfileEntity.toDbEntity() =
         name = name,
         profileImageUrl = profileImageUrl,
         schoolName = schoolName,
+        schoolImageUrl = schoolImageUrl,
         grade = grade,
         classNum = classNum,
+        dailyWalkCountGoal = dailyWalkCountGoal,
         titleBadge = titleBadge.toDbEntity(),
         level = level.toDbEntity()
     )

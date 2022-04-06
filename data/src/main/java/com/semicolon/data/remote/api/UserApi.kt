@@ -79,6 +79,11 @@ interface UserApi {
     @DELETE("users/classes")
     suspend fun deleteClass()
 
+    @HEAD("users/verification-codes")
+    suspend fun checkPhoneNumber(
+        @Body checkPhoneNumberRequest: CheckPhoneNumberRequest
+    )
+
     @HEAD("users/account-id")
     suspend fun checkAccountOverlap(
         @Body account_id: String

@@ -13,7 +13,8 @@ data class FetchMyBadgesRoomEntity(
         val badgeId: Int,
         val badgeImageUrl: String,
         val badgeName: String,
-        val mine: Boolean
+        val mine: Boolean,
+        val condition: String
     )
 
     fun Badge.toEntity() =
@@ -21,7 +22,8 @@ data class FetchMyBadgesRoomEntity(
             badgeId = badgeId,
             badgeImageUrl = badgeImageUrl,
             badgeName = badgeName,
-            mine = mine
+            mine = mine,
+            condition = condition
         )
 }
 
@@ -35,7 +37,8 @@ fun FetchMyBadgesEntity.Badge.toDbEntity() =
         badgeId = badgeId,
         badgeImageUrl = badgeImageUrl,
         badgeName = badgeName,
-        mine = mine
+        mine = mine,
+        condition = condition
     )
 
 fun FetchMyBadgesEntity.toDbEntity() =

@@ -66,7 +66,9 @@ import com.semicolon.data.local.entity.user.*
         RankSchoolRankTypeConverter::class,
         RankSearchSchoolTypeConverter::class,
         RankSearchUserTypeConverter::class,
-        RankUserRankTypeConverter::class]
+        RankUserRankTypeConverter::class,
+        ChallengeParticipantTypeConverter::class
+    ]
 
 )
 

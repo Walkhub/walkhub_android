@@ -6,6 +6,7 @@ import com.semicolon.data.util.OfflineCacheUtil
 import com.semicolon.domain.entity.challenge.ChallengeDetailEntity
 import com.semicolon.domain.entity.challenge.ChallengeEntity
 import com.semicolon.domain.entity.challenge.ChallengeParticipantEntity
+import com.semicolon.domain.entity.challenge.MyChallengeEntity
 import com.semicolon.domain.repository.ChallengeRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -41,7 +42,7 @@ class ChallengeRepositoryImpl @Inject constructor(
     override suspend fun postParticipateChallenge(id: Int) =
         remoteChallengeDateSource.postParticipate(id)
 
-    override suspend fun fetchMyChallenges(): Flow<List<ChallengeEntity>> =
+    override suspend fun fetchMyChallenges(): Flow<List<MyChallengeEntity>> =
         flow {
             emit(remoteChallengeDateSource.fetchMyChallenges())
         }

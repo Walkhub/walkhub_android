@@ -7,11 +7,12 @@ data class FetchMyPageResponse(
     @SerializedName("user_id") val userId: Int,
     @SerializedName("name") val name: String,
     @SerializedName("profile_image_url") val profileImageUrl: String,
+    @SerializedName("school_id") val schoolId: Int,
     @SerializedName("school_name") val schoolName: String,
     @SerializedName("school_image_url") val schoolImageUrl: String,
     @SerializedName("grade") val grade: Int,
     @SerializedName("class_num") val classNum: Int,
-    @SerializedName("daily_walk_count_goal") val dailyWalkCountGoal: Int,
+    @SerializedName("daily_walk_count_goal") val dailyWalkCountGoal : Int,
     @SerializedName("title_badge") val titleBadge: TitleBadge,
     @SerializedName("level") val level: Level
 ) {
@@ -48,6 +49,7 @@ fun FetchMyPageResponse.toEntity() =
         userId = userId,
         name = name,
         profileImageUrl = profileImageUrl,
+        schoolId = schoolId,
         schoolName = schoolName,
         schoolImageUrl = schoolImageUrl,
         grade = grade,

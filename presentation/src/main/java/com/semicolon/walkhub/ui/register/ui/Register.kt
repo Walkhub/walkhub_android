@@ -1,8 +1,6 @@
 package com.semicolon.walkhub.ui.register
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -12,11 +10,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import androidx.core.view.isInvisible
-import androidx.databinding.DataBindingUtil
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityRegisterBinding
 import com.semicolon.walkhub.ui.base.BaseActivity
@@ -122,7 +116,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
                                     )
 
                                 binding.tvWarning.visible()
-                                binding.tvWarning.setTextColor(Color.parseColor("primary_400"))
+                                binding.tvWarning.setTextColor(Color.parseColor("#57B4F1"))
                             }
 
                             p0?.length!! < 6 -> {
@@ -204,7 +198,11 @@ class Register : BaseActivity<ActivityRegisterBinding>(
 
                     if (cer.length < 5) {
                         showShortToast("올바른 형식의 인증번호를 입력해주세요.")
-                    } else movePage(4)
+                    }
+                    else if (cer.length > 5){
+                        showShortToast("인증번호를 올바르게 입력해주세요.")
+                    }
+                    else movePage(4)
                 }
             }
             4 -> {
@@ -236,6 +234,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
 
             6 -> {
                 sendSchool()
+                hideKeyboard()
 
                 binding.etName.setOnClickListener {
                     val intent = Intent(this, SearchSchoolActivity::class.java)

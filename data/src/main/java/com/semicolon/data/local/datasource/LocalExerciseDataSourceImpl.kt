@@ -54,7 +54,6 @@ class LocalExerciseDataSourceImpl @Inject constructor(
                 var distance: Int
                 var calories: Float
                 data.addOnSuccessListener {
-                    println(it.buckets)
                     steps = it.buckets.firstOrNull()
                         ?.getDataSet(DataType.AGGREGATE_STEP_COUNT_DELTA)!!.dataPoints.firstOrNull()
                         ?.getValue(Field.FIELD_STEPS)?.asInt() ?: 0
@@ -127,13 +126,8 @@ class LocalExerciseDataSourceImpl @Inject constructor(
 
     override suspend fun startRecordExercise() {
         fitnessDataStorage.startRecordExercise(
-            onSuccess = {
-                println("success ${it.name}")
-            },
-            onFailure = {
-                println("failure ${it.name}")
-                throw RecordExerciseException()
-            }
+            onSuccess = {},
+            onFailure = { throw RecordExerciseException() }
         )
     }
 
@@ -212,7 +206,6 @@ class LocalExerciseDataSourceImpl @Inject constructor(
                 var distance: Int
                 var calories: Float
                 data.addOnSuccessListener {
-                    println(it.buckets)
                     steps = it.buckets.firstOrNull()
                         ?.getDataSet(DataType.AGGREGATE_STEP_COUNT_DELTA)!!.dataPoints.firstOrNull()
                         ?.getValue(Field.FIELD_STEPS)?.asInt() ?: 0

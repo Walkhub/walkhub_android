@@ -23,7 +23,7 @@
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:id="@+id/linearLayout2"
+                android:id="@+id/lnTypeSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -64,25 +64,15 @@
                 android:id="@+id/cvWeekDropDown"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+                app:layout_constraintBottom_toBottomOf="@+id/lnTypeSwitch"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/linearLayout2" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvRank"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="@color/white"
-                android:nestedScrollingEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/clMyRank" />
+                app:layout_constraintTop_toTopOf="@+id/lnTypeSwitch" />
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tvJoinClass"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="52dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
@@ -94,7 +84,6 @@
                 android:text="반 가입하고 랭킹 확인하기"
                 android:textColor="@color/white"
                 android:textSize="16sp"
-                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -102,7 +91,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clMyRank"
                 android:layout_width="0dp"
-                android:layout_height="118dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="20dp"
@@ -111,7 +100,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+                app:layout_constraintTop_toBottomOf="@+id/lnTypeSwitch">
+
+                <View
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    app:layout_constraintEnd_toEndOf="@+id/ivMyProfile"
+                    app:layout_constraintStart_toStartOf="@+id/ivMyProfile"
+                    app:layout_constraintTop_toBottomOf="@+id/ivMyProfile" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/ivMyProfile"
@@ -178,6 +174,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/ivMyProfile" />
 
                 <TextView
+                    android:id="@+id/tvMyRemainWalkCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="18dp"
@@ -190,20 +187,43 @@
                     app:layout_constraintTop_toBottomOf="@+id/pbMy" />
 
                 <TextView
-                    android:id="@+id/tvMyRemainWalkCount"
+                    android:id="@+id/tvNextWalkCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="18dp"
                     android:fontFamily="@font/noto_sans_kr_regular"
                     android:text="0 걸음"
+                    android:layout_marginBottom="12dp"
                     android:textColor="@color/gray_600"
                     android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/pbMy" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/nsRank"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clMyRank">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvRank"
+                    android:nestedScrollingEnabled="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.core.widget.NestedScrollView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

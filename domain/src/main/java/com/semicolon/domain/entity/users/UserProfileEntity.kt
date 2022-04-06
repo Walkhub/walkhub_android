@@ -5,8 +5,10 @@ data class UserProfileEntity(
     val name: String,
     val profileImageUrl: String,
     val schoolName: String,
+    val schoolImageUrl: String,
     val grade: Int,
     val classNum: Int,
+    val dailyWalkCountGoal: Int,
     val titleBadge: TitleBadge,
     val level: Level
 ) {

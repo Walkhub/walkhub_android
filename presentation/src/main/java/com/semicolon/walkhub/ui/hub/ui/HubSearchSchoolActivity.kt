@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.semicolon.domain.enums.DateType
-import com.semicolon.domain.enums.MoreDateType
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityHubSearchSchoolBinding
 import com.semicolon.walkhub.extensions.repeatOnStarted
@@ -13,6 +12,7 @@ import com.semicolon.walkhub.ui.hub.adapter.HubSearchSchoolRvAdapter
 import com.semicolon.walkhub.ui.hub.model.SearchSchoolData
 import com.semicolon.walkhub.util.onTextChanged
 import com.semicolon.walkhub.viewmodel.hub.HubSearchSchoolViewModel
+
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -83,8 +83,8 @@ class HubSearchSchoolActivity : BaseActivity<ActivityHubSearchSchoolBinding> (
     }
 
     private fun setTextChanged() {
-        binding.etSearch.onTextChanged { s, start, before, count ->
-            vm.searchSchoolDebounce(s.toString(), dateType)
+        binding.etSearch.onTextChanged { s, _, _, _ ->
+            vm.searchSchoolDebounce(s.toString())
         }
     }
 }

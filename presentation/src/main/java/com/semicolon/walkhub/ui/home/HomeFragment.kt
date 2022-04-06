@@ -34,7 +34,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     ): View? {
 
         vm.fetchHomeValue()
-        
+
 
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
@@ -59,6 +59,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     override fun initView() {
         binding.firstCardView.setOnClickListener {
             val intent = Intent(context, ActivityAnalysisActivity::class.java)
+            startActivity(intent)
+        }
+        binding.homeStartMeasureCl.setOnClickListener {
+            val intent = Intent(context, MeasureHomeActivity::class.java)
             startActivity(intent)
         }
         Glide.with(this)

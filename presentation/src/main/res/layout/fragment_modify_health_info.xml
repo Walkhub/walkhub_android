@@ -7,10 +7,11 @@
 
         <variable
             name="fragment"
-            type="com.semicolon.walkhub.ui.profile.setting.ModifyHealthInfoFragment" />
+            type="com.semicolon.walkhub.ui.profile.setting.ui.ModifyHealthInfoFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/modify_health_info_cl"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

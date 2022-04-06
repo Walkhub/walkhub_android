@@ -7,7 +7,7 @@
 
         <variable
             name="fragment"
-            type="com.semicolon.walkhub.ui.profile.setting.ModifyProfileActivity" />
+            type="com.semicolon.walkhub.ui.profile.setting.ui.ModifyProfileActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
