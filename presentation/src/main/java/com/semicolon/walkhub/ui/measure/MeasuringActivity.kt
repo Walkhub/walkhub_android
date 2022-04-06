@@ -21,29 +21,56 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
     override fun initView() {
         setToDefaultState()
         countDownToStartMeasure()
-        startMeasureExercise()
+        fetchGoalFromHome()
         observeState()
         observeEvent()
     }
 
-    private fun startMeasureExercise() {
+    private fun fetchGoalFromHome() {
         val isDistance = intent.getBooleanExtra("isDistance", true)
-        val firstValue = intent.getIntExtra("firstNumber", 0)
-        val secondValue = intent.getIntExtra("secondNumber", 0)
+        val firstValue = intent.getIntExtra("firstNumber", -10)
+        val secondValue = intent.getIntExtra("secondNumber", -10)
 
-        val goal = if (isDistance) {
-            if (secondValue != 0) firstValue + 1 else firstValue
+        if (firstValue.didNotSetGoalFromHome()) {
+            fetchMeasuringGoal()
         } else {
-            firstValue * 1000 + secondValue
+            if (isDistance) {
+                val goal = if (secondValue != 0) firstValue + 1 else firstValue
+                setGoalIsForDistance(goal)
+            } else {
+                val goal = firstValue * 1000 + secondValue
+                setGoalIsForWalkCount(goal)
+            }
         }
+    }
 
-        val goalText = "/$goal" + if (isDistance) "km" else "걸음"
-        binding.measuringGoalTv.text = goalText
-        binding.isDistance = isDistance
+    private fun Int.didNotSetGoalFromHome(): Boolean =
+        this == -10
 
-        viewModel.run {
-            startMeasureExercise(goal, isDistance)
+    private fun fetchMeasuringGoal() {
+        viewModel.fetchMeasuringGoal()
+    }
+
+    private fun setGoalIsForDistance(goalDistance: Int) {
+        val goalText = "/$goalDistance km"
+        binding.run {
+            measuringGoalTv.text = goalText
+            isDistance = true
         }
+        viewModel.setDistanceGoal(goalDistance)
+    }
+
+    private fun setGoalIsForWalkCount(goalWalkCount: Int) {
+        val goalText = "/$goalWalkCount 걸음"
+        binding.run {
+            measuringGoalTv.text = goalText
+            isDistance = false
+        }
+        viewModel.setWalkCountGoal(goalWalkCount)
+    }
+
+    private fun startMeasureExercise() {
+        viewModel.startMeasureExercise()
     }
 
     private fun countDownToStartMeasure() {
@@ -95,6 +122,9 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
             }
             percentage.observe(this@MeasuringActivity) {
                 binding.measuringRemainPb.progress = it
+            }
+            goal.observe(this@MeasuringActivity) {
+                this@MeasuringActivity.startMeasureExercise()
             }
         }
     }

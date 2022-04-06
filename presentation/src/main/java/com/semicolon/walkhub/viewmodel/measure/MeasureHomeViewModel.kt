@@ -27,7 +27,7 @@ class MeasureHomeViewModel @Inject constructor(
     val isDistance = _isDistance.asStateFlow()
 
     private val _measureRecyclerItem = MutableLiveData<List<RecyclerViewItem>>()
-    val measureRecyclerItem: LiveData<List<RecyclerViewItem>>  = _measureRecyclerItem
+    val measureRecyclerItem: LiveData<List<RecyclerViewItem>> = _measureRecyclerItem
 
     private var _startMeasure = MutableEventFlow<Unit>()
     val startMeasure = _startMeasure.asEventFlow()
@@ -38,11 +38,17 @@ class MeasureHomeViewModel @Inject constructor(
             try {
                 fetchExerciseRecordListUseCase.execute(Unit).collect {
                     _measureRecyclerItem.value = ArrayList<RecyclerViewItem>().apply {
-                        add(RecyclerViewItem(R.layout.item_measure_home_header, it.toRecyclerViewItem(), BR.records))
+                        add(
+                            RecyclerViewItem(
+                                R.layout.item_measure_home_header,
+                                it.toRecyclerViewItem(),
+                                BR.records
+                            )
+                        )
                     }
                 }
             } catch (e: Exception) {
-                
+
             }
         }
     }
@@ -52,13 +58,13 @@ class MeasureHomeViewModel @Inject constructor(
 
     fun setIsDistance() {
         viewModelScope.launch {
-            _isDistance.emit(true)
+            _isDistance.value = true
         }
     }
 
-    fun setIsNotDistance() {
+    fun setIsWalkCount() {
         viewModelScope.launch {
-            _isDistance.emit(false)
+            _isDistance.value = false
         }
     }
 
