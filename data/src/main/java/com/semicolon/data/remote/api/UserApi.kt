@@ -57,7 +57,12 @@ interface UserApi {
 
     @POST("users/verification-codes")
     suspend fun verifyPhoneNumberSignUp(
-        @Body verifyPhoneNumberSignUpRequest: VerifyPhoneNumberSignUpRequest
+        @Body phone_number: Int
+    )
+
+    @HEAD("users/verification-codes")
+    suspend fun checkPhoneNumber(
+        @Body checkPhoneNumberRequest: CheckPhoneNumberRequest
     )
 
     @POST("users")
@@ -79,15 +84,10 @@ interface UserApi {
     @DELETE("users/classes")
     suspend fun deleteClass()
 
-    @HEAD("users/verification-codes")
-    suspend fun checkPhoneNumber(
-        @Body checkPhoneNumberRequest: CheckPhoneNumberRequest
-    )
-
     @HEAD("users/account-id")
     suspend fun checkAccountOverlap(
         @Query("accountId") accountId: String
-    )
+    ): Void
 
     @HEAD("users/classes")
     suspend fun checkClassCode(
