@@ -272,7 +272,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
     }
 
     private fun verifyPhone() {
-        vm.verifyPhone(binding.etName.text.toString().toInt())
+        vm.verifyPhone(binding.etName.text.toString())
     }
 
     private fun checkPhone() {

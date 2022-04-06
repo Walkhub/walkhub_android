@@ -5,6 +5,7 @@ import com.semicolon.data.remote.request.users.*
 import com.semicolon.data.remote.response.users.*
 import com.semicolon.data.util.HttpHandler
 import com.semicolon.domain.entity.users.*
+import com.semicolon.domain.param.user.VerifyPhoneNumberSignUpParam
 import javax.inject.Inject
 
 class RemoteUserDataSourceImpl @Inject constructor(
@@ -12,7 +13,7 @@ class RemoteUserDataSourceImpl @Inject constructor(
 ) : RemoteUserDataSource {
 
     override suspend fun verifyUserPhoneNumber(
-        phone_number: Int
+        phone_number: VerifyPhoneNumberSignUpParam
     ) = HttpHandler<Unit>()
         .httpRequest { userApi.verifyPhoneNumberSignUp(phone_number) }
         .sendRequest()

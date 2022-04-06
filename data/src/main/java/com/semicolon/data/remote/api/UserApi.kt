@@ -2,6 +2,7 @@ package com.semicolon.data.remote.api
 
 import com.semicolon.data.remote.request.users.*
 import com.semicolon.data.remote.response.users.*
+import com.semicolon.domain.param.user.VerifyPhoneNumberSignUpParam
 import retrofit2.http.*
 
 interface UserApi {
@@ -57,7 +58,7 @@ interface UserApi {
 
     @POST("users/verification-codes")
     suspend fun verifyPhoneNumberSignUp(
-        @Body phone_number: Int
+        @Body phone_number: VerifyPhoneNumberSignUpParam
     )
 
     @HEAD("users/verification-codes")

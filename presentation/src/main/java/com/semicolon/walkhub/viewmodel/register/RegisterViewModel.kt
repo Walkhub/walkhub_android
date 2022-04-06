@@ -3,6 +3,7 @@ package com.semicolon.walkhub.viewmodel.register
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.semicolon.domain.exception.*
+import com.semicolon.domain.param.user.VerifyPhoneNumberSignUpParam
 import com.semicolon.domain.usecase.user.CheckAccountOverlapUseCase
 import com.semicolon.domain.usecase.user.VerifyUserPhoneNumberUseCase
 import com.semicolon.walkhub.util.MutableEventFlow
@@ -36,7 +37,7 @@ class RegisterViewModel @Inject constructor(
         }
     }
 
-    fun verifyPhone(phone_number: Int) {
+    fun verifyPhone(phone_number: VerifyPhoneNumberSignUpParam) {
         viewModelScope.launch {
             kotlin.runCatching {
                 verifyUserPhoneNumberUseCase.execute(phone_number)
