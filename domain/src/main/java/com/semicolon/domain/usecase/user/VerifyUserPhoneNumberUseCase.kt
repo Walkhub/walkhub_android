@@ -7,8 +7,8 @@ import javax.inject.Inject
 
 class VerifyUserPhoneNumberUseCase @Inject constructor(
     private val userRepository: UserRepository
-) : UseCase<VerifyPhoneNumberSignUpParam, Unit>() {
+) : UseCase<Int, Unit>() {
 
-    override suspend fun execute(data: VerifyPhoneNumberSignUpParam) =
+    override suspend fun execute(data: Int) =
         userRepository.verifyUserPhoneNumber(data)
 }

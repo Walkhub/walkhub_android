@@ -44,7 +44,7 @@ interface RemoteUserDataSource {
     ): UserSignInResponse
 
     suspend fun verifyUserPhoneNumber(
-        verifyPhoneNumberSignUpRequest: VerifyPhoneNumberSignUpRequest
+        phone_number: Int
     )
 
     suspend fun postUserSignUp(

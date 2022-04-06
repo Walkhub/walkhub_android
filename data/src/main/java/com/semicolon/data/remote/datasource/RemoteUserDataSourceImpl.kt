@@ -12,9 +12,9 @@ class RemoteUserDataSourceImpl @Inject constructor(
 ) : RemoteUserDataSource {
 
     override suspend fun verifyUserPhoneNumber(
-        verifyPhoneNumberSignUpRequest: VerifyPhoneNumberSignUpRequest
+        phone_number: Int
     ) = HttpHandler<Unit>()
-        .httpRequest { userApi.verifyPhoneNumberSignUp(verifyPhoneNumberSignUpRequest) }
+        .httpRequest { userApi.verifyPhoneNumberSignUp(phone_number) }
         .sendRequest()
 
     override suspend fun postUserSignUp(
