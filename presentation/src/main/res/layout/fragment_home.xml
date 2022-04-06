@@ -195,6 +195,7 @@
                 app:layout_constraintTop_toBottomOf="@id/first_CardView">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/home_start_measure_cl"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 

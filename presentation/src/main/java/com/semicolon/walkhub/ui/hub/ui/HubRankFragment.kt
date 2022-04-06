@@ -75,7 +75,7 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
             event.mySchoolUserRankData.let { setMyRank(it) }
             setUserRvData(event.mySchoolUserRankData.rankingList.map { it.toRvData() })
 
-            if(event.mySchoolUserRankData.isJoinedClass) {
+            if (event.mySchoolUserRankData.isJoinedClass) {
                 binding.tvJoinClass.invisible()
             } else {
                 binding.tvJoinClass.visible()
@@ -115,7 +115,7 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
 
         val topWalkCount =
             if (data.myRanking?.ranking!! <= 1) 0
-            else data.rankingList.get(data.myRanking.ranking-2).walkCount
+            else data.rankingList.get(data.myRanking.ranking - 2).walkCount
         val downWalkCount =
             if (data.myRanking.ranking >= data.rankingList.size) 0
             else data.rankingList.get(data.myRanking.ranking).walkCount
@@ -123,8 +123,12 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
 
         binding.ivMyProfile.loadCircleFromUrl(data.myRanking.profileImageUrl)
         binding.tvMyName.text = data.myRanking.name
-        binding.tvMyWalkCount.text = "$myWalkCount 걸음"
-        binding.tvMyRank.text = "${data.myRanking.ranking} 등"
+
+        val tvMyWalkCountText = "$myWalkCount 걸음"
+        binding.tvMyWalkCount.text = tvMyWalkCountText
+
+        val tvMyRankText = "${data.myRanking.ranking} 등"
+        binding.tvMyRank.text = tvMyRankText
 
         binding.pbMy.progress =
             (myWalkCount.toDouble() / topWalkCount.toDouble() * 100).toInt()

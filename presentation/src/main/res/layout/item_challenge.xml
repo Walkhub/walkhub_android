@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.semicolon.walkhub.viewmodel.challenge.ChallengeViewModel.ChallengeItemViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="14dp"
+            android:onClick="@{()->vm.onClick()}"
+            app:cardCornerRadius="10dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/challenge_item_iv"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    app:image_url="@{vm.imageUrl}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/challenge_title_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="13dp"
+                    android:text="@{vm.title}"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/challenge_item_iv"
+                    app:layout_constraintTop_toTopOf="@id/challenge_item_iv"
+                    tools:text="정기챌린지 - 대전함께걷기" />
+
+                <TextView
+                    android:id="@+id/challenge_writer_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="13dp"
+                    android:text="@{vm.writerName}"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toEndOf="@id/challenge_item_iv"
+                    app:layout_constraintTop_toBottomOf="@id/challenge_title_tv"
+                    tools:text="대전광역시체육학과" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="13dp"
+                    android:text="@{vm.periodText}"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/challenge_writer_tv"
+                    app:layout_constraintTop_toBottomOf="@id/challenge_title_tv"
+                    tools:text="2022/02/12 ~ 2022/02/15" />
+
+                <View
+                    android:id="@+id/challenge_goal_dot"
+                    android:layout_width="2dp"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="18dp"
+                    android:background="@drawable/dot_black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/challenge_item_iv" />
+
+                <TextView
+                    android:id="@+id/challenge_goal_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@{vm.goal}"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="@id/challenge_goal_dot"
+                    app:layout_constraintStart_toStartOf="@id/challenge_goal_dot"
+                    app:layout_constraintTop_toTopOf="@id/challenge_goal_dot"
+                    tools:text="기간 내 30 걸을 달성" />
+
+                <View
+                    android:id="@+id/challenge_award_dot"
+                    android:layout_width="2dp"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="18dp"
+                    android:background="@drawable/dot_gray"
+                    app:layout_constraintStart_toEndOf="@id/challenge_goal_tv"
+                    app:layout_constraintTop_toBottomOf="@id/challenge_item_iv"
+                    app:layout_goneMarginStart="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@{vm.award}"
+                    android:textColor="@color/gray_700"
+                    app:layout_constraintBottom_toBottomOf="@id/challenge_award_dot"
+                    app:layout_constraintStart_toEndOf="@id/challenge_award_dot"
+                    app:layout_constraintTop_toTopOf="@id/challenge_award_dot"
+                    tools:text="체육 수행평가 성적" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/challenge_participant_3_iv"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    app:image_url="@{vm.thirdParticipantImage}"
+                    app:layout_constraintStart_toStartOf="@id/challenge_participant_2_iv"
+                    app:layout_constraintTop_toBottomOf="@id/challenge_goal_dot"
+                    tools:src="@drawable/img_cheering" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/challenge_participant_2_iv"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    app:image_url="@{vm.secondParticipantImage}"
+                    app:layout_constraintStart_toStartOf="@id/challenge_participant_1_iv"
+                    app:layout_constraintTop_toBottomOf="@id/challenge_goal_dot"
+                    tools:src="@drawable/img_cheering" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/challenge_participant_1_iv"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="12dp"
+                    app:image_url="@{vm.firstParticipantImage}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/challenge_goal_dot"
+                    tools:src="@drawable/img_cheering" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@{vm.participantText}"
+                    app:layout_constraintBottom_toBottomOf="@id/challenge_participant_3_iv"
+                    app:layout_constraintStart_toEndOf="@id/challenge_participant_3_iv"
+                    app:layout_constraintTop_toTopOf="@id/challenge_participant_3_iv"
+                    tools:text="정지우,홍정현,박상우 외 176명 참여 중입니다." />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+    </FrameLayout>
+</layout>

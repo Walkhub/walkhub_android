@@ -6,5 +6,6 @@ data class SaveDailyExerciseRequest(
     @SerializedName("distance") val distanceAsCentimeter: Int,
     @SerializedName("walk_count") val walkCount: Int,
     @SerializedName("date") val date: String,
-    @SerializedName("calories") val calories: Int
+    @SerializedName("calorie") val calories: Int,
+    @SerializedName("exercise_time") val exerciseTime: Double
 )

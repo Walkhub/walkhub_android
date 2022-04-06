@@ -8,6 +8,7 @@ import com.semicolon.data.remote.response.exercise.ExerciseAnalysisResultRespons
 import com.semicolon.data.remote.response.exercise.ExerciseIdResponse
 import com.semicolon.data.remote.response.exercise.ExerciseRecordListResponse
 import com.semicolon.data.remote.response.exercise.ExercisingUserListResponse
+import retrofit2.Response
 import retrofit2.http.*
 
 interface ExerciseApi {
@@ -32,7 +33,7 @@ interface ExerciseApi {
     @PUT("exercises")
     suspend fun saveDailyExercise(
         @Body saveDailyExerciseRequest: SaveDailyExerciseRequest
-    )
+    ): Response<Unit>
 
     @GET("exercises/list")
     suspend fun fetchExerciseRecordList(): ExerciseRecordListResponse

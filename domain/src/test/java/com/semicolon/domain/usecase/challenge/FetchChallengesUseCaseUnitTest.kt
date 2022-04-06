@@ -21,13 +21,14 @@ class FetchChallengesUseCaseUnitTest {
 
     @Test
     fun testFetchChallengesUseCase() {
-        val challengeId = 12
+        val challengeId = 12L
         val challengeEntity = ChallengeEntity(
             challengeId,
             "삼천보걷기",
             LocalDateTime.MIN,
             LocalDateTime.MAX,
             "https://testImageUrl",
+            3000,
             ChallengeGoalScope.ALL,
             ChallengeGoalType.ETC,
             "award",
