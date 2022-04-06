@@ -1,6 +1,7 @@
 package com.semicolon.walkhub.ui.register
 
 import android.annotation.SuppressLint
+import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.activity.viewModels
@@ -32,6 +33,15 @@ class SearchSchoolActivity : BaseActivity<ActivitySearchSchoolBinding>(
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        repeatOnStarted {
+            vm.eventFlow.collect { event -> handleEvent(event) }
+        }
+
+    }
+
     override fun initView() {
         setAdapter()
         setTextChanged()
@@ -52,12 +62,7 @@ class SearchSchoolActivity : BaseActivity<ActivitySearchSchoolBinding>(
             override fun afterTextChanged(p0: Editable?) {
 
             }
-
         })
-
-        repeatOnStarted {
-            vm.eventFlow.collect { event -> handleEvent(event) }
-        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
