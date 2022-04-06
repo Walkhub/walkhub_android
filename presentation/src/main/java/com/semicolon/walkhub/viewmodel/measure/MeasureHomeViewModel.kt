@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.semicolon.domain.entity.exercise.ExerciseRecordEntity
 import com.semicolon.domain.usecase.exercise.FetchExerciseRecordListUseCase
+import com.semicolon.domain.usecase.exercise.FetchExercisingUserListUseCase
 import com.semicolon.walkhub.BR
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.adapter.RecyclerViewItem
@@ -20,7 +21,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MeasureHomeViewModel @Inject constructor(
-    private val fetchExerciseRecordListUseCase: FetchExerciseRecordListUseCase
+    private val fetchExerciseRecordListUseCase: FetchExerciseRecordListUseCase,
+    private val fetchExercisingUserListUseCase: FetchExercisingUserListUseCase
 ) : ViewModel() {
 
     private var _isDistance = MutableStateFlow(true)
@@ -46,11 +48,24 @@ class MeasureHomeViewModel @Inject constructor(
                             )
                         )
                     }
+
+                    fetchExercisingUserList()
                 }
             } catch (e: Exception) {
 
             }
         }
+    }
+
+    fun fetchExercisingUserList() {
+        viewModelScope.launch {
+            fetchExercisingUserListUseCase.execute(Unit).collect { excercisingUsers ->
+                _measureRecyclerItem.value = measureRecyclerItem.value.apply {
+                    excercisingUsers // item 넣기
+                }
+            }
+        }
+
     }
 
     private fun List<ExerciseRecordEntity>.toRecyclerViewItem() =
