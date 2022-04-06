@@ -104,7 +104,8 @@ class MeasureViewModel @Inject constructor(
 
     fun fetchMeasuringGoal() {
         viewModelScope.launch {
-            _goal.value = fetchGoalUseCase.execute(Unit)
+            val goalResult = fetchGoalUseCase.execute(Unit)
+            _goal.value = goalResult
         }
     }
 
