@@ -2,17 +2,13 @@ package com.semicolon.walkhub.ui.hub.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
-import androidx.annotation.NonNull
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.semicolon.domain.enums.MoreDateType
 import com.semicolon.domain.enums.RankScope
 import com.semicolon.walkhub.R
@@ -113,7 +109,6 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
         }
     }
 
-    @SuppressLint("SetTextI18n")
     private fun setMyRank(data: MySchoolUserRankData) {
         binding.clMyRank.visible()
         data.myRanking?.ranking?.plus(1)

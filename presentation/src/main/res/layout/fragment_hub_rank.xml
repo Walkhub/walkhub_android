@@ -69,7 +69,6 @@
                 app:layout_constraintTop_toTopOf="@+id/lnTypeSwitch" />
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/tvJoinClass"
                 android:layout_width="0dp"
                 android:layout_height="52dp"
@@ -84,6 +83,7 @@
                 android:text="반 가입하고 랭킹 확인하기"
                 android:textColor="@color/white"
                 android:textSize="16sp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -192,9 +192,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="18dp"
+                    android:layout_marginBottom="12dp"
                     android:fontFamily="@font/noto_sans_kr_regular"
                     android:text="0 걸음"
-                    android:layout_marginBottom="12dp"
                     android:textColor="@color/gray_600"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -216,10 +216,10 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvRank"
-                    android:nestedScrollingEnabled="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
+                    android:nestedScrollingEnabled="false"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
