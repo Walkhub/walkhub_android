@@ -16,143 +16,206 @@
         tools:context=".fragment.InfoFragment">
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline24"
+            android:id="@+id/leftGuide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.69" />
+            app:layout_constraintGuide_begin="16dp" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline23"
+            android:id="@+id/rightGuide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.12" />
-
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline22"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.2" />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/noto_sans_kr_medium"
-            android:text="학교 정보"
-            android:textColor="@color/gray_800"
-            android:textSize="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintGuide_end="16dp" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/noto_sans_kr_medium"
-            android:text="지난주 걸음수 총합"
-            android:textColor="@color/gray_800"
-            android:textSize="14dp"
-            app:layout_constraintStart_toStartOf="@+id/guideline23"
-            app:layout_constraintTop_toTopOf="@+id/guideline22" />
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:text="학교 정보"
+            android:textColor="@color/gray_600"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/leftGuide"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/noto_sans_kr_medium"
-            android:text="시간"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:text="지난 걸음수 총합"
             android:textColor="@color/gray_800"
-            android:textSize="14dp"
-            app:layout_constraintStart_toStartOf="@+id/guideline24"
-            app:layout_constraintTop_toTopOf="@+id/guideline22" />
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/leftGuide"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:text="2022 3월 4주차"
+            android:textColor="@color/gray_700"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView5"
+            app:layout_constraintStart_toEndOf="@+id/textView5"
+            app:layout_constraintTop_toTopOf="@+id/textView5" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/noto_sans_kr_medium"
+            android:text="0 걸음"
+            android:textColor="@color/gray_900"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/leftGuide"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/noto_sans_kr_medium"
+            android:text="0명"
+            android:textColor="@color/gray_900"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView13"
+            app:layout_constraintStart_toEndOf="@+id/textView13"
+            app:layout_constraintTop_toTopOf="@+id/textView13" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/noto_sans_kr_medium"
+            android:text="0등"
+            android:textColor="@color/gray_900"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView13"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView5" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView16"
+            app:layout_constraintEnd_toStartOf="@+id/textView16"
+            app:layout_constraintTop_toTopOf="@+id/textView16"
+            app:srcCompat="@drawable/ic_rank_third" />
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:text="지난 걸음수 총합"
+            android:textColor="@color/gray_800"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/leftGuide"
+            app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:text="2022 3월 4주차"
+            android:textColor="@color/gray_700"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView17"
+            app:layout_constraintStart_toEndOf="@+id/textView17"
+            app:layout_constraintTop_toTopOf="@+id/textView17" />
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/noto_sans_kr_medium"
+            android:text="0 걸음"
+            android:textColor="@color/gray_900"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/leftGuide"
+            app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/noto_sans_kr_medium"
+            android:text="0먕"
+            android:textColor="@color/gray_900"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView18"
+            app:layout_constraintStart_toEndOf="@+id/textView18"
+            app:layout_constraintTop_toTopOf="@+id/textView18" />
+
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/noto_sans_kr_medium"
+            android:text="0등"
+            android:textColor="@color/gray_900"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView18"
+            app:layout_constraintEnd_toStartOf="@+id/rightGuide"
+            app:layout_constraintTop_toBottomOf="@+id/textView15"
+            app:layout_constraintVertical_bias="0.527" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView21"
+            app:layout_constraintEnd_toStartOf="@+id/textView21"
+            app:layout_constraintTop_toTopOf="@+id/textView21"
+            app:srcCompat="@drawable/ic_rank_third" />
 
         <View
-            android:layout_width="1dp"
-            android:layout_height="28dp"
-            android:background="@color/gray_300"
-            app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline22" />
+            android:id="@+id/view4"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/gray_200"
+            app:layout_constraintEnd_toStartOf="@+id/rightGuide"
+            app:layout_constraintStart_toStartOf="@+id/leftGuide"
+            app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+        <TextView
+            android:id="@+id/textView22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="@+id/textView4"
-            app:layout_constraintStart_toStartOf="@+id/guideline23"
-            app:layout_constraintTop_toTopOf="@+id/guideline22">
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:text="학교 정보"
+            android:textColor="@color/gray_600"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/leftGuide"
+            app:layout_constraintTop_toBottomOf="@+id/view4" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/noto_sans_kr_medium"
-                android:text="988,289"
-                android:textColor="@color/gray_800"
-                android:textSize="20dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:fontFamily="@font/noto_sans_kr_regular"
-                android:text="걸음"
-                android:textColor="@color/gray_800"
-                android:textSize="14dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="@+id/textView5"
-            app:layout_constraintStart_toStartOf="@+id/guideline24"
-            app:layout_constraintTop_toTopOf="@+id/guideline22">
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toStartOf="@+id/rightGuide"
+            app:layout_constraintStart_toStartOf="@+id/leftGuide"
+            app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/noto_sans_kr_medium"
-                android:text="1"
-                android:textColor="@color/gray_800"
-                android:textSize="20dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:fontFamily="@font/noto_sans_kr_regular"
-                android:text="h"
-                android:textColor="@color/gray_800"
-                android:textSize="14dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:fontFamily="@font/noto_sans_kr_medium"
-                android:text="10"
-                android:textColor="@color/gray_800"
-                android:textSize="20dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:fontFamily="@font/noto_sans_kr_regular"
-                android:text="m"
-                android:textColor="@color/gray_800"
-                android:textSize="14dp" />
-        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
