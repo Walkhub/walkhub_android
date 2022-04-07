@@ -38,7 +38,6 @@ object RoomModule {
         .addTypeConverter(NoticeListTypeConverter(moshi))
         .addTypeConverter(UserBadgeListTypeConverter(moshi))
         .addTypeConverter(RankOurSchoolTypeConverter(moshi))
-        .addTypeConverter(RankSchoolRankTypeConverter(moshi))
         .addTypeConverter(RankSearchSchoolTypeConverter(moshi))
         .addTypeConverter(RankSearchUserTypeConverter(moshi))
         .addTypeConverter(RankUserRankTypeConverter(moshi))
