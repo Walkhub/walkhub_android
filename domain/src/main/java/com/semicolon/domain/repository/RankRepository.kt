@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 interface RankRepository {
     suspend fun fetchSchoolRank(dateType: DateType): Flow<SchoolRankEntity>
 
-    suspend fun searchSchool(name: String): Flow<SearchSchoolEntity>
+    suspend fun searchSchool(searchSchoolParam: SearchSchoolParam): Flow<SearchSchoolEntity>
 
     suspend fun fetchUserRank(fetchUserRankParam: FetchUserRankParam): Flow<UserRankEntity>
 
