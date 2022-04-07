@@ -39,21 +39,26 @@ class ChallengeViewModel @Inject constructor(
                 val myChallenges = fetchMyChallengesUseCase.execute(Unit)
                 val challenges = fetchChallengesUseCase.execute(Unit)
 
-                myChallenges.zip(challenges) { my, all ->
+                myChallenges.zip(challenges) { myChallengeList, allChallengeList ->
+                    ChallengeItems(
+                        myChallengeList,
+                        allChallengeList
+                    )
+                }.collect { challengeList ->
                     _challengeItems.value = ArrayList<RecyclerViewItem>().apply {
                         addTitleItem("참여 중인 챌린지")
-                        if (my.isNotEmpty()) {
+                        if (challengeList.myChallenges.isNotEmpty()) {
                             addAll(
-                                my.toMyRecyclerItem()
+                                challengeList.myChallenges.toMyRecyclerItem()
                             )
                         } else {
                             addEmptyCommentItem("참여 중인 챌린지가 없어요.")
                         }
 
                         addTitleItem("전체 챌린지")
-                        if (all.isNotEmpty()) {
+                        if (challengeList.allChallenges.isNotEmpty()) {
                             addAll(
-                                all.toRecyclerItem()
+                                challengeList.allChallenges.toRecyclerItem()
                             )
                         } else {
                             addEmptyCommentItem("참여 할 수 있는 챌린지가 없어요.")
@@ -70,6 +75,11 @@ class ChallengeViewModel @Inject constructor(
             }
         }
     }
+
+    private data class ChallengeItems(
+        val myChallenges: List<MyChallengeEntity>,
+        val allChallenges: List<ChallengeEntity>
+    )
 
     private fun MutableList<RecyclerViewItem>.addTitleItem(title: String) {
         add(
