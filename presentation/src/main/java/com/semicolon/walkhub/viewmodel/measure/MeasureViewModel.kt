@@ -9,6 +9,8 @@ import com.semicolon.domain.enums.GoalType
 import com.semicolon.domain.param.exercise.FinishMeasureExerciseParam
 import com.semicolon.domain.param.exercise.StartMeasureExerciseParam
 import com.semicolon.domain.usecase.exercise.*
+import com.semicolon.domain.usecase.socket.ConnectSocketUseCase
+import com.semicolon.domain.usecase.socket.DisconnectSocketUseCase
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,7 +31,9 @@ class MeasureViewModel @Inject constructor(
     private val pauseMeasureExerciseUseCase: PauseMeasureExerciseUseCase,
     private val resumeMeasureExerciseUseCase: ResumeMeasureExerciseUseCase,
     private val startMeasureExerciseUseCase: StartMeasureExerciseUseCase,
-    private val finishMeasureExerciseUseCase: FinishMeasureExerciseUseCase
+    private val finishMeasureExerciseUseCase: FinishMeasureExerciseUseCase,
+    private val connectSocketUseCase: ConnectSocketUseCase,
+    private val disconnectSocketUseCase: DisconnectSocketUseCase
 ) : ViewModel() {
 
     private val _walkCount = MutableLiveData(0)
@@ -67,6 +71,12 @@ class MeasureViewModel @Inject constructor(
     val finishActivity = _finishActivity.asEventFlow()
 
     private var _finishPhotoUri: String? = null
+
+    init {
+        viewModelScope.launch {
+            connectSocketUseCase.execute(Unit)
+        }
+    }
 
     fun startMeasureExercise() {
         _measuringState.value = MeasureState.ONGOING
@@ -177,6 +187,13 @@ class MeasureViewModel @Inject constructor(
         ONGOING,
         PAUSED,
         LOCK
+    }
+
+    override fun onCleared() {
+        viewModelScope.launch {
+            disconnectSocketUseCase.execute(Unit)
+        }
+        super.onCleared()
     }
 
 }
