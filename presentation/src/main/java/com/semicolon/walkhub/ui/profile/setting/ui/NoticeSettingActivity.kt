@@ -16,6 +16,9 @@ class NoticeSettingActivity : BaseActivity<ActivityNoticeSettingBinding>(
 
     override fun initView() {
         switch()
+        binding.back.setOnClickListener {
+            finish()
+        }
 
     }
 

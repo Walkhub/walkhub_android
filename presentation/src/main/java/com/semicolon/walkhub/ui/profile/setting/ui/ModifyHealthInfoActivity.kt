@@ -9,6 +9,8 @@ class ModifyHealthInfoActivity : BaseActivity<ActivityModifyHealthInfoBinding>(
 ) {
 
     override fun initView() {
-
+        binding.back.setOnClickListener {
+            finish()
+        }
     }
 }

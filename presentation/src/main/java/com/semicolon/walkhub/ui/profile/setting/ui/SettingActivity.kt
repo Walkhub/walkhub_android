@@ -14,6 +14,9 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>(
 ) {
 
     override fun initView() {
+        binding.back.setOnClickListener {
+            finish()
+        }
         binding.modifyProfileInfo.setOnClickListener {
             val intent = Intent(context, ModifyProfileActivity::class.java)
             startActivity(intent)

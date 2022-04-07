@@ -8,5 +8,8 @@ class AccountInfoActivity : BaseActivity<ActivityAccountInfoBinding>(
     R.layout.activity_account_info
 ) {
     override fun initView() {
+        binding.back.setOnClickListener {
+            finish()
+        }
     }
 }
