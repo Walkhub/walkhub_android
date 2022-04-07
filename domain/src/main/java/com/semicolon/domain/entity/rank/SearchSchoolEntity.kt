@@ -8,6 +8,7 @@ data class SearchSchoolEntity(
         val schoolName: String,
         val ranking: Int,
         val logoImageUrl: String,
-        val walkCount: Int
+        val walkCount: Int,
+        val userCount: Int
     )
 }
