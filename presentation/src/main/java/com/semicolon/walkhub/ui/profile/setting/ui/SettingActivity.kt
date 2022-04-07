@@ -6,6 +6,8 @@ import com.gun0912.tedpermission.provider.TedPermissionProvider.context
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivitySettingBinding
 import com.semicolon.walkhub.ui.base.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
+
 
 class SettingActivity : BaseActivity<ActivitySettingBinding>(
     R.layout.activity_setting
@@ -18,20 +20,12 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>(
         }
 
         binding.modifyHealthInfo.setOnClickListener {
-            val bundle = Bundle()
-            val fragmentA = ModifyHealthInfoFragment()
-            fragmentA.arguments = bundle
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.add(R.id.modify_health_info_cl, fragmentA)
-            transaction.commit()
+            val intent = Intent(context, ModifyHealthInfoActivity::class.java)
+            startActivity(intent)
         }
         binding.modifyLoginInfo.setOnClickListener {
-            val bundle = Bundle()
-            val fragmentA = AccountInfoFragment()
-            fragmentA.arguments = bundle
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.add(R.id.account_info_fragment, fragmentA)
-            transaction.commit()
+            val intent = Intent(context, AccountInfoActivity::class.java)
+            startActivity(intent)
         }
 
         binding.notificationSetting.setOnClickListener {
