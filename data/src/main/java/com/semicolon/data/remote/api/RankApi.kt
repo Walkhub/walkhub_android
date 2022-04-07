@@ -11,7 +11,7 @@ import retrofit2.http.Query
 
 interface RankApi {
 
-    //학교랭킹조회
+    //내 학교 랭킹 조회
     @GET("ranks/schools")
     suspend fun fetchSchoolRank(
         @Query("schoolDateType") dateType: String
