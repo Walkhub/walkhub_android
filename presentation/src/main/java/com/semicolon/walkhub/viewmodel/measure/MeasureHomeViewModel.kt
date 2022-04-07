@@ -9,6 +9,8 @@ import com.semicolon.domain.entity.exercise.ExercisingUserEntity
 import com.semicolon.domain.usecase.exercise.FetchExerciseRecordListUseCase
 import com.semicolon.domain.usecase.exercise.FetchExercisingUserListUseCase
 import com.semicolon.domain.usecase.socket.CheeringUseCase
+import com.semicolon.domain.usecase.socket.ConnectedSocketUseCase
+import com.semicolon.domain.usecase.socket.DisconnectedSocketUseCase
 import com.semicolon.walkhub.BR
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.adapter.RecyclerViewItem
@@ -26,6 +28,8 @@ import javax.inject.Inject
 class MeasureHomeViewModel @Inject constructor(
     private val fetchExerciseRecordListUseCase: FetchExerciseRecordListUseCase,
     private val fetchExercisingUserListUseCase: FetchExercisingUserListUseCase,
+    private val connectedSocketUseCase: ConnectedSocketUseCase,
+    private val disconnectedSocketUseCase: DisconnectedSocketUseCase,
     private val cheeringUseCase: CheeringUseCase
 ) : ViewModel() {
 
@@ -37,6 +41,12 @@ class MeasureHomeViewModel @Inject constructor(
 
     private var _startMeasure = MutableEventFlow<Unit>()
     val startMeasure = _startMeasure.asEventFlow()
+
+    init {
+        viewModelScope.launch {
+            connectedSocketUseCase.execute(Unit)
+        }
+    }
 
     fun fetchExerciseRecordList() {
         viewModelScope.launch {
@@ -114,4 +124,11 @@ class MeasureHomeViewModel @Inject constructor(
 
     private fun ExercisingUserEntity.toRecyclerviewItemViewModel() =
         MeasureExercisingUserItemViewModel(userId, name, profileImageUrl)
+
+    override fun onCleared() {
+        viewModelScope.launch {
+            disconnectedSocketUseCase.execute(Unit)
+        }
+        super.onCleared()
+    }
 }
