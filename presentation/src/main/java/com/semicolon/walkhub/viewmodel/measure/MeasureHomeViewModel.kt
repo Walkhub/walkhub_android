@@ -34,7 +34,6 @@ class MeasureHomeViewModel @Inject constructor(
     private var _startMeasure = MutableEventFlow<Unit>()
     val startMeasure = _startMeasure.asEventFlow()
 
-
     fun fetchExerciseRecordList() {
         viewModelScope.launch {
             try {
@@ -57,11 +56,11 @@ class MeasureHomeViewModel @Inject constructor(
         }
     }
 
-    fun fetchExercisingUserList() {
+    private fun fetchExercisingUserList() {
         viewModelScope.launch {
-            fetchExercisingUserListUseCase.execute(Unit).collect { excercisingUsers ->
+            fetchExercisingUserListUseCase.execute(Unit).collect { exercisingUsers ->
                 _measureRecyclerItem.value = measureRecyclerItem.value.apply {
-                    excercisingUsers // item 넣기
+                    exercisingUsers // item 넣기
                 }
             }
         }
