@@ -315,28 +315,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/measuring_first_line" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/measuring_ready_cl"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/primary_400"
-                android:visibility="invisible"
-                tools:layout_editor_absoluteX="2dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{count}"
-                    android:textColor="@color/white"
-                    android:textSize="120sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="3" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -413,6 +391,28 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/measuring_cheering_iv"
             tools:text="한준호님이 응원하셨어요!" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/measuring_ready_cl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/primary_400"
+            android:visibility="invisible"
+            tools:layout_editor_absoluteX="2dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{count}"
+                android:textColor="@color/white"
+                android:textSize="120sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="3" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
