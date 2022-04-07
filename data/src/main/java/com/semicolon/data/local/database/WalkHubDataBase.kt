@@ -26,6 +26,7 @@ import com.semicolon.data.local.entity.level.LevelRoomEntity
 import com.semicolon.data.local.entity.notice.NoticeListRoomEntity
 import com.semicolon.data.local.entity.rank.*
 import com.semicolon.data.local.entity.notification.NotificationRoomEntity
+import com.semicolon.data.local.entity.school.SchoolDetailRoomEntity
 import com.semicolon.data.local.entity.user.*
 
 @Database(
@@ -51,7 +52,8 @@ import com.semicolon.data.local.entity.user.*
         FetchAuthInfoRoomEntity::class,
         FetchDailyGoalRoomEntity::class,
         FetchInfoRoomEntity::class,
-        FetchUserHealthRoomEntity::class
+        FetchUserHealthRoomEntity::class,
+        SchoolDetailRoomEntity::class
     ], version = 1, exportSchema = false
 )
 
@@ -81,4 +83,5 @@ abstract class WalkHubDataBase : RoomDatabase() {
     abstract fun rankDao(): RankDao
     abstract fun locationRecordDao(): LocationRecordDao
     abstract fun levelDao(): LevelDao
+    abstract fun schoolDao(): SchoolDao
 }

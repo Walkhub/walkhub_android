@@ -21,6 +21,11 @@ abstract class LocalDataSourceModule {
     ): LocalChallengeDataSource
 
     @Binds
+    abstract fun provideLocalSchoolDataSource(
+        localSchoolDataSourceImpl: LocalSchoolDataSourceImpl
+    ): LocalSchoolDataSource
+
+    @Binds
     abstract fun provideLocalExerciseDataSource(
         localExerciseDataSourceImpl: LocalExerciseDataSourceImpl
     ): LocalExerciseDataSource
