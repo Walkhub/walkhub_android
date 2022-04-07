@@ -109,7 +109,6 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
         }
     }
 
-    @Suppress("SetTextI18n")
     private fun setMyRank(data: MySchoolUserRankData) {
         binding.clMyRank.visible()
         data.myRanking?.ranking?.plus(1)
@@ -124,8 +123,12 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
 
         binding.ivMyProfile.loadCircleFromUrl(data.myRanking.profileImageUrl)
         binding.tvMyName.text = data.myRanking.name
-        binding.tvMyWalkCount.text = "$myWalkCount 걸음"
-        binding.tvMyRank.text = "${data.myRanking.ranking} 등"
+
+        val tvMyWalkCountText = "$myWalkCount 걸음"
+        binding.tvMyWalkCount.text = tvMyWalkCountText
+
+        val tvMyRankText = "${data.myRanking.ranking} 등"
+        binding.tvMyRank.text = tvMyRankText
 
         binding.pbMy.progress =
             (myWalkCount.toDouble() / topWalkCount.toDouble() * 100).toInt()

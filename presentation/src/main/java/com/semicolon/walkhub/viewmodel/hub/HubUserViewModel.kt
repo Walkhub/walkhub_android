@@ -1,5 +1,7 @@
 package com.semicolon.walkhub.viewmodel.hub
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.semicolon.domain.enums.MoreDateType
@@ -11,6 +13,10 @@ import com.semicolon.domain.param.rank.FetchOurSchoolUserRankParam
 import com.semicolon.domain.param.rank.FetchUserRankParam
 import com.semicolon.domain.usecase.rank.FetchOurSchoolUserRankUseCase
 import com.semicolon.domain.usecase.rank.FetchUserRankUseCase
+import com.semicolon.walkhub.BR
+import com.semicolon.walkhub.R
+import com.semicolon.walkhub.adapter.RecyclerViewItem
+import com.semicolon.walkhub.ui.cheering.CheeringItemViewModel
 import com.semicolon.walkhub.ui.hub.model.MySchoolUserRankData
 import com.semicolon.walkhub.ui.hub.model.SchoolUserRankData
 import com.semicolon.walkhub.ui.hub.model.toData
@@ -28,6 +34,9 @@ class HubUserViewModel @Inject constructor(
 
     private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()
+
+    private val _recyclerViewItems = MutableLiveData<List<RecyclerViewItem>>()
+    val recyclerViewItem: LiveData<List<RecyclerViewItem>> = _recyclerViewItems
 
     fun fetchMySchoolUserRank(scope: RankScope, dateType: MoreDateType) {
         viewModelScope.launch {
@@ -63,9 +72,28 @@ class HubUserViewModel @Inject constructor(
         }
     }
 
+    fun fetchExercisingUser() {
+        _recyclerViewItems.value = ArrayList<RecyclerViewItem>().apply {
+            add(
+                RecyclerViewItem(
+                    itemLayoutId = R.layout.item_cheering,
+                    variableId = BR.vm,
+                    data = HubCheeringItemViewModel("user", "https//")
+                )
+            )
+        }
+    }
+
     private fun event(event: Event) {
         viewModelScope.launch {
             _eventFlow.emit(event)
+        }
+    }
+
+    inner class HubCheeringItemViewModel(userName: String, imageUrl: String) :
+        CheeringItemViewModel(userName, imageUrl) {
+        override fun onClick() {
+            TODO("Not yet implemented")
         }
     }
 
