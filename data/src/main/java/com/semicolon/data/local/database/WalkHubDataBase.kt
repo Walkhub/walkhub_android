@@ -63,7 +63,6 @@ import com.semicolon.data.local.entity.user.*
         NewBadgeListTypeConverter::class,
         UserBadgeListTypeConverter::class,
         RankOurSchoolTypeConverter::class,
-        RankSchoolRankTypeConverter::class,
         RankSearchSchoolTypeConverter::class,
         RankSearchUserTypeConverter::class,
         RankUserRankTypeConverter::class,
