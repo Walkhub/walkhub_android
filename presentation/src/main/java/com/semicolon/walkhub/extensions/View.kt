@@ -1,5 +1,6 @@
 package com.semicolon.walkhub.util
 
+import android.media.Image
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -7,6 +8,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.semicolon.walkhub.R
 
 fun View.isVisible() = this.visibility == View.VISIBLE
 
@@ -41,4 +43,21 @@ fun EditText.onTextChanged(block: (s: CharSequence?, start: Int, before: Int, co
             block(s, start, before, count)
         }
     })
+}
+
+fun ImageView.setRankImage(rank: Int) {
+    when(rank) {
+        1 -> {
+            this.visible()
+            this.setImageResource(R.drawable.ic_rank_first)
+        }
+        2 -> {
+            this.visible()
+            this.setImageResource(R.drawable.ic_rank_second)
+        }
+        3 -> {
+            this.visible()
+            this.setImageResource(R.drawable.ic_rank_third)
+        }
+    }
 }

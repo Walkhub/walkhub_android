@@ -15,8 +15,12 @@ import com.semicolon.walkhub.ui.base.BaseFragment
 import com.semicolon.walkhub.ui.hub.adapter.HubInfoNoticeRvAdapter
 import com.semicolon.walkhub.ui.hub.model.HubInfoNoticeRvData
 import com.semicolon.walkhub.ui.hub.model.toRvData
+import com.semicolon.walkhub.util.setRankImage
+import com.semicolon.walkhub.util.visible
 import com.semicolon.walkhub.viewmodel.hub.HubInfoViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HubInfoFragment : BaseFragment<FragmentHubInfoBinding>(
     R.layout.fragment_hub_info
 ) {
@@ -62,7 +66,7 @@ class HubInfoFragment : BaseFragment<FragmentHubInfoBinding>(
     private fun setAdapter() {
         val mAdapter = HubInfoNoticeRvAdapter(rvNoticeData)
 
-        binding.rvHubNotice.apply {
+        binding.rvHubNotice.run {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
             adapter = mAdapter
@@ -70,10 +74,23 @@ class HubInfoFragment : BaseFragment<FragmentHubInfoBinding>(
     }
 
     private fun setHubInfo(data: SchoolDetailEntity) {
-        binding.tvMonthRank.text = data.monthRanking.toString()
-        binding.tvMonthCount.text = data.monthTotalWalkCount.toString()
-        binding.tvWeekCount.text = data.weekTotalWalkCount.toString()
-        binding.tvWeekRank.text = data.weekRanking.toString()
+        binding.run {
+            data.week.run {
+                tvWeekDate.text = date
+                tvWeekRank.text = ranking.toString()
+                tvWeekUserCount.text = totalUserCount.toString()
+                tvWeekWalkCount.text = totalWalkCount.toString()
+                ivWeekRank.setRankImage(ranking)
+
+            }
+            data.month.run {
+                tvMonthDate.text = date
+                tvMonthRank.text = ranking.toString()
+                tvMonthUserCount.text = totalUserCount.toString()
+                tvMonthWalkCount.text = totalWalkCount.toString()
+                ivMonthRank.setRankImage(ranking)
+            }
+        }
     }
 
     private fun setNoticeList(noticeList: List<HubInfoNoticeRvData>) {
@@ -82,5 +99,4 @@ class HubInfoFragment : BaseFragment<FragmentHubInfoBinding>(
         }
         binding.rvHubNotice.adapter?.notifyDataSetChanged()
     }
-
 }
