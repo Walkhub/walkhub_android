@@ -11,7 +11,8 @@ data class SearchSchoolResponse(
         @SerializedName("school_name") val schoolName: String,
         @SerializedName("ranking") val ranking: Int,
         @SerializedName("logo_image_url") val logoImageUrl: String,
-        @SerializedName("walk_count") val walkCount: Int
+        @SerializedName("walk_count") val walkCount: Int,
+        @SerializedName("user_count") val userCount: Int
     )
 
     fun SchoolInfo.toEntity() =
@@ -20,7 +21,8 @@ data class SearchSchoolResponse(
             schoolName = schoolName,
             ranking = ranking,
             logoImageUrl = logoImageUrl,
-            walkCount = walkCount
+            walkCount = walkCount,
+            userCount = userCount
         )
 }
 
