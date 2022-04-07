@@ -8,17 +8,8 @@ import com.semicolon.domain.entity.rank.SchoolRankEntity
 @Entity(tableName = "schoolRank")
 data class SchoolRankRoomEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    @Embedded val mySchoolRank: MySchoolRank,
-    val schoolRankList: List<SchoolRank>
+    @Embedded val mySchoolRank: MySchoolRank
 ) {
-    data class SchoolRank(
-        val schoolId: Int,
-        val name: String,
-        val ranking: Int,
-        val studentCount: Int,
-        val logoImageUrl: String,
-        val walkCount: Int
-    )
 
     data class MySchoolRank(
         val schoolId: Int,
@@ -27,16 +18,6 @@ data class SchoolRankRoomEntity(
         val grade: Int,
         val classNum: Int
     )
-
-    fun SchoolRank.toEntity() =
-        SchoolRankEntity.SchoolRank(
-            schoolId = schoolId,
-            name = name,
-            ranking = ranking,
-            studentCount = studentCount,
-            logoImageUrl = logoImageUrl,
-            walkCount = walkCount
-        )
 
     fun MySchoolRank.toEntity() =
         SchoolRankEntity.MySchoolRank(
@@ -50,8 +31,7 @@ data class SchoolRankRoomEntity(
 
 fun SchoolRankRoomEntity.toEntity() =
     SchoolRankEntity(
-        mySchoolRank = mySchoolRank.toEntity(),
-        schoolRankList = schoolRankList.map { it.toEntity() }
+        mySchoolRank = mySchoolRank.toEntity()
     )
 
 fun SchoolRankEntity.MySchoolRank.toDbEntity() =
@@ -63,18 +43,7 @@ fun SchoolRankEntity.MySchoolRank.toDbEntity() =
         classNum = classNum
     )
 
-fun SchoolRankEntity.SchoolRank.toDbEntity() =
-    SchoolRankRoomEntity.SchoolRank(
-        schoolId = schoolId,
-        name = name,
-        ranking = ranking,
-        studentCount = studentCount,
-        logoImageUrl = logoImageUrl,
-        walkCount = walkCount
-    )
-
 fun SchoolRankEntity.toDbEntity() =
     SchoolRankRoomEntity(
-        mySchoolRank = mySchoolRank.toDbEntity(),
-        schoolRankList = schoolRankList.map { it.toDbEntity() }
+        mySchoolRank = mySchoolRank.toDbEntity()
     )
