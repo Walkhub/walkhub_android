@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/noto_sans_kr_regular"
-            android:text="지난 걸음수 총합"
+            android:text="지난주 걸음수 총합"
             android:textColor="@color/gray_800"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/leftGuide"
@@ -67,7 +67,7 @@
             app:layout_constraintTop_toTopOf="@+id/textView5" />
 
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/tvWeekWalkCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -79,7 +79,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
         <TextView
-            android:id="@+id/textView15"
+            android:id="@+id/tvWeekCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -87,12 +87,12 @@
             android:text="0명"
             android:textColor="@color/gray_900"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView13"
-            app:layout_constraintStart_toEndOf="@+id/textView13"
-            app:layout_constraintTop_toTopOf="@+id/textView13" />
+            app:layout_constraintBottom_toBottomOf="@+id/tvWeekWalkCount"
+            app:layout_constraintStart_toEndOf="@+id/tvWeekWalkCount"
+            app:layout_constraintTop_toTopOf="@+id/tvWeekWalkCount" />
 
         <TextView
-            android:id="@+id/textView16"
+            android:id="@+id/tvWeekRank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -100,7 +100,7 @@
             android:text="0등"
             android:textColor="@color/gray_900"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView13"
+            app:layout_constraintBottom_toBottomOf="@+id/tvWeekWalkCount"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView5" />
 
@@ -109,9 +109,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView16"
-            app:layout_constraintEnd_toStartOf="@+id/textView16"
-            app:layout_constraintTop_toTopOf="@+id/textView16"
+            app:layout_constraintBottom_toBottomOf="@+id/tvWeekRank"
+            app:layout_constraintEnd_toStartOf="@+id/tvWeekRank"
+            app:layout_constraintTop_toTopOf="@+id/tvWeekRank"
             app:srcCompat="@drawable/ic_rank_third" />
 
         <TextView
@@ -120,11 +120,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/noto_sans_kr_regular"
-            android:text="지난 걸음수 총합"
+            android:text="지난달 걸음수 총합"
             android:textColor="@color/gray_800"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/leftGuide"
-            app:layout_constraintTop_toBottomOf="@+id/textView13" />
+            app:layout_constraintTop_toBottomOf="@+id/tvWeekWalkCount" />
 
         <TextView
             android:id="@+id/textView19"
@@ -140,7 +140,7 @@
             app:layout_constraintTop_toTopOf="@+id/textView17" />
 
         <TextView
-            android:id="@+id/textView18"
+            android:id="@+id/tvMonthWalkCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -152,38 +152,38 @@
             app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
         <TextView
-            android:id="@+id/textView20"
+            android:id="@+id/tvMonthCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:fontFamily="@font/noto_sans_kr_medium"
-            android:text="0먕"
+            android:text="0명"
             android:textColor="@color/gray_900"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView18"
-            app:layout_constraintStart_toEndOf="@+id/textView18"
-            app:layout_constraintTop_toTopOf="@+id/textView18" />
+            app:layout_constraintBottom_toBottomOf="@+id/tvMonthWalkCount"
+            app:layout_constraintStart_toEndOf="@+id/tvMonthWalkCount"
+            app:layout_constraintTop_toTopOf="@+id/tvMonthWalkCount" />
 
         <TextView
-            android:id="@+id/textView21"
+            android:id="@+id/tvMonthRank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/noto_sans_kr_medium"
             android:text="0등"
             android:textColor="@color/gray_900"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView18"
+            app:layout_constraintBottom_toBottomOf="@+id/tvMonthWalkCount"
             app:layout_constraintEnd_toStartOf="@+id/rightGuide"
-            app:layout_constraintTop_toBottomOf="@+id/textView15"
+            app:layout_constraintTop_toBottomOf="@+id/tvWeekCount"
             app:layout_constraintVertical_bias="0.527" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView21"
-            app:layout_constraintEnd_toStartOf="@+id/textView21"
-            app:layout_constraintTop_toTopOf="@+id/textView21"
+            app:layout_constraintBottom_toBottomOf="@+id/tvMonthRank"
+            app:layout_constraintEnd_toStartOf="@+id/tvMonthRank"
+            app:layout_constraintTop_toTopOf="@+id/tvMonthRank"
             app:srcCompat="@drawable/ic_rank_third" />
 
         <View
@@ -194,7 +194,7 @@
             android:background="@color/gray_200"
             app:layout_constraintEnd_toStartOf="@+id/rightGuide"
             app:layout_constraintStart_toStartOf="@+id/leftGuide"
-            app:layout_constraintTop_toBottomOf="@+id/textView18" />
+            app:layout_constraintTop_toBottomOf="@+id/tvMonthWalkCount" />
 
         <TextView
             android:id="@+id/textView22"
@@ -209,6 +209,7 @@
             app:layout_constraintTop_toBottomOf="@+id/view4" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvHubNotice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
