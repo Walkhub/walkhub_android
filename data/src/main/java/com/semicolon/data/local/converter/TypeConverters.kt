@@ -160,29 +160,6 @@ class RankOurSchoolTypeConverter(
 }
 
 @ProvidedTypeConverter
-class RankSchoolRankTypeConverter(
-    private val moshi: Moshi
-) {
-
-    @TypeConverter
-    fun fromString(value: String): List<SchoolRankRoomEntity.SchoolRank>? {
-        val listType = Types.newParameterizedType(List::class.java, SchoolRankRoomEntity.SchoolRank::class.java)
-        val adapter: JsonAdapter<List<SchoolRankRoomEntity.SchoolRank>> = moshi.adapter(listType)
-        return adapter.fromJson(value)
-    }
-
-    @TypeConverter
-    fun fromList(type: List<SchoolRankRoomEntity.SchoolRank>): String {
-        val listType = Types.newParameterizedType(
-            List::class.java,
-            SchoolRankRoomEntity.SchoolRank::class.java
-        )
-        val adapter: JsonAdapter<List<SchoolRankRoomEntity.SchoolRank>> = moshi.adapter(listType)
-        return adapter.toJson(type)
-    }
-}
-
-@ProvidedTypeConverter
 class RankSearchSchoolTypeConverter(
     private val moshi: Moshi
 ) {
