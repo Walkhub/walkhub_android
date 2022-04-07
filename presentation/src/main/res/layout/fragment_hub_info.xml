@@ -54,7 +54,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
         <TextView
-            android:id="@+id/textView14"
+            android:id="@+id/tvWeekDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -79,7 +79,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
         <TextView
-            android:id="@+id/tvWeekCount"
+            android:id="@+id/tvWeekUserCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -105,7 +105,7 @@
             app:layout_constraintTop_toTopOf="@+id/textView5" />
 
         <ImageView
-            android:id="@+id/imageView6"
+            android:id="@+id/ivWeekRank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
@@ -127,7 +127,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tvWeekWalkCount" />
 
         <TextView
-            android:id="@+id/textView19"
+            android:id="@+id/tvMonthDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -152,7 +152,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
         <TextView
-            android:id="@+id/tvMonthCount"
+            android:id="@+id/tvMonthUserCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -174,10 +174,11 @@
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/tvMonthWalkCount"
             app:layout_constraintEnd_toStartOf="@+id/rightGuide"
-            app:layout_constraintTop_toBottomOf="@+id/tvWeekCount"
+            app:layout_constraintTop_toBottomOf="@+id/tvWeekUserCount"
             app:layout_constraintVertical_bias="0.527" />
 
         <ImageView
+            android:id="@+id/ivMonthRank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
