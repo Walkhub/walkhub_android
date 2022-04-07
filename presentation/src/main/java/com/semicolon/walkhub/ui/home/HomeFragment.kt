@@ -15,6 +15,7 @@ import com.semicolon.walkhub.ui.base.BaseFragment
 import com.semicolon.walkhub.ui.home.model.HomeData
 import com.semicolon.walkhub.ui.home.model.RankData
 import com.semicolon.walkhub.ui.measure.MeasureHomeActivity
+import com.semicolon.walkhub.ui.measure.MeasuringActivity
 import com.semicolon.walkhub.util.isVisible
 import com.semicolon.walkhub.util.loadCircleFromUrl
 import com.semicolon.walkhub.viewmodel.home.HomeViewModel
@@ -55,11 +56,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
             showShortToast(event.message)
         }
         is HomeViewModel.Event.StartMeasureHome -> {
-            val intent = Intent(context, MeasureHomeActivity::class.java)
-            startActivity(intent)
+            Intent(context, MeasureHomeActivity::class.java).run {
+                startActivity(this)
+            }
         }
         is HomeViewModel.Event.StartMeasure -> {
-            //start measure activity
+            Intent(context, MeasuringActivity::class.java).run {
+                startActivity(this)
+            }
         }
     }
 
