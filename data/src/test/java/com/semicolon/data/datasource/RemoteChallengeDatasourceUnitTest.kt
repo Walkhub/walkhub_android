@@ -5,10 +5,7 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.semicolon.data.remote.api.ChallengeApi
 import com.semicolon.data.remote.datasource.RemoteChallengeDateSource
 import com.semicolon.data.remote.datasource.RemoteChallengeDateSourceImpl
-import com.semicolon.data.remote.response.challenge.ChallengeDetailResponse
-import com.semicolon.data.remote.response.challenge.ChallengeListResponse
-import com.semicolon.data.remote.response.challenge.ChallengeParticipantListResponse
-import com.semicolon.data.remote.response.challenge.toEntity
+import com.semicolon.data.remote.response.challenge.*
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -27,26 +24,47 @@ class RemoteChallengeDatasourceUnitTest {
             "2022-12-12T12:12",
             "2022-12-17T12:12",
             "https://testImageUrl",
+            3000,
             "ALL",
-            "ALL",
-            ChallengeListResponse.User(
+            writer = ChallengeListResponse.User(
                 13L,
                 "JaeWon",
                 "https://testImageUrl"
             ),
-            "award",
-            13,
-            listOf(
+            award = "award",
+            participantCount = 13,
+            participantList = listOf(
                 ChallengeListResponse.User(
                     14L,
                     "JaeWon",
                     "https://testImageUrl"
                 )
-            )
+            ),
+            goalScope = "WALK"
+        )
+    )
+
+    private val myChallengeList = listOf(
+        MyChallengeResponse.ChallengeResponse(
+            1,
+            "삼천보걷기",
+            "2022-12-12T12:12",
+            "2022-12-17T12:12",
+            "https://testImageUrl",
+            3000,
+            "ALL",
+            "WALK",
+            MyChallengeResponse.User(
+                13L,
+                "김재원",
+                "https://testImageUrl"
+            ),
+            3000
         )
     )
 
     private val challengeResponse = ChallengeListResponse(challengeList)
+    private val myChallengeResponse = MyChallengeResponse(myChallengeList)
 
     @Test
     fun testFetchChallenges() {
@@ -126,11 +144,11 @@ class RemoteChallengeDatasourceUnitTest {
     fun testFetchMyChallenges() {
         runBlocking {
             whenever(challengeApi.getMyChallenges()).thenReturn(
-                challengeResponse
+                myChallengeResponse
             )
 
             val datasourceResult = remoteChallengeDatasource.fetchMyChallenges()
-            assertEquals(challengeResponse.toEntity(), datasourceResult)
+            assertEquals(myChallengeResponse.toEntity(), datasourceResult)
         }
     }
 }

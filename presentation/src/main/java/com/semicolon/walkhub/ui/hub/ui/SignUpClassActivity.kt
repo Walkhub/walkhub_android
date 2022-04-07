@@ -3,22 +3,61 @@ package com.semicolon.walkhub.ui.hub.ui
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivitySignUpClassBinding
+import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.base.BaseActivity
 import com.semicolon.walkhub.util.invisible
 import com.semicolon.walkhub.util.visible
+import com.semicolon.walkhub.viewmodel.hub.SignUpClassViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SignUpClassActivity : BaseActivity<ActivitySignUpClassBinding>(
     R.layout.activity_sign_up_class
 ) {
+    private val vm: SignUpClassViewModel by viewModels()
+
     private var page: Int = 1
+    private var classCode: String ?= null
+    private var classNum: Int ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        repeatOnStarted {
+            vm.eventFlow.collect { event -> handleEvent(event) }
+        }
+
         movePage(1)
+    }
+
+    private fun handleEvent(event: SignUpClassViewModel.Event) = when (event) {
+        is SignUpClassViewModel.Event.Success -> {
+            Toast.makeText(applicationContext, "반 가입에 성공했습니다.", Toast.LENGTH_SHORT).show()
+            finish()
+        }
+        is SignUpClassViewModel.Event.ErrorMessage -> {
+            showShortToast(event.message)
+        }
+        is SignUpClassViewModel.Event.ClassCodeState -> {
+            classCode(event.code)
+        }
+    }
+
+    private fun classCode(state: Boolean) {
+        if(state) {
+            classCode = binding.etClassCode.text.toString()
+            binding.tvError.invisible()
+            movePage(++page)
+        } else {
+            binding.tvError.visible()
+            binding.tvError.text = "반을 찾을 수 없어요. 가입코드를 다시 확인해주세요."
+            binding.etClassCode.text = null
+        }
     }
 
     override fun initView() {
@@ -30,20 +69,9 @@ class SignUpClassActivity : BaseActivity<ActivitySignUpClassBinding>(
             }
         }
 
-        binding.tvNext.setOnClickListener {
-            movePage(++page)
-        }
-
         binding.etClassCode.setOnPinEnteredListener { str ->
             if (str.length <= 7) {
-                if (str.toString() == "1234567") {
-                    movePage(++page)
-                    binding.tvError.invisible()
-                } else {
-                    binding.tvError.visible()
-                    binding.tvError.text = "반을 찾을 수 없어요. 가입코드를 다시 확인해주세요."
-                    binding.etClassCode.text = null
-                }
+                vm.checkClassCode(str.toString())
             }
         }
 
@@ -89,6 +117,10 @@ class SignUpClassActivity : BaseActivity<ActivitySignUpClassBinding>(
 
         binding.etTitle.text = "반 친구들과 함께 걷고\n내 랭킹 확인하기"
         binding.etLore.text = "반 가입코드를 입력해주세요."
+
+        binding.tvNext.setOnClickListener {
+            movePage(++page)
+        }
     }
 
     private fun classNum() {
@@ -102,12 +134,13 @@ class SignUpClassActivity : BaseActivity<ActivitySignUpClassBinding>(
         binding.etLore.text = "반에서 사용하는 번호를 입력해주세요."
 
         binding.tvSecondNext.setOnClickListener {
+            classNum = binding.etNumber.text.toString().toInt()
             movePage(++page)
         }
     }
 
     private fun signUpClass() {
-        finish()
+        vm.signUpClass(classCode!!, classNum!!)
     }
 
     override fun onBackPressed() =

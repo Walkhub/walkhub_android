@@ -4,11 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.semicolon.domain.entity.exercise.DailyExerciseEntity
 import com.semicolon.domain.entity.rank.OurSchoolUserRankEntity
+import com.semicolon.domain.enums.MeasuringState
 import com.semicolon.domain.enums.MoreDateType
 import com.semicolon.domain.enums.RankScope
 import com.semicolon.domain.exception.NoInternetException
 import com.semicolon.domain.param.rank.FetchOurSchoolUserRankParam
 import com.semicolon.domain.usecase.exercise.FetchDailyExerciseRecordUseCase
+import com.semicolon.domain.usecase.exercise.IsMeasuringUseCase
 import com.semicolon.domain.usecase.exercise.StartRecordExerciseUseCase
 import com.semicolon.domain.usecase.rank.FetchOurSchoolUserRankUseCase
 import com.semicolon.walkhub.ui.home.model.HomeData
@@ -23,7 +25,8 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val fetchDailyExerciseRecordUseCase: FetchDailyExerciseRecordUseCase,
     private val startRecordExerciseUseCase: StartRecordExerciseUseCase,
-    private val fetchOurSchoolUserRankUseCase: FetchOurSchoolUserRankUseCase
+    private val fetchOurSchoolUserRankUseCase: FetchOurSchoolUserRankUseCase,
+    private val isMeasuringUseCase: IsMeasuringUseCase
 ) : ViewModel() {
 
     private val _eventFlow = MutableEventFlow<Event>()
@@ -47,9 +50,19 @@ class HomeViewModel @Inject constructor(
 
     fun fetchSchoolRank() {
         viewModelScope.launch {
-            fetchOurSchoolUserRankUseCase.execute(FetchOurSchoolUserRankParam(RankScope.SCHOOL, MoreDateType.DAY))
+            fetchOurSchoolUserRankUseCase.execute(
+                FetchOurSchoolUserRankParam(
+                    RankScope.SCHOOL,
+                    MoreDateType.DAY
+                )
+            )
             kotlin.runCatching {
-                fetchOurSchoolUserRankUseCase.execute(FetchOurSchoolUserRankParam(RankScope.SCHOOL, MoreDateType.DAY)).collect{ entity ->
+                fetchOurSchoolUserRankUseCase.execute(
+                    FetchOurSchoolUserRankParam(
+                        RankScope.SCHOOL,
+                        MoreDateType.DAY
+                    )
+                ).collect { entity ->
                     event(Event.FetchSchoolRank(entity.rankingList.map { rank -> rank.toData() }))
                 }
             }.onFailure {
@@ -58,6 +71,17 @@ class HomeViewModel @Inject constructor(
                     is NullPointerException -> {}
                     is NoInternetException -> event(Event.ErrorMessage("오늘 학교 학생들의 랭킹을 받아오는 것에 실패하였습니다."))
                 }
+            }
+        }
+    }
+
+    fun checkMeasuringState() {
+        viewModelScope.launch {
+            val result = isMeasuringUseCase.execute(Unit)
+            if (result == MeasuringState.ONGOING) {
+                event(Event.StartMeasureHome)
+            } else {
+                event(Event.StartMeasure)
             }
         }
     }
@@ -71,7 +95,7 @@ class HomeViewModel @Inject constructor(
         )
 
     private fun OurSchoolUserRankEntity.Ranking.toData() =
-        RankData (
+        RankData(
             name = name,
             walkCount = walkCount,
             logoImageUrl = profileImageUrl
@@ -84,8 +108,10 @@ class HomeViewModel @Inject constructor(
     }
 
     sealed class Event {
-        data class FetchSchoolRank(val rankData: List<RankData>): Event()
+        data class FetchSchoolRank(val rankData: List<RankData>) : Event()
         data class FetchHomeValue(val homeData: HomeData) : Event()
         data class ErrorMessage(val message: String) : Event()
+        object StartMeasureHome : Event()
+        object StartMeasure : Event()
     }
 }

@@ -5,11 +5,12 @@ import com.semicolon.domain.enums.ChallengeGoalType
 import org.threeten.bp.LocalDateTime
 
 data class ChallengeEntity(
-    val id: Int,
+    val id: Long,
     val name: String,
     val startAt: LocalDateTime,
     val endAt: LocalDateTime,
     val imageUrl: String,
+    val goal: Int,
     val goalScope: ChallengeGoalScope,
     val goalType: ChallengeGoalType,
     val award: String,

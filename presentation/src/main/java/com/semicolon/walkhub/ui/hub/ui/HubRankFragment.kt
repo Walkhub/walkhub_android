@@ -1,10 +1,12 @@
 package com.semicolon.walkhub.ui.hub.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.semicolon.domain.enums.MoreDateType
@@ -20,6 +22,7 @@ import com.semicolon.walkhub.ui.hub.adapter.HubUserRvAdapter
 import com.semicolon.walkhub.ui.hub.model.MySchoolUserRankData
 import com.semicolon.walkhub.ui.hub.model.UserRankRvData
 import com.semicolon.walkhub.ui.hub.model.toRvData
+import com.semicolon.walkhub.util.invisible
 import com.semicolon.walkhub.util.loadCircleFromUrl
 import com.semicolon.walkhub.util.visible
 import com.semicolon.walkhub.viewmodel.hub.HubUserViewModel
@@ -69,8 +72,14 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
 
     private fun handleEvent(event: HubUserViewModel.Event) = when (event) {
         is HubUserViewModel.Event.FetchMySchoolUserRank -> {
-            event.mySchoolUserRankData.myRanking?.let { setMyRank(it)}
+            event.mySchoolUserRankData.let { setMyRank(it) }
             setUserRvData(event.mySchoolUserRankData.rankingList.map { it.toRvData() })
+
+            if (event.mySchoolUserRankData.isJoinedClass) {
+                binding.tvJoinClass.invisible()
+            } else {
+                binding.tvJoinClass.visible()
+            }
         }
         is HubUserViewModel.Event.FetchOtherSchoolUserRank -> {
             setUserRvData(event.userRankData.rankList.map { it.toRvData() })
@@ -94,15 +103,39 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
         initSpinner()
         initDropDown()
         setAdapter()
+
+        binding.tvJoinClass.setOnClickListener {
+            startActivity(Intent(context, SignUpClassActivity::class.java))
+        }
     }
 
-    private fun setMyRank(data: MySchoolUserRankData.Ranking) {
+    private fun setMyRank(data: MySchoolUserRankData) {
         binding.clMyRank.visible()
+        data.myRanking?.ranking?.plus(1)
 
-        binding.ivMyProfile.loadCircleFromUrl(data.profileImageUrl)
-        binding.tvMyName.text = data.name
-        binding.tvMyWalkCount.text = "${data.walkCount} 걸음"
-        binding.tvMyRank.text = "${data.ranking} 등"
+        val topWalkCount =
+            if (data.myRanking?.ranking!! <= 1) 0
+            else data.rankingList.get(data.myRanking.ranking - 2).walkCount
+        val downWalkCount =
+            if (data.myRanking.ranking >= data.rankingList.size) 0
+            else data.rankingList.get(data.myRanking.ranking).walkCount
+        val myWalkCount = data.myRanking.walkCount
+
+        binding.ivMyProfile.loadCircleFromUrl(data.myRanking.profileImageUrl)
+        binding.tvMyName.text = data.myRanking.name
+
+        val tvMyWalkCountText = "$myWalkCount 걸음"
+        binding.tvMyWalkCount.text = tvMyWalkCountText
+
+        val tvMyRankText = "${data.myRanking.ranking} 등"
+        binding.tvMyRank.text = tvMyRankText
+
+        binding.pbMy.progress =
+            (myWalkCount.toDouble() / topWalkCount.toDouble() * 100).toInt()
+        binding.tvMyRemainWalkCount.text =
+            if (topWalkCount == 0) "최고 등수를 달성했어요!" else "다음 등수까지 ${topWalkCount - myWalkCount} 걸음"
+        binding.tvNextWalkCount.text =
+            if (topWalkCount == 0) "$myWalkCount 걸음" else "$topWalkCount 걸음"
     }
 
     private fun setAdapter() {
@@ -111,6 +144,27 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
         binding.rvRank.layoutManager = LinearLayoutManager(context)
         binding.rvRank.setHasFixedSize(true)
         binding.rvRank.adapter = mAdapter
+
+        val mScrollViewListener =
+            NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, _ ->
+                if (scrollY == 0) {
+                    binding.pbMy.visible()
+                    binding.lnTypeSwitch.visible()
+                    binding.tvNextWalkCount.visible()
+                    binding.tvMyRemainWalkCount.visible()
+                    binding.lnTypeSwitch.visible()
+                    binding.cvWeekDropDown.visible()
+                } else {
+                    binding.pbMy.invisible()
+                    binding.lnTypeSwitch.invisible()
+                    binding.tvNextWalkCount.invisible()
+                    binding.tvMyRemainWalkCount.invisible()
+                    binding.lnTypeSwitch.invisible()
+                    binding.cvWeekDropDown.invisible()
+                }
+            }
+
+        binding.nsRank.setOnScrollChangeListener(mScrollViewListener)
     }
 
 

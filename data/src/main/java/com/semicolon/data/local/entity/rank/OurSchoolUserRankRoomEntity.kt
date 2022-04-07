@@ -8,6 +8,7 @@ import com.semicolon.domain.entity.rank.OurSchoolUserRankEntity
 @Entity(tableName = "ourschoolUserRank")
 data class OurSchoolUserRankRoomEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    val isJoinedClass: Boolean,
     @Embedded val myRanking: Ranking?,
     val rankingList: List<Ranking>
 ) {
@@ -31,6 +32,7 @@ data class OurSchoolUserRankRoomEntity(
 
 fun OurSchoolUserRankRoomEntity.toEntity() =
     OurSchoolUserRankEntity(
+        isJoinedClass = isJoinedClass,
         myRanking = myRanking?.toEntity(),
         rankingList = rankingList.map { it.toEntity() }
     )
@@ -46,6 +48,7 @@ fun OurSchoolUserRankEntity.Ranking.toDbEntity() =
 
 fun OurSchoolUserRankEntity.toDbEntity() =
     OurSchoolUserRankRoomEntity(
+        isJoinedClass = isJoinedClass,
         myRanking = myRanking?.toDbEntity(),
         rankingList = rankingList.map { it.toDbEntity() }
     )

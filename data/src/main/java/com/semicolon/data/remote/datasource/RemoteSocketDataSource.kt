@@ -10,7 +10,7 @@ interface RemoteSocketDataSource {
 
     fun receiveError(): List<String>
 
-    fun disconnected()
+    fun disconnect()
 
     fun connectSocket()
 }

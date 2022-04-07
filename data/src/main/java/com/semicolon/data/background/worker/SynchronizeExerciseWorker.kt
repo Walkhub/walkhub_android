@@ -30,7 +30,8 @@ class SynchronizeExerciseWorker @AssistedInject constructor(
                     distanceAsCentimeter = exerciseRecord.traveledDistanceAsMeter * 100,
                     walkCount = exerciseRecord.stepCount,
                     date = date,
-                    calories = exerciseRecord.burnedKilocalories.toInt()
+                    calories = exerciseRecord.burnedKilocalories.toInt(),
+                    exerciseTime = exerciseRecord.exerciseTimeAsMilli.toDouble() / 1000 / 60
                 )
             )
             Result.success()

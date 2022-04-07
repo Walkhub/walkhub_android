@@ -2,11 +2,15 @@ package com.semicolon.walkhub.viewmodel.profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.semicolon.domain.entity.exercise.DailyExerciseEntity
 import com.semicolon.domain.entity.users.UserMyPageEntity
 import com.semicolon.domain.exception.NoInternetException
 import com.semicolon.domain.exception.NotFoundException
 import com.semicolon.domain.exception.UnauthorizedException
+import com.semicolon.domain.usecase.exercise.FetchDailyExerciseRecordUseCase
+import com.semicolon.domain.usecase.exercise.StartRecordExerciseUseCase
 import com.semicolon.domain.usecase.user.FetchMypageUseCase
+import com.semicolon.walkhub.ui.home.model.HomeData
 import com.semicolon.walkhub.ui.profile.model.MyPageData
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
@@ -16,7 +20,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val fetchMypageUseCase: FetchMypageUseCase
+    private val fetchMypageUseCase: FetchMypageUseCase,
+    private val startRecordExerciseUseCase: StartRecordExerciseUseCase,
+    private val fetchDailyExerciseRecordUseCase: FetchDailyExerciseRecordUseCase
 ) : ViewModel() {
 
     private val _eventFlow = MutableEventFlow<Event>()
@@ -40,6 +46,30 @@ class ProfileViewModel @Inject constructor(
             }
         }
     }
+
+    fun fetchHomeValue() {
+        viewModelScope.launch {
+            startRecordExerciseUseCase.execute(Unit)
+            kotlin.runCatching {
+                fetchDailyExerciseRecordUseCase.execute(Unit).collect {
+                    event(Event.FetchHome(it.toData()))
+                }
+            }.onFailure {
+                when (it) {
+                    is NoInternetException -> event(Event.ErrorMessage("인터넷에 연결되지 않았습니다."))
+                    else -> event(Event.ErrorMessage("알 수 없는 에러가 발생했습니다."))
+                }
+            }
+        }
+    }
+
+    private fun DailyExerciseEntity.toData() =
+        HomeData(
+            stepCount = stepCount,
+            exerciseTimeAsMilli = exerciseTimeAsMilli,
+            traveledDistanceAsMeter = traveledDistanceAsMeter,
+            burnedKilocalories = burnedKilocalories
+        )
 
     private fun UserMyPageEntity.toData() =
         MyPageData(
@@ -77,7 +107,8 @@ class ProfileViewModel @Inject constructor(
     }
 
     sealed class Event {
-        data class FetchMyPage(val rankData: MyPageData): Event()
+        data class FetchHome(val homeData: HomeData): Event()
+        data class FetchMyPage(val myPageData: MyPageData): Event()
         data class ErrorMessage(val message: String) : Event()
     }
 }
