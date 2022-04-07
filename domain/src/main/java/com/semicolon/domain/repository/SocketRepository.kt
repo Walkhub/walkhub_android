@@ -11,7 +11,7 @@ interface SocketRepository {
 
     fun receiveError(): Flow<List<String>>
 
-    fun connectedSocket()
+    fun connectSocket()
 
-    fun disConnectedSocket()
+    fun disConnectSocket()
 }
