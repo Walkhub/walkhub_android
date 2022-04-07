@@ -21,7 +21,6 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
     override fun initView() {
         setToDefaultState()
         countDownToStartMeasure()
-        fetchGoalFromHome()
         observeState()
         observeEvent()
         viewModel.receiveCheering()
@@ -86,6 +85,7 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
                 if (count < 0) {
                     timer.cancel()
                     binding.measuringReadyCl.visibility = View.INVISIBLE
+                    fetchGoalFromHome()
                 }
             }
         }, 0, 1000)
