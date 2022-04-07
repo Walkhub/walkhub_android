@@ -15,7 +15,8 @@ data class SearchSchoolRoomEntity(
         val schoolName: String,
         val ranking: Int,
         val logoImageUrl: String,
-        val walkCount: Int
+        val walkCount: Int,
+        val userCount: Int
     )
 
     fun SchoolInfo.toEntity() =
@@ -24,7 +25,8 @@ data class SearchSchoolRoomEntity(
             schoolName = schoolName,
             ranking = ranking,
             logoImageUrl = logoImageUrl,
-            walkCount = walkCount
+            walkCount = walkCount,
+            userCount = userCount
         )
 }
 
@@ -39,7 +41,8 @@ fun SearchSchoolEntity.SchoolInfo.toDbEntity() =
         schoolName = schoolName,
         ranking = ranking,
         logoImageUrl = logoImageUrl,
-        walkCount = walkCount
+        walkCount = walkCount,
+        userCount = userCount
     )
 
 fun SearchSchoolEntity.toDbEntity() =
