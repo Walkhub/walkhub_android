@@ -12,6 +12,12 @@
         <variable
             name="isDistance"
             type="Boolean" />
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.semicolon.walkhub.viewmodel.measure.MeasureViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -309,6 +315,28 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/measuring_first_line" />
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/measuring_ready_cl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/primary_400"
+                android:visibility="invisible"
+                tools:layout_editor_absoluteX="2dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{count}"
+                    android:textColor="@color/white"
+                    android:textSize="120sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="3" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -367,6 +395,7 @@
             android:layout_height="120dp"
             android:layout_marginTop="10dp"
             android:src="@drawable/img_cheering"
+            android:visibility="@{vm.cheerUserName != null ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/measuring_appbar" />
@@ -376,32 +405,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:text="@{vm.cheerUserName + `님이 응원하셨어요!`}"
             android:textColor="@color/gray_800"
             android:textSize="14sp"
+            android:visibility="@{vm.cheerUserName != null ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/measuring_cheering_iv"
             tools:text="한준호님이 응원하셨어요!" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/measuring_ready_cl"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/primary_400"
-            android:visibility="invisible">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{count}"
-                android:textColor="@color/white"
-                android:textSize="120sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="3" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

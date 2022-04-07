@@ -24,6 +24,7 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
         fetchGoalFromHome()
         observeState()
         observeEvent()
+        viewModel.receiveCheering()
     }
 
     private fun fetchGoalFromHome() {

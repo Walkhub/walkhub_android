@@ -11,6 +11,7 @@ import com.semicolon.domain.param.exercise.StartMeasureExerciseParam
 import com.semicolon.domain.usecase.exercise.*
 import com.semicolon.domain.usecase.socket.ConnectSocketUseCase
 import com.semicolon.domain.usecase.socket.DisconnectSocketUseCase
+import com.semicolon.domain.usecase.socket.ReceiveCheeringUseCase
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -33,7 +34,8 @@ class MeasureViewModel @Inject constructor(
     private val startMeasureExerciseUseCase: StartMeasureExerciseUseCase,
     private val finishMeasureExerciseUseCase: FinishMeasureExerciseUseCase,
     private val connectSocketUseCase: ConnectSocketUseCase,
-    private val disconnectSocketUseCase: DisconnectSocketUseCase
+    private val disconnectSocketUseCase: DisconnectSocketUseCase,
+    private val receiveCheeringUseCase: ReceiveCheeringUseCase
 ) : ViewModel() {
 
     private val _walkCount = MutableLiveData(0)
@@ -70,11 +72,24 @@ class MeasureViewModel @Inject constructor(
     private val _finishActivity = MutableEventFlow<Unit>()
     val finishActivity = _finishActivity.asEventFlow()
 
+    private val _cheerUserName = MutableLiveData<String>()
+    val cheerUserName: LiveData<String> = _cheerUserName
+
     private var _finishPhotoUri: String? = null
 
     init {
         viewModelScope.launch {
             connectSocketUseCase.execute(Unit)
+        }
+    }
+
+    fun receiveCheering() {
+        viewModelScope.launch {
+            receiveCheeringUseCase.execute(Unit).runCatching {
+                collect {
+                    _cheerUserName.value = it
+                }
+            }
         }
     }
 
