@@ -17,6 +17,7 @@ import com.semicolon.walkhub.util.visible
 import android.os.CountDownTimer
 import android.widget.TextView
 import androidx.activity.viewModels
+import com.semicolon.domain.param.user.VerifyPhoneNumberSignUpParam
 import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.MainActivity
 import com.semicolon.walkhub.ui.register.SearchSchoolActivity
@@ -29,7 +30,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
     R.layout.activity_register
 ) {
     private val vm: RegisterViewModel by viewModels()
-
+    lateinit var verifyPhoneNumberSignUpParam: VerifyPhoneNumberSignUpParam
     var textView: TextView? = null
     var textView2: TextView? = null
     var a: Int? = null
@@ -215,7 +216,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
                 binding.btContinue.setOnClickListener {
                     val phone = binding.etName.text.toString()
 
-                    if (phone.length in 11..11) verifyPhone()
+                    if (phone.length in 11..11) verifyPhone(verifyPhoneNumberSignUpParam = VerifyPhoneNumberSignUpParam(phone))
                     else {
                         showShortToast("전화번호를 올바르게 입력해주세요.")
                     }
@@ -271,8 +272,9 @@ class Register : BaseActivity<ActivityRegisterBinding>(
         }
     }
 
-    private fun verifyPhone() {
-        vm.verifyPhone(binding.etName.text.toString())
+    private fun verifyPhone(verifyPhoneNumberSignUpParam: VerifyPhoneNumberSignUpParam) {
+        verifyPhoneNumberSignUpParam.phone_number = binding.etName.text.toString()
+        vm.verifyPhone(verifyPhoneNumberSignUpParam)
     }
 
     private fun checkPhone() {

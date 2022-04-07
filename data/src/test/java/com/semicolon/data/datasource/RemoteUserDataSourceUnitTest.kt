@@ -7,6 +7,7 @@ import com.semicolon.data.remote.datasource.RemoteUserDataSource
 import com.semicolon.data.remote.datasource.RemoteUserDataSourceImpl
 import com.semicolon.data.remote.request.users.*
 import com.semicolon.data.remote.response.users.*
+import com.semicolon.domain.param.user.VerifyPhoneNumberSignUpParam
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -19,7 +20,7 @@ class RemoteUserDataSourceUnitTest {
 
     @Test
     fun testVerifyUserPhoneNumber() {
-        val request = VerifyPhoneNumberSignUpRequest(
+        val request = VerifyPhoneNumberSignUpParam(
             "010-0000-0000",
         )
         runBlocking {

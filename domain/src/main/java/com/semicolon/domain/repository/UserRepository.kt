@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
     suspend fun verifyUserPhoneNumber(
-        phone_number: VerifyPhoneNumberSignUpParam
+        verifyPhoneNumberSignUpParam: VerifyPhoneNumberSignUpParam
     )
 
     suspend fun postUserSignUp(

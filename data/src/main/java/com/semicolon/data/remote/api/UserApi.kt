@@ -58,7 +58,7 @@ interface UserApi {
 
     @POST("users/verification-codes")
     suspend fun verifyPhoneNumberSignUp(
-        @Body phone_number: VerifyPhoneNumberSignUpParam
+        @Body verifyPhoneNumberSignUpParam: VerifyPhoneNumberSignUpParam
     )
 
     @HEAD("users/verification-codes")
