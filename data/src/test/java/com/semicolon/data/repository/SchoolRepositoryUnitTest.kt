@@ -2,6 +2,8 @@ package com.semicolon.data.repository
 
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
+import com.semicolon.data.local.datasource.LocalSchoolDataSource
+import com.semicolon.data.remote.datasource.RemoteImagesDataSource
 import com.semicolon.data.remote.datasource.RemoteSchoolDataSource
 import com.semicolon.domain.entity.school.SearchSchoolEntity
 import kotlinx.coroutines.runBlocking
@@ -10,9 +12,11 @@ import org.junit.Test
 
 class SchoolRepositoryUnitTest {
 
-    private val schoolDataSource = mock<RemoteSchoolDataSource>()
+    private val remoteImagesDataSource = mock<RemoteImagesDataSource>()
+    private val localSchoolDataSource = mock<LocalSchoolDataSource>()
+    private val remoteSchoolDataSource = mock<RemoteSchoolDataSource>()
 
-    private val schoolRepository = SchoolRepositoryImpl(schoolDataSource)
+    private val schoolRepository = SchoolRepositoryImpl(remoteImagesDataSource, localSchoolDataSource, remoteSchoolDataSource)
 
     @Test
     fun testSearchSchool() {
@@ -27,7 +31,7 @@ class SchoolRepositoryUnitTest {
             )
 
         runBlocking {
-            whenever(schoolDataSource.searchSchool(schoolName)).thenReturn(searchSchoolResponse)
+            whenever(remoteSchoolDataSource.searchSchool(schoolName)).thenReturn(searchSchoolResponse)
 
             val repositoryResult = schoolRepository.searchSchool(schoolName)
             repositoryResult.collect {
