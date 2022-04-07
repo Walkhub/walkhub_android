@@ -5,11 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.semicolon.domain.entity.exercise.ExerciseRecordEntity
+import com.semicolon.domain.entity.exercise.ExercisingUserEntity
 import com.semicolon.domain.usecase.exercise.FetchExerciseRecordListUseCase
 import com.semicolon.domain.usecase.exercise.FetchExercisingUserListUseCase
+import com.semicolon.domain.usecase.socket.CheeringUseCase
 import com.semicolon.walkhub.BR
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.adapter.RecyclerViewItem
+import com.semicolon.walkhub.ui.cheering.CheeringItemViewModel
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,7 +25,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MeasureHomeViewModel @Inject constructor(
     private val fetchExerciseRecordListUseCase: FetchExerciseRecordListUseCase,
-    private val fetchExercisingUserListUseCase: FetchExercisingUserListUseCase
+    private val fetchExercisingUserListUseCase: FetchExercisingUserListUseCase,
+    private val cheeringUseCase: CheeringUseCase
 ) : ViewModel() {
 
     private var _isDistance = MutableStateFlow(true)
@@ -60,7 +64,9 @@ class MeasureHomeViewModel @Inject constructor(
         viewModelScope.launch {
             fetchExercisingUserListUseCase.execute(Unit).collect { exercisingUsers ->
                 _measureRecyclerItem.value = measureRecyclerItem.value.apply {
-                    exercisingUsers // item 넣기
+                    exercisingUsers.map {
+                        it.toRecyclerViewItem()
+                    }
                 }
             }
         }
@@ -87,4 +93,25 @@ class MeasureHomeViewModel @Inject constructor(
             _startMeasure.emit(Unit)
         }
     }
+
+    inner class MeasureExercisingUserItemViewModel(id: Int, name: String, profileUrl: String) :
+        CheeringItemViewModel(id, name, profileUrl) {
+
+        override fun onClick() {
+            viewModelScope.launch {
+                cheeringUseCase.execute(id)
+            }
+
+        }
+    }
+
+    private fun ExercisingUserEntity.toRecyclerViewItem(): RecyclerViewItem =
+        RecyclerViewItem(
+            itemLayoutId = R.layout.item_cheering,
+            variableId = BR.vm,
+            data = this.toRecyclerviewItemViewModel()
+        )
+
+    private fun ExercisingUserEntity.toRecyclerviewItemViewModel() =
+        MeasureExercisingUserItemViewModel(userId, name, profileImageUrl)
 }
