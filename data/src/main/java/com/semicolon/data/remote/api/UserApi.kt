@@ -63,8 +63,9 @@ interface UserApi {
 
     @HEAD("users/verification-codes")
     suspend fun checkPhoneNumber(
-        @Body checkPhoneNumberRequest: CheckPhoneNumberRequest
-    )
+        @Query("phoneNumber") phoneNumber: String,
+        @Query("authCode") authCode: String
+    ): Void
 
     @POST("users")
     suspend fun userSignUp(
