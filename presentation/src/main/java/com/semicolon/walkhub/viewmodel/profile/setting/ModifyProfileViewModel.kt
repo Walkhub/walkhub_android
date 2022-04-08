@@ -5,8 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.semicolon.domain.entity.users.FetchInfoEntity
 import com.semicolon.domain.exception.BadRequestException
 import com.semicolon.domain.exception.NoInternetException
+import com.semicolon.domain.exception.NotFoundException
 import com.semicolon.domain.exception.UnauthorizedException
 import com.semicolon.domain.param.user.UpdateProfileParam
+import com.semicolon.domain.usecase.user.DeleteClassUseCase
 import com.semicolon.domain.usecase.user.FetchInfoUseCase
 import com.semicolon.domain.usecase.user.UpdateProfileUseCase
 import com.semicolon.walkhub.util.MutableEventFlow
@@ -19,7 +21,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ModifyProfileViewModel @Inject constructor(
     private val fetchInfoUseCase: FetchInfoUseCase,
-    private val updateProfileUseCase: UpdateProfileUseCase
+    private val updateProfileUseCase: UpdateProfileUseCase,
+    private val deleteClassUseCase: DeleteClassUseCase
 ) : ViewModel() {
 
     private val _eventFlow = MutableEventFlow<Event>()
@@ -50,6 +53,21 @@ class ModifyProfileViewModel @Inject constructor(
                     is UnauthorizedException -> event(Event.ErrorMessage("세션이 만료되었습니다. 다시 시도해주세요."))
                     is BadRequestException -> event(Event.ErrorMessage("요청 형식을 식별할 수 없습니다."))
                     is NoInternetException -> event(Event.ErrorMessage("인터넷에 연결되어있지 않습니다."))
+                    else -> event(Event.ErrorMessage("에러가 발생했습니다."))
+                }
+            }
+        }
+    }
+
+    fun deleteClass() {
+        viewModelScope.launch {
+            kotlin.runCatching {
+                deleteClassUseCase.execute(Unit)
+            }.onFailure {
+                when (it) {
+                    is NotFoundException -> event(Event.ErrorMessage("요청하는 대상을 확인할 수 없습니다."))
+                    is UnauthorizedException -> event(Event.ErrorMessage("세션이 만료되었습니다. 다시 시도해주세요."))
+                    is NoInternetException -> event(Event.ErrorMessage("인터넷에 연결할 수 없습니다."))
                     else -> event(Event.ErrorMessage("에러가 발생했습니다."))
                 }
             }
