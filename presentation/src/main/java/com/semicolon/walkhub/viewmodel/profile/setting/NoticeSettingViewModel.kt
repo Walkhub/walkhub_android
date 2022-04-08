@@ -11,15 +11,19 @@ import javax.inject.Inject
 @HiltViewModel
 class NoticeSettingViewModel @Inject constructor(
     //TODO: 아직 켜기 끄기 Notification 부분에 구현이 안되있음 UseCase만들어지는대로 만들어야 함
-): ViewModel() {
+) : ViewModel() {
 
-    private val _eventFlow = MutableEventFlow<SettingViewModel.Event>()
+    private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()
 
 
-    private fun event(event: SettingViewModel.Event) {
+    private fun event(event: Event) {
         viewModelScope.launch {
             _eventFlow.emit(event)
         }
+    }
+
+    sealed class Event {
+        data class ErrorMessage(val message: String) : ModifyProfileViewModel.Event()
     }
 }
