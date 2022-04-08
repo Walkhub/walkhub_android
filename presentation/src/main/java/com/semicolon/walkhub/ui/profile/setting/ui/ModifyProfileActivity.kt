@@ -14,9 +14,6 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
 ) {
 
     override fun initView() {
-        binding.view3.setOnClickListener {
-            val intent = Intent(context, SearchSchoolActivity::class.java)
-            startActivity(intent)
         }
     }
 }
