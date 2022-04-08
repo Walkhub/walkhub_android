@@ -9,6 +9,10 @@ interface UserRepository {
         verifyPhoneNumberSignUpParam: VerifyPhoneNumberSignUpParam
     )
 
+    suspend fun checkPhoneNumber(
+        checkPhoneNumberParam: CheckPhoneNumberParam
+    )
+
     suspend fun postUserSignUp(
         postUserSignUpParam: PostUserSignUpParam
     )
