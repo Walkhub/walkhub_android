@@ -14,6 +14,8 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
 ) {
 
     override fun initView() {
+        binding.back.setOnClickListener {
+            finish()
         }
     }
 }
