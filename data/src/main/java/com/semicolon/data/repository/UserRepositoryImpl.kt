@@ -26,6 +26,10 @@ class UserRepositoryImpl @Inject constructor(
         verifyPhoneNumberSignUpParam: VerifyPhoneNumberSignUpParam
     ) = remoteUserDateSource.verifyUserPhoneNumber(verifyPhoneNumberSignUpParam)
 
+    override suspend fun checkPhoneNumber(
+        checkPhoneNumberParam: CheckPhoneNumberParam
+    ) = remoteUserDateSource.checkPhoneNumber(checkPhoneNumberParam)
+
     override suspend fun postUserSignUp(
         postUserSignUpParam: PostUserSignUpParam
     ) = remoteUserDateSource.postUserSignUp(postUserSignUpParam.toRequest())
