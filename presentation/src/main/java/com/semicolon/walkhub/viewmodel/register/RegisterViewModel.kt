@@ -3,19 +3,23 @@ package com.semicolon.walkhub.viewmodel.register
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.semicolon.domain.exception.*
+import com.semicolon.domain.param.user.CheckPhoneNumberParam
 import com.semicolon.domain.param.user.VerifyPhoneNumberSignUpParam
 import com.semicolon.domain.usecase.user.CheckAccountOverlapUseCase
+import com.semicolon.domain.usecase.user.CheckPhoneNumberUseCase
 import com.semicolon.domain.usecase.user.VerifyUserPhoneNumberUseCase
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.lang.NullPointerException
 import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
     private val checkAccountOverlapUseCase: CheckAccountOverlapUseCase,
-    private val verifyUserPhoneNumberUseCase: VerifyUserPhoneNumberUseCase
+    private val verifyUserPhoneNumberUseCase: VerifyUserPhoneNumberUseCase,
+    private val checkPhoneNumberUseCase: CheckPhoneNumberUseCase
 ) : ViewModel() {
 
     private val _eventFlow = MutableEventFlow<Event>()
@@ -52,6 +56,22 @@ class RegisterViewModel @Inject constructor(
         }
     }
 
+    fun checkPhoneNumber(checkPhoneNumberParam: CheckPhoneNumberParam){
+        viewModelScope.launch {
+            kotlin.runCatching {
+                checkPhoneNumberUseCase.execute(checkPhoneNumberParam)
+            }.onSuccess {
+                event(Event.SuccessCheckPhone(true))
+            }.onFailure {
+                when(it){
+                    is NotFoundException -> event(Event.ErrorMessage("인증번호가 올바르지 않습니다."))
+                    is NullPointerException -> event(Event.ErrorMessage("Null"))
+                    else -> event(Event.ErrorMessage("알 수 없는 오류가 발생하였습니다."))
+                }
+            }
+        }
+    }
+
     private fun event(event: Event) {
         viewModelScope.launch {
             _eventFlow.emit(event)
@@ -59,6 +79,7 @@ class RegisterViewModel @Inject constructor(
     }
 
     sealed class Event {
+        data class SuccessCheckPhone(val state: Boolean): Event()
         data class SuccessId(val state: Boolean): Event()
         data class SuccessVerityPhone(val state: Boolean): Event()
         data class ErrorMessage(val message: String) : Event()
