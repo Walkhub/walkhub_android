@@ -17,6 +17,7 @@ import com.semicolon.walkhub.util.visible
 import android.os.CountDownTimer
 import android.widget.TextView
 import androidx.activity.viewModels
+import com.semicolon.domain.param.user.CheckPhoneNumberParam
 import com.semicolon.domain.param.user.VerifyPhoneNumberSignUpParam
 import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.MainActivity
@@ -34,7 +35,8 @@ class Register : BaseActivity<ActivityRegisterBinding>(
     var textView: TextView? = null
     var textView2: TextView? = null
     var a: Int? = null
-
+    var b: String = ""
+    var phone: String = ""
     override fun initView() {
         binding.constraint.setOnClickListener {
             hideKeyboard()
@@ -59,6 +61,10 @@ class Register : BaseActivity<ActivityRegisterBinding>(
 
         is RegisterViewModel.Event.SuccessId -> {
             movePage(5)
+        }
+
+        is RegisterViewModel.Event.SuccessCheckPhone -> {
+            movePage(6)
         }
 
         is RegisterViewModel.Event.ErrorMessage -> {
@@ -214,7 +220,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
                 enterPhone()
 
                 binding.btContinue.setOnClickListener {
-                    val phone = binding.etName.text.toString()
+                    phone = binding.etName.text.toString()
 
                     if (phone.length in 11..11) verifyPhone(verifyPhoneNumberSignUpParam = VerifyPhoneNumberSignUpParam(phone))
                     else {
@@ -232,7 +238,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
                         showShortToast("올바른 형식의 인증번호를 입력해주세요.")
                     } else if (cer.length > 5) {
                         showShortToast("인증번호를 올바르게 입력해주세요.")
-                    } else movePage(4)
+                    } else checkPhoneNumber(checkPhoneNumberParam = CheckPhoneNumberParam(phone, cer))
                 }
             }
             4 -> {
@@ -243,7 +249,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
 
                     if (id.length < 4) {
                         showShortToast("5자 이상의 아이디를 입력해주세요.")
-                    } else checkPhone()
+                    } else checkId()
                 }
             }
             5 -> {
@@ -273,11 +279,18 @@ class Register : BaseActivity<ActivityRegisterBinding>(
     }
 
     private fun verifyPhone(verifyPhoneNumberSignUpParam: VerifyPhoneNumberSignUpParam) {
+        b = binding.etName.text.toString()
         verifyPhoneNumberSignUpParam.phone_number = binding.etName.text.toString()
         vm.verifyPhone(verifyPhoneNumberSignUpParam)
     }
 
-    private fun checkPhone() {
+    private fun checkPhoneNumber(checkPhoneNumberParam: CheckPhoneNumberParam){
+        checkPhoneNumberParam.phoneNumber = phone
+        checkPhoneNumberParam.authCode = binding.etName.text.toString()
+        vm.checkPhoneNumber(checkPhoneNumberParam)
+    }
+
+    private fun checkId() {
         vm.checkId(binding.etName.text.toString())
     }
 
@@ -317,6 +330,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
         binding.tvMinute.visible()
         binding.tvSecond.visible()
         binding.devide.visible()
+        binding.etName.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
 
         object : CountDownTimer(300000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
@@ -355,7 +369,6 @@ class Register : BaseActivity<ActivityRegisterBinding>(
         binding.btReCer.visibility = View.GONE
         binding.tvMinute.visibility = View.GONE
         binding.tvSecond.visibility = View.GONE
-        binding.etName.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
         binding.etName.maxEms
     }
 
