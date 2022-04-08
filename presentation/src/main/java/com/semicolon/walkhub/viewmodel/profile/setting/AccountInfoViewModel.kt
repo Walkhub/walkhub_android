@@ -22,7 +22,7 @@ class AccountInfoViewModel @Inject constructor(
     private val patchUserChangePasswordUseCase: PatchUserChangePasswordUseCase,
     private val deleteAccountUseCase: DeleteAccountUseCase,
     private val fetchAuthInfoUseCase: FetchAuthInfoUseCase
-): ViewModel() {
+) : ViewModel() {
 
     private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()

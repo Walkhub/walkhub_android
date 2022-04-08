@@ -20,7 +20,7 @@ import javax.inject.Inject
 class ModifyProfileViewModel @Inject constructor(
     private val fetchInfoUseCase: FetchInfoUseCase,
     private val updateProfileUseCase: UpdateProfileUseCase
-): ViewModel() {
+) : ViewModel() {
 
     private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()
@@ -75,6 +75,5 @@ class ModifyProfileViewModel @Inject constructor(
     sealed class Event {
         data class FetchInfo(val fetchInfoData: FetchInfoEntity) : Event()
         data class ErrorMessage(val message: String) : Event()
-
-        }
+    }
 }

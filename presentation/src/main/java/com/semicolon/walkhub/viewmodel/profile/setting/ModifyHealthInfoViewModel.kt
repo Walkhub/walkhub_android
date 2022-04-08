@@ -19,7 +19,7 @@ import javax.inject.Inject
 class ModifyHealthInfoViewModel @Inject constructor(
     private val patchUserHealthUseCase: PatchUserHealthUseCase,
     private val fetchUserHealthUseCase: FetchUserHealthUseCase
-): ViewModel() {
+) : ViewModel() {
 
     private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()
@@ -68,7 +68,8 @@ class ModifyHealthInfoViewModel @Inject constructor(
             _eventFlow.emit(event)
         }
     }
-    sealed class Event{
+
+    sealed class Event {
         data class FetchUserHealth(val fetchUserHealthData: FetchUserHealthEntity) : Event()
         data class ErrorMessage(val message: String) : Event()
     }
