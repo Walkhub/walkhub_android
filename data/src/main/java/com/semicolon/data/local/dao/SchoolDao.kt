@@ -12,7 +12,6 @@ interface SchoolDao {
     @Query("SELECT * FROM schoolDetail")
     suspend fun fetchSchoolDetail() : SchoolDetailRoomEntity
 
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSchoolDetail(schoolDetailRoomEntity: SchoolDetailRoomEntity)
 }

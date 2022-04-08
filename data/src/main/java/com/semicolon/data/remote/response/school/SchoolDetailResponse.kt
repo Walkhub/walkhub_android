@@ -4,18 +4,41 @@ import com.google.gson.annotations.SerializedName
 import com.semicolon.domain.entity.school.SchoolDetailEntity
 
 data class SchoolDetailResponse(
-    @SerializedName("total_user_count") val totalUserCount: Int,
-    @SerializedName("week_total_walk_count") val weekTotalWalkCount: Int,
-    @SerializedName("month_total_walk_count") val monthTotalWalkCount: Int,
-    @SerializedName("week_ranking") val weekRanking: Int,
-    @SerializedName("month_ranking") val monthRanking: Int
-)
+    @SerializedName("week") val week: Week,
+    @SerializedName("month") val month: Month
+) {
+    data class Week(
+        @SerializedName("total_walk_count") val totalWalkCount: Int,
+        @SerializedName("date") val date: String,
+        @SerializedName("total_user_count") val totalUserCount: Int,
+        @SerializedName("ranking") val ranking: Int
+    )
+    data class Month(
+        @SerializedName("total_walk_count") val totalWalkCount: Int,
+        @SerializedName("date") val date: String,
+        @SerializedName("total_user_count") val totalUserCount: Int,
+        @SerializedName("ranking") val ranking: Int
+    )
+}
 
+fun SchoolDetailResponse.Week.toEntity() =
+    SchoolDetailEntity.Week(
+        totalWalkCount = totalWalkCount,
+        date = date,
+        totalUserCount = totalUserCount,
+        ranking = ranking
+    )
+
+fun SchoolDetailResponse.Month.toEntity() =
+    SchoolDetailEntity.Month(
+        totalWalkCount = totalWalkCount,
+        date = date,
+        totalUserCount = totalUserCount,
+        ranking = ranking
+    )
+    
 fun SchoolDetailResponse.toEntity() =
     SchoolDetailEntity(
-        totalUserCount = totalUserCount,
-        weekTotalWalkCount = weekTotalWalkCount,
-        monthTotalWalkCount = monthTotalWalkCount,
-        weekRanking = weekRanking,
-        monthRanking = monthRanking
+        week = week.toEntity(),
+        month = month.toEntity()
     )
