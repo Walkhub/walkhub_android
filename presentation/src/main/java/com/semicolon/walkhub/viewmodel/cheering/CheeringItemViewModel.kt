@@ -1,4 +1,4 @@
-package com.semicolon.walkhub.ui.cheering
+package com.semicolon.walkhub.viewmodel.cheering
 
 abstract class CheeringItemViewModel(
     val id: Int,

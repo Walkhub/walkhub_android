@@ -14,7 +14,7 @@ import com.semicolon.domain.usecase.socket.DisconnectSocketUseCase
 import com.semicolon.walkhub.BR
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.adapter.RecyclerViewItem
-import com.semicolon.walkhub.ui.cheering.CheeringItemViewModel
+import com.semicolon.walkhub.viewmodel.cheering.CheeringItemViewModel
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel

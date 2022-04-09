@@ -16,7 +16,7 @@ import com.semicolon.domain.usecase.rank.FetchUserRankUseCase
 import com.semicolon.walkhub.BR
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.adapter.RecyclerViewItem
-import com.semicolon.walkhub.ui.cheering.CheeringItemViewModel
+import com.semicolon.walkhub.viewmodel.cheering.CheeringItemViewModel
 import com.semicolon.walkhub.ui.hub.model.MySchoolUserRankData
 import com.semicolon.walkhub.ui.hub.model.SchoolUserRankData
 import com.semicolon.walkhub.ui.hub.model.toData
