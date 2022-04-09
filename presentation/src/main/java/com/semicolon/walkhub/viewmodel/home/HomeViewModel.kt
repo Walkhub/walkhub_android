@@ -79,9 +79,9 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             val result = isMeasuringUseCase.execute(Unit)
             if (result == MeasuringState.ONGOING) {
-                event(Event.StartMeasureHome)
-            } else {
                 event(Event.StartMeasure)
+            } else {
+                event(Event.StartMeasureHome)
             }
         }
     }

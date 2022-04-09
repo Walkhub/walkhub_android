@@ -78,7 +78,7 @@ class HubUserViewModel @Inject constructor(
                 RecyclerViewItem(
                     itemLayoutId = R.layout.item_cheering,
                     variableId = BR.vm,
-                    data = HubCheeringItemViewModel("user", "https//")
+                    data = HubCheeringItemViewModel(12, "user", "https//")
                 )
             )
         }
@@ -90,8 +90,8 @@ class HubUserViewModel @Inject constructor(
         }
     }
 
-    inner class HubCheeringItemViewModel(userName: String, imageUrl: String) :
-        CheeringItemViewModel(userName, imageUrl) {
+    inner class HubCheeringItemViewModel(id: Int, userName: String, imageUrl: String) :
+        CheeringItemViewModel(id, userName, imageUrl) {
         override fun onClick() {
             TODO("Not yet implemented")
         }
