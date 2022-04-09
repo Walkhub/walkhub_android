@@ -201,4 +201,4 @@ class SettingViewModel @Inject constructor(
         data class FetchAuthInfo(val fetchAuthInfoData: FetchAuthInfoEntity) : Event()
         data class ErrorMessage(val message: String) : SettingViewModel.Event()
     }
-}
+}/
