@@ -62,6 +62,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
+            <EditText
+                android:id="@+id/edit_height"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
+                android:background="@null"
+                android:inputType="number"
+                android:textColor="@color/gray_900"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
             <TextView
                 android:id="@+id/height"
                 android:layout_width="wrap_content"
@@ -102,6 +114,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/click_height">
+
+            <EditText
+                android:id="@+id/edit_weight"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
+                android:background="@null"
+                android:inputType="number"
+                android:textColor="@color/gray_900"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/weight"
@@ -149,11 +173,11 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="4dp"
-            android:background="@drawable/bg_primary_button"
+            android:background="@drawable/girl_btn"
             android:fontFamily="@font/noto_sans_kr_regular"
             android:gravity="center"
             android:text="남성"
-            android:textColor="@color/white"
+            android:textColor="@color/gray_800"
             android:textSize="14sp"
             app:layout_constraintEnd_toStartOf="@+id/view3"
             app:layout_constraintStart_toStartOf="parent"
