@@ -29,8 +29,12 @@ class HubSearchUserRvAdapter(
 
             binding.ivUserProfile.loadFromUrl(item.profileUrl)
             binding.tvName.text = item.name
-            binding.tvWalkCount.text = "${item.walkCount} 걸음"
-            binding.tvRate.text = "${item.rank} 등"
+
+            val tvWalkCountText = "${item.walkCount} 걸음"
+            binding.tvWalkCount.text = tvWalkCountText
+
+            val tvRateText = "${item.rank} 등"
+            binding.tvRate.text = tvRateText
 
             binding.executePendingBindings()
         }
