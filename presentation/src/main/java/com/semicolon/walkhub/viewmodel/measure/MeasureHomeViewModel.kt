@@ -111,7 +111,6 @@ class MeasureHomeViewModel @Inject constructor(
             viewModelScope.launch {
                 cheeringUseCase.execute(id)
             }
-
         }
     }
 
