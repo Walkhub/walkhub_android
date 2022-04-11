@@ -45,20 +45,18 @@ class AccountInfoActivity : BaseActivity<ActivityAccountInfoBinding>(
         binding.back.setOnClickListener {
             finish()
         }
+        binding.imDie.setOnClickListener {
+            vm.deleteAccount()
+            val intent = Intent(this, HomeActivity::class.java)
+            finishAffinity()
+            startActivity(intent)
+        }
         binding.serviceTerms.setOnClickListener {
             val intent = Intent(this, ServiceInstructionActivity::class.java)
             startActivity(intent)
         }
         binding.handlingPolicy.setOnClickListener {
             val intent = Intent(this, PrivacyActivity::class.java)
-            startActivity(intent)
-        }
-        binding.imDie.setOnClickListener {
-            vm.deleteAccount()
-
-            //Intent.FLAG_ACTIVITY_CLEAR_TASK :task 클리어 코드
-            val intent = Intent(this, HomeActivity::class.java)
-            finishAffinity()
             startActivity(intent)
         }
         binding.changePassword.setOnClickListener {
