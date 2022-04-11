@@ -108,6 +108,6 @@ interface UserApi {
     @GET("users/health")
     suspend fun fetchUserHealth(): FetchUserHealthResponse
 
-    @GET("auth/info")
+    @GET("users/auth/info")
     suspend fun fetchAuthInfo(): FetchAuthInfoResponse
 }
