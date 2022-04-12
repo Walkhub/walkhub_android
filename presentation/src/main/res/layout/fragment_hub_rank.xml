@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="fragment"
-            type="com.semicolon.walkhub.ui.hub.ui.HubRankFragment" />
+            name="vm"
+            type="com.semicolon.walkhub.viewmodel.hub.HubUserViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -219,6 +219,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
+                    app:recyclerItems="@{vm.recyclerViewItem}"
                     android:nestedScrollingEnabled="false"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
