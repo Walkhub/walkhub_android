@@ -13,6 +13,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         tools:context=".ui.challenge.ChallengeDetailActivity">
 
         <ScrollView
@@ -188,7 +189,6 @@
                     android:fontFamily="@font/noto_sans_kr_regular"
                     android:textColor="#616161"
                     android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="tv_percent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="@id/tv_percent"
                     tools:text="20km" />
@@ -202,6 +202,8 @@
                     android:fontFamily="@font/noto_sans_kr_regular"
                     android:textColor="#616161"
                     android:textSize="14sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_goal"
                     tools:text="대덕소프트웨어마이스터고 2학년 체육 수행평가입니다.\nㅁㅁㅁ\n \n \n \n \n \n a \n b \n c \n d \n \n \n \n end" />
 
@@ -211,7 +213,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="65dp"
-            android:background="CC000000"
+            android:background="#CCFFFFFF"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent">
 
