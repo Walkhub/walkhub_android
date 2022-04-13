@@ -3,6 +3,7 @@ package com.semicolon.data.remote.api
 import com.semicolon.data.remote.request.users.*
 import com.semicolon.data.remote.response.users.*
 import com.semicolon.domain.param.user.VerifyPhoneNumberSignUpParam
+import retrofit2.Response
 import retrofit2.http.*
 
 interface UserApi {
@@ -65,7 +66,7 @@ interface UserApi {
     suspend fun checkPhoneNumber(
         @Query("phoneNumber") phoneNumber: String,
         @Query("authCode") authCode: String
-    ): Void
+    ): Response<Void>
 
     @POST("users")
     suspend fun userSignUp(
@@ -89,7 +90,7 @@ interface UserApi {
     @HEAD("users/account-id")
     suspend fun checkAccountOverlap(
         @Query("accountId") accountId: String
-    ): Void
+    ): Response<Void>
 
     @HEAD("users/classes")
     suspend fun checkClassCode(
