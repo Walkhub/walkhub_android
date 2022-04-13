@@ -31,12 +31,12 @@ class Register : BaseActivity<ActivityRegisterBinding>(
     R.layout.activity_register
 ) {
     private val vm: RegisterViewModel by viewModels()
-    lateinit var verifyPhoneNumberSignUpParam: VerifyPhoneNumberSignUpParam
     var textView: TextView? = null
     var textView2: TextView? = null
     var a: Int? = null
     var b: String = ""
     var phone: String = ""
+
     override fun initView() {
         binding.constraint.setOnClickListener {
             hideKeyboard()
@@ -59,12 +59,12 @@ class Register : BaseActivity<ActivityRegisterBinding>(
             movePage(3)
         }
 
-        is RegisterViewModel.Event.SuccessId -> {
-            movePage(5)
+        is RegisterViewModel.Event.SuccessCheckPhone -> {
+            movePage(4)
         }
 
-        is RegisterViewModel.Event.SuccessCheckPhone -> {
-            movePage(6)
+        is RegisterViewModel.Event.SuccessId -> {
+            movePage(5)
         }
 
         is RegisterViewModel.Event.ErrorMessage -> {
