@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.semicolon.domain.entity.exercise.ExercisingUserEntity
 import com.semicolon.domain.entity.rank.OurSchoolUserRankEntity
 import com.semicolon.domain.entity.rank.UserRankEntity
 import com.semicolon.domain.enums.MoreDateType
@@ -22,7 +21,6 @@ import com.semicolon.walkhub.BR
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.adapter.RecyclerViewItem
 import com.semicolon.walkhub.ui.cheering.CheeringItemViewModel
-import com.semicolon.walkhub.ui.hub.model.HubUserRankItemViewModel
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -99,6 +97,14 @@ class HubUserViewModel @Inject constructor(
             kotlin.runCatching {
                 val fetchSchoolUserRank =
                     fetchUserRankUseCase.execute(FetchUserRankParam(school, dateType))
+
+                fetchSchoolUserRank.collect {
+                    _recyclerViewItems.value = ArrayList<RecyclerViewItem>().apply {
+                        addAll(
+                            it.rankList.toUserRecyclerviewItem()
+                        )
+                    }
+                }
             }.onFailure {
                 when (it) {
                     is NoInternetException -> event(Event.ErrorMessage("인터넷을 사용할 수 없습니다"))
@@ -108,6 +114,24 @@ class HubUserViewModel @Inject constructor(
             }
         }
     }
+
+    @JvmName("UserRank")
+    private fun List<UserRankEntity.UserRank>.toUserRecyclerviewItem(): List<RecyclerViewItem> =
+        map {
+            RecyclerViewItem(
+                itemLayoutId = R.layout.hub_user_search_view,
+                variableId = BR.vm,
+                data = it.toRecyclerview()
+            )
+        }
+
+    private fun UserRankEntity.UserRank.toRecyclerview() =
+        UserRankItemViewModel(
+            profileUrl = profileImageUrl,
+            name = name,
+            walkCount = walkCount,
+            rank = ranking
+        )
 
     private fun OurSchoolUserRankEntity.Ranking.toRecyclerviewItem(): RecyclerViewItem =
         RecyclerViewItem(
@@ -120,7 +144,7 @@ class HubUserViewModel @Inject constructor(
         RecyclerViewItem(
             itemLayoutId = R.layout.item_cheering,
             variableId = BR.vm,
-            data = this.toItemViewModel()
+            data = this.toCheeringItemViewModel()
         )
 
 
@@ -138,25 +162,6 @@ class HubUserViewModel @Inject constructor(
             userName = name,
             imageUrl = profileImageUrl
         )
-
-    @JvmName("UserRank")
-    private fun List<UserRankEntity.UserRank>.toMyRecyclerview(): List<RecyclerViewItem> =
-        map {
-            RecyclerViewItem(
-                itemLayoutId = R.layout.hub_user_search_view,
-                variableId = BR.vm,
-                data = it.toRecyclerview()
-            )
-        }
-
-    private fun UserRankEntity.UserRank.toRecyclerview() =
-        UserRankItemViewModel(
-            profileUrl = profileImageUrl,
-            name = name,
-            walkCount = walkCount,
-            rank = ranking
-        )
-
 
     private fun event(event: Event) {
         viewModelScope.launch {
@@ -178,12 +183,12 @@ class HubUserViewModel @Inject constructor(
         }
     }
 
-    inner class UserRankItemViewModel(profileUrl: String, name: String, walkCount: Int, rank: Int) :
-        HubUserRankItemViewModel(profileUrl, name, walkCount, rank) {
-
-        override fun onClick() {
-        }
-    }
+    data class UserRankItemViewModel(
+        val profileUrl: String,
+        val name: String,
+        val walkCount: Int,
+        val rank: Int
+    )
 
     data class HubMyPageData(
         val name: String,
