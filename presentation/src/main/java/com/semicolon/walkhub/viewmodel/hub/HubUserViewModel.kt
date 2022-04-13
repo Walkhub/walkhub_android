@@ -13,6 +13,7 @@ import com.semicolon.domain.param.rank.FetchOurSchoolUserRankParam
 import com.semicolon.domain.param.rank.FetchUserRankParam
 import com.semicolon.domain.usecase.rank.FetchOurSchoolUserRankUseCase
 import com.semicolon.domain.usecase.rank.FetchUserRankUseCase
+import com.semicolon.domain.usecase.socket.CheeringUseCase
 import com.semicolon.walkhub.BR
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.adapter.RecyclerViewItem
@@ -29,7 +30,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HubUserViewModel @Inject constructor(
     private val fetchOurSchoolUserRankUseCase: FetchOurSchoolUserRankUseCase,
-    private val fetchUserRankUseCase: FetchUserRankUseCase
+    private val fetchUserRankUseCase: FetchUserRankUseCase,
+    private val cheeringUseCase: CheeringUseCase
 ) : ViewModel() {
 
     private val _eventFlow = MutableEventFlow<Event>()
@@ -53,6 +55,13 @@ class HubUserViewModel @Inject constructor(
                     else -> event(Event.ErrorMessage("알 수 없는 에러가 발생했습니다."))
                 }
             }
+        }
+    }
+
+    fun test() {
+        _recyclerViewItems.value = ArrayList<RecyclerViewItem>().apply {
+            add(RecyclerViewItem(itemLayoutId = R.layout.item_challenge, variableId = BR.vm, data = 123))
+            add(RecyclerViewItem(itemLayoutId = R.layout.item_cheering, variableId = BR.vm, data = 123))
         }
     }
 
@@ -92,8 +101,11 @@ class HubUserViewModel @Inject constructor(
 
     inner class HubCheeringItemViewModel(id: Int, userName: String, imageUrl: String) :
         CheeringItemViewModel(id, userName, imageUrl) {
+
         override fun onClick() {
-            TODO("Not yet implemented")
+            viewModelScope.launch {
+                cheeringUseCase.execute(id)
+            }
         }
     }
 
