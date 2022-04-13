@@ -21,7 +21,9 @@ class ModifyHealthInfoActivity : BaseActivity<ActivityModifyHealthInfoBinding>(
 
         vm.fetchUserHealth()
 
-
+        binding.modifyDone.setOnClickListener {
+            vm.patchUserHealth(height = binding.editHeight.text.toString().toDouble(), weight = binding.editWeight.text.toString().toInt(), sex = String() )
+        }
 
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
@@ -41,9 +43,6 @@ class ModifyHealthInfoActivity : BaseActivity<ActivityModifyHealthInfoBinding>(
     override fun initView() {
         binding.back.setOnClickListener {
             finish()
-        }
-        binding.modifyDone.setOnClickListener {
-            vm.patchUserHealth(height = binding.editHeight.text.toString().toDouble(), weight = binding.editWeight.text.toString().toInt(), sex = String() )
         }
     }
 
