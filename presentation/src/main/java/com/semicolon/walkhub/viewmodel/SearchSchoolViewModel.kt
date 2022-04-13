@@ -2,8 +2,10 @@ package com.semicolon.walkhub.viewmodel
 
 import androidx.lifecycle.*
 import com.semicolon.domain.entity.rank.SearchSchoolEntity
+import com.semicolon.domain.exception.ForbiddenException
 import com.semicolon.domain.exception.NoInternetException
 import com.semicolon.domain.exception.NotFoundException
+import com.semicolon.domain.exception.UnknownException
 import com.semicolon.domain.usecase.rank.SearchSchoolUseCase
 import com.semicolon.walkhub.ui.hub.model.SearchSchoolData
 import com.semicolon.walkhub.ui.register.model.SecondSearchSchoolData
@@ -25,7 +27,7 @@ class SearchSchoolViewModel @Inject constructor(
 
     private var searchJob: Job? = null
 
-    private fun searchSchool(school: String) {
+    fun searchSchool(school: String) {
         viewModelScope.launch {
             kotlin.runCatching {
                 searchSchoolUseCase.execute(school).collect() {
@@ -41,14 +43,6 @@ class SearchSchoolViewModel @Inject constructor(
         }
     }
 
-    fun searchSchoolDebounce(school: String) {
-        searchJob?.cancel()
-        searchJob = viewModelScope.launch {
-            delay(500L)
-            searchSchool(school)
-        }
-    }
-
     private fun SearchSchoolEntity.toData() =
         SecondSearchSchoolData(
             schoolList.map { it.toData() }
@@ -56,6 +50,7 @@ class SearchSchoolViewModel @Inject constructor(
 
     fun SearchSchoolEntity.SchoolInfo.toData() =
         SecondSearchSchoolData.SchoolInfo(
+            schoolId = schoolId,
             schoolName = schoolName,
             logoImageUrl = logoImageUrl
         )
