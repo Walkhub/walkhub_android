@@ -15,6 +15,7 @@ class ModifyHealthInfoActivity : BaseActivity<ActivityModifyHealthInfoBinding>(
     R.layout.activity_modify_health_info
 ) {
     private val vm : ModifyHealthInfoViewModel by viewModels()
+    private var sex = "X"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +23,10 @@ class ModifyHealthInfoActivity : BaseActivity<ActivityModifyHealthInfoBinding>(
         vm.fetchUserHealth()
 
         binding.modifyDone.setOnClickListener {
-            vm.patchUserHealth(height = binding.editHeight.text.toString().toDouble(), weight = binding.editWeight.text.toString().toInt(), sex = String() )
+            val height = binding.editHeight.text.toString().toDouble()
+            val weight = binding.editWeight.text.toString().toInt()
+
+            vm.patchUserHealth(height = height, weight = weight, sex = sex)
         }
 
         repeatOnStarted {
@@ -43,6 +47,14 @@ class ModifyHealthInfoActivity : BaseActivity<ActivityModifyHealthInfoBinding>(
     override fun initView() {
         binding.back.setOnClickListener {
             finish()
+        }
+
+        binding.manBtn.setOnClickListener {
+            sex = "MALE"
+        }
+
+        binding.girlBtn.setOnClickListener {
+            sex = "FEMALE"
         }
     }
 
