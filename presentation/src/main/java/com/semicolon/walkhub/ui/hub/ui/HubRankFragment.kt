@@ -71,18 +71,8 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
     }
 
     private fun handleEvent(event: HubUserViewModel.Event) = when (event) {
-        is HubUserViewModel.Event.FetchMySchoolUserRank -> {
-            event.mySchoolUserRankData.let { setMyRank(it) }
-            setUserRvData(event.mySchoolUserRankData.rankingList.map { it.toRvData() })
+        is HubUserViewModel.Event.MyPage -> {
 
-            if (event.mySchoolUserRankData.isJoinedClass) {
-                binding.tvJoinClass.invisible()
-            } else {
-                binding.tvJoinClass.visible()
-            }
-        }
-        is HubUserViewModel.Event.FetchOtherSchoolUserRank -> {
-            setUserRvData(event.userRankData.rankList.map { it.toRvData() })
         }
         is HubUserViewModel.Event.ErrorMessage -> {
             showShortToast(event.message)
