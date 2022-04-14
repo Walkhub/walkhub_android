@@ -14,11 +14,13 @@ data class SearchSchoolResponse(
 }
 
 fun SearchSchoolResponse.SchoolInfo.toEntity() =
-    SearchSchoolEntity(
-        agencyCode = agencyCode,
+    SearchSchoolEntity.SchoolInfo(
+        schoolId = agencyCode,
         schoolName = schoolName,
         logoImageUrl = logoImageUrl
     )
 
-fun SearchSchoolResponse.toListEntity() =
-    schoolList.map { it.toEntity() }
+fun SearchSchoolResponse.toEntity() =
+    SearchSchoolEntity(
+        schoolList.map { it.toEntity() }
+    )
