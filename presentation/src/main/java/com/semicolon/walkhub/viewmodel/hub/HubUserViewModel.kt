@@ -39,8 +39,14 @@ class HubUserViewModel @Inject constructor(
     private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()
 
-    private val _recyclerViewItems = MutableLiveData<List<RecyclerViewItem>>()
-    val recyclerViewItem: LiveData<List<RecyclerViewItem>> = _recyclerViewItems
+    private val _recyclerViewItem = MutableLiveData<List<RecyclerViewItem>>()
+    val recyclerViewItem: LiveData<List<RecyclerViewItem>> = _recyclerViewItem
+
+    private val _myRanking = MutableLiveData<HubMyPageItem>()
+    val myRanking: LiveData<HubMyPageItem> = _myRanking
+
+    private val _isJoinedClass = MutableLiveData<Boolean>()
+    val isJoinedClass: LiveData<Boolean> = _isJoinedClass
 
     fun fetchMySchoolUserRank(scope: RankScope, dateType: MoreDateType) {
         viewModelScope.launch {
@@ -58,7 +64,7 @@ class HubUserViewModel @Inject constructor(
                         userRank = rankingList,
                         exercisingUserIdList = exercisingList.map { it.userId })
                 }.collect {
-                    _recyclerViewItems.value = ArrayList<RecyclerViewItem>().apply {
+                    _recyclerViewItem.value = ArrayList<RecyclerViewItem>().apply {
                         it.userRank.rankingList.forEach { data ->
                             add(
                                 if (it.exercisingUserIdList.contains(data.userId)) {
@@ -68,13 +74,28 @@ class HubUserViewModel @Inject constructor(
                                 }
                             )
                         }
-
-                        if (it.userRank.myRanking != null) {
-                            event(Event.MyPage(it.userRank.myRanking!!.toMyPageData()))
-                        } else {
-                            errorToastMessage("반에 가입해주세요.")
-                        }
                     }
+
+                    val myRank: Int = it.userRank.myRanking?.ranking ?: 1
+
+                    if(it.userRank.myRanking != null) {
+                        val topWalkCount =
+                            if (myRank <= 1) 0
+                            else it.userRank.rankingList[myRank - 2].walkCount
+                        val downWalkCount =
+                            if (myRank >= it.userRank.rankingList.size) 0
+                            else it.userRank.rankingList[myRank].walkCount
+                        val myWalkCount = it.userRank.myRanking!!.walkCount
+
+                        _myRanking.value = HubMyPageItem(
+                            topWalkCount,
+                            myWalkCount,
+                            downWalkCount,
+                            it.userRank.myRanking!!.toData()
+                        )
+                    }
+
+                    _isJoinedClass.value = it.userRank.isJoinedClass
                 }
             }.onFailure {
                 when (it) {
@@ -86,6 +107,13 @@ class HubUserViewModel @Inject constructor(
             }
         }
     }
+
+    data class HubMyPageItem(
+        val topWalkCount: Int,
+        val myWalkCount: Int,
+        val downWalkCount: Int,
+        val myPageData: HubMyPageData
+    )
 
     data class HubMySchoolList(
         val userRank: OurSchoolUserRankEntity,
@@ -99,7 +127,7 @@ class HubUserViewModel @Inject constructor(
                     fetchUserRankUseCase.execute(FetchUserRankParam(school, dateType))
 
                 fetchSchoolUserRank.collect {
-                    _recyclerViewItems.value = ArrayList<RecyclerViewItem>().apply {
+                    _recyclerViewItem.value = ArrayList<RecyclerViewItem>().apply {
                         addAll(
                             it.rankList.toUserRecyclerviewItem()
                         )
@@ -115,7 +143,6 @@ class HubUserViewModel @Inject constructor(
         }
     }
 
-    @JvmName("UserRank")
     private fun List<UserRankEntity.UserRank>.toUserRecyclerviewItem(): List<RecyclerViewItem> =
         map {
             RecyclerViewItem(
@@ -198,7 +225,7 @@ class HubUserViewModel @Inject constructor(
         val walkCount: Int
     )
 
-    fun OurSchoolUserRankEntity.Ranking.toMyPageData() =
+    fun OurSchoolUserRankEntity.Ranking.toData() =
         HubMyPageData(
             name = name,
             profileImageUrl = profileImageUrl,
@@ -208,7 +235,6 @@ class HubUserViewModel @Inject constructor(
         )
 
     sealed class Event {
-        data class MyPage(val myPageData: HubMyPageData) : Event()
         data class ErrorMessage(val message: String) : Event()
     }
 }

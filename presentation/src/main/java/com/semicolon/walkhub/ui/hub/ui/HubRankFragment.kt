@@ -71,9 +71,6 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
     }
 
     private fun handleEvent(event: HubUserViewModel.Event) = when (event) {
-        is HubUserViewModel.Event.MyPage -> {
-
-        }
         is HubUserViewModel.Event.ErrorMessage -> {
             showShortToast(event.message)
         }
@@ -94,6 +91,8 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
         initDropDown()
         setAdapter()
 
+        binding.vm = vm
+
         binding.tvJoinClass.setOnClickListener {
             startActivity(Intent(context, SignUpClassActivity::class.java))
         }
@@ -111,7 +110,9 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
             else data.rankingList.get(data.myRanking.ranking).walkCount
         val myWalkCount = data.myRanking.walkCount
 
-        binding.ivMyProfile.loadCircleFromUrl(data.myRanking.profileImageUrl)
+        if(data.myRanking.profileImageUrl.isNotEmpty()) {
+            binding.ivMyProfile.loadCircleFromUrl(data.myRanking.profileImageUrl)
+        }
         binding.tvMyName.text = data.myRanking.name
 
         val tvMyWalkCountText = "$myWalkCount 걸음"

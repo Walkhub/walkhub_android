@@ -3,14 +3,15 @@ package com.semicolon.walkhub.bindingadapter
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import com.semicolon.domain.entity.rank.OurSchoolUserRankEntity
 import com.semicolon.walkhub.viewmodel.hub.HubUserViewModel
-import org.w3c.dom.Text
 
 @BindingAdapter("rank_text")
-fun TextView.rankText(rank: Int) {
-    val rankText = "${rank}등"
-    text = rankText
+fun TextView.rankText(rank: Int?) {
+    text = if (rank != null) {
+        "${rank}등"
+    } else {
+        "0등"
+    }
 }
 
 @BindingAdapter("walk_text")
@@ -20,22 +21,18 @@ fun TextView.walkText(walkCount: Int) {
 }
 
 @BindingAdapter("walk_percent")
-fun ProgressBar.walkPercent(item: HubUserViewModel.HubMyPageItem) {
-    item.run {
-        progress =
-            ((topWalkCount - downWalkCount).toDouble() / (topWalkCount - downWalkCount).toDouble() * 100).toInt()
-    }
+fun ProgressBar.walkPercent(item: HubUserViewModel.HubMyPageItem?) {
+    progress = if(item != null) {
+        ((item.topWalkCount - item.downWalkCount).toDouble() / (item.topWalkCount - item.downWalkCount).toDouble() * 100).toInt()
+    } else { 0 }
 }
 
 @BindingAdapter("need_walk_text")
-fun TextView.needWalkText(item: HubUserViewModel.HubMyPageItem) {
-    item.run {
-        var needWalkText = "현재 소속되어 있는 반이 없어요."
-        if(myWalkCount != 0) {
-            needWalkText = "${topWalkCount-myWalkCount} 걸음"
-        }
-
-        text = needWalkText
+fun TextView.needWalkText(item: HubUserViewModel.HubMyPageItem?) {
+    text = if (item?.myPageData != null) {
+        "${item.topWalkCount - item.myWalkCount} 걸음"
+    } else {
+        "현재 소속되어 있는 반이 없어요."
     }
 }
 
