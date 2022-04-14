@@ -1,7 +1,5 @@
 package com.semicolon.walkhub.di
 
-import com.semicolon.data.remote.datasource.RemoteSocketDataSource
-import com.semicolon.data.remote.datasource.RemoteSocketDataSourceImpl
 import com.semicolon.data.repository.*
 import com.semicolon.domain.repository.*
 import dagger.Binds

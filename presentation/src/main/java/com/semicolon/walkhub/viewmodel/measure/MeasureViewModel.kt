@@ -4,10 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.semicolon.domain.entity.exercise.GoalEntity
 import com.semicolon.domain.enums.GoalType
 import com.semicolon.domain.param.exercise.FinishMeasureExerciseParam
 import com.semicolon.domain.param.exercise.StartMeasureExerciseParam
 import com.semicolon.domain.usecase.exercise.*
+import com.semicolon.domain.usecase.socket.ConnectSocketUseCase
+import com.semicolon.domain.usecase.socket.DisconnectSocketUseCase
+import com.semicolon.domain.usecase.socket.ReceiveCheeringUseCase
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,16 +28,21 @@ class MeasureViewModel @Inject constructor(
     private val fetchMeasuredExerciseRecordUseCase: FetchMeasuredExerciseRecordUseCase,
     private val fetchMeasuredTimeUseCase: FetchMeasuredTimeUseCase,
     private val fetchCurrentSpeedUseCase: FetchCurrentSpeedUseCase,
+    private val fetchGoalUseCase: FetchGoalUseCase,
     private val pauseMeasureExerciseUseCase: PauseMeasureExerciseUseCase,
     private val resumeMeasureExerciseUseCase: ResumeMeasureExerciseUseCase,
     private val startMeasureExerciseUseCase: StartMeasureExerciseUseCase,
-    private val finishMeasureExerciseUseCase: FinishMeasureExerciseUseCase
+    private val finishMeasureExerciseUseCase: FinishMeasureExerciseUseCase,
+    private val connectSocketUseCase: ConnectSocketUseCase,
+    private val disconnectSocketUseCase: DisconnectSocketUseCase,
+    private val receiveCheeringUseCase: ReceiveCheeringUseCase
 ) : ViewModel() {
 
     private val _walkCount = MutableLiveData(0)
     val walkCount: LiveData<Int> = _walkCount
 
-    var goal = 0
+    private val _goal = MutableLiveData<GoalEntity>()
+    val goal: LiveData<GoalEntity> = _goal
 
     private val _calorie = MutableLiveData(0F)
     val calorie: LiveData<Float> = _calorie
@@ -44,7 +53,8 @@ class MeasureViewModel @Inject constructor(
     private val _time = MutableLiveData<LocalDateTime>()
     val time: LiveData<LocalDateTime> = _time
 
-    private val _percentage = MutableLiveData<Int>() //TODO(걸음수 혹은 거리가 바뀔때 마다 값을 바꿔줘야함 _percentage.value = (값)/(goal) * 100)
+    private val _percentage =
+        MutableLiveData<Int>() //TODO(걸음수 혹은 거리가 바뀔때 마다 값을 바꿔줘야함 _percentage.value = (값)/(goal) * 100)
     val percentage: LiveData<Int> = _percentage
 
     private val _measuringState = MutableLiveData(MeasureState.ONGOING)
@@ -62,12 +72,31 @@ class MeasureViewModel @Inject constructor(
     private val _finishActivity = MutableEventFlow<Unit>()
     val finishActivity = _finishActivity.asEventFlow()
 
+    private val _cheerUserName = MutableLiveData<String>()
+    val cheerUserName: LiveData<String> = _cheerUserName
+
     private var _finishPhotoUri: String? = null
 
-    fun startMeasureExercise(goal: Int, isDistance: Boolean) {
+    init {
+        viewModelScope.launch {
+            connectSocketUseCase.execute(Unit)
+        }
+    }
+
+    fun receiveCheering() {
+        viewModelScope.launch {
+            receiveCheeringUseCase.execute(Unit).runCatching {
+                collect {
+                    _cheerUserName.value = it
+                }
+            }
+        }
+    }
+
+    fun startMeasureExercise() {
         _measuringState.value = MeasureState.ONGOING
-        this.goal = goal
-        val goalType = if (isDistance) GoalType.DISTANCE else GoalType.WALK_COUNT
+        val goalType = goal.value?.goalType ?: GoalType.WALK_COUNT
+        val goal = goal.value?.goal ?: 0
         viewModelScope.launch {
             try {
                 startMeasureExerciseUseCase.execute(StartMeasureExerciseParam(goal, goalType))
@@ -96,6 +125,21 @@ class MeasureViewModel @Inject constructor(
                     LocalDateTime.ofInstant(Instant.ofEpochSecond(it), ZoneId.systemDefault())
             }
         }
+    }
+
+    fun fetchMeasuringGoal() {
+        viewModelScope.launch {
+            val goalResult = fetchGoalUseCase.execute(Unit)
+            _goal.value = goalResult
+        }
+    }
+
+    fun setDistanceGoal(goal: Int) {
+        _goal.value = GoalEntity(goal, GoalType.DISTANCE)
+    }
+
+    fun setWalkCountGoal(goal: Int) {
+        _goal.value = GoalEntity(goal, GoalType.WALK_COUNT)
     }
 
     private fun fetchCurrentSpeed() {
@@ -158,6 +202,13 @@ class MeasureViewModel @Inject constructor(
         ONGOING,
         PAUSED,
         LOCK
+    }
+
+    override fun onCleared() {
+        viewModelScope.launch {
+            disconnectSocketUseCase.execute(Unit)
+        }
+        super.onCleared()
     }
 
 }

@@ -137,7 +137,7 @@
                 android:layout_height="24dp"
                 android:fontFamily="@font/noto_sans_kr_regular"
                 android:gravity="center"
-                android:text="로그인 정보 수정"
+                android:text="계정 정보"
                 android:textColor="@color/gray_800"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"

@@ -15,6 +15,7 @@ import com.semicolon.walkhub.ui.base.BaseFragment
 import com.semicolon.walkhub.ui.home.model.HomeData
 import com.semicolon.walkhub.ui.home.model.RankData
 import com.semicolon.walkhub.ui.measure.MeasureHomeActivity
+import com.semicolon.walkhub.ui.measure.MeasuringActivity
 import com.semicolon.walkhub.util.isVisible
 import com.semicolon.walkhub.util.loadCircleFromUrl
 import com.semicolon.walkhub.viewmodel.home.HomeViewModel
@@ -34,7 +35,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     ): View? {
 
         vm.fetchHomeValue()
-        
+
 
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
@@ -54,12 +55,25 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
         is HomeViewModel.Event.ErrorMessage -> {
             showShortToast(event.message)
         }
+        is HomeViewModel.Event.StartMeasureHome -> {
+            Intent(context, MeasureHomeActivity::class.java).run {
+                startActivity(this)
+            }
+        }
+        is HomeViewModel.Event.StartMeasure -> {
+            Intent(context, MeasuringActivity::class.java).run {
+                startActivity(this)
+            }
+        }
     }
 
     override fun initView() {
         binding.firstCardView.setOnClickListener {
             val intent = Intent(context, ActivityAnalysisActivity::class.java)
             startActivity(intent)
+        }
+        binding.homeStartMeasureCl.setOnClickListener {
+            vm.checkMeasuringState()
         }
         Glide.with(this)
             .load("https://s3.us-west-2.amazonaws.com/secure.notion-static.com/43380b84-6dc9-44fc-8b51-6aef4d9f1faf/커피icon.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220303%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220303T005859Z&X-Amz-Expires=86400&X-Amz-Signature=50863010f7f84127f4b0dfdbaa0d59b8da48e5c0b994ad2bfed0a0c3d2594ddd&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25EC%25BB%25A4%25ED%2594%25BCicon.png%22&x-id=GetObject")

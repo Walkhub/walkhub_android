@@ -1,6 +1,5 @@
 package com.semicolon.data.remote.datasource
 
-import android.util.Log
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -35,7 +34,6 @@ class RemoteSocketDataSourceImpl @Inject constructor(
 
     override fun sendCheering(userId: Int) {
         val data = JSONObject()
-        socket.connect()
         data.put("user_id", 1)
         socket.emit("cheering", data)
     }
@@ -51,18 +49,12 @@ class RemoteSocketDataSourceImpl @Inject constructor(
         return listOf(errorMessage,code,status.toString())
     }
 
-    override fun disconnected() {
+    override fun disconnect() {
         socket.disconnect()
     }
 
     override fun connectSocket() {
         socket.connect()
-        socket.on(Socket.EVENT_CONNECT) {
-            Log.d("success", "success")
-        }.on(Socket.EVENT_CONNECT_ERROR) {
-            Log.d("fail", it.contentToString())
-            println(it.contentToString())
-        }
     }
 
 }

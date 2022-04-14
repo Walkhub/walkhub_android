@@ -87,7 +87,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="20dp"
                 android:backgroundTint="@{isDistance?@color/white:@color/primary_400}"
-                android:onClick="@{()->vm.setIsNotDistance()}"
+                android:onClick="@{()->vm.setIsWalkCount()}"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp"
                 app:layout_constraintEnd_toEndOf="parent"

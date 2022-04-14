@@ -11,11 +11,12 @@ import com.semicolon.domain.enums.toScopeString
 
 @Entity(tableName = "challenge")
 data class ChallengeRoomEntity(
-    @PrimaryKey var id: Int,
+    @PrimaryKey var id: Long,
     var name: String,
     var startAt: String,
     var endAt: String,
     var imageUrl: String,
+    var goal: Int,
     var goalType: String,
     var goalScope: String,
     var award: String,
@@ -33,6 +34,7 @@ fun ChallengeRoomEntity.toEntity() =
         startAt = startAt.toLocalDateTime(),
         endAt = endAt.toLocalDateTime(),
         imageUrl = imageUrl,
+        goal = goal,
         goalScope = goalScope.toGoalScope(),
         goalType = goalType.toGoalType(),
         award = award,
@@ -55,6 +57,7 @@ fun ChallengeEntity.toDbEntity() =
         startAt = startAt.toString(),
         endAt = endAt.toString(),
         imageUrl = imageUrl,
+        goal = goal,
         goalScope = goalScope.toScopeString(),
         goalType = goalType.toScopeString(),
         award = award,

@@ -22,11 +22,11 @@ class SocketRepositoryImpl @Inject constructor(
         return flow { emit(remoteSocketDataSource.receiveError()) }
     }
 
-    override fun connectedSocket() =
+    override fun connectSocket() =
         remoteSocketDataSource.connectSocket()
 
 
-    override fun disConnectedSocket() =
-        remoteSocketDataSource.disconnected()
+    override fun disConnectSocket() =
+        remoteSocketDataSource.disconnect()
 
 }

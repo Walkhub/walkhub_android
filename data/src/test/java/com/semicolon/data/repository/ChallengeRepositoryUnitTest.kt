@@ -7,6 +7,7 @@ import com.semicolon.data.remote.datasource.RemoteChallengeDateSource
 import com.semicolon.domain.entity.challenge.ChallengeDetailEntity
 import com.semicolon.domain.entity.challenge.ChallengeEntity
 import com.semicolon.domain.entity.challenge.ChallengeParticipantEntity
+import com.semicolon.domain.entity.challenge.MyChallengeEntity
 import com.semicolon.domain.enums.ChallengeGoalScope
 import com.semicolon.domain.enums.ChallengeGoalType
 import com.semicolon.domain.enums.ChallengeUserScope
@@ -31,9 +32,9 @@ class ChallengeRepositoryUnitTest {
         LocalDateTime.MIN,
         LocalDateTime.MAX,
         "https://testImageUrl",
-        ChallengeGoalScope.ALL,
-        ChallengeGoalType.ETC,
-        "award",
+        goalScope = ChallengeGoalScope.ALL,
+        goalType = ChallengeGoalType.ETC,
+        award = "award",
         writer = ChallengeEntity.Writer(
             12L,
             "JaeWon",
@@ -46,6 +47,26 @@ class ChallengeRepositoryUnitTest {
                 "JaeWon",
                 "https://testImageUrl"
             )
+        ),
+        goal = 3000
+    )
+
+    private val myChallengeList = listOf(
+        MyChallengeEntity(
+            1,
+            "삼천보걷기",
+            LocalDateTime.MIN,
+            LocalDateTime.MAX,
+            "https://testImageUrl",
+            3000,
+            goalScope = ChallengeGoalScope.ALL,
+            goalType = ChallengeGoalType.ETC,
+            writer = MyChallengeEntity.Writer(
+                13L,
+                "김재원",
+                "https://testImageUrl"
+            ),
+            totalWalkCount = 3000
         )
     )
 
@@ -102,7 +123,7 @@ class ChallengeRepositoryUnitTest {
 
             val repositoryResultFlow = challengeRepository.fetchChallengeDetail(challengeId)
             repositoryResultFlow.collect {
-                assertEquals(challengeDetailEntity,it)
+                assertEquals(challengeDetailEntity, it)
             }
         }
     }
@@ -147,12 +168,12 @@ class ChallengeRepositoryUnitTest {
     fun testFetchMyChallenges() {
         runBlocking {
             whenever(remoteChallengeDataSource.fetchMyChallenges()).thenReturn(
-                challengeList
+                myChallengeList
             )
 
             val repositoryResult = challengeRepository.fetchMyChallenges()
             repositoryResult.collect {
-                assertEquals(challengeList,it)
+                assertEquals(myChallengeList, it)
             }
         }
     }

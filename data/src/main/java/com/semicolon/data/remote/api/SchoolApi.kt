@@ -1,8 +1,8 @@
 package com.semicolon.data.remote.api
 
+import com.semicolon.data.remote.response.school.SchoolDetailResponse
 import com.semicolon.data.remote.response.school.SearchSchoolResponse
-import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface SchoolApi {
 
@@ -10,4 +10,14 @@ interface SchoolApi {
     fun searchSchool(
         @Query("name") name: String
     ): SearchSchoolResponse
+
+    @PATCH("schools/logos")
+    fun setSchoolLogo(
+        @Body image_url: String
+    )
+
+    @GET("schools/details/{school-id}")
+    fun fetchSchoolDetail(
+        @Path("school-id") schoolId: Int
+    ): SchoolDetailResponse
 }

@@ -6,15 +6,10 @@ import com.semicolon.domain.entity.rank.SchoolRankEntity
 import com.semicolon.domain.enums.DateType
 import com.semicolon.domain.exception.NoInternetException
 import com.semicolon.domain.usecase.rank.FetchSchoolRankUseCase
-import com.semicolon.domain.usecase.socket.CheeringUseCase
-import com.semicolon.domain.usecase.socket.ConnectedSocketUseCase
-import com.semicolon.domain.usecase.socket.ReceiveCheeringUseCase
-import com.semicolon.domain.usecase.socket.ReceiveErrorUseCase
 import com.semicolon.walkhub.ui.hub.model.HubSchoolRankData
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.lang.NullPointerException
 import javax.inject.Inject
@@ -37,7 +32,7 @@ class HubMainViewModel @Inject constructor(
                 when (it) {
                     is NoInternetException -> event(Event.ErrorMessage("인터넷을 사용할 수 없습니다"))
                     is NullPointerException -> event(Event.ErrorMessage("데이터가 없습니다."))
-                    else -> event(Event.ErrorMessage("알 수 없는 에러가 발생했습니다. ${it}"))
+                    else -> event(Event.ErrorMessage("알 수 없는 에러가 발생했습니다."))
                 }
             }
         }
