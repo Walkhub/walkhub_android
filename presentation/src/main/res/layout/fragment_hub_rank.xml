@@ -6,12 +6,10 @@
     <data>
 
         <variable
-            name="item"
-            type="com.semicolon.walkhub.viewmodel.hub.HubUserViewModel.HubMyPageItem" />
-
-        <variable
             name="vm"
             type="com.semicolon.walkhub.viewmodel.hub.HubUserViewModel" />
+
+        <import type="android.view.View" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -87,7 +85,7 @@
                 android:text="반 가입하고 랭킹 확인하기"
                 android:textColor="@color/white"
                 android:textSize="16sp"
-                android:visibility="gone"
+                android:visibility="@{vm.isJoinedClass ? View.GONE : View.VISIBLE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -119,8 +117,7 @@
                     android:layout_height="40dp"
                     android:layout_marginStart="18dp"
                     android:layout_marginTop="12dp"
-                    android:src="@color/gray_300"
-                    app:image_url="@{item.myPageData.profileImageUrl}"
+                    app:image_url="@{vm.myRanking.myPageData.profileImageUrl}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -131,7 +128,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="3dp"
                     android:fontFamily="@font/noto_sans_kr_medium"
-                    android:text="@{item.myPageData.name}"
+                    android:text="@{vm.myRanking.myPageData.name}"
                     android:textColor="@color/gray_900"
                     android:textSize="16sp"
                     app:layout_constraintStart_toEndOf="@+id/ivMyProfile"
@@ -148,21 +145,20 @@
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@+id/ivMyProfile"
                     app:layout_constraintStart_toEndOf="@+id/ivMyProfile"
-                    app:walk_text="@{item.myPageData.walkCount}" />
+                    app:walk_text="@{vm.myRanking.myPageData.walkCount}" />
 
                 <TextView
                     android:id="@+id/tvMyRank"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="11dp"
                     android:layout_marginEnd="18dp"
                     android:fontFamily="@font/noto_sans_kr_medium"
-                    android:text="0등"
                     android:textColor="@color/gray_800"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/ivMyProfile"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/ivMyProfile"
-                    app:rank_text="@{item.myPageData.ranking}" />
+                    app:rank_text="@{vm.myRanking.myPageData.ranking}" />
 
                 <ProgressBar
                     android:id="@+id/pbMy"
@@ -178,7 +174,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/ivMyProfile"
-                    app:walk_percent="@{item}" />
+                    app:walk_percent="@{vm.myRanking}" />
 
                 <TextView
                     android:id="@+id/tvMyRemainWalkCount"
@@ -187,12 +183,11 @@
                     android:layout_marginStart="18dp"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/noto_sans_kr_regular"
-                    android:text="@string/no_school_message"
                     android:textColor="@color/gray_700"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/pbMy"
-                    app:need_walk_text="@{item}" />
+                    app:need_walk_text="@{vm.myRanking}" />
 
                 <TextView
                     android:id="@+id/tvNextWalkCount"
@@ -207,7 +202,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/pbMy"
-                    app:next_walk_text="@{item.topWalkCount}" />
+                    app:next_walk_text="@{vm.myRanking.topWalkCount}" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
