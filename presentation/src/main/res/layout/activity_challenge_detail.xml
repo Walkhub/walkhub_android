@@ -1,12 +1,280 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
+    <data>
+
+        <variable
+            name="vm"
+            type="com.semicolon.walkhub.viewmodel.challenge.ChallengeViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         tools:context=".ui.challenge.ChallengeDetailActivity">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_challenge"
+                    android:layout_width="match_parent"
+                    android:layout_height="240dp"
+                    android:background="@color/black"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_challenge_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/noto_sans_kr_medium"
+                    android:textColor="#424242"
+                    android:textSize="20sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_challenge"
+                    tools:text="2학년 체육 수행평가" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/ciiv_made"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_challenge_name"
+                    tools:src="@drawable/img_cheering" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/noto_sans_kr_medium"
+                    android:textColor="#424242"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@id/ciiv_made"
+                    app:layout_constraintLeft_toRightOf="@id/ciiv_made"
+                    app:layout_constraintTop_toTopOf="@id/ciiv_made"
+                    tools:text="서무성" />
+
+                <ImageView
+                    android:id="@+id/iv_date"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ciiv_made"
+                    tools:src="@drawable/img_cheering" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:fontFamily="@font/noto_sans_kr_regular"
+                    android:textColor="#212121"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_date"
+                    app:layout_constraintLeft_toRightOf="@id/iv_date"
+                    app:layout_constraintTop_toTopOf="@id/iv_date"
+                    tools:text="2022/3/22 ~ 2022/3/23" />
+
+                <ImageView
+                    android:id="@+id/iv_goal"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_date"
+                    tools:src="@drawable/img_cheering" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:fontFamily="@font/noto_sans_kr_regular"
+                    android:textColor="#212121"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_goal"
+                    app:layout_constraintLeft_toRightOf="@id/iv_goal"
+                    app:layout_constraintTop_toTopOf="@id/iv_goal"
+                    tools:text="기간 내 20km 달성" />
+
+                <ImageView
+                    android:id="@+id/iv_reword"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_goal"
+                    tools:src="@drawable/img_cheering" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:fontFamily="@font/noto_sans_kr_regular"
+                    android:textColor="#212121"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_reword"
+                    app:layout_constraintLeft_toRightOf="@id/iv_reword"
+                    app:layout_constraintTop_toTopOf="@id/iv_reword"
+                    tools:text="체육 수행평가 성적" />
+
+                <TextView
+                    android:id="@+id/tv_process"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/noto_sans_kr_regular"
+                    android:text="현재 진행도"
+                    android:textColor="#424242"
+                    android:textSize="14sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_reword" />
+
+                <TextView
+                    android:id="@+id/tv_km"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/noto_sans_kr_regular"
+                    android:textColor="#424242"
+                    android:textSize="16sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_process"
+                    tools:text="0Km" />
+
+                <ProgressBar
+                    android:id="@+id/pb_process"
+                    style="@android:style/Widget.Material.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_km" />
+
+                <TextView
+                    android:id="@+id/tv_percent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16sp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/noto_sans_kr_regular"
+                    android:textColor="#424242"
+                    android:textSize="12sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/pb_process"
+                    tools:text="88%" />
+
+                <TextView
+                    android:id="@+id/tv_goal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/noto_sans_kr_regular"
+                    android:textColor="#616161"
+                    android:textSize="12sp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_percent"
+                    tools:text="20km" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/noto_sans_kr_regular"
+                    android:textColor="#616161"
+                    android:textSize="14sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_goal"
+                    tools:text="대덕소프트웨어마이스터고 2학년 체육 수행평가입니다.\nㅁㅁㅁ\n \n \n \n \n \n a \n b \n c \n d \n \n \n \n end" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:background="#CCFFFFFF"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ciiv_person1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/img_cheering" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ciiv_person2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="@id/ciiv_person1"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/img_cheering" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ciiv_person3"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="@id/ciiv_person2"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/img_cheering" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/oval_number"
+                android:gravity="center"
+                android:textColor="#424242"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="@id/ciiv_person3"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="+42" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/ic_join_background"
+                android:fontFamily="@font/noto_sans_kr_regular"
+                android:gravity="center"
+                android:text="참여하기"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

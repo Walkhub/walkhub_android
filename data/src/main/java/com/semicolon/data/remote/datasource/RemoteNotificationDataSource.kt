@@ -6,4 +6,8 @@ interface RemoteNotificationDataSource {
     suspend fun fetchNotificationList(): NotificationListResponse
 
     suspend fun patchNotificationIsRead(data: Int)
+
+    suspend fun switchOnNofications(userId: Int, type: String)
+
+    suspend fun switchOffNotifications(type: String)
 }
