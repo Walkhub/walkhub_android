@@ -7,9 +7,9 @@ import java.io.File
 
 interface SchoolRepository {
 
-    suspend fun searchSchool(name: String): Flow<List<SearchSchoolEntity>>
-
     suspend fun setSchoolLogo(profileImage: File)
 
     suspend fun fetchSchoolDetail(schoolId: Int): Flow<SchoolDetailEntity>
+
+    suspend fun searchSchool(name: String): Flow<SearchSchoolEntity>
 }
