@@ -49,6 +49,7 @@ class HubUserViewModel @Inject constructor(
     val isJoinedClass: LiveData<Boolean> = _isJoinedClass
 
     fun fetchMySchoolUserRank(scope: RankScope, dateType: MoreDateType) {
+
         viewModelScope.launch {
             kotlin.runCatching {
                 val fetchMySchoolUserRank = fetchOurSchoolUserRankUseCase.execute(
@@ -78,7 +79,7 @@ class HubUserViewModel @Inject constructor(
 
                     val myRank: Int = it.userRank.myRanking?.ranking ?: 1
 
-                    if(it.userRank.myRanking != null) {
+                    if (it.userRank.myRanking != null) {
                         val topWalkCount =
                             if (myRank <= 1) 0
                             else it.userRank.rankingList[myRank - 2].walkCount
