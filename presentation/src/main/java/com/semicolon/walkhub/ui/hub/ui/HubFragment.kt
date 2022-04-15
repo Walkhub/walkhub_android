@@ -44,7 +44,7 @@ class HubFragment @Inject constructor(
         savedInstanceState: Bundle?
     ): View? {
 
-        vm.fetchSchoolRank(DateType.WEEK)
+        //vm.fetchSchoolRank(DateType.WEEK)
 
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
@@ -99,11 +99,11 @@ class HubFragment @Inject constructor(
         when (index) {
             0 -> {
                 moreDateType = MoreDateType.WEEK
-                vm.fetchSchoolRank(DateType.WEEK)
+                //vm.fetchSchoolRank(DateType.WEEK)
             }
             1 -> {
                 moreDateType = MoreDateType.MONTH
-                vm.fetchSchoolRank(DateType.MONTH)
+                //vm.fetchSchoolRank(DateType.MONTH)
             }
         }
     }

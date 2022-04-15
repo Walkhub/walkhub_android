@@ -84,7 +84,7 @@ class HubSearchSchoolActivity : BaseActivity<ActivityHubSearchSchoolBinding> (
 
     private fun setTextChanged() {
         binding.etSearch.onTextChanged { s, _, _, _ ->
-            vm.searchSchoolDebounce(s.toString())
+            //vm.searchSchoolDebounce(s.toString())
         }
     }
 }

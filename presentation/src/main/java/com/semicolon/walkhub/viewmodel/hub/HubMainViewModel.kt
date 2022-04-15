@@ -22,7 +22,7 @@ class HubMainViewModel @Inject constructor(
     private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()
 
-    fun fetchSchoolRank(dateType: DateType) {
+    /*fun fetchSchoolRank(dateType: DateType) {
         viewModelScope.launch {
             kotlin.runCatching {
                 fetchSchoolRankUseCase.execute(dateType).collect {
@@ -61,7 +61,7 @@ class HubMainViewModel @Inject constructor(
         HubSchoolRankData(
             mySchoolRank.toData(),
             schoolList = schoolRankList.map { it.toData() }
-        )
+        )*/
 
     private fun event(event: Event) {
         viewModelScope.launch {

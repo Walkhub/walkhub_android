@@ -24,7 +24,9 @@ class HubSearchSchoolViewModel @Inject constructor(
 
     private var searchJob: Job? = null
 
-    private fun searchSchool(school: String) {
+    //TODO: Type mismatch: inferred type is String but SearchSchoolParam was expected
+
+    /*private fun searchSchool(school: String) {
         viewModelScope.launch {
             kotlin.runCatching {
                 searchSchoolUseCase.execute(school).collect() {
@@ -38,15 +40,15 @@ class HubSearchSchoolViewModel @Inject constructor(
                 }
             }
         }
-    }
+    }*/
 
-    fun searchSchoolDebounce(school: String) {
+    /*fun searchSchoolDebounce(school: String) {
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
             delay(500L)
             searchSchool(school)
         }
-    }
+    }*/
 
     private fun SearchSchoolEntity.toData() =
         SearchSchoolData(
