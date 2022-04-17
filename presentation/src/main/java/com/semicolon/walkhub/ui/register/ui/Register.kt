@@ -17,7 +17,9 @@ import com.semicolon.walkhub.util.visible
 import android.os.CountDownTimer
 import android.widget.TextView
 import androidx.activity.viewModels
+import com.semicolon.domain.enums.SexType
 import com.semicolon.domain.param.user.CheckPhoneNumberParam
+import com.semicolon.domain.param.user.PostUserSignUpParam
 import com.semicolon.domain.param.user.VerifyPhoneNumberSignUpParam
 import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.MainActivity
@@ -25,17 +27,28 @@ import com.semicolon.walkhub.ui.register.SearchSchoolActivity
 import com.semicolon.walkhub.viewmodel.login.LoginViewModel
 import com.semicolon.walkhub.viewmodel.register.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.properties.Delegates
 
 @AndroidEntryPoint
 class Register : BaseActivity<ActivityRegisterBinding>(
     R.layout.activity_register
 ) {
     private val vm: RegisterViewModel by viewModels()
+
     var textView: TextView? = null
     var textView2: TextView? = null
+
     var a: Int? = null
-    var b: String = ""
+    var id: String = ""
+    var password: String = ""
+    var name: String = ""
     var phone: String = ""
+    var height by Delegates.notNull<Double>()
+    var weight by Delegates.notNull<Int>()
+    lateinit var sex: SexType
+    var schoolId by Delegates.notNull<Int>()
+
+    private lateinit var postUserSignUpParam: PostUserSignUpParam
 
     override fun initView() {
         binding.constraint.setOnClickListener {
@@ -65,6 +78,10 @@ class Register : BaseActivity<ActivityRegisterBinding>(
 
         is RegisterViewModel.Event.SuccessId -> {
             movePage(5)
+        }
+
+        is RegisterViewModel.Event.SuccessRegister -> {
+
         }
 
         is RegisterViewModel.Event.ErrorMessage -> {
@@ -209,7 +226,10 @@ class Register : BaseActivity<ActivityRegisterBinding>(
                 binding.btContinue.setOnClickListener {
                     val name = binding.etName.text.toString()
 
-                    if (name.length in 2..10) movePage(2)
+                    if (name.length in 2..10) {
+                        vm.setName(name)
+                        movePage(2)
+                    }
                     else {
                         showShortToast("이름은 (2~10)자 안으로 입력해주세요.")
                     }
@@ -222,7 +242,15 @@ class Register : BaseActivity<ActivityRegisterBinding>(
                 binding.btContinue.setOnClickListener {
                     phone = binding.etName.text.toString()
 
-                    if (phone.length in 11..11) verifyPhone(verifyPhoneNumberSignUpParam = VerifyPhoneNumberSignUpParam(phone))
+                    if (phone.length in 11..11) {
+                        vm.setPhone(phone)
+
+                        verifyPhone(
+                            verifyPhoneNumberSignUpParam = VerifyPhoneNumberSignUpParam(
+                                phone
+                            )
+                        )
+                    }
                     else {
                         showShortToast("전화번호를 올바르게 입력해주세요.")
                     }
@@ -234,11 +262,23 @@ class Register : BaseActivity<ActivityRegisterBinding>(
                 binding.btContinue.setOnClickListener {
                     val cer = binding.etName.text.toString()
 
-                    if (cer.length < 5) {
-                        showShortToast("올바른 형식의 인증번호를 입력해주세요.")
-                    } else if (cer.length > 5) {
-                        showShortToast("인증번호를 올바르게 입력해주세요.")
-                    } else checkPhoneNumber(checkPhoneNumberParam = CheckPhoneNumberParam(phone, cer))
+                    when {
+                        cer.length < 5 -> {
+                            showShortToast("올바른 형식의 인증번호를 입력해주세요.")
+                        }
+                        cer.length > 5 -> {
+                            showShortToast("인증번호를 올바르게 입력해주세요.")
+                        }
+                        else -> {
+                            vm.setAuthCode(cer)
+                            checkPhoneNumber(
+                                checkPhoneNumberParam = CheckPhoneNumberParam(
+                                    phone,
+                                    cer
+                                )
+                            )
+                        }
+                    }
                 }
             }
             4 -> {
@@ -249,7 +289,10 @@ class Register : BaseActivity<ActivityRegisterBinding>(
 
                     if (id.length < 4) {
                         showShortToast("5자 이상의 아이디를 입력해주세요.")
-                    } else checkId()
+                    } else {
+                        vm.setUserId(id)
+                        checkId()
+                    }
                 }
             }
             5 -> {
@@ -261,6 +304,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
                     if (password.length in 1..7) {
                         showShortToast("8자 이상의 비밀번호를 입력해주세요.")
                     } else if (password.length > 7) {
+                        vm.setPassword(password)
                         movePage(6)
                     }
                 }
@@ -270,8 +314,17 @@ class Register : BaseActivity<ActivityRegisterBinding>(
                 sendSchool()
                 hideKeyboard()
 
+                val c: Int = 0
                 binding.etName.setOnClickListener {
                     val intent = Intent(this, SearchSchoolActivity::class.java)
+                    startActivity(intent)
+                }
+
+                binding.btContinue.setOnClickListener {
+                    if(binding.etName.length() > 0){
+                        vm.setSchool(c)
+                    }
+                    val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                 }
             }
@@ -279,7 +332,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
     }
 
     private fun verifyPhone(verifyPhoneNumberSignUpParam: VerifyPhoneNumberSignUpParam) {
-        b = binding.etName.text.toString()
+        id = binding.etName.text.toString()
         verifyPhoneNumberSignUpParam.phone_number = binding.etName.text.toString()
         vm.verifyPhone(verifyPhoneNumberSignUpParam)
     }
