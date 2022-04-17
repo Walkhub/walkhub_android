@@ -314,7 +314,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
                 sendSchool()
                 hideKeyboard()
 
-                val c: Int = 0
+                val c = 0
                 binding.etName.setOnClickListener {
                     val intent = Intent(this, SearchSchoolActivity::class.java)
                     startActivity(intent)

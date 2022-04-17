@@ -8,10 +8,8 @@ import com.semicolon.data.util.OfflineCacheUtil
 import com.semicolon.data.util.toMultipart
 import com.semicolon.domain.entity.school.SchoolDetailEntity
 import com.semicolon.domain.entity.school.SearchSchoolEntity
-import com.semicolon.domain.entity.users.UserMyPageEntity
 import com.semicolon.domain.repository.SchoolRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import java.io.File
 import javax.inject.Inject
 
@@ -38,8 +36,6 @@ class SchoolRepositoryImpl @Inject constructor(
 
     override suspend fun searchSchool(name: String): Flow<SearchSchoolEntity> =
         OfflineCacheUtil<SearchSchoolEntity>()
-            .remoteData {
-                remoteSchoolDataSource.searchSchool(name).toEntity()
-            }
+            .remoteData { remoteSchoolDataSource.searchSchool(name).toEntity() }
             .createFlow()
 }
