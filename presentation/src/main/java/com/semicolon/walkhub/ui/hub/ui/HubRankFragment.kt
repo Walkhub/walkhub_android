@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.semicolon.domain.enums.MoreDateType
 import com.semicolon.domain.enums.RankScope
 import com.semicolon.walkhub.R
@@ -46,7 +45,6 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        fetchSchoolUserRank()
 
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
@@ -73,23 +71,22 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
     }
 
     override fun initView() {
+        binding.vm = vm
+
         initSpinner()
         initDropDown()
-        setAdapter()
+        setScrollListener()
+
+        fetchSchoolUserRank()
 
         binding.tvJoinClass.setOnClickListener {
             startActivity(Intent(activity, SignUpClassActivity::class.java))
         }
 
-        binding.vm = vm
+
     }
 
-    private fun setAdapter() {
-        mAdapter = HubUserRvAdapter(userRvData)
-
-        binding.rvRank.layoutManager = LinearLayoutManager(context)
-        binding.rvRank.setHasFixedSize(true)
-        binding.rvRank.adapter = mAdapter
+    private fun setScrollListener() {
 
         val mScrollViewListener =
             NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, _ ->
