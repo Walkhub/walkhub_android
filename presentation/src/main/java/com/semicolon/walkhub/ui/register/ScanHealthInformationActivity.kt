@@ -2,26 +2,33 @@ package com.semicolon.walkhub.ui.register
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
+import com.semicolon.domain.enums.SexType
+import com.semicolon.domain.param.user.PostUserSignUpParam
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityScanHealthInformationBinding
 import com.semicolon.walkhub.ui.MainActivity
 import com.semicolon.walkhub.ui.base.BaseActivity
+import com.semicolon.walkhub.viewmodel.register.RegisterViewModel
+import kotlin.properties.Delegates
 
 class ScanHealthInformationActivity : BaseActivity<ActivityScanHealthInformationBinding>(
     R.layout.activity_scan_health_information
 ) {
-
     private var a: Boolean = false
+    private var b by Delegates.notNull<Int>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private val vm: RegisterViewModel by viewModels()
+
+    private lateinit var postUserSignUpParam: PostUserSignUpParam
+
+    private var height by Delegates.notNull<Double>()
+    private var weight by Delegates.notNull<Int>()
+    private lateinit var sexType: SexType
 
     override fun initView() {
         setTextWatcher1()
@@ -46,6 +53,11 @@ class ScanHealthInformationActivity : BaseActivity<ActivityScanHealthInformation
 
         binding.constraint.setOnClickListener {
             hideKeyboard()
+        }
+
+        binding.tvLater.setOnClickListener {
+            vm.setBody(Height = null, Weight = null)
+            vm.register()
         }
     }
 
@@ -121,6 +133,19 @@ class ScanHealthInformationActivity : BaseActivity<ActivityScanHealthInformation
     private fun finishRegister() {
         when (a) {
             true -> {
+                sexType = if (b < 1) {
+                    SexType.MALE
+                } else {
+                    SexType.FEMALE
+                }
+
+                val height = binding.etCm.text.toString().toDouble()
+                val weight = binding.etkg.text.toString().toInt()
+
+                vm.setBody(height, weight)
+
+                vm.register()
+
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }
@@ -133,6 +158,8 @@ class ScanHealthInformationActivity : BaseActivity<ActivityScanHealthInformation
 
     private fun changeGenderMan() {
         a = true
+        b = 0
+
         changeContinue()
         binding.btMan.background =
             ContextCompat.getDrawable(
@@ -149,6 +176,7 @@ class ScanHealthInformationActivity : BaseActivity<ActivityScanHealthInformation
 
     private fun changeGenderWo() {
         a = true
+        b = 1
         changeContinue()
         binding.btWo.background =
             ContextCompat.getDrawable(
