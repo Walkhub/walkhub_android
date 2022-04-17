@@ -79,7 +79,6 @@ class RemoteUserDataSourceImpl @Inject constructor(
             throw when(response.code()){
                 401 -> BadRequestException()
                 404 -> NotFoundException()
-                409 -> ConflictException()
                 else -> UnknownException()
             }
         }
