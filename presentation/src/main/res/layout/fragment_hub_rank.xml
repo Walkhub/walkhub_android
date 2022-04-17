@@ -149,8 +149,8 @@
 
                 <TextView
                     android:id="@+id/tvMyRank"
-                    android:layout_width="0dp"
-                    android:layout_height="11dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginEnd="18dp"
                     android:fontFamily="@font/noto_sans_kr_medium"
                     android:textColor="@color/gray_800"
@@ -191,14 +191,15 @@
 
                 <TextView
                     android:id="@+id/tvNextWalkCount"
-                    android:layout_width="0dp"
-                    android:layout_height="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="18dp"
                     android:layout_marginBottom="12dp"
                     android:fontFamily="@font/noto_sans_kr_regular"
                     android:textColor="@color/gray_600"
                     android:textSize="12sp"
+                    android:text="1"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/pbMy"
@@ -213,8 +214,10 @@
                 android:layout_marginTop="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/clMyRank">
+                app:layout_constraintTop_toBottomOf="@+id/clMyRank"
+                app:layout_constraintVertical_bias="1.0">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvRank"
