@@ -2,7 +2,6 @@ package com.semicolon.walkhub.viewmodel.register
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.gms.auth.api.Auth
 import com.semicolon.domain.enums.SexType
 import com.semicolon.domain.exception.*
 import com.semicolon.domain.param.user.CheckPhoneNumberParam
@@ -16,10 +15,8 @@ import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import retrofit2.Response
 import java.lang.NullPointerException
 import javax.inject.Inject
-import kotlin.properties.Delegates
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
@@ -37,10 +34,10 @@ class RegisterViewModel @Inject constructor(
     private var name: String = ""
     private var phone: String = ""
     private var authCode: String = ""
-    private var height by Delegates.notNull<Double>()
-    private var weight by Delegates.notNull<Int>()
+    private var height: Double = 0.0
+    private var weight: Int = 0
     private lateinit var sex: SexType
-    private var schoolId by Delegates.notNull<Int>()
+    private var schoolId : Int = 0
 
     fun checkId(id: String) {
         viewModelScope.launch {
@@ -66,8 +63,9 @@ class RegisterViewModel @Inject constructor(
                 event(Event.SuccessVerityPhone(true))
             }.onFailure {
                 when (it) {
-                    is BadRequestException -> event(Event.ErrorMessage("전화번호 형식이 올바르지 않습니다."))
-                    else -> event(Event.ErrorMessage("알 수 없는 오류가 발생하였습니다."))
+                    is UnauthorizedException -> event(Event.ErrorMessage("토큰이 만료되었습니다. 재로그인 해주세요."))
+                    is NotFoundException -> event(Event.ErrorMessage("잘못된 접근입니다.."))
+                    else -> event(Event.ErrorMessage("인증번호가 올바르지 않습니다."))
                 }
             }
         }
@@ -136,9 +134,13 @@ class RegisterViewModel @Inject constructor(
         authCode = AuthCode
     }
 
-    fun setBody(Height: Double, Weight: Int) {
-        height = Height
-        weight = Weight
+    fun setBody(Height: Double?, Weight: Int?) {
+        if (Height != null) {
+            height = Height
+        }
+        if (Weight != null) {
+            weight = Weight
+        }
     }
 
     fun setSchool(SchoolId: Int) {
