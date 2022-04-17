@@ -17,12 +17,12 @@ class AuthorizationInterceptor @Inject constructor(
         val request = chain.request()
         val path = request.url().encodedPath()
         val ignorePath = listOf(
-            "users/verification-codes",
-            "users/account-id",
-            "users/token",
-            "users/password",
-            "schools/search",
-            "users/token"
+            "/users/verification-codes",
+            "/users/account-id",
+            "/users/token",
+            "/users/password",
+            "/schools/search",
+            "/users/token"
         )
         if (ignorePath.contains(path)) return chain.proceed(request)
         if (path == "/users" && request.method() == "POST") return chain.proceed(request)
