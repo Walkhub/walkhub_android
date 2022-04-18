@@ -5,7 +5,7 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.semicolon.data.remote.api.SchoolApi
 import com.semicolon.data.remote.datasource.RemoteSchoolDataSourceImpl
 import com.semicolon.data.remote.response.school.SearchSchoolResponse
-import com.semicolon.data.remote.response.school.toListEntity
+import com.semicolon.data.remote.response.school.toEntity
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -19,10 +19,11 @@ class RemoteSchoolDataSourceUnitTest {
     @Test
     fun testRemoteSchoolDataSource() {
         val schoolName = "my school"
+        val agencyCode = 1
         val searchSchoolResponse = SearchSchoolResponse(
             listOf(
                 SearchSchoolResponse.SchoolInfo(
-                    "code",
+                    agencyCode,
                     schoolName,
                     "image"
                 )
@@ -33,7 +34,7 @@ class RemoteSchoolDataSourceUnitTest {
             whenever(schoolApi.searchSchool(schoolName)).thenReturn(searchSchoolResponse)
 
             val dataSourceResult = remoteSchoolDataSource.searchSchool(schoolName)
-            assertEquals(searchSchoolResponse.toListEntity(),dataSourceResult)
+            assertEquals(searchSchoolResponse.toEntity(),dataSourceResult)
         }
     }
 }
