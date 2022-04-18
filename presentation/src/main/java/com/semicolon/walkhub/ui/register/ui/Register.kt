@@ -35,16 +35,9 @@ class Register : BaseActivity<ActivityRegisterBinding>(
 ) {
     private val vm: RegisterViewModel by viewModels()
 
-
     var a: Int? = null
     var id: String = ""
-    var password: String = ""
-    var name: String = ""
     var phone: String = ""
-    var height by Delegates.notNull<Double>()
-    var weight by Delegates.notNull<Int>()
-    lateinit var sex: SexType
-    var schoolId by Delegates.notNull<Int>()
 
     private lateinit var postUserSignUpParam: PostUserSignUpParam
 
@@ -76,7 +69,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
         }
 
         is RegisterViewModel.Event.SuccessRegister -> {
-
+            TODO("여기 부분 구현")
         }
 
         is RegisterViewModel.Event.ErrorMessage -> {
