@@ -1,12 +1,23 @@
 package com.semicolon.walkhub.ui.profile.setting.ui
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.compose.ui.graphics.Color
+import androidx.core.content.ContextCompat
 import com.semicolon.domain.entity.users.FetchUserHealthEntity
+import com.semicolon.domain.enums.SexType
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityModifyHealthInfoBinding
 import com.semicolon.walkhub.extensions.repeatOnStarted
+import com.semicolon.walkhub.ui.HomeActivity
 import com.semicolon.walkhub.ui.base.BaseActivity
+import com.semicolon.walkhub.util.invisible
+import com.semicolon.walkhub.util.visible
 import com.semicolon.walkhub.viewmodel.profile.setting.ModifyHealthInfoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -14,8 +25,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class ModifyHealthInfoActivity : BaseActivity<ActivityModifyHealthInfoBinding>(
     R.layout.activity_modify_health_info
 ) {
-    private val vm : ModifyHealthInfoViewModel by viewModels()
-    private var sex = "X"
+    private val vm: ModifyHealthInfoViewModel by viewModels()
+    private var sex = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +38,13 @@ class ModifyHealthInfoActivity : BaseActivity<ActivityModifyHealthInfoBinding>(
             val weight = binding.editWeight.text.toString().toInt()
 
             vm.patchUserHealth(height = height, weight = weight, sex = sex)
+            binding.height.visible()
+            binding.weight.visible()
+            binding.editHeight.invisible()
+            binding.editWeight.invisible()
+            val intent = Intent(this, ModifyHealthInfoActivity::class.java)
+            finish()
+            startActivity(intent)
         }
 
         repeatOnStarted {
@@ -34,6 +52,7 @@ class ModifyHealthInfoActivity : BaseActivity<ActivityModifyHealthInfoBinding>(
         }
 
     }
+
     private fun handleEvent(event: ModifyHealthInfoViewModel.Event) = when (event) {
         is ModifyHealthInfoViewModel.Event.FetchUserHealth -> {
             setHealthInfo(event.fetchUserHealthData)
@@ -44,23 +63,78 @@ class ModifyHealthInfoActivity : BaseActivity<ActivityModifyHealthInfoBinding>(
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun initView() {
+
+        binding.editHeight.setNextFocusDownId(binding.editHeight.getId())
+        binding.editWeight.setNextFocusDownId(binding.editWeight.getId())
         binding.back.setOnClickListener {
             finish()
         }
 
+
+
+        binding.editHeight.setOnTouchListener { _: View, event: MotionEvent ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    binding.height.invisible()
+                }
+            }
+            false
+        }
+        binding.editWeight.setOnTouchListener { _: View, event: MotionEvent ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    binding.weight.invisible()
+                }
+            }
+            false
+        }
+
         binding.manBtn.setOnClickListener {
             sex = "MALE"
+            binding.manBtn.background = ContextCompat.getDrawable(
+                applicationContext,
+                R.drawable.register_btn
+            )
+            binding.girlBtn.background = ContextCompat.getDrawable(
+                applicationContext,
+                R.drawable.girl_btn
+            )
+            binding.manBtn.setTextColor(ContextCompat.getColor(applicationContext, R.color.white))
+            binding.girlBtn.setTextColor(
+                ContextCompat.getColor(
+                    applicationContext,
+                    R.color.gray_800
+                )
+            )
         }
 
         binding.girlBtn.setOnClickListener {
             sex = "FEMALE"
+            binding.girlBtn.background = ContextCompat.getDrawable(
+                applicationContext,
+                R.drawable.register_btn
+            )
+            binding.manBtn.background = ContextCompat.getDrawable(
+                applicationContext,
+                R.drawable.girl_btn
+            )
+            binding.girlBtn.setTextColor(ContextCompat.getColor(applicationContext, R.color.white))
+            binding.manBtn.setTextColor(
+                ContextCompat.getColor(
+                    applicationContext,
+                    R.color.gray_800
+                )
+            )
         }
+
     }
 
     private fun setHealthInfo(fetchUserHealthData: FetchUserHealthEntity) {
         binding.weight.text = fetchUserHealthData.weight.toString()
         binding.height.text = fetchUserHealthData.height.toString()
-
     }
+
+
 }
