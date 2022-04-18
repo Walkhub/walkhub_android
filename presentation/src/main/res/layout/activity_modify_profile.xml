@@ -106,6 +106,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/image">
 
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="익명"
+                android:textSize="14sp"
+                android:textColor="@color/gray_900"
+                android:fontFamily="@font/noto_sans_kr_regular"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/nameEt"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <EditText
                 android:id="@+id/nameEt"
                 android:layout_width="match_parent"
