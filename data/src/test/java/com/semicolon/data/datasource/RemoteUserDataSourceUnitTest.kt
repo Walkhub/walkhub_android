@@ -7,6 +7,7 @@ import com.semicolon.data.remote.datasource.RemoteUserDataSource
 import com.semicolon.data.remote.datasource.RemoteUserDataSourceImpl
 import com.semicolon.data.remote.request.users.*
 import com.semicolon.data.remote.response.users.*
+import com.semicolon.domain.enums.SexType
 import com.semicolon.domain.param.user.VerifyPhoneNumberSignUpParam
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -37,8 +38,8 @@ class RemoteUserDataSourceUnitTest {
             "김재원",
             "010-0000-0000",
             175.0,
-            60.0,
-            "male",
+            60,
+            SexType.MALE,
             1,
             "대덕소프트웨어마이스터고"
         )
