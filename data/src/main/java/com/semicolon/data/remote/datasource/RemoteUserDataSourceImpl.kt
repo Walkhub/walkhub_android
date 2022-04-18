@@ -74,8 +74,8 @@ class RemoteUserDataSourceImpl @Inject constructor(
         val response = userApi.checkAccountOverlap(accountId = accountId)
         if(!response.isSuccessful) {
             throw when(response.code()){
-                401 -> BadRequestException()
                 404 -> NotFoundException()
+                409 -> ConflictException()
                 else -> UnknownException()
             }
         }
