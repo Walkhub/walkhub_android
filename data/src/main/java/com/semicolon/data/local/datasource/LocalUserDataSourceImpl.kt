@@ -105,10 +105,18 @@ class LocalUserDataSourceImpl @Inject constructor(
     override suspend fun fetchId(): String =
         authDataStorage.fetchId()
 
+    override suspend fun clearId() {
+        authDataStorage.clearId()
+    }
+
     override suspend fun setPw(pw: String) {
         authDataStorage.setPw(pw)
     }
 
     override suspend fun fetchPw(): String =
         authDataStorage.fetchPw()
+
+    override suspend fun clearPw() {
+        authDataStorage.clearPw()
+    }
 }
