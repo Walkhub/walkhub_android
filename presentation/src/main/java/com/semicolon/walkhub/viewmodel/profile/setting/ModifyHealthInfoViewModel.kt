@@ -50,7 +50,7 @@ class ModifyHealthInfoViewModel @Inject constructor(
                     is NoInternetException -> event(Event.ErrorMessage("인터넷에 연결되어있지 않습니다."))
                     is BadRequestException -> event(Event.ErrorMessage("요청이 잘못되었습니다. 입력 값을 확인해주세요."))
                     is UnauthorizedException -> event(Event.ErrorMessage("세션이 만료되었습니다. 다시 시도해주세요."))
-                    else -> event(Event.ErrorMessage("에러가 발생했습니다."))
+                    else -> event(Event.ErrorMessage(""))
                 }
             }
         }
