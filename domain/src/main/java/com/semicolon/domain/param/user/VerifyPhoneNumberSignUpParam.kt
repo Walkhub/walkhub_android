@@ -1,6 +1,6 @@
 package com.semicolon.domain.param.user
 
 data class VerifyPhoneNumberSignUpParam(
-    val phoneNumber: String
+    var phone_number: String
 )
 

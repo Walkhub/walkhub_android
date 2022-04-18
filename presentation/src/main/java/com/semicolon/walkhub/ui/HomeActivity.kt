@@ -7,7 +7,8 @@ import androidx.databinding.DataBindingUtil
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityHomeBinding
 import com.semicolon.walkhub.ui.login.LoginActivity
-import com.semicolon.walkhub.ui.register.Register
+import com.semicolon.walkhub.ui.register.SearchSchoolActivity
+import com.semicolon.walkhub.ui.register.ui.Register
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding

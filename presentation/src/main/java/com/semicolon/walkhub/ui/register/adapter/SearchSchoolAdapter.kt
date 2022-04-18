@@ -27,7 +27,13 @@ class SearchSchoolAdapter (
         fun bind(item: SecondSearchSchoolData.SchoolInfo) {
 
             binding.ivSchool.loadFromUrl(item.logoImageUrl)
-            binding.tvSchool.text = item.schoolName
+
+            if (item.schoolName.length > 10) {
+                val schoolName = item.schoolName.substring(0, 11) + "..."
+                binding.tvSchool.text = schoolName
+            } else {
+                binding.tvSchool.text = item.schoolName
+            }
 
             binding.executePendingBindings()
         }

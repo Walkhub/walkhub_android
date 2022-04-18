@@ -3,14 +3,13 @@ package com.semicolon.data.repository
 import com.semicolon.data.local.datasource.LocalSchoolDataSource
 import com.semicolon.data.remote.datasource.RemoteImagesDataSource
 import com.semicolon.data.remote.datasource.RemoteSchoolDataSource
+import com.semicolon.data.remote.response.school.toEntity
 import com.semicolon.data.util.OfflineCacheUtil
 import com.semicolon.data.util.toMultipart
 import com.semicolon.domain.entity.school.SchoolDetailEntity
 import com.semicolon.domain.entity.school.SearchSchoolEntity
-import com.semicolon.domain.entity.users.UserMyPageEntity
 import com.semicolon.domain.repository.SchoolRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import java.io.File
 import javax.inject.Inject
 
@@ -19,10 +18,6 @@ class SchoolRepositoryImpl @Inject constructor(
     private val localSchoolDataSource: LocalSchoolDataSource,
     private val remoteSchoolDataSource: RemoteSchoolDataSource
 ) : SchoolRepository {
-    override suspend fun searchSchool(name: String): Flow<List<SearchSchoolEntity>> =
-        flow {
-            emit(remoteSchoolDataSource.searchSchool(name))
-        }
 
     override suspend fun setSchoolLogo(profileImage: File) {
         val imageUrl = remoteImagesDataSource.postImages(
@@ -39,6 +34,8 @@ class SchoolRepositoryImpl @Inject constructor(
             .doOnNeedRefresh { localSchoolDataSource.insertSchoolDetail(it) }
             .createFlow()
 
-
-
+    override suspend fun searchSchool(name: String): Flow<SearchSchoolEntity> =
+        OfflineCacheUtil<SearchSchoolEntity>()
+            .remoteData { remoteSchoolDataSource.searchSchool(name).toEntity() }
+            .createFlow()
 }

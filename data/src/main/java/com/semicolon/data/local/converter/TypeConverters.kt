@@ -7,6 +7,7 @@ import com.semicolon.data.local.entity.badge.FetchNewBadgesRoomEntity
 import com.semicolon.data.local.entity.badge.FetchUserBadgesRoomEntity
 import com.semicolon.data.local.entity.notice.NoticeListRoomEntity
 import com.semicolon.data.local.entity.rank.*
+import com.semicolon.data.local.entity.school.SchoolDetailRoomEntity
 import com.semicolon.data.local.entity.user.FetchCaloriesLevelRoomEntity
 import com.semicolon.domain.entity.challenge.ChallengeParticipantEntity
 import com.squareup.moshi.JsonAdapter

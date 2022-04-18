@@ -78,7 +78,7 @@
             android:name=".ui.register.agree.ServiceInstructionActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.register.Register"
+            android:name=".ui.register.ui.Register"
             android:exported="false" />
         <activity
             android:name=".ui.profile.setting.ui.SettingActivity"
@@ -87,6 +87,18 @@
         <activity
             android:name=".ui.profile.setting.ui.NoticeSettingActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.profile.setting.ui.ModifyProfileActivity"
+            android:exported="false"/>
+
+        <activity
+            android:name=".ui.profile.setting.ui.AccountInfoActivity"
+            android:exported="false"/>
+
+        <activity
+            android:name=".ui.profile.setting.ui.ModifyHealthInfoActivity"
+            android:exported="false"/>
+
         <activity
             android:name=".ui.HomeActivity"
             android:exported="false" />

@@ -3,13 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="fragment"
-            type="com.semicolon.walkhub.ui.profile.ProfileFragment" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -102,6 +95,7 @@
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_marginTop="110dp"
+                    android:src="@drawable/ic_conquer"
                     app:layout_constraintEnd_toStartOf="@+id/imageView3"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -124,6 +118,7 @@
                     android:id="@+id/imageView3"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
+                    android:src="@drawable/ic_clock"
                     android:layout_marginTop="110dp"
                     app:layout_constraintEnd_toStartOf="@+id/imageView4"
                     app:layout_constraintStart_toEndOf="@+id/imageView"
@@ -150,6 +145,7 @@
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_marginTop="110dp"
+                    android:src="@drawable/ic_distance"
                     app:layout_constraintEnd_toStartOf="@+id/imageView5"
                     app:layout_constraintStart_toEndOf="@+id/imageView3"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -175,6 +171,7 @@
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_marginTop="110dp"
+                    android:src="@drawable/ic_calories"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView4"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -236,7 +233,7 @@
                     android:layout_marginTop="11dp"
                     android:fontFamily="@font/noto_sans_kr_medium"
                     android:gravity="center"
-                    android:text="대전가온중학교"
+                    android:text="학교에 가입해주세요"
                     android:textColor="@color/gray_900"
                     android:textSize="16sp"
                     app:layout_constraintStart_toEndOf="@+id/school_logo"

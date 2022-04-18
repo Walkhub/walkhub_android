@@ -1,20 +1,21 @@
 package com.semicolon.walkhub.ui.register
 
 import android.annotation.SuppressLint
+import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.semicolon.domain.enums.DateType
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivitySearchSchoolBinding
 import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.base.BaseActivity
 import com.semicolon.walkhub.ui.register.adapter.SearchSchoolAdapter
 import com.semicolon.walkhub.ui.register.model.SecondSearchSchoolData
-import com.semicolon.walkhub.util.onTextChanged
 import com.semicolon.walkhub.viewmodel.SearchSchoolViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SearchSchoolActivity : BaseActivity<ActivitySearchSchoolBinding>(
     R.layout.activity_search_school
 ) {
@@ -33,9 +34,16 @@ class SearchSchoolActivity : BaseActivity<ActivitySearchSchoolBinding>(
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        repeatOnStarted {
+            vm.eventFlow.collect { event -> handleEvent(event) }
+        }
+    }
+
     override fun initView() {
         setAdapter()
-        setTextChanged()
 
         binding.btBack.setOnClickListener {
             finish()
@@ -47,18 +55,13 @@ class SearchSchoolActivity : BaseActivity<ActivitySearchSchoolBinding>(
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                vm.searchSchoolDebounce(p0.toString())
+                vm.searchSchool(p0.toString())
             }
 
             override fun afterTextChanged(p0: Editable?) {
 
             }
-
         })
-
-        repeatOnStarted {
-            vm.eventFlow.collect { event -> handleEvent(event) }
-        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -79,12 +82,6 @@ class SearchSchoolActivity : BaseActivity<ActivitySearchSchoolBinding>(
             layoutManager = LinearLayoutManager(applicationContext)
             setHasFixedSize(true)
             adapter = mAdapter
-        }
-    }
-
-    private fun setTextChanged() {
-        binding.etSchool.onTextChanged { s, _, _, _ ->
-            vm.searchSchoolDebounce(s.toString())
         }
     }
 }

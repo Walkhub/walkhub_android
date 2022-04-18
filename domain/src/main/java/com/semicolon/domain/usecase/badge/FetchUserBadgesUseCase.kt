@@ -10,6 +10,6 @@ class FetchUserBadgesUseCase @Inject constructor(
     private val badgeRepository: BadgeRepository
 ) : UseCase<Int, Flow<FetchUserBadgesEntity>>() {
 
-    override suspend fun execute(userId: Int): Flow<FetchUserBadgesEntity> =
-        badgeRepository.fetchUserBadges(userId)
+    override suspend fun execute(data: Int): Flow<FetchUserBadgesEntity> =
+        badgeRepository.fetchUserBadges(data)
 }

@@ -1,9 +1,8 @@
-package com.semicolon.walkhub.ui.register
+package com.semicolon.walkhub.ui.register.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
-import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
@@ -15,16 +14,34 @@ import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityRegisterBinding
 import com.semicolon.walkhub.ui.base.BaseActivity
 import com.semicolon.walkhub.util.visible
+import android.os.CountDownTimer
+import android.widget.TextView
+import androidx.activity.viewModels
+import com.semicolon.domain.enums.SexType
+import com.semicolon.domain.param.user.CheckPhoneNumberParam
+import com.semicolon.domain.param.user.PostUserSignUpParam
+import com.semicolon.domain.param.user.VerifyPhoneNumberSignUpParam
+import com.semicolon.walkhub.extensions.repeatOnStarted
+import com.semicolon.walkhub.ui.MainActivity
+import com.semicolon.walkhub.ui.register.SearchSchoolActivity
+import com.semicolon.walkhub.viewmodel.login.LoginViewModel
+import com.semicolon.walkhub.viewmodel.register.RegisterViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlin.properties.Delegates
 
+@AndroidEntryPoint
 class Register : BaseActivity<ActivityRegisterBinding>(
     R.layout.activity_register
 ) {
+    private val vm: RegisterViewModel by viewModels()
 
-    var page = 1
+    var a: Int? = null
+    var id: String = ""
+    var phone: String = ""
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private lateinit var postUserSignUpParam: PostUserSignUpParam
 
+    override fun initView() {
         binding.constraint.setOnClickListener {
             hideKeyboard()
         }
@@ -32,6 +49,32 @@ class Register : BaseActivity<ActivityRegisterBinding>(
         movePage(1)
 
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+
+        repeatOnStarted {
+            vm.eventFlow.collect { event -> handleEvent(event) }
+        }
+    }
+
+    private fun handleEvent(event: RegisterViewModel.Event) = when (event) {
+        is RegisterViewModel.Event.SuccessVerityPhone -> {
+            movePage(3)
+        }
+
+        is RegisterViewModel.Event.SuccessCheckPhone -> {
+            movePage(4)
+        }
+
+        is RegisterViewModel.Event.SuccessId -> {
+            movePage(5)
+        }
+
+        is RegisterViewModel.Event.SuccessRegister -> {
+            TODO("여기 부분 구현")
+        }
+
+        is RegisterViewModel.Event.ErrorMessage -> {
+            showShortToast(event.message)
+        }
     }
 
     private fun setTextWatcher(subject: Int) {
@@ -171,7 +214,10 @@ class Register : BaseActivity<ActivityRegisterBinding>(
                 binding.btContinue.setOnClickListener {
                     val name = binding.etName.text.toString()
 
-                    if (name.length in 2..10) movePage(2)
+                    if (name.length in 2..10) {
+                        vm.setName(name)
+                        movePage(2)
+                    }
                     else {
                         showShortToast("이름은 (2~10)자 안으로 입력해주세요.")
                     }
@@ -182,9 +228,17 @@ class Register : BaseActivity<ActivityRegisterBinding>(
                 enterPhone()
 
                 binding.btContinue.setOnClickListener {
-                    val phone = binding.etName.text.toString()
+                    phone = binding.etName.text.toString()
 
-                    if (phone.length in 11..11) movePage(3)
+                    if (phone.length in 11..11) {
+                        vm.setPhone(phone)
+
+                        verifyPhone(
+                            verifyPhoneNumberSignUpParam = VerifyPhoneNumberSignUpParam(
+                                phone
+                            )
+                        )
+                    }
                     else {
                         showShortToast("전화번호를 올바르게 입력해주세요.")
                     }
@@ -196,13 +250,23 @@ class Register : BaseActivity<ActivityRegisterBinding>(
                 binding.btContinue.setOnClickListener {
                     val cer = binding.etName.text.toString()
 
-                    if (cer.length < 5) {
-                        showShortToast("올바른 형식의 인증번호를 입력해주세요.")
+                    when {
+                        cer.length < 5 -> {
+                            showShortToast("올바른 형식의 인증번호를 입력해주세요.")
+                        }
+                        cer.length > 5 -> {
+                            showShortToast("인증번호를 올바르게 입력해주세요.")
+                        }
+                        else -> {
+                            vm.setAuthCode(cer)
+                            checkPhoneNumber(
+                                checkPhoneNumberParam = CheckPhoneNumberParam(
+                                    phone,
+                                    cer
+                                )
+                            )
+                        }
                     }
-                    else if (cer.length > 5){
-                        showShortToast("인증번호를 올바르게 입력해주세요.")
-                    }
-                    else movePage(4)
                 }
             }
             4 -> {
@@ -213,7 +277,10 @@ class Register : BaseActivity<ActivityRegisterBinding>(
 
                     if (id.length < 4) {
                         showShortToast("5자 이상의 아이디를 입력해주세요.")
-                    } else movePage(5)
+                    } else {
+                        vm.setUserId(id)
+                        checkId()
+                    }
                 }
             }
             5 -> {
@@ -224,9 +291,8 @@ class Register : BaseActivity<ActivityRegisterBinding>(
 
                     if (password.length in 1..7) {
                         showShortToast("8자 이상의 비밀번호를 입력해주세요.")
-                    }
-
-                    else if (password.length > 7) {
+                    } else if (password.length > 7) {
+                        vm.setPassword(password)
                         movePage(6)
                     }
                 }
@@ -236,12 +302,37 @@ class Register : BaseActivity<ActivityRegisterBinding>(
                 sendSchool()
                 hideKeyboard()
 
+                val c = 0
                 binding.etName.setOnClickListener {
                     val intent = Intent(this, SearchSchoolActivity::class.java)
                     startActivity(intent)
                 }
+
+                binding.btContinue.setOnClickListener {
+                    if(binding.etName.length() > 0){
+                        vm.setSchool(c)
+                    }
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                }
             }
         }
+    }
+
+    private fun verifyPhone(verifyPhoneNumberSignUpParam: VerifyPhoneNumberSignUpParam) {
+        id = binding.etName.text.toString()
+        verifyPhoneNumberSignUpParam.phone_number = binding.etName.text.toString()
+        vm.verifyPhone(verifyPhoneNumberSignUpParam)
+    }
+
+    private fun checkPhoneNumber(checkPhoneNumberParam: CheckPhoneNumberParam){
+        checkPhoneNumberParam.phoneNumber = phone
+        checkPhoneNumberParam.authCode = binding.etName.text.toString()
+        vm.checkPhoneNumber(checkPhoneNumberParam)
+    }
+
+    private fun checkId() {
+        vm.checkId(binding.etName.text.toString())
     }
 
     private fun viewGone() {
@@ -257,7 +348,6 @@ class Register : BaseActivity<ActivityRegisterBinding>(
 
     private fun enterName() {
         setTextWatcher(1)
-
     }
 
     private fun enterPhone() {
@@ -276,10 +366,37 @@ class Register : BaseActivity<ActivityRegisterBinding>(
 
         binding.tvEt.visibility = View.GONE
         binding.tvWarning.visibility = View.GONE
+        binding.etName.hint = "인증번호입력"
         binding.btReCer.visible()
         binding.tvMinute.visible()
         binding.tvSecond.visible()
-        binding.etName.hint = "인증번호입력"
+        binding.devide.visible()
+        binding.etName.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+
+        object : CountDownTimer(300000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                val num = (millisUntilFinished / 1000).toInt()
+                binding.tvMinute.text = (num / 60).toString()
+                binding.tvSecond.text = (num % 60).toString()
+
+                when (num) {
+                    0 -> {
+                        a = binding.tvMinute.text.toString().toInt()
+                        a!! - 1
+                        binding.tvMinute.text = a.toString()
+                        binding.tvSecond.text = 60.toString()
+                    }
+                }
+            }
+
+            override fun onFinish() {
+                binding.tvMinute.text = "0"
+                binding.tvSecond.text = "00"
+                binding.devide.setTextColor((Color.parseColor("#F04D51")))
+                binding.tvMinute.setTextColor((Color.parseColor("#F04D51")))
+                binding.tvSecond.setTextColor((Color.parseColor("#F04D51")))
+            }
+        }.start()
     }
 
     private fun sendId() {
@@ -289,10 +406,10 @@ class Register : BaseActivity<ActivityRegisterBinding>(
         binding.tvMain.text = "아이디"
         binding.tvEt.visible()
         binding.tvEt.text = "아이디는 (5~30)자 포함"
+        binding.devide.visibility = View.GONE
         binding.btReCer.visibility = View.GONE
         binding.tvMinute.visibility = View.GONE
         binding.tvSecond.visibility = View.GONE
-        binding.etName.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
         binding.etName.maxEms
     }
 
@@ -315,9 +432,5 @@ class Register : BaseActivity<ActivityRegisterBinding>(
     private fun hideKeyboard() {
         val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.etName.windowToken, 0)
-    }
-
-    override fun initView() {
-
     }
 }
