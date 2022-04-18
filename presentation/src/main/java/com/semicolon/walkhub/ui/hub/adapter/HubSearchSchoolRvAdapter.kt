@@ -46,7 +46,8 @@ class HubSearchSchoolRvAdapter(
                 binding.tvName.text = item.schoolName
             }
 
-            binding.tvWalkCount.text = "총 ${item.walkCount} 걸음 / 총 ${item.walkCount} 명"
+            val tvWalkCountText = "총 ${item.walkCount} 걸음 / 총 ${item.walkCount} 명"
+            binding.tvWalkCount.text = tvWalkCountText
             binding.tvRate.text = item.ranking.toString()
 
             binding.executePendingBindings()
