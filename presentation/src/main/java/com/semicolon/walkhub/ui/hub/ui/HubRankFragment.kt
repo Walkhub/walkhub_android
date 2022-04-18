@@ -17,8 +17,6 @@ import com.semicolon.walkhub.customview.ToggleSwitch
 import com.semicolon.walkhub.databinding.FragmentHubRankBinding
 import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.base.BaseFragment
-import com.semicolon.walkhub.ui.hub.adapter.HubUserRvAdapter
-import com.semicolon.walkhub.ui.hub.model.UserRankRvData
 import com.semicolon.walkhub.util.invisible
 import com.semicolon.walkhub.util.visible
 import com.semicolon.walkhub.viewmodel.hub.HubUserViewModel
@@ -31,14 +29,10 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
 
     private val vm: HubUserViewModel by viewModels()
 
-    private val userRvData = arrayListOf<UserRankRvData>()
-
     companion object {
         var dateType = MoreDateType.WEEK
         var rankScope = RankScope.SCHOOL
     }
-
-    private lateinit var mAdapter: HubUserRvAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -82,8 +76,6 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
         binding.tvJoinClass.setOnClickListener {
             startActivity(Intent(activity, SignUpClassActivity::class.java))
         }
-
-
     }
 
     private fun setScrollListener() {
