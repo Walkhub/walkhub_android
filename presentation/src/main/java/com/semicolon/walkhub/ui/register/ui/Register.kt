@@ -35,8 +35,6 @@ class Register : BaseActivity<ActivityRegisterBinding>(
 ) {
     private val vm: RegisterViewModel by viewModels()
 
-    var textView: TextView? = null
-    var textView2: TextView? = null
 
     var a: Int? = null
     var id: String = ""
@@ -56,9 +54,6 @@ class Register : BaseActivity<ActivityRegisterBinding>(
         }
 
         movePage(1)
-
-        textView = findViewById(R.id.tv_minute)
-        textView2 = findViewById(R.id.tv_second)
 
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
 
@@ -388,25 +383,25 @@ class Register : BaseActivity<ActivityRegisterBinding>(
         object : CountDownTimer(300000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 val num = (millisUntilFinished / 1000).toInt()
-                textView?.text = (num / 60).toString()
-                textView2?.text = (num % 60).toString()
+                binding.tvMinute.text = (num / 60).toString()
+                binding.tvSecond.text = (num % 60).toString()
 
                 when (num) {
                     0 -> {
-                        a = textView?.text.toString().toInt()
+                        a = binding.tvMinute.text.toString().toInt()
                         a!! - 1
-                        textView?.text = a.toString()
-                        textView2?.text = 60.toString()
+                        binding.tvMinute.text = a.toString()
+                        binding.tvSecond.text = 60.toString()
                     }
                 }
             }
 
             override fun onFinish() {
-                textView?.text = "0"
-                textView2?.text = "00"
+                binding.tvMinute.text = "0"
+                binding.tvSecond.text = "00"
                 binding.devide.setTextColor((Color.parseColor("#F04D51")))
-                textView?.setTextColor((Color.parseColor("#F04D51")))
-                textView2?.setTextColor((Color.parseColor("#F04D51")))
+                binding.tvMinute.setTextColor((Color.parseColor("#F04D51")))
+                binding.tvSecond.setTextColor((Color.parseColor("#F04D51")))
             }
         }.start()
     }
