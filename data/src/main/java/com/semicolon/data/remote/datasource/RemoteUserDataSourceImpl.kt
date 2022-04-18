@@ -5,10 +5,7 @@ import com.semicolon.data.remote.request.users.*
 import com.semicolon.data.remote.response.users.*
 import com.semicolon.data.util.HttpHandler
 import com.semicolon.domain.entity.users.*
-import com.semicolon.domain.exception.BadRequestException
-import com.semicolon.domain.exception.ConflictException
-import com.semicolon.domain.exception.NotFoundException
-import com.semicolon.domain.exception.UnknownException
+import com.semicolon.domain.exception.*
 import com.semicolon.domain.param.user.CheckPhoneNumberParam
 import com.semicolon.domain.param.user.VerifyPhoneNumberSignUpParam
 import java.lang.NullPointerException
@@ -24,7 +21,7 @@ class RemoteUserDataSourceImpl @Inject constructor(
         val response = userApi.verifyPhoneNumberSignUp(verifyPhoneNumberSignUpParam)
         if(!response.isSuccessful) {
             throw when(response.code()){
-                401 -> BadRequestException()
+                401 -> UnauthorizedException()
                 404 -> NotFoundException()
                 else -> UnknownException()
             }
@@ -37,7 +34,7 @@ class RemoteUserDataSourceImpl @Inject constructor(
         val response = userApi.checkPhoneNumber(phoneNumber = checkPhoneNumberParam.phoneNumber, authCode = checkPhoneNumberParam.authCode)
         if(!response.isSuccessful) {
             throw when(response.code()){
-                401 -> BadRequestException()
+                401 -> UnauthorizedException()
                 404 -> NotFoundException()
                 else -> UnknownException()
             }
