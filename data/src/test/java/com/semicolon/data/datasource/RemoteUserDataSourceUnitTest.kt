@@ -21,13 +21,13 @@ class RemoteUserDataSourceUnitTest {
 
     @Test
     fun testVerifyUserPhoneNumber() {
-        val request = VerifyPhoneNumberSignUpParam(
-            "01000000000",
-        )
-        runBlocking {
-            val dataSourceResult = remoteUserDataSource.verifyUserPhoneNumber(request)
-            assertEquals(Unit, dataSourceResult)
-        }
+//        val request = VerifyPhoneNumberSignUpParam(
+//            "01000000000",
+//        )
+//        runBlocking {
+//            val dataSourceResult = remoteUserDataSource.verifyUserPhoneNumber(request)
+//            assertEquals(Unit, dataSourceResult)
+//        }
     }
 
     @Test
