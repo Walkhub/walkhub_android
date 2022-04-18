@@ -83,6 +83,13 @@ class AuthDataStorageImpl @Inject constructor(
     override fun fetchId(): String =
         getSharedPreference().getString(ACCOUNT_ID, "empty")!!
 
+    override fun clearId() {
+        getSharedPreference().edit().let {
+            it.remove(ACCOUNT_ID)
+            it.apply()
+        }
+    }
+
     override fun setPw(pw: String) {
         getSharedPreference().edit().let {
             it.putString(ACCOUNT_PASSWORD, pw)
@@ -92,6 +99,13 @@ class AuthDataStorageImpl @Inject constructor(
 
     override fun fetchPw(): String =
         getSharedPreference().getString(ACCOUNT_PASSWORD, "empty")!!
+
+    override fun clearPw() {
+        getSharedPreference().edit().let {
+            it.remove(ACCOUNT_PASSWORD)
+            it.apply()
+        }
+    }
 
     private fun getSharedPreference() =
         PreferenceManager.getDefaultSharedPreferences(context)
