@@ -2,6 +2,7 @@ package com.semicolon.walkhub.viewmodel.register
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.semicolon.data.remote.api.UserApi
 import com.semicolon.domain.enums.SexType
 import com.semicolon.domain.exception.*
 import com.semicolon.domain.param.user.CheckPhoneNumberParam
@@ -65,7 +66,7 @@ class RegisterViewModel @Inject constructor(
                 when (it) {
                     is UnauthorizedException -> event(Event.ErrorMessage("토큰이 만료되었습니다. 재로그인 해주세요."))
                     is NotFoundException -> event(Event.ErrorMessage("잘못된 접근입니다.."))
-                    else -> event(Event.ErrorMessage("인증번호가 올바르지 않습니다."))
+                    else -> event(Event.ErrorMessage("알 수 없는 오류가 발생하였습니다."))
                 }
             }
         }

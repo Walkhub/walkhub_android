@@ -28,8 +28,8 @@ class SearchSchoolAdapter (
 
             binding.ivSchool.loadFromUrl(item.logoImageUrl)
 
-            if (item.schoolName.length > 10) {
-                val schoolName = item.schoolName.substring(0, 11) + "..."
+            if (item.schoolName.length > 16) {
+                val schoolName = item.schoolName.substring(0, 16) + "..."
                 binding.tvSchool.text = schoolName
             } else {
                 binding.tvSchool.text = item.schoolName
