@@ -5,6 +5,13 @@ import com.semicolon.data.remote.request.users.*
 import com.semicolon.data.remote.response.users.*
 import com.semicolon.data.util.HttpHandler
 import com.semicolon.domain.entity.users.*
+import com.semicolon.domain.exception.BadRequestException
+import com.semicolon.domain.exception.ConflictException
+import com.semicolon.domain.exception.NotFoundException
+import com.semicolon.domain.exception.UnknownException
+import com.semicolon.domain.param.user.CheckPhoneNumberParam
+import com.semicolon.domain.param.user.VerifyPhoneNumberSignUpParam
+import java.lang.NullPointerException
 import javax.inject.Inject
 
 class RemoteUserDataSourceImpl @Inject constructor(
@@ -12,10 +19,30 @@ class RemoteUserDataSourceImpl @Inject constructor(
 ) : RemoteUserDataSource {
 
     override suspend fun verifyUserPhoneNumber(
-        verifyPhoneNumberSignUpRequest: VerifyPhoneNumberSignUpRequest
-    ) = HttpHandler<Unit>()
-        .httpRequest { userApi.verifyPhoneNumberSignUp(verifyPhoneNumberSignUpRequest) }
-        .sendRequest()
+        verifyPhoneNumberSignUpParam: VerifyPhoneNumberSignUpParam
+    ) {
+        val response = userApi.verifyPhoneNumberSignUp(verifyPhoneNumberSignUpParam)
+        if(!response.isSuccessful) {
+            throw when(response.code()){
+                401 -> BadRequestException()
+                404 -> NotFoundException()
+                else -> UnknownException()
+            }
+        }
+    }
+
+    override suspend fun checkPhoneNumber(
+        checkPhoneNumberParam: CheckPhoneNumberParam
+    ) {
+        val response = userApi.checkPhoneNumber(phoneNumber = checkPhoneNumberParam.phoneNumber, authCode = checkPhoneNumberParam.authCode)
+        if(!response.isSuccessful) {
+            throw when(response.code()){
+                401 -> BadRequestException()
+                404 -> NotFoundException()
+                else -> UnknownException()
+            }
+        }
+    }
 
     override suspend fun postUserSignUp(
         userSignUpRequest: UserSignUpRequest
@@ -31,8 +58,8 @@ class RemoteUserDataSourceImpl @Inject constructor(
 
     override suspend fun fetchCaloriesLevelList(): FetchCaloriesLevelEntity =
         HttpHandler<FetchCaloriesLevelResponse>()
-        .httpRequest { userApi.fetchCaloriesLevelList() }
-        .sendRequest().toEntity()
+            .httpRequest { userApi.fetchCaloriesLevelList() }
+            .sendRequest().toEntity()
 
     override suspend fun deleteAccount() =
         HttpHandler<Unit>()
@@ -44,11 +71,18 @@ class RemoteUserDataSourceImpl @Inject constructor(
             .httpRequest { userApi.deleteClass() }
             .sendRequest()
 
-    override suspend fun checkAccountOverlap(accountId: String) =
-        HttpHandler<Unit>()
-            .httpRequest { userApi.checkAccountOverlap(accountId) }
-            .sendRequest()
-
+    override suspend fun checkAccountOverlap(
+        accountId: String
+    ){
+        val response = userApi.checkAccountOverlap(accountId = accountId)
+        if(!response.isSuccessful) {
+            throw when(response.code()){
+                401 -> BadRequestException()
+                404 -> NotFoundException()
+                else -> UnknownException()
+            }
+        }
+    }
     override suspend fun checkClassCode(code: String) =
         HttpHandler<Unit>()
             .httpRequest { userApi.checkClassCode(code) }

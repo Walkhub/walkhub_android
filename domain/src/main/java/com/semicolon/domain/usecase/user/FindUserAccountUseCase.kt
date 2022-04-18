@@ -10,6 +10,6 @@ class FindUserAccountUseCase @Inject constructor(
     private val userRepository: UserRepository
 ) : UseCase<String, Flow<FindUserAccountEntity>>() {
 
-    override suspend fun execute(phoneNumber: String): Flow<FindUserAccountEntity> =
-        userRepository.findUserAccount(phoneNumber)
+    override suspend fun execute(data: String): Flow<FindUserAccountEntity> =
+        userRepository.findUserAccount(data)
 }

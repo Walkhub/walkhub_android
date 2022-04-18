@@ -78,7 +78,7 @@
             android:name=".ui.register.agree.ServiceInstructionActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.register.Register"
+            android:name=".ui.register.ui.Register"
             android:exported="false" />
         <activity
             android:name=".ui.profile.setting.ui.SettingActivity"

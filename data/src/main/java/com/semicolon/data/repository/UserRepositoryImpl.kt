@@ -24,7 +24,11 @@ class UserRepositoryImpl @Inject constructor(
 
     override suspend fun verifyUserPhoneNumber(
         verifyPhoneNumberSignUpParam: VerifyPhoneNumberSignUpParam
-    ) = remoteUserDateSource.verifyUserPhoneNumber(verifyPhoneNumberSignUpParam.toRequest())
+    ) = remoteUserDateSource.verifyUserPhoneNumber(verifyPhoneNumberSignUpParam)
+
+    override suspend fun checkPhoneNumber(
+        checkPhoneNumberParam: CheckPhoneNumberParam
+    ) = remoteUserDateSource.checkPhoneNumber(checkPhoneNumberParam)
 
     override suspend fun postUserSignUp(
         postUserSignUpParam: PostUserSignUpParam
@@ -111,7 +115,7 @@ class UserRepositoryImpl @Inject constructor(
     }
 
     override suspend fun checkAccountOverlap(accountId: String) {
-        remoteUserDateSource.checkClassCode(accountId)
+        remoteUserDateSource.checkAccountOverlap(accountId)
     }
 
     override suspend fun checkClassCode(code: String) {
@@ -200,7 +204,7 @@ class UserRepositoryImpl @Inject constructor(
 
     fun VerifyPhoneNumberSignUpParam.toRequest() =
         VerifyPhoneNumberSignUpRequest(
-            phoneNumber = phoneNumber
+            phoneNumber = phone_number
         )
 
     fun PostUserSignUpParam.toRequest() =

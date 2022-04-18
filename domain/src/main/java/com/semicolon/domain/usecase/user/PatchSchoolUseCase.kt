@@ -8,6 +8,6 @@ class PatchSchoolUseCase @Inject constructor(
     private val userRepository: UserRepository
 ) : UseCase<Int, Unit>() {
 
-    override suspend fun execute(schoolId: Int) =
-        userRepository.patchSchool(schoolId)
+    override suspend fun execute(data: Int) =
+        userRepository.patchSchool(data)
 }
