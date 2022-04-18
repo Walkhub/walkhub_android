@@ -24,6 +24,7 @@ import com.semicolon.walkhub.ui.cheering.CheeringItemViewModel
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.zip
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -49,7 +50,6 @@ class HubUserViewModel @Inject constructor(
     val isJoinedClass: LiveData<Boolean> = _isJoinedClass
 
     fun fetchMySchoolUserRank(scope: RankScope, dateType: MoreDateType) {
-
         viewModelScope.launch {
             kotlin.runCatching {
                 val fetchMySchoolUserRank = fetchOurSchoolUserRankUseCase.execute(
@@ -58,7 +58,9 @@ class HubUserViewModel @Inject constructor(
                         dateType
                     )
                 )
-                val fetchExercisingUserList = fetchExercisingUserListUseCase.execute(Unit)
+
+                val fetchExercisingUserList =
+                    fetchExercisingUserListUseCase.execute(Unit)
 
                 fetchMySchoolUserRank.zip(fetchExercisingUserList) { rankingList, exercisingList ->
                     HubMySchoolList(
@@ -66,15 +68,15 @@ class HubUserViewModel @Inject constructor(
                         exercisingUserIdList = exercisingList.map { it.userId })
                 }.collect {
                     _recyclerViewItem.value = ArrayList<RecyclerViewItem>().apply {
-                        it.userRank.rankingList.forEach { data ->
-                            add(
+                        addAll(
+                            it.userRank.rankingList.map { data ->
                                 if (it.exercisingUserIdList.contains(data.userId)) {
                                     data.toCheeringRecyclerviewItem()
                                 } else {
                                     data.toRecyclerviewItem()
                                 }
-                            )
-                        }
+                            }
+                        )
                     }
 
                     val myRank: Int = it.userRank.myRanking?.ranking ?: 1
@@ -147,7 +149,7 @@ class HubUserViewModel @Inject constructor(
     private fun List<UserRankEntity.UserRank>.toUserRecyclerviewItem(): List<RecyclerViewItem> =
         map {
             RecyclerViewItem(
-                itemLayoutId = R.layout.hub_user_search_view,
+                itemLayoutId = R.layout.item_hub_user_rank,
                 variableId = BR.vm,
                 data = it.toRecyclerview()
             )
@@ -163,7 +165,7 @@ class HubUserViewModel @Inject constructor(
 
     private fun OurSchoolUserRankEntity.Ranking.toRecyclerviewItem(): RecyclerViewItem =
         RecyclerViewItem(
-            itemLayoutId = R.layout.hub_user_search_view,
+            itemLayoutId = R.layout.item_hub_user_rank,
             variableId = BR.vm,
             data = this.toItemViewModel()
         )

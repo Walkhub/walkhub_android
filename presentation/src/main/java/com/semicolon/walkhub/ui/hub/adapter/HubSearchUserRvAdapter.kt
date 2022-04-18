@@ -3,7 +3,7 @@ package com.semicolon.walkhub.ui.hub.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.semicolon.walkhub.databinding.HubUserSearchViewBinding
+import com.semicolon.walkhub.databinding.ItemHubUserRankBinding
 import com.semicolon.walkhub.ui.hub.model.SearchUserData
 import com.semicolon.walkhub.util.loadFromUrl
 import kotlin.collections.ArrayList
@@ -22,7 +22,7 @@ class HubSearchUserRvAdapter(
         return ViewHolder.from(parent)
     }
 
-    class ViewHolder private constructor(val binding: HubUserSearchViewBinding) :
+    class ViewHolder private constructor(val binding: ItemHubUserRankBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: SearchUserData.UserInfo) {
@@ -42,7 +42,7 @@ class HubSearchUserRvAdapter(
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = HubUserSearchViewBinding.inflate(layoutInflater, parent, false)
+                val binding = ItemHubUserRankBinding.inflate(layoutInflater, parent, false)
 
                 return ViewHolder(binding)
             }
