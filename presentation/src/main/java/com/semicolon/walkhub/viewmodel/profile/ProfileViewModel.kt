@@ -16,7 +16,9 @@ import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.net.UnknownServiceException
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
@@ -27,7 +29,7 @@ class ProfileViewModel @Inject constructor(
 
     private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()
-
+    var user by Delegates.notNull<Int>()
 
     fun fetchMyPage() {
         viewModelScope.launch {
@@ -35,7 +37,9 @@ class ProfileViewModel @Inject constructor(
                 fetchMypageUseCase.execute(Unit)
                     .collect {
                         event(Event.FetchMyPage(it.toData()))
+                        user = it.userId
                     }
+            }.onSuccess {
             }.onFailure {
                 when (it) {
                     is UnauthorizedException -> event(Event.ErrorMessage("토큰이 만료되었거나 식별할 수 없습니다."))
@@ -77,6 +81,7 @@ class ProfileViewModel @Inject constructor(
             name = name,
             profileImageUrl = profileImageUrl,
             schoolName = schoolName,
+            schoolId = schoolId,
             schoolImageUrl = schoolImageUrl,
             grade = grade,
             classNum = classNum,
@@ -107,8 +112,8 @@ class ProfileViewModel @Inject constructor(
     }
 
     sealed class Event {
-        data class FetchHome(val homeData: HomeData): Event()
-        data class FetchMyPage(val myPageData: MyPageData): Event()
+        data class FetchHome(val homeData: HomeData) : Event()
+        data class FetchMyPage(val myPageData: MyPageData) : Event()
         data class ErrorMessage(val message: String) : Event()
     }
 }

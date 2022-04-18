@@ -4,6 +4,7 @@ data class MyPageData(
     val userId: Int,
     val name: String,
     val profileImageUrl: String,
+    val schoolId: Int,
     val schoolName: String,
     val schoolImageUrl: String,
     val grade: Int,
