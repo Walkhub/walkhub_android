@@ -15,6 +15,7 @@ import com.semicolon.domain.entity.users.FetchCaloriesLevelEntity
 import com.semicolon.domain.entity.users.FindUserAccountEntity
 import com.semicolon.domain.entity.users.UserMyPageEntity
 import com.semicolon.domain.entity.users.UserProfileEntity
+import com.semicolon.domain.enums.SexType
 import com.semicolon.domain.param.user.*
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -53,8 +54,8 @@ class UserRepositoryUnitTest {
             "이재원",
             "010-2100-2936",
             176.0,
-            60.0,
-            "male",
+            60,
+            SexType.MALE,
             1,
             "대덕소프트웨어마이스터고"
         )
