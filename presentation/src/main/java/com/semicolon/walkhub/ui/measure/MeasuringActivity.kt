@@ -19,6 +19,7 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
     private val viewModel: MeasureViewModel by viewModels()
 
     override fun initView() {
+        binding.vm = viewModel
         setToDefaultState()
         countDownToStartMeasure()
         observeState()
