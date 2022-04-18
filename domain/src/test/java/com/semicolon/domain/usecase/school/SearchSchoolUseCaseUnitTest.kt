@@ -18,13 +18,17 @@ class SearchSchoolUseCaseUnitTest {
     @Test
     fun testSearchSchoolUseCase() {
         val schoolName = "my school"
-
+        val schoolId = 1
+        val image = "image"
+        
         val searchSchoolResponse =
-            listOf(
-                SearchSchoolEntity(
-                    "code",
-                    schoolName,
-                    "image"
+            SearchSchoolEntity(
+                schoolList = listOf(
+                    SearchSchoolEntity.SchoolInfo(
+                        schoolId,
+                        image,
+                        schoolName
+                    )
                 )
             )
 
