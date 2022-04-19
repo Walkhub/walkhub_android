@@ -62,7 +62,7 @@
             android:cursorVisible="false"
             android:digits="1234567890"
             android:gravity="center_vertical"
-            android:inputType="number"
+            android:inputType="text"
             android:maxLength="7"
             android:textColor="@color/gray_900"
             android:textIsSelectable="false"

@@ -70,6 +70,7 @@ class HubSearchSchoolActivity : BaseActivity<ActivityHubSearchSchoolBinding> (
             schoolRvData.add(list.schoolList.get(i))
         }
 
+        binding.rvSchoolRank.adapter?.notifyDataSetChanged()
     }
 
     private fun setAdapter() {

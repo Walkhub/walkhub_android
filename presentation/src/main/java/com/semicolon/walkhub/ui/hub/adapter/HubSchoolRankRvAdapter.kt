@@ -50,7 +50,8 @@ class HubSchoolRankRvAdapter(
 
             val tvWalkCountText = "총 ${item.walkCount} 걸음 / 총 ${item.userCount} 명"
             binding.tvWalkCount.text = tvWalkCountText
-            binding.tvRate.text = item.ranking.toString()
+            val rankingText = "${item.ranking}등"
+            binding.tvRate.text = rankingText
 
             when (item.ranking) {
                 1 -> {
