@@ -1,25 +1,21 @@
 package com.semicolon.walkhub.viewmodel
 
 import androidx.lifecycle.*
-import com.semicolon.domain.entity.rank.SearchSchoolEntity
-import com.semicolon.domain.exception.ForbiddenException
+import com.semicolon.domain.entity.school.SearchSchoolEntity
 import com.semicolon.domain.exception.NoInternetException
 import com.semicolon.domain.exception.NotFoundException
-import com.semicolon.domain.exception.UnknownException
-import com.semicolon.domain.usecase.rank.SearchSchoolUseCase
-import com.semicolon.walkhub.ui.hub.model.SearchSchoolData
+import com.semicolon.domain.usecase.school.SearchSchoolUseCase
 import com.semicolon.walkhub.ui.register.model.SecondSearchSchoolData
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchSchoolViewModel @Inject constructor(
-    private val schoolRankAndSearchUseCase: SchoolRankAndSearchUseCase
+    private val searchSchoolUseCase: SearchSchoolUseCase
 ) : ViewModel() {
 
     private val _eventFlow = MutableEventFlow<Event>()
@@ -30,7 +26,7 @@ class SearchSchoolViewModel @Inject constructor(
     fun searchSchool(school: String) {
         viewModelScope.launch {
             kotlin.runCatching {
-                schoolRankAndSearchUseCase.execute(fetchSchoolRankAndSearchUseCase).collect() {
+                searchSchoolUseCase.execute(school).collect() {
                     event(Event.SearchSchoolTwo(it.toData()))
                 }
             }.onFailure {
@@ -45,10 +41,10 @@ class SearchSchoolViewModel @Inject constructor(
 
     private fun SearchSchoolEntity.toData() =
         SecondSearchSchoolData(
-            schoolRankList.map { it.toData() }
+            schoolList.map { it.toData() }
         )
 
-    fun SchoolRankAndSearchEntity.SchoolRank.toData() =
+    fun SearchSchoolEntity.SchoolInfo.toData() =
         SecondSearchSchoolData.SchoolInfo(
             schoolId = schoolId,
             schoolName = schoolName,
