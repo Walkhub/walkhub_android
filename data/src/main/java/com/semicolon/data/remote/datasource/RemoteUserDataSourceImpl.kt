@@ -113,6 +113,12 @@ class RemoteUserDataSourceImpl @Inject constructor(
             .httpRequest { userApi.fetchAuthInfo() }
             .sendRequest().toEntity()
 
+    override suspend fun deleteDeviceToken() {
+        HttpHandler<Unit>()
+            .httpRequest { userApi.deleteDeviceToken() }
+            .sendRequest()
+    }
+
     override suspend fun postUserSignIn(
         userSignInRequest: UserSignInRequest
     ) = HttpHandler<UserSignInResponse>()
@@ -166,4 +172,5 @@ class RemoteUserDataSourceImpl @Inject constructor(
         HttpHandler<UserReissueResponse>()
             .httpRequest { userApi.userReissue(refreshToken) }
             .sendRequest()
+
 }
