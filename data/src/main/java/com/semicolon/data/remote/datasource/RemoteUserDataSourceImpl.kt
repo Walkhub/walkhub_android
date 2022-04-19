@@ -19,8 +19,8 @@ class RemoteUserDataSourceImpl @Inject constructor(
         verifyPhoneNumberSignUpParam: VerifyPhoneNumberSignUpParam
     ) {
         val response = userApi.verifyPhoneNumberSignUp(verifyPhoneNumberSignUpParam)
-        if(!response.isSuccessful) {
-            throw when(response.code()){
+        if (!response.isSuccessful) {
+            throw when (response.code()) {
                 401 -> UnauthorizedException()
                 404 -> NotFoundException()
                 else -> UnknownException()
@@ -31,9 +31,12 @@ class RemoteUserDataSourceImpl @Inject constructor(
     override suspend fun checkPhoneNumber(
         checkPhoneNumberParam: CheckPhoneNumberParam
     ) {
-        val response = userApi.checkPhoneNumber(phoneNumber = checkPhoneNumberParam.phoneNumber, authCode = checkPhoneNumberParam.authCode)
-        if(!response.isSuccessful) {
-            throw when(response.code()){
+        val response = userApi.checkPhoneNumber(
+            phoneNumber = checkPhoneNumberParam.phoneNumber,
+            authCode = checkPhoneNumberParam.authCode
+        )
+        if (!response.isSuccessful) {
+            throw when (response.code()) {
                 401 -> UnauthorizedException()
                 404 -> NotFoundException()
                 else -> UnknownException()
@@ -70,16 +73,17 @@ class RemoteUserDataSourceImpl @Inject constructor(
 
     override suspend fun checkAccountOverlap(
         accountId: String
-    ){
+    ) {
         val response = userApi.checkAccountOverlap(accountId = accountId)
-        if(!response.isSuccessful) {
-            throw when(response.code()){
+        if (!response.isSuccessful) {
+            throw when (response.code()) {
                 404 -> NotFoundException()
                 409 -> ConflictException()
                 else -> UnknownException()
             }
         }
     }
+
     override suspend fun checkClassCode(code: String) =
         HttpHandler<Unit>()
             .httpRequest { userApi.checkClassCode(code) }
