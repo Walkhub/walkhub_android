@@ -8,7 +8,7 @@ import com.semicolon.domain.param.user.FetchSchoolRankAndSearchParam
 import kotlinx.coroutines.flow.Flow
 
 interface RankRepository {
-    suspend fun fetchMySchoolRank(schoolDateType: String): Flow<FetchMySchoolRankEntity>
+    suspend fun fetchMySchoolRank(): Flow<FetchMySchoolRankEntity>
 
     suspend fun fetchSchoolRankAndSearch(fetchSchoolRankAndSearchParam: FetchSchoolRankAndSearchParam): Flow<SchoolRankAndSearchEntity>
 

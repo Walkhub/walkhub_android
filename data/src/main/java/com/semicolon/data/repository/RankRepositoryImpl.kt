@@ -20,9 +20,9 @@ class RankRepositoryImpl @Inject constructor(
     private val localRankDataSource: LocalRankDataSource,
     private val remoteRankDataSource: RemoteRankDataSource
 ) : RankRepository {
-    override suspend fun fetchMySchoolRank(schoolDateType: String): Flow<FetchMySchoolRankEntity> =
+    override suspend fun fetchMySchoolRank(): Flow<FetchMySchoolRankEntity> =
         OfflineCacheUtil<FetchMySchoolRankEntity>()
-            .remoteData { remoteRankDataSource.fetchMySchoolRank(schoolDateType).toEntity() }
+            .remoteData { remoteRankDataSource.fetchMySchoolRank().toEntity() }
             .localData { localRankDataSource.fetchMySchoolRank() }
             .doOnNeedRefresh { localRankDataSource.insertFetchMySchoolRank(it) }
             .createFlow()
