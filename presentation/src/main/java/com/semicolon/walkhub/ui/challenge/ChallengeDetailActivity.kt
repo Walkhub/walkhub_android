@@ -44,10 +44,8 @@ class ChallengeDetailActivity : BaseActivity<ActivityChallengeDetailBinding>(R.l
                 binding.tvJoin.visibility = View.GONE
             }
             is ChallengeDetailViewModel.Event.FetchChallengeDetailErrorMessage -> {
-                //TODO 데이터를 가져오는데 실패했습니다
             }
             is ChallengeDetailViewModel.Event.ParticipateChallengeErrorMessage -> {
-                //TODO 참여에 실패했습니다
             }
         }
     }
