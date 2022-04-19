@@ -55,10 +55,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.hub.ui.HubSearchSchoolActivity"
+            android:name=".ui.hub.ui.HubSchoolActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.hub.ui.HubSchoolActivity"
+            android:name=".ui.hub.ui.HubSearchSchoolActivity"
             android:exported="false" />
         <activity
             android:name=".ui.login.LoginActivity"

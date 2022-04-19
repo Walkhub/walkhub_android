@@ -1,6 +1,5 @@
 package com.semicolon.data.local.entity.rank
 
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.semicolon.domain.entity.rank.UserRankEntity
