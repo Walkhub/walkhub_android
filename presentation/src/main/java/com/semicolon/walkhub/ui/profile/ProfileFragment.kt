@@ -71,7 +71,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
 
     private fun setProfileValue(profileData: MyPageData) {
         binding.name.text = profileData.name
-        binding.gradeClass.text = profileData.grade.toString()
+        binding.grade.text = profileData.grade.toString()
+        binding.classes.text = profileData.classNum.toString()
         binding.schoolName.text = profileData.schoolName
         binding.badgeName.text = profileData.titleBadge.badgeName
         binding.ratingName.text = profileData.level.levelName
