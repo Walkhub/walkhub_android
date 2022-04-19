@@ -8,18 +8,18 @@ import javax.inject.Inject
 class LocalRankDataSourceImpl @Inject constructor(
     private val rankDao: RankDao
 ) : LocalRankDataSource {
-    override suspend fun fetchSchoolRank(): SchoolRankEntity =
-        rankDao.fetchSchoolRank().toEntity()
+    override suspend fun fetchMySchoolRank(): FetchMySchoolRankEntity =
+        rankDao.fetchMySchoolRank().toEntity()
 
-    override suspend fun insertSchoolRank(schoolRank: SchoolRankEntity) {
-        rankDao.insertSchoolRank(schoolRank.toDbEntity())
+    override suspend fun insertFetchMySchoolRank(fetchMySchoolRankEntity: FetchMySchoolRankEntity) {
+        rankDao.insertFetchMySchoolRank(fetchMySchoolRankEntity.toDbEntity())
     }
 
-    override suspend fun searchSchool(): SearchSchoolEntity =
-        rankDao.searchSchool().toEntity()
+    override suspend fun fetchSchoolAndSearchRank(): SchoolRankAndSearchEntity =
+        rankDao.fetchSchoolRankAndSearch().toEntity()
 
-    override suspend fun insertSearchSchool(searchSchool: SearchSchoolEntity) {
-        rankDao.insertSearchSchool(searchSchool.toDbEntity())
+    override suspend fun insertSchoolAndSearchRank(schoolRankAndSearch: SchoolRankAndSearchEntity) {
+        rankDao.insertSchoolAndSearch(schoolRankAndSearch.toDbEntity())
     }
 
     override suspend fun fetchUserRank(): UserRankEntity =

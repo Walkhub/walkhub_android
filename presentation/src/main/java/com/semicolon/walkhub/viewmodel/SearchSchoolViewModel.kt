@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchSchoolViewModel @Inject constructor(
-    private val searchSchoolUseCase: SearchSchoolUseCase
+    private val schoolRankAndSearchUseCase: SchoolRankAndSearchUseCase
 ) : ViewModel() {
 
     private val _eventFlow = MutableEventFlow<Event>()
@@ -30,7 +30,7 @@ class SearchSchoolViewModel @Inject constructor(
     fun searchSchool(school: String) {
         viewModelScope.launch {
             kotlin.runCatching {
-                searchSchoolUseCase.execute(school).collect() {
+                schoolRankAndSearchUseCase.execute(fetchSchoolRankAndSearchUseCase).collect() {
                     event(Event.SearchSchoolTwo(it.toData()))
                 }
             }.onFailure {
@@ -45,10 +45,10 @@ class SearchSchoolViewModel @Inject constructor(
 
     private fun SearchSchoolEntity.toData() =
         SecondSearchSchoolData(
-            schoolList.map { it.toData() }
+            schoolRankList.map { it.toData() }
         )
 
-    fun SearchSchoolEntity.SchoolInfo.toData() =
+    fun SchoolRankAndSearchEntity.SchoolRank.toData() =
         SecondSearchSchoolData.SchoolInfo(
             schoolId = schoolId,
             schoolName = schoolName,
