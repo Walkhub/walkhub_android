@@ -113,4 +113,7 @@ interface UserApi {
 
     @GET("users/auth/info")
     suspend fun fetchAuthInfo(): FetchAuthInfoResponse
+
+    @DELETE("users/logout")
+    suspend fun deleteDeviceToken()
 }
