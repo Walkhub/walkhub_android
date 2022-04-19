@@ -19,6 +19,7 @@ import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.base.BaseFragment
 import com.semicolon.walkhub.ui.hub.adapter.HubSchoolRankRvAdapter
 import com.semicolon.walkhub.ui.hub.model.HubSchoolRankData
+import com.semicolon.walkhub.ui.hub.model.MySchoolRankData
 import com.semicolon.walkhub.util.loadCircleFromUrl
 import com.semicolon.walkhub.viewmodel.hub.HubMainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,6 +46,7 @@ class HubFragment @Inject constructor(
     ): View? {
 
         vm.fetchSchoolRank(DateType.WEEK)
+        vm.fetchMySchool(DateType.WEEK) // 확인
 
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
@@ -55,11 +57,13 @@ class HubFragment @Inject constructor(
 
     private fun handleEvent(event: Event) = when (event) {
         is Event.FetchSchoolRank -> {
-            setMySchool(event.hubSchoolRankData.mySchoolRank)
             setSchoolRank(event.hubSchoolRankData.schoolList)
         }
         is Event.ErrorMessage -> {
             showShortToast(event.message)
+        }
+        is Event.FetchMyRank -> {
+            setMySchool(event.mySchoolRankData)
         }
     }
 
@@ -118,19 +122,18 @@ class HubFragment @Inject constructor(
         }
     }
 
-    private fun setMySchool(school: HubSchoolRankData.MySchool) {
+    private fun setMySchool(school: MySchoolRankData) {
         binding.ivMySchool.loadCircleFromUrl(school.logoImageUrl)
         binding.tvMySchoolName.text = school.name
-        binding.tvMySchoolInfo.text = "${school.grade} 학년 ${school.classNum} 반"
+        val tvMySchoolInfo = "${school.grade}학년 ${school.classNum}반"
+        binding.tvMySchoolInfo.text = tvMySchoolInfo
     }
 
     private fun setSchoolRank(school: List<HubSchoolRankData.OtherSchool>) {
         schoolRvData.clear()
-
         for (i: Int in 0..school.size - 1) {
             schoolRvData.add(school[i])
         }
-
         binding.rvHubRank.adapter?.notifyDataSetChanged()
     }
 }
