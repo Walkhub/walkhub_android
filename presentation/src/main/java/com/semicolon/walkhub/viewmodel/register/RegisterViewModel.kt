@@ -1,5 +1,6 @@
 package com.semicolon.walkhub.viewmodel.register
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.semicolon.data.remote.api.UserApi
@@ -18,6 +19,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.lang.NullPointerException
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
@@ -30,15 +32,17 @@ class RegisterViewModel @Inject constructor(
     private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()
 
-    private var userId = ""
-    private var password: String = ""
-    private var name: String = ""
-    private var phone: String = ""
-    private var authCode: String = ""
-    private var height: Double = 0.0
-    private var weight: Int = 0
-    private lateinit var sex: SexType
-    private var schoolId : Int = 0
+    companion object{
+        var userId: String = ""
+        var password: String = ""
+        var name: String = ""
+        var phone: String = ""
+        var authCode: String = ""
+        var height: Double = 0.0
+        var weight: Int = 0
+        var sex: SexType = SexType.X
+        var schoolId: Int = 0
+    }
 
     fun checkId(id: String) {
         viewModelScope.launch {
@@ -92,6 +96,7 @@ class RegisterViewModel @Inject constructor(
     fun register() {
         viewModelScope.launch {
             kotlin.runCatching {
+                Log.d("TAG", "register: " + userId + name)
                 postUserSignUpUseCase.execute(PostUserSignUpParam(
                     accountId = userId,
                     password = password,
@@ -107,32 +112,15 @@ class RegisterViewModel @Inject constructor(
                 event((Event.SuccessRegister(true)))
             }.onFailure {
                 when (it) {
-                    is BadRequestException -> event(Event.ErrorMessage("BadRequest"))
-                    is NotFoundException -> event(Event.ErrorMessage("404"))
+                    is BadRequestException -> event(Event.ErrorMessage("400BadRequest"))
+                    is NotFoundException -> event(Event.ErrorMessage("404NotFound"))
+                    is ForbiddenException -> event(Event.ErrorMessage("권한 없음"))
+                    is UnauthorizedException -> event(Event.ErrorMessage("토큰 만료"))
                     is ConflictException -> event(Event.ErrorMessage("conflict"))
+                    else -> event(Event.ErrorMessage("알 수 없는 오류가 발생하였습니다."))
                 }
             }
         }
-    }
-
-    fun setUserId(id: String) {
-        userId = id
-    }
-
-    fun setPassword(pw: String) {
-        password = pw
-    }
-
-    fun setName(Name: String) {
-        name = Name
-    }
-
-    fun setPhone(Phone: String) {
-        phone = Phone
-    }
-
-    fun setAuthCode(AuthCode: String) {
-        authCode = AuthCode
     }
 
     fun setBody(Height: Double?, Weight: Int?) {
