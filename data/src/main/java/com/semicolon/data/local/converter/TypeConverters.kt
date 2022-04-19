@@ -5,6 +5,7 @@ import androidx.room.TypeConverter
 import com.semicolon.data.local.entity.badge.FetchMyBadgesRoomEntity
 import com.semicolon.data.local.entity.badge.FetchNewBadgesRoomEntity
 import com.semicolon.data.local.entity.badge.FetchUserBadgesRoomEntity
+import com.semicolon.data.local.entity.challenge.ChallengeDetailRoomEntity
 import com.semicolon.data.local.entity.notice.NoticeListRoomEntity
 import com.semicolon.data.local.entity.rank.*
 import com.semicolon.data.local.entity.school.SchoolDetailRoomEntity
@@ -261,19 +262,19 @@ class ChallengeParticipantTypeConverter(
 ) {
 
     @TypeConverter
-    fun fromString(value: String): List<ChallengeParticipantEntity>? {
-        val listType = Types.newParameterizedType(List::class.java, ChallengeParticipantEntity::class.java)
-        val adapter: JsonAdapter<List<ChallengeParticipantEntity>> = moshi.adapter(listType)
+    fun fromString(value: String): List<ChallengeDetailRoomEntity.ParticipantList>? {
+        val listType = Types.newParameterizedType(List::class.java, ChallengeDetailRoomEntity.ParticipantList::class.java)
+        val adapter: JsonAdapter<List<ChallengeDetailRoomEntity.ParticipantList>> = moshi.adapter(listType)
         return adapter.fromJson(value)
     }
 
     @TypeConverter
-    fun fromList(type: List<ChallengeParticipantEntity>): String {
+    fun fromList(type: List<ChallengeDetailRoomEntity.ParticipantList>): String {
         val listType = Types.newParameterizedType(
             List::class.java,
-            SearchSchoolRoomEntity.SchoolInfo::class.java
+            ChallengeDetailRoomEntity.ParticipantList::class.java
         )
-        val adapter: JsonAdapter<List<ChallengeParticipantEntity>> = moshi.adapter(listType)
+        val adapter: JsonAdapter<List<ChallengeDetailRoomEntity.ParticipantList>> = moshi.adapter(listType)
         return adapter.toJson(type)
     }
 
