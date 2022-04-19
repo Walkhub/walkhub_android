@@ -100,6 +100,17 @@
                     android:textSize="17dp" />
 
                 <TextView
+                    android:id="@+id/tvNull"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="14dp"
+                    android:background="@drawable/tv_register_background"
+                    android:gravity="center_vertical"
+                    android:visibility="gone"
+                    android:textColor="#212121"
+                    android:textSize="17sp"/>
+
+                <TextView
                     android:id="@+id/tv_minute"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
