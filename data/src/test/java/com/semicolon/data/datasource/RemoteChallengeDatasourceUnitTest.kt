@@ -89,8 +89,8 @@ class RemoteChallengeDatasourceUnitTest {
             "2022-12-12T12:12",
             "2022-12-17T12:12",
             "http://testImageUrl",
-            "WALK",
-            "ALL",
+            "2022-12-17T12:12",
+            "2022-12-17T12:12",
             100,
             10,
             ChallengeDetailResponse.ChallengeWriterResponse(
