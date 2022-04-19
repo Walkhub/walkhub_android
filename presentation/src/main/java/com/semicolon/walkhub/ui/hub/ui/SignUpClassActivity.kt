@@ -22,8 +22,8 @@ class SignUpClassActivity : BaseActivity<ActivitySignUpClassBinding>(
     private val vm: SignUpClassViewModel by viewModels()
 
     private var page: Int = 1
-    private var classCode: String ?= null
-    private var classNum: Int ?= null
+    private var classCode: String? = null
+    private var classNum: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +49,7 @@ class SignUpClassActivity : BaseActivity<ActivitySignUpClassBinding>(
     }
 
     private fun classCode(state: Boolean) {
-        if(state) {
+        if (state) {
             classCode = binding.etClassCode.text.toString()
             binding.tvError.invisible()
             movePage(++page)

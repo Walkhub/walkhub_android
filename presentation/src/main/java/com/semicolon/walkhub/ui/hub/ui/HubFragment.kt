@@ -46,7 +46,7 @@ class HubFragment @Inject constructor(
     ): View? {
 
         vm.fetchSchoolRank(DateType.WEEK)
-        vm.fetchMySchool(DateType.WEEK) // 확인
+        vm.fetchMySchool(DateType.WEEK)
 
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
