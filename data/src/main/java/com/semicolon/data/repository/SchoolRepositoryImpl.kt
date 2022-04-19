@@ -10,6 +10,7 @@ import com.semicolon.domain.entity.school.SchoolDetailEntity
 import com.semicolon.domain.entity.school.SearchSchoolEntity
 import com.semicolon.domain.repository.SchoolRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import java.io.File
 import javax.inject.Inject
 
@@ -35,7 +36,5 @@ class SchoolRepositoryImpl @Inject constructor(
             .createFlow()
 
     override suspend fun searchSchool(name: String): Flow<SearchSchoolEntity> =
-        OfflineCacheUtil<SearchSchoolEntity>()
-            .remoteData { remoteSchoolDataSource.searchSchool(name).toEntity() }
-            .createFlow()
+        flow { emit(remoteSchoolDataSource.searchSchool(name).toEntity()) }
 }
