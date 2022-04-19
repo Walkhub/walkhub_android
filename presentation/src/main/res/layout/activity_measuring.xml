@@ -84,6 +84,8 @@
                 android:layout_marginTop="10dp"
                 android:textColor="@color/gray_800"
                 android:textSize="20sp"
+                app:exercise_current_value="@{isDistance?vm.distanceAsMeter:vm.walkCount}"
+                app:exercise_is_distance="@{isDistance}"
                 app:layout_constraintStart_toStartOf="@id/measuring_remain_title_tv"
                 app:layout_constraintTop_toBottomOf="@id/measuring_remain_title_tv"
                 tools:text="2.4km" />
@@ -94,6 +96,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:textSize="14sp"
+                app:goal_is_distance="@{isDistance}"
+                app:goal_value="@{vm.goal.goal}"
                 app:layout_constraintBottom_toBottomOf="@id/measuring_remain_tv"
                 app:layout_constraintStart_toEndOf="@id/measuring_remain_tv"
                 tools:text="/6km" />
@@ -132,12 +136,13 @@
                 android:id="@+id/measuring_walk_title_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="걸음수"
+                android:text="@{isDistance?`걸음수`:`거리`}"
                 android:textColor="@color/gray_800"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toTopOf="@id/measuring_first_line"
                 app:layout_constraintEnd_toStartOf="@id/measuring_first_line"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="걸음수"/>
 
             <TextView
                 android:id="@+id/measuring_walk_tv"
@@ -146,6 +151,8 @@
                 android:layout_marginTop="10dp"
                 android:textColor="@color/gray_800"
                 android:textSize="20sp"
+                app:exercise_current_value="@{!isDistance?vm.distanceAsMeter:vm.walkCount}"
+                app:exercise_is_distance="@{!isDistance}"
                 app:layout_constraintEnd_toStartOf="@id/measuring_first_line"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/measuring_walk_title_tv"
