@@ -77,6 +77,7 @@ class ProfileViewModel @Inject constructor(
             name = name,
             profileImageUrl = profileImageUrl,
             schoolName = schoolName,
+            schoolId = schoolId,
             schoolImageUrl = schoolImageUrl,
             grade = grade,
             classNum = classNum,
