@@ -1,11 +1,11 @@
 package com.semicolon.walkhub.viewmodel
 
 import androidx.lifecycle.*
-import com.semicolon.domain.entity.rank.SearchSchoolEntity
+import com.semicolon.domain.entity.rank.SchoolRankAndSearchEntity
 import com.semicolon.domain.exception.NoInternetException
 import com.semicolon.domain.exception.NotFoundException
-import com.semicolon.domain.usecase.rank.SearchSchoolUseCase
-import com.semicolon.walkhub.ui.hub.model.SearchSchoolData
+import com.semicolon.domain.param.user.FetchSchoolRankAndSearchParam
+import com.semicolon.domain.usecase.rank.SchoolRankAndSearchUseCase
 import com.semicolon.walkhub.ui.register.model.SecondSearchSchoolData
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchSchoolViewModel @Inject constructor(
-    private val searchSchoolUseCase: SearchSchoolUseCase
+    private val schoolRankAndSearchUseCase: SchoolRankAndSearchUseCase
 ) : ViewModel() {
 
     private val _eventFlow = MutableEventFlow<Event>()
@@ -25,10 +25,10 @@ class SearchSchoolViewModel @Inject constructor(
 
     private var searchJob: Job? = null
 
-    private fun searchSchool(school: String) {
+    private fun searchSchool(fetchSchoolRankAndSearchUseCase: FetchSchoolRankAndSearchParam) {
         viewModelScope.launch {
             kotlin.runCatching {
-                searchSchoolUseCase.execute(school).collect() {
+                schoolRankAndSearchUseCase.execute(fetchSchoolRankAndSearchUseCase).collect() {
                     event(Event.SearchSchoolTwo(it.toData()))
                 }
             }.onFailure {
@@ -41,20 +41,20 @@ class SearchSchoolViewModel @Inject constructor(
         }
     }
 
-    fun searchSchoolDebounce(school: String) {
+    fun searchSchoolDebounce(fetchSchoolRankAndSearchParam: FetchSchoolRankAndSearchParam) {
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
             delay(500L)
-            searchSchool(school)
+            searchSchool(fetchSchoolRankAndSearchParam)
         }
     }
 
-    private fun SearchSchoolEntity.toData() =
+    private fun SchoolRankAndSearchEntity.toData() =
         SecondSearchSchoolData(
-            schoolList.map { it.toData() }
+            schoolRankList.map { it.toData() }
         )
 
-    fun SearchSchoolEntity.SchoolInfo.toData() =
+    fun SchoolRankAndSearchEntity.SchoolRank.toData() =
         SecondSearchSchoolData.SchoolInfo(
             schoolName = schoolName,
             logoImageUrl = logoImageUrl
