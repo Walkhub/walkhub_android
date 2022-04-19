@@ -14,11 +14,9 @@ class RemoteRankDataSourceImpl @Inject constructor(
     private val rankApi: RankApi
 ) : RemoteRankDataSource {
 
-    override suspend fun fetchMySchoolRank(
-        schoolDateType: String
-    ): FetchMySchoolRankResponse =
+    override suspend fun fetchMySchoolRank(): FetchMySchoolRankResponse =
         HttpHandler<FetchMySchoolRankResponse>()
-            .httpRequest { rankApi.fetchMySchoolRank(schoolDateType) }
+            .httpRequest { rankApi.fetchMySchoolRank() }
             .sendRequest()
 
     override suspend fun fetchSchoolRankAndSearch(
