@@ -112,11 +112,10 @@ class RegisterViewModel @Inject constructor(
                 event((Event.SuccessRegister(true)))
             }.onFailure {
                 when (it) {
-                    is BadRequestException -> event(Event.ErrorMessage("400BadRequest"))
-                    is NotFoundException -> event(Event.ErrorMessage("404NotFound"))
-                    is ForbiddenException -> event(Event.ErrorMessage("권한 없음"))
-                    is UnauthorizedException -> event(Event.ErrorMessage("토큰 만료"))
-                    is ConflictException -> event(Event.ErrorMessage("conflict"))
+                    is BadRequestException -> event(Event.ErrorMessage("잘못된 요청으로 회원가입에 실패하였습니다."))
+                    is NotFoundException -> event(Event.ErrorMessage("잘못된 접근입니다."))
+                    is UnauthorizedException -> event(Event.ErrorMessage("토큰이 만료 되었습니다. 다시 로그인 해주세요."))
+                    is ConflictException -> event(Event.ErrorMessage("이미 사용중인 아이디입니다."))
                     else -> event(Event.ErrorMessage("알 수 없는 오류가 발생하였습니다."))
                 }
             }
