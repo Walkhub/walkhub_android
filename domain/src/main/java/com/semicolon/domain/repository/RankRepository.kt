@@ -1,17 +1,16 @@
 package com.semicolon.domain.repository
 
 import com.semicolon.domain.entity.rank.*
-import com.semicolon.domain.enums.DateType
 import com.semicolon.domain.param.rank.FetchOurSchoolUserRankParam
 import com.semicolon.domain.param.rank.FetchUserRankParam
-import com.semicolon.domain.param.rank.SearchSchoolParam
 import com.semicolon.domain.param.rank.SearchUserParam
+import com.semicolon.domain.param.user.FetchSchoolRankAndSearchParam
 import kotlinx.coroutines.flow.Flow
 
 interface RankRepository {
-    suspend fun fetchSchoolRank(dateType: DateType): Flow<SchoolRankEntity>
+    suspend fun fetchMySchoolRank(schoolDateType: String): Flow<FetchMySchoolRankEntity>
 
-    suspend fun searchSchool(name: String): Flow<SearchSchoolEntity>
+    suspend fun fetchSchoolRankAndSearch(fetchSchoolRankAndSearchParam: FetchSchoolRankAndSearchParam): Flow<SchoolRankAndSearchEntity>
 
     suspend fun fetchUserRank(fetchUserRankParam: FetchUserRankParam): Flow<UserRankEntity>
 
