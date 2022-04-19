@@ -46,13 +46,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.measure.MeasureHomeActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".ui.hub.ui.HubSearchSchoolActivity"
             android:exported="false" />
@@ -89,15 +83,15 @@
             android:exported="false" />
         <activity
             android:name=".ui.profile.setting.ui.ModifyProfileActivity"
-            android:exported="false"/>
+            android:exported="false" />
 
         <activity
             android:name=".ui.profile.setting.ui.AccountInfoActivity"
-            android:exported="false"/>
+            android:exported="false" />
 
         <activity
             android:name=".ui.profile.setting.ui.ModifyHealthInfoActivity"
-            android:exported="false"/>
+            android:exported="false" />
 
         <activity
             android:name=".ui.HomeActivity"
