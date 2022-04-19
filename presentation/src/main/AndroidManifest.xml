@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Walkhub"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:targetApi="m">
         <activity
             android:name=".ui.challenge.ChallengeDetailActivity"
             android:exported="false" />
@@ -69,13 +70,13 @@
             android:name=".ui.register.SearchSchoolActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.register.agree.AgreeActivity"
+            android:name=".ui.register.ui.AgreeActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.register.agree.PrivacyActivity"
+            android:name=".ui.register.ui.PrivacyActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.register.agree.ServiceInstructionActivity"
+            android:name=".ui.register.ui.ServiceInstructionActivity"
             android:exported="false" />
         <activity
             android:name=".ui.register.ui.Register"
