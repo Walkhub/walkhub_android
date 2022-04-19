@@ -175,6 +175,7 @@ class UserRepositoryImpl @Inject constructor(
         localUserDataSource.clearRefreshToken()
         localUserDataSource.clearId()
         localUserDataSource.clearPw()
+        remoteUserDateSource.deleteDeviceToken()
     }
 
     override suspend fun fetchUserProfile(userId: Int): Flow<UserProfileEntity> =
