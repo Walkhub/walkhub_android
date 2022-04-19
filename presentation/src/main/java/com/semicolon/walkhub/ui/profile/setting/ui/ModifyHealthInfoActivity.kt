@@ -10,7 +10,6 @@ import androidx.activity.viewModels
 import androidx.compose.ui.graphics.Color
 import androidx.core.content.ContextCompat
 import com.semicolon.domain.entity.users.FetchUserHealthEntity
-import com.semicolon.domain.enums.SexType
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityModifyHealthInfoBinding
 import com.semicolon.walkhub.extensions.repeatOnStarted
