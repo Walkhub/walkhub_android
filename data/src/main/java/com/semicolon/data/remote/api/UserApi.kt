@@ -94,7 +94,7 @@ interface UserApi {
 
     @HEAD("users/classes")
     suspend fun checkClassCode(
-        @Body code: String
+        @Query("code") code: String
     )
 
     @PATCH("users/{user-id}/independence")

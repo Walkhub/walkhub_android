@@ -41,7 +41,7 @@ class SignUpClassActivity : BaseActivity<ActivitySignUpClassBinding>(
             finish()
         }
         is SignUpClassViewModel.Event.ErrorMessage -> {
-            showShortToast(event.message)
+            binding.tvError.text = event.message
         }
         is SignUpClassViewModel.Event.ClassCodeState -> {
             classCode(event.code)
