@@ -39,7 +39,7 @@ class ProfileViewModel @Inject constructor(
                     }
             }.onFailure {
                 when (it) {
-                    is NullPointerException -> event(Event.ErrorMessage("반에 가입해주세요"))
+                    is NullPointerException -> event(Event.ErrorMessage("반에 소속되어있지 않습니다. 반에 가입해주세요"))
                     is UnauthorizedException -> event(Event.ErrorMessage("토큰이 만료되었거나 식별할 수 없습니다."))
                     is NotFoundException -> event(Event.ErrorMessage("요청하는 대상을 찾을 수 없습니다."))
                     is NoInternetException -> event(Event.ErrorMessage("인터넷에 연결되지 않았습니다."))
