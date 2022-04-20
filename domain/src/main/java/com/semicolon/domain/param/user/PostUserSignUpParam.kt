@@ -11,7 +11,6 @@ data class PostUserSignUpParam(
     var weight: Int,
     val sex: SexType,
     var schoolId: Int,
-    var authCode: String,
-    var deviceToken: String
+    var authCode: String
 )
 
