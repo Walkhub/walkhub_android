@@ -408,6 +408,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
         binding.tvWarning.visibility = View.GONE
         binding.tvMinute.visibility = View.GONE
         binding.tvSecond.visibility = View.GONE
+        binding.btReCer.visibility = View.GONE
         binding.tvMain.text = "전화번호 인증"
         binding.tvEt.text = "전화번호를 입력해주세요"
         binding.etName.hint = "전화번호 ex) 01012345678"
