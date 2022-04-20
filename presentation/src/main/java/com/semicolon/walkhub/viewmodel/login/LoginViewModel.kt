@@ -2,7 +2,10 @@ package com.semicolon.walkhub.viewmodel.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.semicolon.domain.exception.*
+import com.semicolon.domain.exception.BadRequestException
+import com.semicolon.domain.exception.NoInternetException
+import com.semicolon.domain.exception.NotFoundException
+import com.semicolon.domain.exception.UnauthorizedException
 import com.semicolon.domain.param.user.PostUserSignInParam
 import com.semicolon.domain.usecase.user.PostUserSignInUseCase
 import com.semicolon.walkhub.util.MutableEventFlow
@@ -35,8 +38,7 @@ class LoginViewModel @Inject constructor(
                     is BadRequestException -> event(Event.ErrorMessage("잘못된 형식의 요청입니다."))
                     is UnauthorizedException -> event(Event.ErrorMessage("잘못된 형식의 토큰입니다."))
                     is NotFoundException -> event(Event.ErrorMessage("아이디나 비밀번호가 틀립니다."))
-                    is ConflictException -> event(Event.ErrorMessage("로그인 정보가 틀립니다."))
-                    else -> event(Event.ErrorMessage("알수 없는 오류가 발생하였습니다."))
+                    else -> event(Event.ErrorMessage("알 수 없는 오류가 발생하였습니다."))
                 }
             }
         }
