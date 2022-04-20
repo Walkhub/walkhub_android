@@ -48,10 +48,10 @@ class HubMainViewModel @Inject constructor(
         }
     }
 
-    fun fetchMySchool(dateType: DateType) {
+    fun fetchMySchool() {
         viewModelScope.launch {
             kotlin.runCatching {
-                fetchMySchoolRankUseCase.execute(dateType.toString()).collect {
+                fetchMySchoolRankUseCase.execute(Unit).collect {
                     event(Event.FetchMyRank(it.toData()))
                 }
             }.onFailure {
