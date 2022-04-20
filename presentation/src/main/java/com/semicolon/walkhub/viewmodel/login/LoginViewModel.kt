@@ -31,14 +31,14 @@ class LoginViewModel @Inject constructor(
                     postUserSignInUseCase.execute(PostUserSignInParam(accountId, password))
                 }
             }.onSuccess {
-                event(Event.Success(true))
+                event(Event.LoginSuccess)
             }.onFailure {
                 when (it) {
-                    is NoInternetException -> event(Event.ErrorMessage("인터넷 연결을 하시고 로그인을 시도해주세요."))
-                    is BadRequestException -> event(Event.ErrorMessage("잘못된 형식의 요청입니다."))
-                    is UnauthorizedException -> event(Event.ErrorMessage("잘못된 형식의 토큰입니다."))
-                    is NotFoundException -> event(Event.ErrorMessage("아이디나 비밀번호가 틀립니다."))
-                    else -> event(Event.ErrorMessage("알 수 없는 오류가 발생하였습니다."))
+                    is NoInternetException -> event(Event.NoInternet)
+                    is BadRequestException -> event(Event.BadRequest)
+                    is UnauthorizedException -> event(Event.Unauthorized)
+                    is NotFoundException -> event(Event.WrongAccount)
+                    else -> event(Event.UnknownError)
                 }
             }
         }
@@ -51,7 +51,11 @@ class LoginViewModel @Inject constructor(
     }
 
     sealed class Event {
-        data class ErrorMessage(val message: String) : Event()
-        data class Success(val state: Boolean): Event()
+        object LoginSuccess : Event()
+        object Unauthorized : Event()
+        object BadRequest : Event()
+        object WrongAccount : Event()
+        object NoInternet : Event()
+        object UnknownError : Event()
     }
 }
