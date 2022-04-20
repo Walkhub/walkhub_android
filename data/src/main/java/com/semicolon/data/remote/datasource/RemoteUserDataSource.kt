@@ -55,7 +55,7 @@ interface RemoteUserDataSource {
 
     suspend fun postUserSignUp(
         userSignUpRequest: UserSignUpRequest
-    )
+    ): UserSignUpResponse
 
     suspend fun patchDailyWalkGoal(
         patchDailyWalkGoalRequest: PatchDailyWalkGoalRequest
