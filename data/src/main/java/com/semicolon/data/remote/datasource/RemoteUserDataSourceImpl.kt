@@ -115,18 +115,9 @@ class RemoteUserDataSourceImpl @Inject constructor(
 
     override suspend fun postUserSignIn(
         userSignInRequest: UserSignInRequest
-    ): UserSignInResponse {
-        val response = userApi.userSignIn(userSignInRequest = userSignInRequest)
-        if (!response.isSuccessful){
-            throw when (response.code()){
-                400 -> BadRequestException()
-                401 -> UnauthorizedException()
-                404 -> NotFoundException()
-                else -> UnknownException()
-            }
-        }
-        return response.body()!!
-    }
+    ) = HttpHandler<UserSignInResponse>()
+        .httpRequest { userApi.userSignIn(userSignInRequest) }
+        .sendRequest()
 
     override suspend fun patchUserChangePassword(
         userChangePasswordRequest: UserChangePasswordRequest

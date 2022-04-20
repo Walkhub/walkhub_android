@@ -55,7 +55,7 @@ interface UserApi {
     @POST("users/token")
     suspend fun userSignIn(
         @Body userSignInRequest: UserSignInRequest
-    ): Response<UserSignInResponse>
+    ): UserSignInResponse
 
     @POST("users/verification-codes")
     suspend fun verifyPhoneNumberSignUp(
