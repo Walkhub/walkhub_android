@@ -26,7 +26,9 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
         binding.vm = viewModel
         setToDefaultState()
         fetchIntentValue()
-        countDownToStartMeasure()
+        if (!firstValue.didNotSetGoalFromHome()) {
+            countDownToStartMeasure()
+        }
         observeState()
         observeEvent()
         fetchGoalFromHome()
@@ -47,7 +49,7 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
                 val goal = if (secondValue != 0) firstValue + 1 else firstValue
                 setGoalIsForDistance(goal)
             } else {
-                val goal = firstValue * 1000 + secondValue
+                val goal = firstValue * 1000 + secondValue * 100
                 setGoalIsForWalkCount(goal)
             }
         }
@@ -160,8 +162,7 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
                 showShortToast(requestPhotoComment)
             }
             measuringBackBtn.setOnClickListener {
-                viewModel.fetchFinishPhoto()
-                showShortToast(requestPhotoComment)
+                finish()
             }
         }
         viewModel.run {
