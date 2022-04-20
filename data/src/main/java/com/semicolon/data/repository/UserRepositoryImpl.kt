@@ -11,7 +11,6 @@ import com.semicolon.data.util.toMultipart
 import com.semicolon.domain.entity.users.*
 import com.semicolon.domain.param.user.*
 import com.semicolon.domain.repository.UserRepository
-import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -44,9 +43,7 @@ class UserRepositoryImpl @Inject constructor(
             FirebaseMessaging.getInstance().token.addOnSuccessListener { token -> it.resume(token) }
         }
 
-        val response = remoteUserDateSource.postUserSignUp(postUserSignUpParam.toRequest())
-
-        postUserSignUpParam.deviceToken = token
+        val response = remoteUserDateSource.postUserSignUp(postUserSignUpParam.toRequest(token))
 
         saveAccount(postUserSignInParam, token)
         saveTokenSignUp(
@@ -238,7 +235,7 @@ class UserRepositoryImpl @Inject constructor(
             phoneNumber = phone_number
         )
 
-    fun PostUserSignUpParam.toRequest() =
+    fun PostUserSignUpParam.toRequest(token: String) =
         UserSignUpRequest(
             accountId = accountId,
             password = password,
@@ -249,7 +246,7 @@ class UserRepositoryImpl @Inject constructor(
             sex = sex,
             schoolId = schoolId,
             authCode = authCode,
-            deviceToken = deviceToken
+            deviceToken = token
         )
 
     fun PostUserSignInParam.toRequest(deviceToken: String) =
