@@ -49,6 +49,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
 
     var temp = false
 
+    var b: Boolean = false
     override fun initView() {
 
         temp = intent.getBooleanExtra("movePage", temp)
@@ -65,13 +66,18 @@ class Register : BaseActivity<ActivityRegisterBinding>(
             hideKeyboard()
         }
 
-        movePage(1)
+        binding.btReCer.setOnClickListener {
+            val verifyPhoneNumberSignUpParam = VerifyPhoneNumberSignUpParam(phone_number = phone)
+            vm.verifyPhone(verifyPhoneNumberSignUpParam)
+        }
 
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
 
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
         }
+
+        movePage(1)
     }
 
     private fun handleEvent(event: RegisterViewModel.Event) = when (event) {
@@ -427,30 +433,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
         binding.devide.visible()
         binding.etName.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
 
-        object : CountDownTimer(300000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                val num = (millisUntilFinished / 1000).toInt()
-                binding.tvMinute.text = (num / 60).toString()
-                binding.tvSecond.text = (num % 60).toString()
-
-                when (num) {
-                    0 -> {
-                        a = binding.tvMinute.text.toString().toInt()
-                        a!! - 1
-                        binding.tvMinute.text = a.toString()
-                        binding.tvSecond.text = 60.toString()
-                    }
-                }
-            }
-
-            override fun onFinish() {
-                binding.tvMinute.text = "0"
-                binding.tvSecond.text = "00"
-                binding.devide.setTextColor((Color.parseColor("#F04D51")))
-                binding.tvMinute.setTextColor((Color.parseColor("#F04D51")))
-                binding.tvSecond.setTextColor((Color.parseColor("#F04D51")))
-            }
-        }.start()
+        if (!b) fiveTimer()
     }
 
     private fun sendId() {
@@ -487,6 +470,34 @@ class Register : BaseActivity<ActivityRegisterBinding>(
         binding.tvNull.text = schoolname
         binding.etName.hint = ""
         binding.etName.invisible()
+    }
+
+    private fun fiveTimer(){
+        b = true
+        object : CountDownTimer(300000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                val num = (millisUntilFinished / 1000).toInt()
+                binding.tvMinute.text = (num / 60).toString()
+                binding.tvSecond.text = (num % 60).toString()
+
+                when (num) {
+                    0 -> {
+                        a = binding.tvMinute.text.toString().toInt()
+                        a!! - 1
+                        binding.tvMinute.text = a.toString()
+                        binding.tvSecond.text = 60.toString()
+                    }
+                }
+            }
+
+            override fun onFinish() {
+                binding.tvMinute.text = "0"
+                binding.tvSecond.text = "00"
+                binding.devide.setTextColor((Color.parseColor("#F04D51")))
+                binding.tvMinute.setTextColor((Color.parseColor("#F04D51")))
+                binding.tvSecond.setTextColor((Color.parseColor("#F04D51")))
+            }
+        }.start()
     }
 
     @SuppressLint("ServiceCast")
