@@ -131,6 +131,14 @@
 
             </androidx.cardview.widget.CardView>
 
+            <View
+                android:id="@+id/paused_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/black_transparency"
+                app:layout_constraintBottom_toBottomOf="@id/measuring_content_cl"
+                app:layout_constraintTop_toTopOf="@id/measuring_content_cl" />
+
 
             <TextView
                 android:id="@+id/measuring_walk_title_tv"
@@ -142,7 +150,7 @@
                 app:layout_constraintBottom_toTopOf="@id/measuring_first_line"
                 app:layout_constraintEnd_toStartOf="@id/measuring_first_line"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:text="걸음수"/>
+                tools:text="걸음수" />
 
             <TextView
                 android:id="@+id/measuring_walk_tv"

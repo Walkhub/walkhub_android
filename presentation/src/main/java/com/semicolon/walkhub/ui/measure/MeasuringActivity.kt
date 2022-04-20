@@ -191,7 +191,8 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
             measuringPauseBtn.setImageResource(R.drawable.ic_measuring_pause)
             measuringPauseBtn.visibility = View.VISIBLE
             measuringLockBtn.visibility = View.VISIBLE
-            measuringContentCl.setBackgroundResource(R.color.white)
+
+            pausedView.visibility = View.INVISIBLE
 
             measuringResumeBtn.visibility = View.INVISIBLE
             measuringFinishBtn.visibility = View.INVISIBLE
@@ -203,6 +204,8 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
             measuringPauseBtn.setImageResource(R.drawable.ic_measuring_un_lock)
             measuringPauseBtn.visibility = View.VISIBLE
 
+            pausedView.visibility = View.INVISIBLE
+
             measuringLockBtn.visibility = View.INVISIBLE
             measuringResumeBtn.visibility = View.INVISIBLE
             measuringFinishBtn.visibility = View.INVISIBLE
@@ -213,7 +216,8 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
         binding.run {
             measuringResumeBtn.visibility = View.VISIBLE
             measuringFinishBtn.visibility = View.VISIBLE
-            measuringContentCl.setBackgroundResource(R.color.gray_500)
+
+            pausedView.visibility = View.VISIBLE
 
             measuringLockBtn.visibility = View.INVISIBLE
             measuringPauseBtn.visibility = View.INVISIBLE
