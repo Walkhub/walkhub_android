@@ -100,9 +100,6 @@ class RegisterViewModel @Inject constructor(
     fun register() {
         viewModelScope.launch {
             kotlin.runCatching {
-                val token = suspendCoroutine<String> {
-                    FirebaseMessaging.getInstance().token.addOnSuccessListener { token -> it.resume(token) }
-                }
                 postUserSignUpUseCase.execute(PostUserSignUpParam(
                     accountId = userId,
                     password = password,
@@ -112,8 +109,7 @@ class RegisterViewModel @Inject constructor(
                     weight = weight,
                     sex = sex,
                     schoolId = schoolId,
-                    authCode = authCode,
-                    deviceToken = token
+                    authCode = authCode
                 ))
             }.onSuccess {
                 event((Event.SuccessRegister(true)))
