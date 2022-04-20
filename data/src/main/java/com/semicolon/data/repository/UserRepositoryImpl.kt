@@ -15,6 +15,8 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 class UserRepositoryImpl @Inject constructor(
     private val remoteImagesDataSource: RemoteImagesDataSource,
@@ -37,15 +39,12 @@ class UserRepositoryImpl @Inject constructor(
     override suspend fun postUserSignIn(
         postUserSignInParam: PostUserSignInParam
     ) {
-        FirebaseMessaging.getInstance().token.addOnSuccessListener {
-            CoroutineScope(Dispatchers.IO).launch {
-                val response =
-                    remoteUserDateSource.postUserSignIn(postUserSignInParam.toRequest(it))
-                saveAccount(postUserSignInParam, it)
-                saveToken(response)
-            }
-
+        val token = suspendCoroutine<String> {
+            FirebaseMessaging.getInstance().token.addOnSuccessListener { token -> it.resume(token) }
         }
+        val response = remoteUserDateSource.postUserSignIn(postUserSignInParam.toRequest(token))
+        saveAccount(postUserSignInParam, token)
+        saveToken(response)
     }
 
     override suspend fun patchUserChangePassword(
