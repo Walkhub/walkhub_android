@@ -21,6 +21,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="11dp"
             android:layout_marginBottom="29dp"
+            android:gravity="center"
             android:fontFamily="@font/noto_sans_kr_medium"
             android:text="대덕소프트웨어마이스터고등학교"
             android:textColor="@color/gray_900"
