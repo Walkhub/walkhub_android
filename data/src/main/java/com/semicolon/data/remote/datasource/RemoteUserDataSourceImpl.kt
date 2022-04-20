@@ -8,7 +8,6 @@ import com.semicolon.domain.entity.users.*
 import com.semicolon.domain.exception.*
 import com.semicolon.domain.param.user.CheckPhoneNumberParam
 import com.semicolon.domain.param.user.VerifyPhoneNumberSignUpParam
-import java.lang.NullPointerException
 import javax.inject.Inject
 
 class RemoteUserDataSourceImpl @Inject constructor(
@@ -116,9 +115,18 @@ class RemoteUserDataSourceImpl @Inject constructor(
 
     override suspend fun postUserSignIn(
         userSignInRequest: UserSignInRequest
-    ) = HttpHandler<UserSignInResponse>()
-        .httpRequest { userApi.userSignIn(userSignInRequest) }
-        .sendRequest()
+    ): UserSignInResponse {
+        val response = userApi.userSignIn(userSignInRequest = userSignInRequest)
+        if (!response.isSuccessful){
+            throw when (response.code()){
+                400 -> BadRequestException()
+                401 -> UnauthorizedException()
+                404 -> NotFoundException()
+                else -> UnknownException()
+            }
+        }
+        return response.body()!!
+    }
 
     override suspend fun patchUserChangePassword(
         userChangePasswordRequest: UserChangePasswordRequest
