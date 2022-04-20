@@ -71,7 +71,7 @@ interface UserApi {
     @POST("users")
     suspend fun userSignUp(
         @Body userSignUpRequest: UserSignUpRequest
-    ): Response<UserSignUpResponse>
+    ): UserSignUpResponse
 
     @PATCH("users/goal")
     suspend fun patchDailyWalkGoal(
