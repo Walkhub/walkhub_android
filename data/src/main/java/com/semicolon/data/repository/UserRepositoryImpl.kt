@@ -34,7 +34,27 @@ class UserRepositoryImpl @Inject constructor(
 
     override suspend fun postUserSignUp(
         postUserSignUpParam: PostUserSignUpParam
-    ) = remoteUserDateSource.postUserSignUp(postUserSignUpParam.toRequest())
+    ) {
+        val postUserSignInParam = PostUserSignInParam(
+            accountId = postUserSignUpParam.accountId,
+            password = postUserSignUpParam.password
+        )
+
+        val token = suspendCoroutine<String> {
+            FirebaseMessaging.getInstance().token.addOnSuccessListener { token -> it.resume(token) }
+        }
+
+        val response = remoteUserDateSource.postUserSignUp(postUserSignUpParam.toRequest())
+
+        postUserSignUpParam.deviceToken = token
+
+        saveAccount(postUserSignInParam, token)
+        saveTokenSignUp(
+            accessToken = response.accessToken,
+            refreshToken = response.refreshToken,
+            expiredAt = response.expiredAt
+        )
+    }
 
     override suspend fun postUserSignIn(
         postUserSignInParam: PostUserSignInParam
@@ -161,6 +181,18 @@ class UserRepositoryImpl @Inject constructor(
         }
     }
 
+    private suspend fun saveTokenSignUp(
+        accessToken: String,
+        refreshToken: String,
+        expiredAt: String
+    ) {
+        localUserDataSource.apply {
+            setAccessToken(accessToken)
+            setRefreshToken(refreshToken)
+            setExpiredAt(expiredAt)
+        }
+    }
+
     private suspend fun saveAccount(userSignInParam: PostUserSignInParam, deviceToken: String) {
         localUserDataSource.apply {
             setId(userSignInParam.accountId)
@@ -216,7 +248,8 @@ class UserRepositoryImpl @Inject constructor(
             weight = weight,
             sex = sex,
             schoolId = schoolId,
-            authCode = authCode
+            authCode = authCode,
+            deviceToken = deviceToken
         )
 
     fun PostUserSignInParam.toRequest(deviceToken: String) =
