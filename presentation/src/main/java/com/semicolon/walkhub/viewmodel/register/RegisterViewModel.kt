@@ -3,6 +3,7 @@ package com.semicolon.walkhub.viewmodel.register
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.messaging.FirebaseMessaging
 import com.semicolon.data.remote.api.UserApi
 import com.semicolon.domain.enums.SexType
 import com.semicolon.domain.exception.*
@@ -19,6 +20,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.lang.NullPointerException
 import javax.inject.Inject
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 import kotlin.properties.Delegates
 
 @HiltViewModel
@@ -42,6 +45,7 @@ class RegisterViewModel @Inject constructor(
         var weight: Int = 0
         var sex: SexType = SexType.X
         var schoolId: Int = 0
+        var deviceToken: String = ""
     }
 
     fun checkId(id: String) {
@@ -96,7 +100,9 @@ class RegisterViewModel @Inject constructor(
     fun register() {
         viewModelScope.launch {
             kotlin.runCatching {
-                Log.d("TAG", "register: " + userId + name)
+                val token = suspendCoroutine<String> {
+                    FirebaseMessaging.getInstance().token.addOnSuccessListener { token -> it.resume(token) }
+                }
                 postUserSignUpUseCase.execute(PostUserSignUpParam(
                     accountId = userId,
                     password = password,
@@ -106,7 +112,8 @@ class RegisterViewModel @Inject constructor(
                     weight = weight,
                     sex = sex,
                     schoolId = schoolId,
-                    authCode = authCode
+                    authCode = authCode,
+                    deviceToken = token
                 ))
             }.onSuccess {
                 event((Event.SuccessRegister(true)))
