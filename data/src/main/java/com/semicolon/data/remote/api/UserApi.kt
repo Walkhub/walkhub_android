@@ -71,7 +71,7 @@ interface UserApi {
     @POST("users")
     suspend fun userSignUp(
         @Body userSignUpRequest: UserSignUpRequest
-    ): UserSignUpResponse
+    ): Response<UserSignUpResponse>
 
     @PATCH("users/goal")
     suspend fun patchDailyWalkGoal(
@@ -94,7 +94,7 @@ interface UserApi {
 
     @HEAD("users/classes")
     suspend fun checkClassCode(
-        @Body code: String
+        @Query("code") code: String
     )
 
     @PATCH("users/{user-id}/independence")

@@ -1,10 +1,11 @@
 package com.semicolon.walkhub.viewmodel.hub
 
 import androidx.lifecycle.*
-import com.semicolon.domain.entity.rank.SearchSchoolEntity
+import com.semicolon.domain.entity.rank.SchoolRankAndSearchEntity
 import com.semicolon.domain.exception.NoInternetException
 import com.semicolon.domain.exception.NotFoundException
-import com.semicolon.domain.usecase.rank.SearchSchoolUseCase
+import com.semicolon.domain.param.user.FetchSchoolRankAndSearchParam
+import com.semicolon.domain.usecase.rank.SchoolRankAndSearchUseCase
 import com.semicolon.walkhub.ui.hub.model.SearchSchoolData
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
@@ -16,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HubSearchSchoolViewModel @Inject constructor(
-    private val searchSchoolUseCase: SearchSchoolUseCase
+    private val schoolRankAndSearchUseCase: SchoolRankAndSearchUseCase
 ) : ViewModel() {
 
     private val _eventFlow = MutableEventFlow<Event>()
@@ -24,10 +25,10 @@ class HubSearchSchoolViewModel @Inject constructor(
 
     private var searchJob: Job? = null
 
-    private fun searchSchool(school: String) {
+    private fun searchSchool(school: FetchSchoolRankAndSearchParam) {
         viewModelScope.launch {
             kotlin.runCatching {
-                searchSchoolUseCase.execute(school).collect() {
+                schoolRankAndSearchUseCase.execute(school).collect() {
                     event(Event.SearchSchool(it.toData()))
                 }
             }.onFailure {
@@ -40,20 +41,20 @@ class HubSearchSchoolViewModel @Inject constructor(
         }
     }
 
-    fun searchSchoolDebounce(school: String) {
+    fun searchSchoolDebounce(fetchSchoolRankAndSearchParam: FetchSchoolRankAndSearchParam) {
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
             delay(500L)
-            searchSchool(school)
+            searchSchool(fetchSchoolRankAndSearchParam)
         }
     }
 
-    private fun SearchSchoolEntity.toData() =
+    private fun SchoolRankAndSearchEntity.toData() =
         SearchSchoolData(
-            schoolList.map { it.toData() }
+            schoolList = schoolRankList.map { it.toData() }
         )
 
-    fun SearchSchoolEntity.SchoolInfo.toData() =
+    fun SchoolRankAndSearchEntity.SchoolRank.toData() =
         SearchSchoolData.SchoolInfo(
             schoolId = schoolId,
             schoolName = schoolName,

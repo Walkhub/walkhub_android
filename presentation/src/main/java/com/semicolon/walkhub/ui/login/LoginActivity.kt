@@ -53,14 +53,20 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(
     }
 
     private fun handleEvent(event: LoginViewModel.Event) = when (event) {
-        is LoginViewModel.Event.Success-> {
+        is LoginViewModel.Event.LoginSuccess-> {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
-        is LoginViewModel.Event.ErrorMessage -> {
-            showShortToast(event.message)
-        }
+        is LoginViewModel.Event.NoInternet -> showShortToast("인터넷 연결을 확인해주세요.")
+
+        is LoginViewModel.Event.Unauthorized -> showShortToast("잘못된 접근입니다. 다시 로그인 해주세요.")
+
+        is LoginViewModel.Event.BadRequest -> showShortToast("잘못된 요청입니다. 요청한 값을 확인해주세요.")
+
+        is LoginViewModel.Event.WrongAccount -> showShortToast("아이디나 비밀번호가 틀립니다.")
+
+        else -> showShortToast("알 수 없는 에러가 발생하였습니다.")
     }
 
     private fun loginToast() {

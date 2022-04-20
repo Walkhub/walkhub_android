@@ -1,7 +1,9 @@
 package com.semicolon.walkhub.viewmodel.register
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.semicolon.data.remote.api.UserApi
 import com.semicolon.domain.enums.SexType
 import com.semicolon.domain.exception.*
 import com.semicolon.domain.param.user.CheckPhoneNumberParam
@@ -17,6 +19,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.lang.NullPointerException
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
@@ -29,15 +32,17 @@ class RegisterViewModel @Inject constructor(
     private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()
 
-    private var userId = ""
-    private var password: String = ""
-    private var name: String = ""
-    private var phone: String = ""
-    private var authCode: String = ""
-    private var height: Double = 0.0
-    private var weight: Int = 0
-    private lateinit var sex: SexType
-    private var schoolId : Int = 0
+    companion object{
+        var userId: String = ""
+        var password: String = ""
+        var name: String = ""
+        var phone: String = ""
+        var authCode: String = ""
+        var height: Double = 0.0
+        var weight: Int = 0
+        var sex: SexType = SexType.X
+        var schoolId: Int = 0
+    }
 
     fun checkId(id: String) {
         viewModelScope.launch {
@@ -65,7 +70,7 @@ class RegisterViewModel @Inject constructor(
                 when (it) {
                     is UnauthorizedException -> event(Event.ErrorMessage("토큰이 만료되었습니다. 재로그인 해주세요."))
                     is NotFoundException -> event(Event.ErrorMessage("잘못된 접근입니다.."))
-                    else -> event(Event.ErrorMessage("인증번호가 올바르지 않습니다."))
+                    else -> event(Event.ErrorMessage("알 수 없는 오류가 발생하였습니다."))
                 }
             }
         }
@@ -91,6 +96,7 @@ class RegisterViewModel @Inject constructor(
     fun register() {
         viewModelScope.launch {
             kotlin.runCatching {
+                Log.d("TAG", "register: " + userId + name)
                 postUserSignUpUseCase.execute(PostUserSignUpParam(
                     accountId = userId,
                     password = password,
@@ -106,32 +112,14 @@ class RegisterViewModel @Inject constructor(
                 event((Event.SuccessRegister(true)))
             }.onFailure {
                 when (it) {
-                    is BadRequestException -> event(Event.ErrorMessage("BadRequest"))
-                    is NotFoundException -> event(Event.ErrorMessage("404"))
-                    is ConflictException -> event(Event.ErrorMessage("conflict"))
+                    is BadRequestException -> event(Event.ErrorMessage("잘못된 요청으로 회원가입에 실패하였습니다."))
+                    is NotFoundException -> event(Event.ErrorMessage("잘못된 접근입니다."))
+                    is UnauthorizedException -> event(Event.ErrorMessage("토큰이 만료 되었습니다. 다시 로그인 해주세요."))
+                    is ConflictException -> event(Event.ErrorMessage("이미 사용중인 아이디입니다."))
+                    else -> event(Event.ErrorMessage("알 수 없는 오류가 발생하였습니다."))
                 }
             }
         }
-    }
-
-    fun setUserId(id: String) {
-        userId = id
-    }
-
-    fun setPassword(pw: String) {
-        password = pw
-    }
-
-    fun setName(Name: String) {
-        name = Name
-    }
-
-    fun setPhone(Phone: String) {
-        phone = Phone
-    }
-
-    fun setAuthCode(AuthCode: String) {
-        authCode = AuthCode
     }
 
     fun setBody(Height: Double?, Weight: Int?) {
