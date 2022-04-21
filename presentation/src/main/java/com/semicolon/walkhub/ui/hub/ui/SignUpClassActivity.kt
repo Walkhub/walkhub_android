@@ -37,11 +37,12 @@ class SignUpClassActivity : BaseActivity<ActivitySignUpClassBinding>(
 
     private fun handleEvent(event: SignUpClassViewModel.Event) = when (event) {
         is SignUpClassViewModel.Event.Success -> {
-            Toast.makeText(applicationContext, "반 가입에 성공했습니다.", Toast.LENGTH_SHORT).show()
+            showShortToast("반가입에 성공하셨습니다!")
             finish()
         }
         is SignUpClassViewModel.Event.ErrorMessage -> {
             binding.tvError.text = event.message
+            showShortToast(event.message)
         }
         is SignUpClassViewModel.Event.ClassCodeState -> {
             classCode(event.code)
@@ -71,7 +72,16 @@ class SignUpClassActivity : BaseActivity<ActivitySignUpClassBinding>(
 
         binding.etClassCode.setOnPinEnteredListener { str ->
             if (str.length <= 7) {
-                vm.checkClassCode(str.toString())
+                binding.tvNext.background = ContextCompat.getDrawable(
+                    applicationContext,
+                    R.drawable.register_btn
+                )
+
+                binding.tvNext.setOnClickListener {
+                    classCode = binding.etClassCode.text.toString()
+                    binding.tvError.invisible()
+                    movePage(++page)
+                }
             }
         }
 
@@ -130,10 +140,15 @@ class SignUpClassActivity : BaseActivity<ActivitySignUpClassBinding>(
         binding.etNumber.visible()
         binding.etClassCode.invisible()
 
-        binding.etTitle.text = "번호 등록"
-        binding.etLore.text = "반에서 사용하는 번호를 입력해주세요."
+        binding.etTitle.text = "학번 등록"
+        binding.etLore.text = "반에서 사용하는 학번을 입력해주세요."
 
         binding.tvSecondNext.setOnClickListener {
+            classNum = binding.etNumber.text.toString().toInt()
+            movePage(++page)
+        }
+
+        binding.tvNext.setOnClickListener {
             classNum = binding.etNumber.text.toString().toInt()
             movePage(++page)
         }
