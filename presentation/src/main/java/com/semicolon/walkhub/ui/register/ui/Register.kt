@@ -343,11 +343,12 @@ class Register : BaseActivity<ActivityRegisterBinding>(
                     if (password.length in 1..7) {
                         showShortToast("8자 이상의 비밀번호를 입력해주세요.")
                     } else if (password.length > 7) {
-                        val passwordPattern = "^.*(?=^.{8,30}\$)(?=.*\\d)(?=.*[a-zA-Z])(?=.*[!@#\$%^&+=]).*\$"
+                        val passwordPattern =
+                            "^.*(?=^.{8,30}\$)(?=.*\\d)(?=.*[a-zA-Z])(?=.*[!@#\$%^&+=]).*\$"
 
                         val tt = Pattern.matches(passwordPattern, password)
 
-                        if (tt){
+                        if (tt) {
                             RegisterViewModel.password = password
                             movePage(6)
                         } else {
@@ -422,6 +423,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
         binding.tvEt.text = "먼저 본인의 이름을 입력해주세요."
         binding.etName.hint = "이름(2~10자)"
         binding.etName.inputType = InputType.TYPE_CLASS_TEXT
+        binding.ibBack.setImageResource(R.drawable.delete)
     }
 
     private fun enterPhone() {
@@ -436,6 +438,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
         binding.tvEt.text = "전화번호를 입력해주세요"
         binding.etName.hint = "전화번호 ex) 01012345678"
         binding.etName.inputType = InputType.TYPE_CLASS_NUMBER
+        binding.ibBack.setImageResource(R.drawable.ic_back_arrow)
     }
 
     private fun sendCertification() {
