@@ -45,7 +45,6 @@ class RegisterViewModel @Inject constructor(
         var weight: Int = 0
         var sex: SexType = SexType.X
         var schoolId: Int = 0
-        var deviceToken: String = ""
     }
 
     fun checkId(id: String) {
