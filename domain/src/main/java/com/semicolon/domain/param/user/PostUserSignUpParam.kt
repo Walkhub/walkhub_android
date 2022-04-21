@@ -1,14 +1,16 @@
 package com.semicolon.domain.param.user
 
+import com.semicolon.domain.enums.SexType
+
 data class PostUserSignUpParam(
-    val accountId: String,
-    val password: String,
-    val name: String,
-    val phoneNumber: String,
-    val height: Double,
-    val weight: Double,
-    val sex: String,
-    val schoolId: Int,
-    val authCode: String
+    var accountId: String,
+    var password: String,
+    var name: String,
+    var phoneNumber: String,
+    var height: Double,
+    var weight: Int,
+    val sex: SexType,
+    var schoolId: Int,
+    var authCode: String
 )
 

@@ -8,12 +8,14 @@ import com.semicolon.data.local.datasource.LocalUserDataSource
 import com.semicolon.data.remote.datasource.RemoteImagesDataSource
 import com.semicolon.data.remote.datasource.RemoteUserDataSource
 import com.semicolon.data.remote.request.users.UserSignInRequest
+import com.semicolon.data.remote.request.users.VerifyPhoneNumberSignUpRequest
 import com.semicolon.data.remote.response.image.ImagesResponse
 import com.semicolon.data.remote.response.users.UserSignInResponse
 import com.semicolon.domain.entity.users.FetchCaloriesLevelEntity
 import com.semicolon.domain.entity.users.FindUserAccountEntity
 import com.semicolon.domain.entity.users.UserMyPageEntity
 import com.semicolon.domain.entity.users.UserProfileEntity
+import com.semicolon.domain.enums.SexType
 import com.semicolon.domain.param.user.*
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -46,22 +48,22 @@ class UserRepositoryUnitTest {
 
     @Test
     fun testPostUserSignUp() {
-        val request = PostUserSignUpParam(
-            "accountId",
-            "dlwodnjs0310",
-            "이재원",
-            "010-2100-2936",
-            176.0,
-            60.0,
-            "male",
-            1,
-            "대덕소프트웨어마이스터고"
-        )
+//        val request = PostUserSignUpParam(
+//            "accountId",
+//            "dlwodnjs0310",
+//            "이재원",
+//            "010-2100-2936",
+//            176.0,
+//            60,
+//            SexType.MALE,
+//            1,
+//            "대덕소프트웨어마이스터고"
+//        )
 
-        runBlocking {
-            val repositoryResult = userRepository.postUserSignUp(request)
-            assertEquals(Unit, repositoryResult)
-        }
+//        runBlocking {
+//            val repositoryResult = userRepository.postUserSignUp(request)
+//            assertEquals(Unit, repositoryResult)
+//        }
     }
 
 /*    @Test

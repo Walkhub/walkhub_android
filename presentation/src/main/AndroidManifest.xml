@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Walkhub"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:targetApi="m">
         <activity
             android:name=".ui.challenge.ChallengeDetailActivity"
             android:exported="false" />
@@ -46,18 +47,12 @@
             android:exported="false" />
         <activity
             android:name=".ui.measure.MeasureHomeActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".ui.hub.ui.HubSearchSchoolActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".ui.hub.ui.HubSchoolActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.hub.ui.HubSearchSchoolActivity"
             android:exported="false" />
         <activity
             android:name=".ui.login.LoginActivity"
@@ -69,16 +64,16 @@
             android:name=".ui.register.SearchSchoolActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.register.agree.AgreeActivity"
+            android:name=".ui.register.ui.AgreeActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.register.agree.PrivacyActivity"
+            android:name=".ui.register.ui.PrivacyActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.register.agree.ServiceInstructionActivity"
+            android:name=".ui.register.ui.ServiceInstructionActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.register.Register"
+            android:name=".ui.register.ui.Register"
             android:exported="false" />
         <activity
             android:name=".ui.profile.setting.ui.SettingActivity"
@@ -89,15 +84,15 @@
             android:exported="false" />
         <activity
             android:name=".ui.profile.setting.ui.ModifyProfileActivity"
-            android:exported="false"/>
+            android:exported="false" />
 
         <activity
             android:name=".ui.profile.setting.ui.AccountInfoActivity"
-            android:exported="false"/>
+            android:exported="false" />
 
         <activity
             android:name=".ui.profile.setting.ui.ModifyHealthInfoActivity"
-            android:exported="false"/>
+            android:exported="false" />
 
         <activity
             android:name=".ui.HomeActivity"

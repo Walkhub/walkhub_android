@@ -3,6 +3,8 @@ package com.semicolon.data.remote.datasource
 import com.semicolon.data.remote.request.users.*
 import com.semicolon.data.remote.response.users.*
 import com.semicolon.domain.entity.users.*
+import com.semicolon.domain.param.user.CheckPhoneNumberParam
+import com.semicolon.domain.param.user.VerifyPhoneNumberSignUpParam
 
 interface RemoteUserDataSource {
     suspend fun signUpClass(
@@ -44,12 +46,16 @@ interface RemoteUserDataSource {
     ): UserSignInResponse
 
     suspend fun verifyUserPhoneNumber(
-        verifyPhoneNumberSignUpRequest: VerifyPhoneNumberSignUpRequest
+        verifyPhoneNumberSignUpParam: VerifyPhoneNumberSignUpParam
+    )
+
+    suspend fun checkPhoneNumber(
+        checkPhoneNumberParam: CheckPhoneNumberParam
     )
 
     suspend fun postUserSignUp(
         userSignUpRequest: UserSignUpRequest
-    )
+    ): UserSignUpResponse
 
     suspend fun patchDailyWalkGoal(
         patchDailyWalkGoalRequest: PatchDailyWalkGoalRequest

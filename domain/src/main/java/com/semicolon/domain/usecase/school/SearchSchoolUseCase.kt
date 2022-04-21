@@ -8,8 +8,8 @@ import javax.inject.Inject
 
 class SearchSchoolUseCase @Inject constructor(
     private val searchSchoolRepository: SchoolRepository
-) : UseCase<String, Flow<List<SearchSchoolEntity>>>() {
+) : UseCase<String, Flow<SearchSchoolEntity>>() {
 
-    override suspend fun execute(data: String): Flow<List<SearchSchoolEntity>> =
+    override suspend fun execute(data: String): Flow<SearchSchoolEntity> =
         searchSchoolRepository.searchSchool(data)
 }

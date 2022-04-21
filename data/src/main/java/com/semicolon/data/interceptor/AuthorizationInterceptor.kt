@@ -20,7 +20,10 @@ class AuthorizationInterceptor @Inject constructor(
             "/users/verification-codes",
             "/users/account-id",
             "/users/token",
-            "/users/password"
+            "/users/password",
+            "/schools/search",
+            "/users/token",
+            "/users"
         )
         if (ignorePath.contains(path)) return chain.proceed(request)
         if (path == "/users" && request.method() == "POST") return chain.proceed(request)
