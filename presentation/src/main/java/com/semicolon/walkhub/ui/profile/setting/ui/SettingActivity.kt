@@ -77,9 +77,6 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>(
         }
         binding.logout.setOnClickListener {
             vm.logOut()
-            val intent = Intent(context, HomeActivity::class.java)
-            finishAffinity()
-            startActivity(intent)
         }
     }
 }
