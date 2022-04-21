@@ -45,7 +45,7 @@ class RemoteUserDataSourceImpl @Inject constructor(
 
     override suspend fun postUserSignUp(
         userSignUpRequest: UserSignUpRequest
-    ) = HttpHandler<Unit>()
+    ): UserSignUpResponse = HttpHandler<UserSignUpResponse>()
         .httpRequest { userApi.userSignUp(userSignUpRequest) }
         .sendRequest()
 

@@ -60,7 +60,8 @@ class ScanHealthInformationActivity : BaseActivity<ActivityScanHealthInformation
 
     private fun handleEvent(event: RegisterViewModel.Event) = when (event) {
         is RegisterViewModel.Event.SuccessRegister -> {
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
             startActivity(intent)
 
             showShortToast("회원가입을 성공적으로 완료하였습니다! 로그인 후 이용해주세요.")
