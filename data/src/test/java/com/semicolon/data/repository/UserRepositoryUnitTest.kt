@@ -60,10 +60,10 @@ class UserRepositoryUnitTest {
             "대덕소프트웨어마이스터고"
         )
 
-        runBlocking {
-            val repositoryResult = userRepository.postUserSignUp(request)
-            assertEquals(Unit, repositoryResult)
-        }
+//        runBlocking {
+//            val repositoryResult = userRepository.postUserSignUp(request)
+//            assertEquals(Unit, repositoryResult)
+//        }
     }
 
 /*    @Test
