@@ -178,6 +178,7 @@
                 android:layout_marginStart="16dp"
                 android:hint="변경할 이름을 입력해주세요"
                 android:inputType="text"
+                android:maxLength="10"
                 android:textColor="@color/gray_900"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
