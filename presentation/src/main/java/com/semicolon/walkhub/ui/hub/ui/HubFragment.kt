@@ -1,5 +1,6 @@
 package com.semicolon.walkhub.ui.hub.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -59,9 +60,19 @@ class HubFragment @Inject constructor(
         is Event.FetchSchoolRank -> {
             setSchoolRank(event.hubSchoolRankData.schoolList)
         }
-        is Event.ErrorMessage -> {
-            showShortToast(event.message)
+
+        is Event.NullPoint -> {
+            showShortToast("데이터가 업습니다.")
         }
+
+        is Event.Unknown -> {
+            showShortToast("알 수 없는 오류가 발생하였습니다.")
+        }
+
+        is Event.NoInternet -> {
+            showShortToast("인터넷에 연결되어 있지 않습니다.")
+        }
+
         is Event.FetchMyRank -> {
             setMySchool(event.mySchoolRankData)
         }
@@ -129,6 +140,7 @@ class HubFragment @Inject constructor(
         binding.tvMySchoolInfo.text = tvMySchoolInfo
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun setSchoolRank(school: List<HubSchoolRankData.OtherSchool>) {
         schoolRvData.clear()
         for (i: Int in 0..school.size - 1) {
