@@ -32,6 +32,9 @@ import com.semicolon.walkhub.viewmodel.login.LoginViewModel
 import com.semicolon.walkhub.viewmodel.register.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.properties.Delegates
+import android.R.string
+import java.util.regex.Pattern
+
 
 @AndroidEntryPoint
 class Register : BaseActivity<ActivityRegisterBinding>(
@@ -97,9 +100,17 @@ class Register : BaseActivity<ActivityRegisterBinding>(
             TODO("여기 부분 구현")
         }
 
-        is RegisterViewModel.Event.ErrorMessage -> {
-            showShortToast(event.message)
-        }
+        is RegisterViewModel.Event.ErrorMessage -> showShortToast(event.message)
+
+        is RegisterViewModel.Event.BadRequest -> showShortToast("비밀번호에는 특수문자가 포함되어야합니다.")
+
+        is RegisterViewModel.Event.UnAuthor -> showShortToast("토큰 발급에 실패하였습니다.")
+
+        is RegisterViewModel.Event.Conflict -> showShortToast("이미 회원가입이 완료된 전화번호입니다.")
+
+        is RegisterViewModel.Event.UnKnown -> showShortToast("알 수 없는 오류가 발생하였습니다.")
+
+        is RegisterViewModel.Event.NotFound -> showShortToast("잘못된 접근입니다.")
     }
 
     private fun setTextWatcher(subject: Int) {
@@ -242,8 +253,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
                     if (name.length in 2..10) {
                         RegisterViewModel.name = name
                         movePage(2)
-                    }
-                    else {
+                    } else {
                         showShortToast("이름은 (2~10)자 안으로 입력해주세요.")
                     }
                 }
@@ -268,8 +278,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
                                 phone
                             )
                         )
-                    }
-                    else {
+                    } else {
                         showShortToast("전화번호를 올바르게 입력해주세요.")
                     }
                 }
@@ -331,12 +340,6 @@ class Register : BaseActivity<ActivityRegisterBinding>(
                 binding.btContinue.setOnClickListener {
                     val password = binding.etName.text.toString()
 
-                    if (password.length in 1..7) {
-                        showShortToast("8자 이상의 비밀번호를 입력해주세요.")
-                    } else if (password.length > 7) {
-                        RegisterViewModel.password = password
-                        movePage(6)
-                    }
                 }
 
                 binding.ibBack.setOnClickListener {
@@ -354,7 +357,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
                 }
 
                 binding.btContinue.setOnClickListener {
-                    if(binding.etName.length() > 0){
+                    if (binding.etName.length() > 0) {
                         vm.setSchool(data)
                     }
                     RegisterViewModel.schoolId = data
@@ -375,7 +378,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
         vm.verifyPhone(verifyPhoneNumberSignUpParam)
     }
 
-    private fun checkPhoneNumber(checkPhoneNumberParam: CheckPhoneNumberParam){
+    private fun checkPhoneNumber(checkPhoneNumberParam: CheckPhoneNumberParam) {
         checkPhoneNumberParam.phoneNumber = phone
         checkPhoneNumberParam.authCode = binding.etName.text.toString()
         vm.checkPhoneNumber(checkPhoneNumberParam)
@@ -454,8 +457,8 @@ class Register : BaseActivity<ActivityRegisterBinding>(
         setTextWatcher(5)
 
         binding.tvMain.text = "비밀번호"
-        binding.etName.hint = "비밀번호 (8~30자, 특수문자 1개 이상)"
-        binding.tvEt.text = "비밀번호는 (8~30)자 및 특수문자 1개 이상 포함"
+        binding.etName.hint = "비밀번호 (8~30자)"
+        binding.tvEt.text = "비밀번호는 (8~30)자 및 숫자와 특수문자 \n각각 1개 이상 포함"
         binding.etName.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
     }
 
@@ -465,14 +468,14 @@ class Register : BaseActivity<ActivityRegisterBinding>(
         binding.etName.hint = "학교 검색하기"
     }
 
-    private fun searchSchool(){
+    private fun searchSchool() {
         binding.tvNull.visible()
         binding.tvNull.text = schoolname
         binding.etName.hint = ""
         binding.etName.invisible()
     }
 
-    private fun fiveTimer(){
+    private fun fiveTimer() {
         b = true
         object : CountDownTimer(300000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
