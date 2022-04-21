@@ -20,7 +20,6 @@ import org.threeten.bp.Instant
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.ZoneId
 import java.io.File
-import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
@@ -62,17 +61,8 @@ class MeasureViewModel @Inject constructor(
     private val _measuringState = MutableLiveData(MeasureState.ONGOING)
     val measuringState: LiveData<MeasureState> = _measuringState
 
-    private val _fetchPhoto = MutableEventFlow<Unit>()
-    val fetchPhoto = _fetchPhoto.asEventFlow()
-
-    private val _finishMeasuring = MutableEventFlow<Unit>()
-    val finishMeasuring = _finishMeasuring.asEventFlow()
-
-    private val _requestPhoto = MutableEventFlow<Unit>()
-    val requestPhoto = _requestPhoto.asEventFlow()
-
-    private val _finishActivity = MutableEventFlow<Unit>()
-    val finishActivity = _finishActivity.asEventFlow()
+    private val _event = MutableEventFlow<Event>()
+    val event = _event.asEventFlow()
 
     private val _cheerUserName = MutableLiveData<String>()
     val cheerUserName: LiveData<String> = _cheerUserName
@@ -100,15 +90,19 @@ class MeasureViewModel @Inject constructor(
         val goalType = goal.value?.goalType ?: GoalType.WALK_COUNT
         val goal = goal.value?.goal ?: 0
         viewModelScope.launch {
-            try {
+            kotlin.runCatching {
                 startMeasureExerciseUseCase.execute(StartMeasureExerciseParam(goal, goalType))
-                fetchMeasuredExercise()
-                fetchMeasuredTime()
-                fetchCurrentSpeed()
-            } catch (e: Exception) {
-
+                fetchMeasuredData()
+            }.onFailure {
+                sendEvent(Event.StartMeasureError)
             }
         }
+    }
+
+    fun fetchMeasuredData() {
+        fetchMeasuredExercise()
+        fetchMeasuredTime()
+        fetchCurrentSpeed()
     }
 
     private fun fetchMeasuredExercise() {
@@ -185,7 +179,7 @@ class MeasureViewModel @Inject constructor(
 
     fun fetchFinishPhoto() {
         viewModelScope.launch {
-            _fetchPhoto.emit(Unit)
+            sendEvent(Event.StartFetchPhoto)
         }
     }
 
@@ -195,9 +189,9 @@ class MeasureViewModel @Inject constructor(
                 val imageFile = File(_finishPhotoUri!!)
                 val param = FinishMeasureExerciseParam(imageFile)
                 finishMeasureExerciseUseCase.execute(param)
-                _finishActivity.emit(Unit)
+                sendEvent(Event.FinishActivity)
             } else {
-                _requestPhoto.emit(Unit)
+                sendEvent(Event.RequestPhoto)
             }
         }
     }
@@ -205,7 +199,7 @@ class MeasureViewModel @Inject constructor(
     fun setImageUri(uri: String) {
         this._finishPhotoUri = uri
         viewModelScope.launch {
-            _finishMeasuring.emit(Unit)
+            sendEvent(Event.FinishMeasure)
         }
     }
 
@@ -222,4 +216,17 @@ class MeasureViewModel @Inject constructor(
         super.onCleared()
     }
 
+    fun sendEvent(event: Event) {
+        viewModelScope.launch {
+            _event.emit(event)
+        }
+    }
+
+    sealed class Event {
+        object StartFetchPhoto : Event()
+        object FinishActivity : Event()
+        object FinishMeasure : Event()
+        object RequestPhoto : Event()
+        object StartMeasureError : Event()
+    }
 }

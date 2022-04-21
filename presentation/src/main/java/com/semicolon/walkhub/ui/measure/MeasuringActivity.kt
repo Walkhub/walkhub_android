@@ -18,15 +18,17 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
 
     private val viewModel: MeasureViewModel by viewModels()
 
-    var isDistance = true
-    var firstValue = -10
-    var secondValue = -10
+    private var isDistance = true
+    private var firstValue = -10
+    private var secondValue = -10
 
     override fun initView() {
         binding.vm = viewModel
         setToDefaultState()
         fetchIntentValue()
-        if (!firstValue.didNotSetGoalFromHome()) {
+        if (firstValue.didNotSetGoalFromHome()) {
+            viewModel.fetchMeasuredData()
+        } else {
             countDownToStartMeasure()
         }
         observeState()
@@ -69,6 +71,7 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
             isDistance = true
         }
         viewModel.setDistanceGoal(goalDistance)
+        viewModel.startMeasureExercise()
     }
 
     private fun setGoalIsForWalkCount(goalWalkCount: Int) {
@@ -78,9 +81,6 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
             isDistance = false
         }
         viewModel.setWalkCountGoal(goalWalkCount)
-    }
-
-    private fun startMeasureExercise() {
         viewModel.startMeasureExercise()
     }
 
@@ -134,9 +134,6 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
             percentage.observe(this@MeasuringActivity) {
                 binding.measuringRemainPb.progress = it
             }
-            goal.observe(this@MeasuringActivity) {
-                this@MeasuringActivity.startMeasureExercise()
-            }
         }
     }
 
@@ -165,22 +162,25 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
                 finish()
             }
         }
-        viewModel.run {
-            lifecycleScope.launch {
-                fetchPhoto.collect {
-                    finishMeasure()
-                }
-
-                finishMeasuring.collect {
-                    viewModel.finishMeasureExercise()
-                }
-
-                requestPhoto.collect {
-                    showShortToast("사진을 입력해주세요")
-                }
-
-                finishActivity.collect {
-                    finish()
+        lifecycleScope.launch {
+            viewModel.event.collect {
+                when (it) {
+                    MeasureViewModel.Event.FinishActivity -> {
+                        finish()
+                    }
+                    MeasureViewModel.Event.FinishMeasure -> {
+                        viewModel.finishMeasureExercise()
+                    }
+                    MeasureViewModel.Event.RequestPhoto -> {
+                        showShortToast("측정 왈료 사진을 등록해주세요")
+                    }
+                    MeasureViewModel.Event.StartFetchPhoto -> {
+                        fetchDoneImage()
+                    }
+                    MeasureViewModel.Event.StartMeasureError -> {
+                        showShortToast("운동측정을 시작할 수 없습니다.")
+                        finish()
+                    }
                 }
             }
         }
@@ -222,10 +222,6 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
             measuringLockBtn.visibility = View.INVISIBLE
             measuringPauseBtn.visibility = View.INVISIBLE
         }
-    }
-
-    private fun finishMeasure() {
-        fetchDoneImage()
     }
 
     private fun fetchDoneImage() {
