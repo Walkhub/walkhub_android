@@ -24,6 +24,6 @@ class NoticeSettingViewModel @Inject constructor(
     }
 
     sealed class Event {
-        data class ErrorMessage(val message: String) : ModifyProfileViewModel.Event()
+        data class ErrorMessage(val message: String) :Event()
     }
 }
