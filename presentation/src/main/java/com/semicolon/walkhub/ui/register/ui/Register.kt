@@ -15,24 +15,14 @@ import com.semicolon.walkhub.databinding.ActivityRegisterBinding
 import com.semicolon.walkhub.ui.base.BaseActivity
 import com.semicolon.walkhub.util.visible
 import android.os.CountDownTimer
-import android.util.Log
-import android.widget.TextView
 import androidx.activity.viewModels
-import androidx.core.view.isGone
-import com.semicolon.domain.enums.SexType
 import com.semicolon.domain.param.user.CheckPhoneNumberParam
-import com.semicolon.domain.param.user.PostUserSignUpParam
 import com.semicolon.domain.param.user.VerifyPhoneNumberSignUpParam
 import com.semicolon.walkhub.extensions.repeatOnStarted
-import com.semicolon.walkhub.ui.MainActivity
-import com.semicolon.walkhub.ui.register.ScanHealthInformationActivity
 import com.semicolon.walkhub.ui.register.SearchSchoolActivity
 import com.semicolon.walkhub.util.invisible
-import com.semicolon.walkhub.viewmodel.login.LoginViewModel
 import com.semicolon.walkhub.viewmodel.register.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.properties.Delegates
-import android.R.string
 import java.util.regex.Pattern
 
 
@@ -427,7 +417,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
         binding.tvEt.text = "먼저 본인의 이름을 입력해주세요."
         binding.etName.hint = "이름(2~10자)"
         binding.etName.inputType = InputType.TYPE_CLASS_TEXT
-        binding.ibBack.setImageResource(R.drawable.deleto)
+        binding.ibBack.setImageResource(R.drawable.delete)
     }
 
     private fun enterPhone() {

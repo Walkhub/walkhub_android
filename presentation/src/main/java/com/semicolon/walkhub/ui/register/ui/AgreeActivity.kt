@@ -31,7 +31,6 @@ class AgreeActivity : BaseActivity<ActivityAgreeBinding>(
             } else {
                 showShortToast("모든 약관에 동의해주세요.")
             }
-
         }
     }
 }
