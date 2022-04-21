@@ -3,6 +3,7 @@ package com.semicolon.walkhub.ui.measure
 import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.semicolon.domain.enums.GoalType
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityMeasuringBinding
 import com.semicolon.walkhub.ui.base.BaseActivity
@@ -27,13 +28,13 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
         setToDefaultState()
         fetchIntentValue()
         if (firstValue.didNotSetGoalFromHome()) {
-            viewModel.fetchMeasuredData()
+            fetchMeasuringGoal()
         } else {
             countDownToStartMeasure()
+            fetchGoalFromHome()
         }
         observeState()
         observeEvent()
-        fetchGoalFromHome()
         viewModel.receiveCheering()
     }
 
@@ -44,16 +45,12 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
     }
 
     private fun fetchGoalFromHome() {
-        if (firstValue.didNotSetGoalFromHome()) {
-            fetchMeasuringGoal()
+        if (isDistance) {
+            val goal = if (secondValue != 0) firstValue + 1 else firstValue
+            setGoalIsForDistance(goal)
         } else {
-            if (isDistance) {
-                val goal = if (secondValue != 0) firstValue + 1 else firstValue
-                setGoalIsForDistance(goal)
-            } else {
-                val goal = firstValue * 1000 + secondValue * 100
-                setGoalIsForWalkCount(goal)
-            }
+            val goal = firstValue * 1000 + secondValue * 100
+            setGoalIsForWalkCount(goal)
         }
     }
 
@@ -65,23 +62,33 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
     }
 
     private fun setGoalIsForDistance(goalDistance: Int) {
-        val goalText = "/$goalDistance km"
+        viewModel.run {
+            setDistanceGoal(goalDistance)
+            startMeasureExercise()
+        }
+    }
+
+    private fun setGoalIsForWalkCount(goalWalkCount: Int) {
+        viewModel.run {
+            setWalkCountGoal(goalWalkCount)
+            startMeasureExercise()
+        }
+    }
+
+    private fun setGoalViewIsDistance(goal: Int) {
+        val goalText = "/$goal km"
         binding.run {
             measuringGoalTv.text = goalText
             isDistance = true
         }
-        viewModel.setDistanceGoal(goalDistance)
-        viewModel.startMeasureExercise()
     }
 
-    private fun setGoalIsForWalkCount(goalWalkCount: Int) {
-        val goalText = "/$goalWalkCount 걸음"
+    private fun setGoalViewIsWalkCount(goal: Int) {
+        val goalText = "/$goal 걸음"
         binding.run {
             measuringGoalTv.text = goalText
             isDistance = false
         }
-        viewModel.setWalkCountGoal(goalWalkCount)
-        viewModel.startMeasureExercise()
     }
 
     private fun countDownToStartMeasure() {
@@ -133,6 +140,13 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
             }
             percentage.observe(this@MeasuringActivity) {
                 binding.measuringRemainPb.progress = it
+            }
+            goal.observe(this@MeasuringActivity) {
+                if (it.goalType == GoalType.DISTANCE) {
+                    setGoalViewIsDistance(it.goal)
+                } else if (it.goalType == GoalType.WALK_COUNT) {
+                    setGoalViewIsWalkCount(it.goal)
+                }
             }
         }
     }

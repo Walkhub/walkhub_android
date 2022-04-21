@@ -40,8 +40,8 @@ class MeasureViewModel @Inject constructor(
     private val _walkCount = MutableLiveData(0)
     val walkCount: LiveData<Int> = _walkCount
 
-    private val _distanceAsMeter = MutableLiveData(0)
-    val distanceAsMeter: LiveData<Int> = _distanceAsMeter
+    private val _distanceAsKiloMeter = MutableLiveData(0)
+    val distanceAsKiloMeter: LiveData<Int> = _distanceAsKiloMeter
 
     private val _goal = MutableLiveData<GoalEntity>()
     val goal: LiveData<GoalEntity> = _goal
@@ -99,7 +99,7 @@ class MeasureViewModel @Inject constructor(
         }
     }
 
-    fun fetchMeasuredData() {
+    private fun fetchMeasuredData() {
         fetchMeasuredExercise()
         fetchMeasuredTime()
         fetchCurrentSpeed()
@@ -109,7 +109,7 @@ class MeasureViewModel @Inject constructor(
         viewModelScope.launch {
             fetchMeasuredExerciseRecordUseCase.execute(Unit).collect {
                 _walkCount.value = it.stepCount
-                _distanceAsMeter.value = it.traveledDistanceAsMeter
+                _distanceAsKiloMeter.value = (it.traveledDistanceAsMeter / 1000)
                 _calorie.value = it.burnedKilocalories
                 setPercentage()
             }
@@ -118,7 +118,7 @@ class MeasureViewModel @Inject constructor(
 
     private fun setPercentage() {
         val currentValue =
-            if (goal.value?.goalType == GoalType.DISTANCE) distanceAsMeter.value else walkCount.value
+            if (goal.value?.goalType == GoalType.DISTANCE) distanceAsKiloMeter.value else walkCount.value
         val percentage = (currentValue!! / (goal.value?.goal ?: 1)) * 100
         _percentage.value = percentage
     }
@@ -136,6 +136,7 @@ class MeasureViewModel @Inject constructor(
         viewModelScope.launch {
             val goalResult = fetchGoalUseCase.execute(Unit)
             _goal.value = goalResult
+            fetchMeasuredData()
         }
     }
 
