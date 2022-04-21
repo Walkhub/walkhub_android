@@ -6,6 +6,7 @@ import com.semicolon.data.remote.api.ChallengeApi
 import com.semicolon.data.remote.datasource.RemoteChallengeDateSource
 import com.semicolon.data.remote.datasource.RemoteChallengeDateSourceImpl
 import com.semicolon.data.remote.response.challenge.*
+import com.semicolon.domain.entity.challenge.ChallengeDetailEntity
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -27,7 +28,7 @@ class RemoteChallengeDatasourceUnitTest {
             3000,
             "ALL",
             writer = ChallengeListResponse.User(
-                13L,
+                13,
                 "JaeWon",
                 "https://testImageUrl"
             ),
@@ -35,7 +36,7 @@ class RemoteChallengeDatasourceUnitTest {
             participantCount = 13,
             participantList = listOf(
                 ChallengeListResponse.User(
-                    14L,
+                    14,
                     "JaeWon",
                     "https://testImageUrl"
                 )
@@ -55,7 +56,7 @@ class RemoteChallengeDatasourceUnitTest {
             "ALL",
             "WALK",
             MyChallengeResponse.User(
-                13L,
+                13,
                 "김재원",
                 "https://testImageUrl"
             ),
@@ -83,20 +84,24 @@ class RemoteChallengeDatasourceUnitTest {
             "삼천보걷기",
             "삼천보걷기가 목표입니다",
             "수행평가 만점",
-            "http://testImageUrl",
+            1000,
+            "Walk",
             "2022-12-12T12:12",
             "2022-12-17T12:12",
-            3000,
-            "WALK",
-            "ALL",
-            "ALL",
-            false,
+            "http://testImageUrl",
+            "2022-12-17T12:12",
+            "2022-12-17T12:12",
             100,
+            10,
             ChallengeDetailResponse.ChallengeWriterResponse(
                 12,
                 "김재원",
                 "http://testImageUrl"
-            )
+            ),
+            false,
+            true,
+            100,
+            listOf(ChallengeDetailResponse.ParticipantList(1,"",""))
         )
         val challengeId = 12
 
