@@ -340,6 +340,20 @@ class Register : BaseActivity<ActivityRegisterBinding>(
                 binding.btContinue.setOnClickListener {
                     val password = binding.etName.text.toString()
 
+                    if (password.length in 1..7) {
+                        showShortToast("8자 이상의 비밀번호를 입력해주세요.")
+                    } else if (password.length > 7) {
+                        val passwordPattern = "^.*(?=^.{8,30}\$)(?=.*\\d)(?=.*[a-zA-Z])(?=.*[!@#\$%^&+=]).*\$"
+
+                        val tt = Pattern.matches(passwordPattern, password)
+
+                        if (tt){
+                            RegisterViewModel.password = password
+                            movePage(6)
+                        } else {
+                            showShortToast("비밀번호에는의 한개 이상 숫자와 특수문자가 포함되어야합니다.")
+                        }
+                    }
                 }
 
                 binding.ibBack.setOnClickListener {
