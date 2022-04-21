@@ -59,6 +59,10 @@ class Register : BaseActivity<ActivityRegisterBinding>(
         if (temp) {
             movePage(6)
             searchSchool()
+            binding.btContinue.background = ContextCompat.getDrawable(
+                applicationContext,
+                R.drawable.register_btn
+            )
             data = intent.getIntExtra("data", schoolId)
             school = intent.getStringExtra("school").toString()
             binding.tvNull.text = school
