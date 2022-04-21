@@ -32,8 +32,8 @@
 
         <ImageButton
             android:id="@+id/ibBack"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:adjustViewBounds="true"
             android:background="@android:color/transparent"
             android:scaleType="fitCenter"
@@ -47,7 +47,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="38.82dp"
+            android:layout_marginTop="50dp"
             app:layout_constraintLeft_toLeftOf="@id/left_line"
             app:layout_constraintRight_toRightOf="@id/right_line"
             app:layout_constraintTop_toBottomOf="@id/ibBack">
