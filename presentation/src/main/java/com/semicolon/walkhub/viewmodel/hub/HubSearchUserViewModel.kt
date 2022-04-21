@@ -31,7 +31,8 @@ class HubSearchUserViewModel @Inject constructor(
     fun searchUser(school: Int, name: String, dateType: MoreDateType) {
         viewModelScope.launch {
             kotlin.runCatching {
-                searchUserUseCase.execute(SearchUserParam(school, name, dateType)).collect() {
+                TODO("앱 발표 끝나고 무조건 바꿔야함")
+                searchUserUseCase.execute(SearchUserParam(1, name, dateType)).collect() {
                     event(Event.SearchSchool(it.toData()))
                 }
             }.onFailure {
