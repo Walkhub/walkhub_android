@@ -427,7 +427,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
         binding.tvEt.text = "먼저 본인의 이름을 입력해주세요."
         binding.etName.hint = "이름(2~10자)"
         binding.etName.inputType = InputType.TYPE_CLASS_TEXT
-        binding.ibBack.setImageResource(R.drawable.delete)
+        binding.ibBack.setImageResource(R.drawable.deleto)
     }
 
     private fun enterPhone() {
