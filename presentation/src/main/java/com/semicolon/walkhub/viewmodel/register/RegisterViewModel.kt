@@ -115,11 +115,11 @@ class RegisterViewModel @Inject constructor(
                 event((Event.SuccessRegister(true)))
             }.onFailure {
                 when (it) {
-                    is BadRequestException -> event(Event.ErrorMessage("잘못된 요청으로 회원가입에 실패하였습니다."))
-                    is NotFoundException -> event(Event.ErrorMessage("잘못된 접근입니다."))
-                    is UnauthorizedException -> event(Event.ErrorMessage("토큰이 만료 되었습니다. 다시 로그인 해주세요."))
-                    is ConflictException -> event(Event.ErrorMessage("이미 사용중인 아이디입니다."))
-                    else -> event(Event.ErrorMessage("알 수 없는 오류가 발생하였습니다."))
+                    is BadRequestException -> event(Event.BadRequest)
+                    is NotFoundException -> event(Event.NotFound)
+                    is UnauthorizedException -> event(Event.UnAuthor)
+                    is ConflictException -> event(Event.Conflict)
+                    else -> event(Event.UnKnown)
                 }
             }
         }
@@ -149,6 +149,11 @@ class RegisterViewModel @Inject constructor(
         data class SuccessCheckPhone(var state1: Boolean = false) : Event()
         data class SuccessId(var state2: Boolean = false) : Event()
         data class SuccessVerityPhone(var state3: Boolean = false) : Event()
+        object BadRequest: Event()
+        object NotFound: Event()
+        object UnAuthor: Event()
+        object Conflict: Event()
+        object UnKnown: Event()
         data class ErrorMessage(val message: String) : Event()
     }
 }
