@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="fragment"
             type="com.semicolon.walkhub.ui.profile.ProfileFragment" />
@@ -25,11 +26,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="28dp"
-                android:gravity="center"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="14dp"
                 android:layout_marginBottom="14dp"
                 android:fontFamily="@font/noto_sans_kr_medium"
+                android:gravity="center"
                 android:text="마이페이지"
                 android:textColor="@color/gray_800"
                 android:textSize="20sp"
@@ -51,17 +52,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/my_picture"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginTop="80dp"
-            android:layout_marginBottom="456dp"
-            app:layout_constraintBottom_toTopOf="@id/cardView3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/cardView3" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView3"
@@ -201,6 +191,18 @@
 
 
         </androidx.cardview.widget.CardView>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/my_picture"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="456dp"
+            android:src="@drawable/profile"
+            app:layout_constraintBottom_toTopOf="@id/cardView3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/cardView3" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
