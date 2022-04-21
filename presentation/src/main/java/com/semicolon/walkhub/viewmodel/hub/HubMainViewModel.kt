@@ -40,9 +40,9 @@ class HubMainViewModel @Inject constructor(
                 }
             }.onFailure {
                 when (it) {
-                    is NoInternetException -> event(Event.ErrorMessage("인터넷을 사용할 수 없습니다"))
-                    is NullPointerException -> event(Event.ErrorMessage("데이터가 없습니다."))
-                    else -> event(Event.ErrorMessage("알 수 없는 에러가 발생했습니다."))
+                    is NoInternetException -> event(Event.NoInternet)
+                    is NullPointerException -> event(Event.NullPoint)
+                    else -> event(Event.Unknown)
                 }
             }
         }
@@ -56,9 +56,9 @@ class HubMainViewModel @Inject constructor(
                 }
             }.onFailure {
                 when (it) {
-                    is NoInternetException -> event(Event.ErrorMessage("인터넷을 사용항 수 없습니다."))
-                    is NullPointerException -> event(Event.ErrorMessage("데이터가 없습니다."))
-                    else -> event(Event.ErrorMessage("알 수 없는 에러가 발생했습니다."))
+                    is NoInternetException -> event(Event.NoInternet)
+                    is NullPointerException -> event(Event.NullPoint)
+                    else -> event(Event.Unknown)
                 }
             }
         }
@@ -66,11 +66,11 @@ class HubMainViewModel @Inject constructor(
 
     private fun FetchMySchoolRankEntity.toData() =
         MySchoolRankData(
-            schoolId = mySchoolRank.schoolId,
-            name = mySchoolRank.name,
-            logoImageUrl = mySchoolRank.logoImageUrl,
-            grade = mySchoolRank.grade,
-            classNum = mySchoolRank.classNum
+            schoolId = schoolId,
+            name = name,
+            logoImageUrl = logoImageUrl,
+            grade = grade,
+            classNum = classNum
         )
 
     private fun SchoolRankAndSearchEntity.SchoolRank.toData() =
@@ -97,6 +97,8 @@ class HubMainViewModel @Inject constructor(
     sealed class Event {
         data class FetchMyRank(val mySchoolRankData: MySchoolRankData) : Event()
         data class FetchSchoolRank(val hubSchoolRankData: HubSchoolRankData) : Event()
-        data class ErrorMessage(val message: String) : Event()
+        object NullPoint : Event()
+        object NoInternet : Event()
+        object Unknown: Event()
     }
 }
