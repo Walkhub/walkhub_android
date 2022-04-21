@@ -20,7 +20,7 @@ class FetchMyChallengesUseCaseUnitCase {
 
     @Test
     fun testFetchMyChallengesUseCase() {
-        val challengeId = 12L
+        val challengeId = 12
         val challengeEntity = MyChallengeEntity(
             challengeId,
             "삼천보걷기",
@@ -31,7 +31,7 @@ class FetchMyChallengesUseCaseUnitCase {
             goalType = ChallengeGoalType.ETC,
             goal = 3000,
             writer = MyChallengeEntity.Writer(
-                12L,
+                12,
                 "JaeWon",
                 "https://testImageUrl"
             ),

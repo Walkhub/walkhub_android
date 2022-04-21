@@ -15,24 +15,14 @@ import com.semicolon.walkhub.databinding.ActivityRegisterBinding
 import com.semicolon.walkhub.ui.base.BaseActivity
 import com.semicolon.walkhub.util.visible
 import android.os.CountDownTimer
-import android.util.Log
-import android.widget.TextView
 import androidx.activity.viewModels
-import androidx.core.view.isGone
-import com.semicolon.domain.enums.SexType
 import com.semicolon.domain.param.user.CheckPhoneNumberParam
-import com.semicolon.domain.param.user.PostUserSignUpParam
 import com.semicolon.domain.param.user.VerifyPhoneNumberSignUpParam
 import com.semicolon.walkhub.extensions.repeatOnStarted
-import com.semicolon.walkhub.ui.MainActivity
-import com.semicolon.walkhub.ui.register.ScanHealthInformationActivity
 import com.semicolon.walkhub.ui.register.SearchSchoolActivity
 import com.semicolon.walkhub.util.invisible
-import com.semicolon.walkhub.viewmodel.login.LoginViewModel
 import com.semicolon.walkhub.viewmodel.register.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.properties.Delegates
-import android.R.string
 import java.util.regex.Pattern
 
 
@@ -59,6 +49,10 @@ class Register : BaseActivity<ActivityRegisterBinding>(
         if (temp) {
             movePage(6)
             searchSchool()
+            binding.btContinue.background = ContextCompat.getDrawable(
+                applicationContext,
+                R.drawable.register_btn
+            )
             data = intent.getIntExtra("data", schoolId)
             school = intent.getStringExtra("school").toString()
             binding.tvNull.text = school
@@ -343,11 +337,12 @@ class Register : BaseActivity<ActivityRegisterBinding>(
                     if (password.length in 1..7) {
                         showShortToast("8자 이상의 비밀번호를 입력해주세요.")
                     } else if (password.length > 7) {
-                        val passwordPattern = "^.*(?=^.{8,30}\$)(?=.*\\d)(?=.*[a-zA-Z])(?=.*[!@#\$%^&+=]).*\$"
+                        val passwordPattern =
+                            "^.*(?=^.{8,30}\$)(?=.*\\d)(?=.*[a-zA-Z])(?=.*[!@#\$%^&+=]).*\$"
 
                         val tt = Pattern.matches(passwordPattern, password)
 
-                        if (tt){
+                        if (tt) {
                             RegisterViewModel.password = password
                             movePage(6)
                         } else {
@@ -422,6 +417,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
         binding.tvEt.text = "먼저 본인의 이름을 입력해주세요."
         binding.etName.hint = "이름(2~10자)"
         binding.etName.inputType = InputType.TYPE_CLASS_TEXT
+        binding.ibBack.setImageResource(R.drawable.delete)
     }
 
     private fun enterPhone() {
@@ -436,6 +432,7 @@ class Register : BaseActivity<ActivityRegisterBinding>(
         binding.tvEt.text = "전화번호를 입력해주세요"
         binding.etName.hint = "전화번호 ex) 01012345678"
         binding.etName.inputType = InputType.TYPE_CLASS_NUMBER
+        binding.ibBack.setImageResource(R.drawable.ic_back_arrow)
     }
 
     private fun sendCertification() {

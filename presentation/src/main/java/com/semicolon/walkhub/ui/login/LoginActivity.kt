@@ -45,6 +45,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(
             vm.postLogin(accountId, password)
         }
 
+        binding.ibBack.setOnClickListener {
+            finish()
+        }
+        
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
         }

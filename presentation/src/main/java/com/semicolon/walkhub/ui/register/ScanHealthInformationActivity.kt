@@ -64,7 +64,7 @@ class ScanHealthInformationActivity : BaseActivity<ActivityScanHealthInformation
                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
             startActivity(intent)
 
-            showShortToast("회원가입을 성공적으로 완료하였습니다! 로그인 후 이용해주세요.")
+            showShortToast("회원가입을 성공적으로 완료하였습니다!")
         }
         else -> {
 

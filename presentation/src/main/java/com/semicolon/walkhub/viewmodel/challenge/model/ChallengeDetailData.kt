@@ -1,11 +1,12 @@
-package com.semicolon.domain.entity.challenge
+package com.semicolon.walkhub.viewmodel.challenge.model
 
-import com.semicolon.domain.enums.ChallengeGoalType
 import com.semicolon.domain.enums.ChallengeGoalScope
+import com.semicolon.domain.enums.ChallengeGoalType
 import com.semicolon.domain.enums.ChallengeUserScope
 import org.threeten.bp.LocalDateTime
 
-data class ChallengeDetailEntity(
+
+data class ChallengeDetailData(
     val name: String,
     val content: String,
     val goal: Int,
@@ -16,14 +17,13 @@ data class ChallengeDetailEntity(
     val imageUrl: String,
     val startAt: LocalDateTime,
     val endAt: LocalDateTime,
-    val successStandard: Int,
-    val value: Int,
-    val writerEntity: WriterEntity,
     val isMine: Boolean,
+    val value: Int,
     val isParticipated: Boolean,
     val participantCount: Int,
     val participantList: List<ParticipantList>,
-    ) {
+    val writerEntity: WriterEntity
+) {
     data class WriterEntity(
         val id: Int,
         val name: String,
@@ -35,3 +35,4 @@ data class ChallengeDetailEntity(
         val profileImageUrl: String
     )
 }
+

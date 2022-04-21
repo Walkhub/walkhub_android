@@ -11,7 +11,7 @@ import com.semicolon.domain.enums.toScopeString
 
 @Entity(tableName = "challenge")
 data class ChallengeRoomEntity(
-    @PrimaryKey var id: Long,
+    @PrimaryKey var id: Int,
     var name: String,
     var startAt: String,
     var endAt: String,
@@ -20,11 +20,11 @@ data class ChallengeRoomEntity(
     var goalType: String,
     var goalScope: String,
     var award: String,
-    var writerId: Long,
+    var writerId: Int,
     var writerName: String,
     var writerProfileUrl: String,
     var participantCount: Int,
-    var participantList: List<ChallengeParticipantEntity>
+    var participantList: List<ChallengeDetailRoomEntity.ParticipantList>
 )
 
 fun ChallengeRoomEntity.toEntity() =
@@ -44,7 +44,14 @@ fun ChallengeRoomEntity.toEntity() =
             profileImageUrl = writerProfileUrl
         ),
         participantCount = participantCount,
-        participantList = participantList
+        participantList = participantList.map { it.toParticipantEntity() }
+    )
+
+fun ChallengeDetailRoomEntity.ParticipantList.toParticipantEntity() =
+    ChallengeParticipantEntity(
+        id = participantUserId,
+        name = participantName,
+        profileImageUrl = participantProfileImageUrl
     )
 
 fun List<ChallengeRoomEntity>.toEntity() =
@@ -65,8 +72,9 @@ fun ChallengeEntity.toDbEntity() =
         writerName = writer.name,
         writerProfileUrl = writer.profileImageUrl,
         participantCount = participantCount,
-        participantList = participantList
+        participantList = participantList.map { it.toParticipantEntity() }
     )
+
 
 fun List<ChallengeEntity>.toDbEntity() =
     map { it.toDbEntity() }

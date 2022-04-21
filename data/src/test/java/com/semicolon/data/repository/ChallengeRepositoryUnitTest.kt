@@ -36,14 +36,14 @@ class ChallengeRepositoryUnitTest {
         goalType = ChallengeGoalType.ETC,
         award = "award",
         writer = ChallengeEntity.Writer(
-            12L,
+            12,
             "JaeWon",
             "https://testImageUrl"
         ),
         participantCount = 12,
         participantList = listOf(
             ChallengeParticipantEntity(
-                12L,
+                12,
                 "JaeWon",
                 "https://testImageUrl"
             )
@@ -62,7 +62,7 @@ class ChallengeRepositoryUnitTest {
             goalScope = ChallengeGoalScope.ALL,
             goalType = ChallengeGoalType.ETC,
             writer = MyChallengeEntity.Writer(
-                13L,
+                13,
                 "김재원",
                 "https://testImageUrl"
             ),
@@ -105,13 +105,17 @@ class ChallengeRepositoryUnitTest {
             "https://testImageUrl",
             LocalDateTime.MIN,
             LocalDateTime.MAX,
-            false,
+            100,
             10,
             ChallengeDetailEntity.WriterEntity(
                 13,
                 "김재원",
                 "https://testImageUrl"
-            )
+            ),
+            true,
+            true,
+            100,
+            listOf()
         )
         runBlocking {
             whenever(localChallengeDateSource.fetchChallengeDetail(challengeId)).thenReturn(
