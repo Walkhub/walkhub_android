@@ -48,17 +48,17 @@ class UserRepositoryUnitTest {
 
     @Test
     fun testPostUserSignUp() {
-        val request = PostUserSignUpParam(
-            "accountId",
-            "dlwodnjs0310",
-            "이재원",
-            "010-2100-2936",
-            176.0,
-            60,
-            SexType.MALE,
-            1,
-            "대덕소프트웨어마이스터고"
-        )
+//        val request = PostUserSignUpParam(
+//            "accountId",
+//            "dlwodnjs0310",
+//            "이재원",
+//            "010-2100-2936",
+//            176.0,
+//            60,
+//            SexType.MALE,
+//            1,
+//            "대덕소프트웨어마이스터고"
+//        )
 
 //        runBlocking {
 //            val repositoryResult = userRepository.postUserSignUp(request)

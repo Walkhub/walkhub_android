@@ -32,22 +32,22 @@ class RemoteUserDataSourceUnitTest {
 
     @Test
     fun testPostUserSignUp() {
-        val request = UserSignUpRequest(
-            "13",
-            "password",
-            "김재원",
-            "010-0000-0000",
-            175.0,
-            60,
-            SexType.MALE,
-            1,
-            "asdfg",
-            "adsvsvsdvv"
-        )
-        runBlocking {
-            val dataSourceResult = remoteUserDataSource.postUserSignUp(request)
-            assertEquals(Unit, dataSourceResult)
-        }
+//        val request = UserSignUpRequest(
+//            "qwer123",
+//            "qwer123!",
+//            "김재원",
+//            "010-0000-0000",
+//            175.0,
+//            60,
+//            SexType.MALE,
+//            1,
+//            "asdfg",
+//            "adsvsvsdvv"
+//        )
+//        runBlocking {
+//            val dataSourceResult = remoteUserDataSource.postUserSignUp(request)
+//            assertEquals(Unit, dataSourceResult)
+//        }
     }
 
     @Test
