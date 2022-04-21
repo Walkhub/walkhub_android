@@ -48,19 +48,23 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
         }
-
-        requestPermissions()
     }
 
     private fun handleEvent(event: LoginViewModel.Event) = when (event) {
-        is LoginViewModel.Event.Success-> {
+        is LoginViewModel.Event.LoginSuccess-> {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
-        is LoginViewModel.Event.ErrorMessage -> {
-            showShortToast(event.message)
-        }
+        is LoginViewModel.Event.NoInternet -> showShortToast("인터넷 연결을 확인해주세요.")
+
+        is LoginViewModel.Event.Unauthorized -> showShortToast("잘못된 접근입니다. 다시 로그인 해주세요.")
+
+        is LoginViewModel.Event.BadRequest -> showShortToast("잘못된 요청입니다. 요청한 값을 확인해주세요.")
+
+        is LoginViewModel.Event.WrongAccount -> showShortToast("아이디나 비밀번호가 틀립니다.")
+
+        else -> showShortToast("알 수 없는 에러가 발생하였습니다.")
     }
 
     private fun loginToast() {
@@ -77,52 +81,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(
         else if (id.isNotEmpty() && password.isNotEmpty()){
 
         }
-    }
-
-    private val fitnessOptions =
-        FitnessOptions.builder()
-            .addDataType(DataType.AGGREGATE_STEP_COUNT_DELTA)
-            .addDataType(DataType.AGGREGATE_MOVE_MINUTES)
-            .addDataType(DataType.AGGREGATE_DISTANCE_DELTA)
-            .addDataType(DataType.AGGREGATE_CALORIES_EXPENDED)
-            .addDataType(DataType.TYPE_LOCATION_SAMPLE)
-            .build()
-
-    private fun requestPermissions() {
-        val permissionListener = object : PermissionListener {
-            override fun onPermissionGranted() {
-                fitSignIn()
-            }
-
-            override fun onPermissionDenied(deniedPermissions: List<String>) {
-                finish()
-            }
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            TedPermission.create()
-                .setPermissionListener(permissionListener)
-                .setPermissions(
-                    Manifest.permission.ACTIVITY_RECOGNITION,
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ).check()
-        } else {
-            TedPermission.create()
-                .setPermissionListener(permissionListener)
-                .setPermissions(
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ).check()
-        }
-    }
-
-    private fun fitSignIn() {
-        GoogleSignIn.requestPermissions(
-            this, 0,
-            GoogleSignIn.getAccountForExtension(this, fitnessOptions),
-            fitnessOptions
-        )
     }
 
     override fun initView() {

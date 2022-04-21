@@ -8,7 +8,6 @@ import com.semicolon.domain.entity.users.*
 import com.semicolon.domain.exception.*
 import com.semicolon.domain.param.user.CheckPhoneNumberParam
 import com.semicolon.domain.param.user.VerifyPhoneNumberSignUpParam
-import java.lang.NullPointerException
 import javax.inject.Inject
 
 class RemoteUserDataSourceImpl @Inject constructor(
@@ -46,7 +45,7 @@ class RemoteUserDataSourceImpl @Inject constructor(
 
     override suspend fun postUserSignUp(
         userSignUpRequest: UserSignUpRequest
-    ) = HttpHandler<Unit>()
+    ): UserSignUpResponse = HttpHandler<UserSignUpResponse>()
         .httpRequest { userApi.userSignUp(userSignUpRequest) }
         .sendRequest()
 

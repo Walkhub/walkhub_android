@@ -11,10 +11,11 @@ import com.semicolon.data.util.toMultipart
 import com.semicolon.domain.entity.users.*
 import com.semicolon.domain.param.user.*
 import com.semicolon.domain.repository.UserRepository
-import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 class UserRepositoryImpl @Inject constructor(
     private val remoteImagesDataSource: RemoteImagesDataSource,
@@ -32,20 +33,35 @@ class UserRepositoryImpl @Inject constructor(
 
     override suspend fun postUserSignUp(
         postUserSignUpParam: PostUserSignUpParam
-    ) = remoteUserDateSource.postUserSignUp(postUserSignUpParam.toRequest())
+    ) {
+        val postUserSignInParam = PostUserSignInParam(
+            accountId = postUserSignUpParam.accountId,
+            password = postUserSignUpParam.password
+        )
+
+        val token = suspendCoroutine<String> {
+            FirebaseMessaging.getInstance().token.addOnSuccessListener { token -> it.resume(token) }
+        }
+
+        val response = remoteUserDateSource.postUserSignUp(postUserSignUpParam.toRequest(token))
+
+        saveAccount(postUserSignInParam, token)
+        saveTokenSignUp(
+            accessToken = response.accessToken,
+            refreshToken = response.refreshToken,
+            expiredAt = response.expiredAt
+        )
+    }
 
     override suspend fun postUserSignIn(
         postUserSignInParam: PostUserSignInParam
     ) {
-        FirebaseMessaging.getInstance().token.addOnSuccessListener {
-            CoroutineScope(Dispatchers.IO).launch {
-                val response =
-                    remoteUserDateSource.postUserSignIn(postUserSignInParam.toRequest(it))
-                saveAccount(postUserSignInParam, it)
-                saveToken(response)
-            }
-
+        val token = suspendCoroutine<String> {
+            FirebaseMessaging.getInstance().token.addOnSuccessListener { token -> it.resume(token) }
         }
+        val response = remoteUserDateSource.postUserSignIn(postUserSignInParam.toRequest(token))
+        saveAccount(postUserSignInParam, token)
+        saveToken(response)
     }
 
     override suspend fun patchUserChangePassword(
@@ -162,6 +178,18 @@ class UserRepositoryImpl @Inject constructor(
         }
     }
 
+    private suspend fun saveTokenSignUp(
+        accessToken: String,
+        refreshToken: String,
+        expiredAt: String
+    ) {
+        localUserDataSource.apply {
+            setAccessToken(accessToken)
+            setRefreshToken(refreshToken)
+            setExpiredAt(expiredAt)
+        }
+    }
+
     private suspend fun saveAccount(userSignInParam: PostUserSignInParam, deviceToken: String) {
         localUserDataSource.apply {
             setId(userSignInParam.accountId)
@@ -207,7 +235,7 @@ class UserRepositoryImpl @Inject constructor(
             phoneNumber = phone_number
         )
 
-    fun PostUserSignUpParam.toRequest() =
+    fun PostUserSignUpParam.toRequest(token: String) =
         UserSignUpRequest(
             accountId = accountId,
             password = password,
@@ -217,7 +245,8 @@ class UserRepositoryImpl @Inject constructor(
             weight = weight,
             sex = sex,
             schoolId = schoolId,
-            authCode = authCode
+            authCode = authCode,
+            deviceToken = token
         )
 
     fun PostUserSignInParam.toRequest(deviceToken: String) =
