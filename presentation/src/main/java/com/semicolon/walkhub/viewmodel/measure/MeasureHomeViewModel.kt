@@ -104,7 +104,7 @@ class MeasureHomeViewModel @Inject constructor(
         }
     }
 
-    inner class MeasureExercisingUserItemViewModel(id: Int, name: String, profileUrl: String) :
+    inner class MeasureExercisingUserItemViewModel(id: Int, name: String, profileUrl: String?) :
         CheeringItemViewModel(id, name, profileUrl) {
 
         override fun onClick() {
