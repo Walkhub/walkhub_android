@@ -133,10 +133,10 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
                 binding.measuringWalkTv.text = it.toString()
             }
             calorie.observe(this@MeasuringActivity) {
-                binding.measuringCalorieTv.text = it.toString()
+                binding.measuringCalorieTv.text = it.toString().substring(0..2)
             }
             speed.observe(this@MeasuringActivity) {
-                binding.measuringSpeedTv.text = it.toString()
+                binding.measuringSpeedTv.text = it.toString().substring(0..2)
             }
             percentage.observe(this@MeasuringActivity) {
                 binding.measuringRemainPb.progress = it

@@ -21,6 +21,7 @@ import org.threeten.bp.LocalDateTime
 import org.threeten.bp.ZoneId
 import java.io.File
 import javax.inject.Inject
+import kotlin.math.min
 
 @HiltViewModel
 class MeasureViewModel @Inject constructor(
@@ -52,8 +53,8 @@ class MeasureViewModel @Inject constructor(
     private val _speed = MutableLiveData(0F)
     val speed: LiveData<Float> = _speed
 
-    private val _time = MutableLiveData<LocalDateTime>()
-    val time: LiveData<LocalDateTime> = _time
+    private val _time = MutableLiveData<ExercisedTime>()
+    val time: LiveData<ExercisedTime> = _time
 
     private val _percentage = MutableLiveData(0)
     val percentage: LiveData<Int> = _percentage
@@ -126,8 +127,10 @@ class MeasureViewModel @Inject constructor(
     private fun fetchMeasuredTime() {
         viewModelScope.launch {
             fetchMeasuredTimeUseCase.execute(Unit).collect {
-                _time.value =
-                    LocalDateTime.ofInstant(Instant.ofEpochSecond(it), ZoneId.systemDefault())
+                val hour = (it / 3600000).toInt()
+                val valueForCalculateMinute = if (it >= 3600000) it - 3600000 else it
+                val minute = (valueForCalculateMinute / 60000).toInt()
+                _time.value = ExercisedTime(hour, minute)
             }
         }
     }
@@ -222,6 +225,8 @@ class MeasureViewModel @Inject constructor(
             _event.emit(event)
         }
     }
+
+    data class ExercisedTime(val hour: Int, val minute: Int)
 
     sealed class Event {
         object StartFetchPhoto : Event()
