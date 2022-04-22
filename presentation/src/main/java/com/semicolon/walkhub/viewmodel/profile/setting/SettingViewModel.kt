@@ -22,9 +22,9 @@ class SettingViewModel @Inject constructor(
             kotlin.runCatching {
                logOutUseCase.execute(Unit)
             }.onSuccess {
-                event(Event.Success)
+                 event(Event.Success)
             }.onFailure {
-                event(Event.Failed("인터넷에 연결되지 않았습니다."))
+                event(Event.Failed("로그아웃에 실패하셨습니다."))
             }
         }
     }
