@@ -62,7 +62,7 @@ class HubFragment @Inject constructor(
         }
 
         is Event.NullPoint -> {
-            showShortToast("데이터가 업습니다.")
+
         }
 
         is Event.Unknown -> {
