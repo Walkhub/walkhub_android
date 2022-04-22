@@ -17,7 +17,7 @@ class LocalUserDataSourceImpl @Inject constructor(
         userDao.fetchUserMyPage().toEntity()
 
     override suspend fun insertUserMyPage(userMyPageEntity: UserMyPageEntity) {
-        userDao.insertUserMyPage(userMyPageEntity.toDbEntity())
+        userMyPageEntity.toDbEntity()?.let { userDao.insertUserMyPage(it) }
     }
 
     override suspend fun fetchUserProfile(userId: Int): UserProfileEntity =

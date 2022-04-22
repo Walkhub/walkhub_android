@@ -110,8 +110,8 @@ class ProfileViewModel @Inject constructor(
     }
 
     sealed class Event {
-        data class FetchHome(val homeData: HomeData): Event()
-        data class FetchMyPage(val myPageData: MyPageData): Event()
+        data class FetchHome(val homeData: HomeData) : Event()
+        data class FetchMyPage(val myPageData: MyPageData) : Event()
         data class ErrorMessage(val message: String) : Event()
     }
 }
