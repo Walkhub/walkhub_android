@@ -89,7 +89,7 @@ class SignUpClassActivity : BaseActivity<ActivitySignUpClassBinding>(
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (p0?.length!! >= 4) {
+                if (p0?.length!! >= 1) {
                     binding.tvNext.background =
                         ContextCompat.getDrawable(applicationContext, R.drawable.bg_primary_button)
                     binding.tvSecondNext.background =
@@ -140,8 +140,8 @@ class SignUpClassActivity : BaseActivity<ActivitySignUpClassBinding>(
         binding.etNumber.visible()
         binding.etClassCode.invisible()
 
-        binding.etTitle.text = "학번 등록"
-        binding.etLore.text = "반에서 사용하는 학번을 입력해주세요."
+        binding.etTitle.text = "번호 등록"
+        binding.etLore.text = "반에서 사용하는 번호을 입력해주세요."
 
         binding.tvSecondNext.setOnClickListener {
             classNum = binding.etNumber.text.toString().toInt()
