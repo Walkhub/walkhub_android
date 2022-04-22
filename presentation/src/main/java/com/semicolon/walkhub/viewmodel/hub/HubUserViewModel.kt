@@ -27,6 +27,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.zip
 import kotlinx.coroutines.launch
+import java.lang.NullPointerException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -105,6 +106,7 @@ class HubUserViewModel @Inject constructor(
                     is NoInternetException -> errorToastMessage("인터넷을 사용할 수 없습니다")
                     is BadRequestException -> errorToastMessage("요청하는 형식을 식별할 수 없습니다.")
                     is NotFoundException -> errorToastMessage("요청하는 대상을 찾을 수 없습니다.")
+                    is NullPointerException -> errorToastMessage("값이 존재하지 않습니다.")
                     else -> errorToastMessage("알 수 없는 에러가 발생했습니다.")
                 }
             }
@@ -186,12 +188,13 @@ class HubUserViewModel @Inject constructor(
             rank = ranking
         )
 
+
     private fun OurSchoolUserRankEntity.Ranking.toCheeringItemViewModel() =
-        HubCheeringItemViewModel(
-            id = userId,
-            userName = name,
-            imageUrl = profileImageUrl
-        )
+            HubCheeringItemViewModel(
+                id = userId,
+                userName = name,
+                imageUrl = profileImageUrl
+            )
 
     private fun event(event: Event) {
         viewModelScope.launch {
@@ -203,7 +206,7 @@ class HubUserViewModel @Inject constructor(
         event(Event.ErrorMessage(message))
     }
 
-    inner class HubCheeringItemViewModel(id: Int, userName: String, imageUrl: String) :
+    inner class HubCheeringItemViewModel(id: Int, userName: String, imageUrl: String?) :
         CheeringItemViewModel(id, userName, imageUrl) {
 
         override fun onClick() {
@@ -214,7 +217,7 @@ class HubUserViewModel @Inject constructor(
     }
 
     data class UserRankItemViewModel(
-        val profileUrl: String,
+        val profileUrl: String?,
         val name: String,
         val walkCount: Int,
         val rank: Int
@@ -222,7 +225,7 @@ class HubUserViewModel @Inject constructor(
 
     data class HubMyPageData(
         val name: String,
-        val profileImageUrl: String,
+        val profileImageUrl: String?,
         val ranking: Int,
         val userId: Int,
         val walkCount: Int
