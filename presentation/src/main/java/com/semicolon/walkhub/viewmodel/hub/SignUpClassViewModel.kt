@@ -3,10 +3,7 @@ package com.semicolon.walkhub.viewmodel.hub
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.semicolon.domain.exception.ConflictException
-import com.semicolon.domain.exception.NoInternetException
-import com.semicolon.domain.exception.NotFoundException
-import com.semicolon.domain.exception.UnauthorizedException
+import com.semicolon.domain.exception.*
 import com.semicolon.domain.param.user.SignUpClassParam
 import com.semicolon.domain.usecase.user.CheckClassCodeUseCase
 import com.semicolon.domain.usecase.user.SignUpClassUseCase
@@ -35,6 +32,7 @@ class SignUpClassViewModel @Inject constructor(
                     is UnauthorizedException -> event(Event.ErrorMessage("잘못된 접근입니다."))
                     is NotFoundException -> event(Event.ErrorMessage("올바르지 않은 가입 번호입니다."))
                     is ConflictException -> event(Event.ErrorMessage("이미 반에 가입되어 있습니다."))
+                    is ServerException -> event(Event.ErrorMessage("서버와의 통신이 올바르지 않습니다."))
                     else -> event(Event.ErrorMessage("알 수 없는 에러가 발생했습니다."))
                 }
             }.onSuccess {
