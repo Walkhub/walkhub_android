@@ -80,5 +80,7 @@ interface RemoteUserDataSource {
     suspend fun fetchUserHealth(): FetchUserHealthEntity
 
     suspend fun fetchAuthInfo(): FetchAuthInfoEntity
+
+    suspend fun deleteDeviceToken()
 }
 

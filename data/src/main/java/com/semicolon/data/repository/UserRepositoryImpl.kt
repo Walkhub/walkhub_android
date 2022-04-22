@@ -198,6 +198,13 @@ class UserRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun logout() {
+        localUserDataSource.clearId()
+        localUserDataSource.clearPw()
+        localUserDataSource.clearAccessToken()
+        localUserDataSource.clearRefreshToken()
+    }
+
     override suspend fun fetchUserProfile(userId: Int): Flow<UserProfileEntity> =
         OfflineCacheUtil<UserProfileEntity>()
             .remoteData { remoteUserDateSource.fetchUserProfile(userId) }
