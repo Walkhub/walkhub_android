@@ -171,12 +171,10 @@ class UserRepositoryImpl @Inject constructor(
     }
 
     override suspend fun logout() {
-        remoteUserDateSource.deleteDeviceToken()
-        localUserDataSource.clearAccessToken()
-        localUserDataSource.clearRefreshToken()
         localUserDataSource.clearId()
         localUserDataSource.clearPw()
-
+        localUserDataSource.clearAccessToken()
+        localUserDataSource.clearRefreshToken()
     }
 
     override suspend fun fetchUserProfile(userId: Int): Flow<UserProfileEntity> =
