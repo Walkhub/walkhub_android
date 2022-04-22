@@ -37,7 +37,7 @@ class HubSearchSchoolRvAdapter(
                 context.startActivity(intent)
             }
 
-            binding.ivSchool.loadFromUrl(item.logoImageUrl)
+            item.logoImageUrl?.let { binding.ivSchool.loadFromUrl(it) }
 
             if (item.schoolName.length > 10) {
                 val schoolName = item.schoolName.substring(0, 11) + "..."
