@@ -3,7 +3,7 @@ package com.semicolon.domain.entity.users
 data class UserMyPageEntity(
     val userId: Int,
     val name: String,
-    val profileImageUrl: String,
+    val profileImageUrl: String?,
     val schoolId: Int,
     val schoolName: String,
     val schoolImageUrl: String,
