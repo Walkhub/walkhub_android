@@ -33,7 +33,7 @@ class SignUpClassViewModel @Inject constructor(
                 when (it) {
                     is NoInternetException -> event(Event.ErrorMessage("인터넷을 사용할 수 없습니다"))
                     is UnauthorizedException -> event(Event.ErrorMessage("잘못된 접근입니다."))
-                    is NotFoundException -> event(Event.ErrorMessage("404"))
+                    is NotFoundException -> event(Event.ErrorMessage("올바르지 않은 가입 번호입니다."))
                     is ConflictException -> event(Event.ErrorMessage("이미 반에 가입되어 있습니다."))
                     else -> event(Event.ErrorMessage("알 수 없는 에러가 발생했습니다."))
                 }
