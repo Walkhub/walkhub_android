@@ -4,8 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.MotionEvent
 import android.view.View
 import androidx.activity.viewModels
@@ -16,13 +14,13 @@ import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityModifyProfileBinding
 import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.base.BaseActivity
-import com.semicolon.walkhub.ui.register.adapter.SearchSchoolAdapter
-import com.semicolon.walkhub.ui.register.model.SecondSearchSchoolData
 import com.semicolon.walkhub.util.invisible
 import com.semicolon.walkhub.util.loadCircleFromUrl
 import com.semicolon.walkhub.viewmodel.profile.setting.ModifyProfileViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import gun0912.tedimagepicker.builder.TedImagePicker
 
+@AndroidEntryPoint
 class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
     R.layout.activity_modify_profile
 ) {
@@ -32,15 +30,15 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //vm.fetchInfo()
+        vm.fetchInfo()
         binding.image.setOnClickListener {
             setNormalSingleButton()
         }
 
 
-        /*repeatOnStarted {
+        repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
-        }*/
+        }
     }
 
     private fun handleEvent(event: ModifyProfileViewModel.Event) = when (event) {
@@ -78,7 +76,11 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
         binding.name.text = fetchInfoData.name
         binding.classes.text = fetchInfoData.classNum.toString()
         binding.grade.text = fetchInfoData.grade.toString()
-        fetchInfoData.profileImageUrl.let { binding.image.loadCircleFromUrl(it) }
+        fetchInfoData.profileImageUrl.let {
+            if (it != null) {
+                binding.image.loadCircleFromUrl(it)
+            }
+        }
     }
 
     private fun setNormalSingleButton() {
