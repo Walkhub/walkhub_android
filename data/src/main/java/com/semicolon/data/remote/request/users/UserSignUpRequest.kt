@@ -12,5 +12,6 @@ data class UserSignUpRequest(
     @SerializedName("weight") val weight: Int,
     @SerializedName("sex") val sex: SexType,
     @SerializedName("school_id") val schoolId: Int,
-    @SerializedName("auth_code") val authCode: String
+    @SerializedName("auth_code") val authCode: String,
+    @SerializedName("device_token") val deviceToken: String
 )

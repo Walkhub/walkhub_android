@@ -9,11 +9,11 @@ import com.semicolon.walkhub.util.loadFromUrl
 import kotlin.collections.ArrayList
 
 class HubSearchUserRvAdapter(
-    val dataList: ArrayList<SearchUserData.UserInfo>
+    private val dataList: ArrayList<SearchUserData.UserInfo>
 ) : RecyclerView.Adapter<HubSearchUserRvAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = dataList.get(position)
+        val item = dataList[position]
 
         holder.bind(item)
     }
@@ -27,7 +27,7 @@ class HubSearchUserRvAdapter(
 
         fun bind(item: SearchUserData.UserInfo) {
 
-            binding.ivUserProfile.loadFromUrl(item.profileUrl)
+            item.profileUrl?.let { binding.ivUserProfile.loadFromUrl(it) }
             binding.tvName.text = item.name
 
             val tvWalkCountText = "${item.walkCount} 걸음"

@@ -55,7 +55,7 @@ interface RemoteUserDataSource {
 
     suspend fun postUserSignUp(
         userSignUpRequest: UserSignUpRequest
-    )
+    ): UserSignUpResponse
 
     suspend fun patchDailyWalkGoal(
         patchDailyWalkGoalRequest: PatchDailyWalkGoalRequest
@@ -80,5 +80,7 @@ interface RemoteUserDataSource {
     suspend fun fetchUserHealth(): FetchUserHealthEntity
 
     suspend fun fetchAuthInfo(): FetchAuthInfoEntity
+
+    suspend fun deleteDeviceToken()
 }
 

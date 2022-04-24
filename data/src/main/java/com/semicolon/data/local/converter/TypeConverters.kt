@@ -5,9 +5,9 @@ import androidx.room.TypeConverter
 import com.semicolon.data.local.entity.badge.FetchMyBadgesRoomEntity
 import com.semicolon.data.local.entity.badge.FetchNewBadgesRoomEntity
 import com.semicolon.data.local.entity.badge.FetchUserBadgesRoomEntity
+import com.semicolon.data.local.entity.challenge.ChallengeDetailRoomEntity
 import com.semicolon.data.local.entity.notice.NoticeListRoomEntity
 import com.semicolon.data.local.entity.rank.*
-import com.semicolon.data.local.entity.school.SchoolDetailRoomEntity
 import com.semicolon.data.local.entity.user.FetchCaloriesLevelRoomEntity
 import com.semicolon.domain.entity.challenge.ChallengeParticipantEntity
 import com.squareup.moshi.JsonAdapter
@@ -88,22 +88,30 @@ class NewBadgeListTypeConverter(
 
 @ProvidedTypeConverter
 class NoticeListTypeConverter(
-  private val moshi: Moshi
-){
+    private val moshi: Moshi
+) {
 
     @TypeConverter
     fun fromString(value: String): List<NoticeListRoomEntity.NoticeListValue>? {
         val listType =
-            Types.newParameterizedType(List::class.java, NoticeListRoomEntity.NoticeListValue::class.java)
-        val adapter: JsonAdapter<List<NoticeListRoomEntity.NoticeListValue>> = moshi.adapter(listType)
+            Types.newParameterizedType(
+                List::class.java,
+                NoticeListRoomEntity.NoticeListValue::class.java
+            )
+        val adapter: JsonAdapter<List<NoticeListRoomEntity.NoticeListValue>> =
+            moshi.adapter(listType)
         return adapter.fromJson(value)
     }
 
     @TypeConverter
     fun fromList(type: List<NoticeListRoomEntity.NoticeListValue>): String {
         val listType =
-            Types.newParameterizedType(List::class.java, NoticeListRoomEntity.NoticeListValue::class.java)
-        val adapter: JsonAdapter<List<NoticeListRoomEntity.NoticeListValue>> = moshi.adapter(listType)
+            Types.newParameterizedType(
+                List::class.java,
+                NoticeListRoomEntity.NoticeListValue::class.java
+            )
+        val adapter: JsonAdapter<List<NoticeListRoomEntity.NoticeListValue>> =
+            moshi.adapter(listType)
         return adapter.toJson(type)
     }
 }
@@ -145,7 +153,8 @@ class RankOurSchoolTypeConverter(
             List::class.java,
             OurSchoolUserRankRoomEntity.Ranking::class.java
         )
-        val adapter: JsonAdapter<List<OurSchoolUserRankRoomEntity.Ranking>> = moshi.adapter(listType)
+        val adapter: JsonAdapter<List<OurSchoolUserRankRoomEntity.Ranking>> =
+            moshi.adapter(listType)
         return adapter.fromJson(value)
     }
 
@@ -155,56 +164,38 @@ class RankOurSchoolTypeConverter(
             List::class.java,
             OurSchoolUserRankRoomEntity.Ranking::class.java
         )
-        val adapter: JsonAdapter<List<OurSchoolUserRankRoomEntity.Ranking>> = moshi.adapter(listType)
+        val adapter: JsonAdapter<List<OurSchoolUserRankRoomEntity.Ranking>> =
+            moshi.adapter(listType)
         return adapter.toJson(type)
     }
 }
 
 @ProvidedTypeConverter
-class RankSchoolRankTypeConverter(
+class RankSchoolRankAndSearchTypeConverter(
     private val moshi: Moshi
 ) {
 
     @TypeConverter
-    fun fromString(value: String): List<SchoolRankRoomEntity.SchoolRank>? {
-        val listType = Types.newParameterizedType(List::class.java, SchoolRankRoomEntity.SchoolRank::class.java)
-        val adapter: JsonAdapter<List<SchoolRankRoomEntity.SchoolRank>> = moshi.adapter(listType)
+    fun fromString(value: String): List<SchoolRankAndSearchRoomEntity.SchoolRank>? {
+        val listType = Types.newParameterizedType(
+            List::class.java,
+            SchoolRankAndSearchRoomEntity.SchoolRank::class.java
+        )
+        val adapter: JsonAdapter<List<SchoolRankAndSearchRoomEntity.SchoolRank>> =
+            moshi.adapter(listType)
         return adapter.fromJson(value)
     }
 
     @TypeConverter
-    fun fromList(type: List<SchoolRankRoomEntity.SchoolRank>): String {
+    fun fromList(type: List<SchoolRankAndSearchRoomEntity.SchoolRank>): String {
         val listType = Types.newParameterizedType(
             List::class.java,
-            SchoolRankRoomEntity.SchoolRank::class.java
+            SchoolRankAndSearchRoomEntity.SchoolRank::class.java
         )
-        val adapter: JsonAdapter<List<SchoolRankRoomEntity.SchoolRank>> = moshi.adapter(listType)
+        val adapter: JsonAdapter<List<SchoolRankAndSearchRoomEntity.SchoolRank>> =
+            moshi.adapter(listType)
         return adapter.toJson(type)
     }
-}
-
-@ProvidedTypeConverter
-class RankSearchSchoolTypeConverter(
-    private val moshi: Moshi
-) {
-
-    @TypeConverter
-    fun fromString(value: String): List<SearchSchoolRoomEntity.SchoolInfo>? {
-        val listType = Types.newParameterizedType(List::class.java, SearchSchoolRoomEntity.SchoolInfo::class.java)
-        val adapter: JsonAdapter<List<SearchSchoolRoomEntity.SchoolInfo>> = moshi.adapter(listType)
-        return adapter.fromJson(value)
-    }
-
-    @TypeConverter
-    fun fromList(type: List<SearchSchoolRoomEntity.SchoolInfo>): String {
-        val listType = Types.newParameterizedType(
-            List::class.java,
-            SearchSchoolRoomEntity.SchoolInfo::class.java
-        )
-        val adapter: JsonAdapter<List<SearchSchoolRoomEntity.SchoolInfo>> = moshi.adapter(listType)
-        return adapter.toJson(type)
-    }
-
 }
 
 @ProvidedTypeConverter
@@ -214,7 +205,8 @@ class RankSearchUserTypeConverter(
 
     @TypeConverter
     fun fromString(value: String): List<SearchUserRoomEntity.UserInfo>? {
-        val listType = Types.newParameterizedType(List::class.java, SearchUserRoomEntity.UserInfo::class.java)
+        val listType =
+            Types.newParameterizedType(List::class.java, SearchUserRoomEntity.UserInfo::class.java)
         val adapter: JsonAdapter<List<SearchUserRoomEntity.UserInfo>> = moshi.adapter(listType)
         return adapter.fromJson(value)
     }
@@ -238,7 +230,8 @@ class RankUserRankTypeConverter(
 
     @TypeConverter
     fun fromString(value: String): List<UserRankRoomEntity.UserRank>? {
-        val listType = Types.newParameterizedType(List::class.java, UserRankRoomEntity.UserRank::class.java)
+        val listType =
+            Types.newParameterizedType(List::class.java, UserRankRoomEntity.UserRank::class.java)
         val adapter: JsonAdapter<List<UserRankRoomEntity.UserRank>> = moshi.adapter(listType)
         return adapter.fromJson(value)
     }
@@ -261,19 +254,19 @@ class ChallengeParticipantTypeConverter(
 ) {
 
     @TypeConverter
-    fun fromString(value: String): List<ChallengeParticipantEntity>? {
-        val listType = Types.newParameterizedType(List::class.java, ChallengeParticipantEntity::class.java)
-        val adapter: JsonAdapter<List<ChallengeParticipantEntity>> = moshi.adapter(listType)
+    fun fromString(value: String): List<ChallengeDetailRoomEntity.ParticipantList>? {
+        val listType = Types.newParameterizedType(List::class.java, ChallengeDetailRoomEntity.ParticipantList::class.java)
+        val adapter: JsonAdapter<List<ChallengeDetailRoomEntity.ParticipantList>> = moshi.adapter(listType)
         return adapter.fromJson(value)
     }
 
     @TypeConverter
-    fun fromList(type: List<ChallengeParticipantEntity>): String {
+    fun fromList(type: List<ChallengeDetailRoomEntity.ParticipantList>): String {
         val listType = Types.newParameterizedType(
             List::class.java,
-            SearchSchoolRoomEntity.SchoolInfo::class.java
+            ChallengeDetailRoomEntity.ParticipantList::class.java
         )
-        val adapter: JsonAdapter<List<ChallengeParticipantEntity>> = moshi.adapter(listType)
+        val adapter: JsonAdapter<List<ChallengeDetailRoomEntity.ParticipantList>> = moshi.adapter(listType)
         return adapter.toJson(type)
     }
 

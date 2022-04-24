@@ -34,23 +34,24 @@ class HubSchoolRankRvAdapter(
             itemView.setOnClickListener {
                 val intent = Intent(context, HubSchoolActivity::class.java)
                 intent.putExtra("type", false)
-                intent.putExtra("name", item.name)
+                intent.putExtra("name", item.schoolName)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 context.startActivity(intent)
             }
 
-            binding.ivSchool.loadFromUrl(item.logoImageUrl)
+            item.logoImageUrl?.let { binding.ivSchool.loadFromUrl(it) }
 
-            if (item.name.length > 10) {
-                val schoolName = item.name.substring(0, 11) + "..."
+            if (item.schoolName.length > 10) {
+                val schoolName = item.schoolName.substring(0, 11) + "..."
                 binding.tvName.text = schoolName
             } else {
-                binding.tvName.text = item.name
+                binding.tvName.text = item.schoolName
             }
 
-            val tvWalkCountText = "총 ${item.walkCount} 걸음 / 총 ${item.studentCount} 명"
+            val tvWalkCountText = "총 ${item.walkCount} 걸음 / 총 ${item.userCount} 명"
             binding.tvWalkCount.text = tvWalkCountText
-            binding.tvRate.text = item.ranking.toString()
+            val rankingText = "${item.ranking}등"
+            binding.tvRate.text = rankingText
 
             when (item.ranking) {
                 1 -> {

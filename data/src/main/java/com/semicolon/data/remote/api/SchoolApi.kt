@@ -7,17 +7,17 @@ import retrofit2.http.*
 interface SchoolApi {
 
     @GET("schools/search")
-    fun searchSchool(
+    suspend fun searchSchool(
         @Query("name") name: String
     ): SearchSchoolResponse
 
     @PATCH("schools/logos")
-    fun setSchoolLogo(
+    suspend fun setSchoolLogo(
         @Body image_url: String
     )
 
     @GET("schools/details/{school-id}")
-    fun fetchSchoolDetail(
+    suspend fun fetchSchoolDetail(
         @Path("school-id") schoolId: Int
     ): SchoolDetailResponse
 }

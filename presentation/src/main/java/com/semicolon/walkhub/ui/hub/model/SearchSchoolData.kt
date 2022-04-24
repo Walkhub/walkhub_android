@@ -7,7 +7,7 @@ data class SearchSchoolData(
         val schoolId: Int,
         val schoolName: String,
         val ranking: Int,
-        val logoImageUrl: String,
+        val logoImageUrl: String?,
         val walkCount: Int
     )
 }

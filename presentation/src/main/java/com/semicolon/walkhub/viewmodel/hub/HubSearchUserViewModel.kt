@@ -15,6 +15,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.lang.NullPointerException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,24 +31,18 @@ class HubSearchUserViewModel @Inject constructor(
     fun searchUser(school: Int, name: String, dateType: MoreDateType) {
         viewModelScope.launch {
             kotlin.runCatching {
-                searchUserUseCase.execute(SearchUserParam(school, name, dateType)).collect() {
+                TODO("앱 발표 끝나고 무조건 바꿔야함")
+                searchUserUseCase.execute(SearchUserParam(1, name, dateType)).collect() {
                     event(Event.SearchSchool(it.toData()))
                 }
             }.onFailure {
                 when (it) {
                     is NoInternetException -> event(Event.ErrorMessage("인터넷을 사용할 수 없습니다"))
                     is NotFoundException -> event(Event.ErrorMessage("요청하는 대상을 찾을 수 없습니다."))
+                    is NullPointerException -> event(Event.ErrorMessage("값이 존재하지 않습니다."))
                     else -> event(Event.ErrorMessage("알 수 없는 에러가 발생했습니다."))
                 }
             }
-        }
-    }
-
-    fun searchUserDebounced(school: Int, name: String, dateType: MoreDateType) {
-        searchJob?.cancel()
-        searchJob = viewModelScope.launch {
-            delay(500L)
-            searchUser(school, name, dateType)
         }
     }
 

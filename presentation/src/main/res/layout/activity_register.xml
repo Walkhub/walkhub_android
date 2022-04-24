@@ -32,12 +32,12 @@
 
         <ImageButton
             android:id="@+id/ibBack"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:adjustViewBounds="true"
             android:background="@android:color/transparent"
             android:scaleType="fitCenter"
-            android:src="@drawable/photo"
+            android:src="@drawable/delete"
             android:layout_marginTop="18.8dp"
             app:layout_constraintLeft_toLeftOf="@id/left_line"
             app:layout_constraintTop_toTopOf="parent" />
@@ -47,7 +47,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="38.82dp"
+            android:layout_marginTop="50dp"
             app:layout_constraintLeft_toLeftOf="@id/left_line"
             app:layout_constraintRight_toRightOf="@id/right_line"
             app:layout_constraintTop_toBottomOf="@id/ibBack">
@@ -98,6 +98,17 @@
                     android:textColor="#212121"
                     android:textColorHint="#BDBDBD"
                     android:textSize="17dp" />
+
+                <TextView
+                    android:id="@+id/tvNull"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="14dp"
+                    android:background="@drawable/tv_register_background"
+                    android:gravity="center_vertical"
+                    android:visibility="gone"
+                    android:textColor="#212121"
+                    android:textSize="17sp"/>
 
                 <TextView
                     android:id="@+id/tv_minute"

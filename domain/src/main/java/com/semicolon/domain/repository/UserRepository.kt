@@ -77,4 +77,6 @@ interface UserRepository {
     suspend fun fetchUserHealth(): Flow<FetchUserHealthEntity>
 
     suspend fun fetchAuthInfo(): Flow<FetchAuthInfoEntity>
+
+    suspend fun logout()
 }
