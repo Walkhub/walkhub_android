@@ -6,7 +6,7 @@ import com.semicolon.domain.entity.challenge.ChallengeParticipantEntity
 
 @Entity(tableName = "challenge_participants")
 data class ChallengeParticipantRoomEntity(
-    @PrimaryKey var id: Long,
+    @PrimaryKey var id: Int,
     var name: String,
     var profileImageUrl: String,
     var challengeId: Int

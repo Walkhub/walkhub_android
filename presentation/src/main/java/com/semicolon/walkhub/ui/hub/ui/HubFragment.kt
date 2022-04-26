@@ -1,5 +1,6 @@
 package com.semicolon.walkhub.ui.hub.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,6 +20,7 @@ import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.base.BaseFragment
 import com.semicolon.walkhub.ui.hub.adapter.HubSchoolRankRvAdapter
 import com.semicolon.walkhub.ui.hub.model.HubSchoolRankData
+import com.semicolon.walkhub.ui.hub.model.MySchoolRankData
 import com.semicolon.walkhub.util.loadCircleFromUrl
 import com.semicolon.walkhub.viewmodel.hub.HubMainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,6 +47,7 @@ class HubFragment @Inject constructor(
     ): View? {
 
         vm.fetchSchoolRank(DateType.WEEK)
+        vm.fetchMySchool()
 
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
@@ -55,11 +58,23 @@ class HubFragment @Inject constructor(
 
     private fun handleEvent(event: Event) = when (event) {
         is Event.FetchSchoolRank -> {
-            setMySchool(event.hubSchoolRankData.mySchoolRank)
             setSchoolRank(event.hubSchoolRankData.schoolList)
         }
-        is Event.ErrorMessage -> {
-            showShortToast(event.message)
+
+        is Event.NullPoint -> {
+
+        }
+
+        is Event.Unknown -> {
+            showShortToast("알 수 없는 오류가 발생하였습니다.")
+        }
+
+        is Event.NoInternet -> {
+            showShortToast("인터넷에 연결되어 있지 않습니다.")
+        }
+
+        is Event.FetchMyRank -> {
+            setMySchool(event.mySchoolRankData)
         }
     }
 
@@ -118,19 +133,19 @@ class HubFragment @Inject constructor(
         }
     }
 
-    private fun setMySchool(school: HubSchoolRankData.MySchool) {
+    private fun setMySchool(school: MySchoolRankData) {
         binding.ivMySchool.loadCircleFromUrl(school.logoImageUrl)
         binding.tvMySchoolName.text = school.name
-        binding.tvMySchoolInfo.text = "${school.grade} 학년 ${school.classNum} 반"
+        val tvMySchoolInfo = "${school.grade}학년 ${school.classNum}반"
+        binding.tvMySchoolInfo.text = tvMySchoolInfo
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun setSchoolRank(school: List<HubSchoolRankData.OtherSchool>) {
         schoolRvData.clear()
-
         for (i: Int in 0..school.size - 1) {
             schoolRvData.add(school[i])
         }
-
         binding.rvHubRank.adapter?.notifyDataSetChanged()
     }
 }

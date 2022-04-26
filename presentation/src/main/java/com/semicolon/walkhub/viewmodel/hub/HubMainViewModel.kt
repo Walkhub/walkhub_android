@@ -2,11 +2,15 @@ package com.semicolon.walkhub.viewmodel.hub
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.semicolon.domain.entity.rank.SchoolRankEntity
+import com.semicolon.domain.entity.rank.FetchMySchoolRankEntity
+import com.semicolon.domain.entity.rank.SchoolRankAndSearchEntity
 import com.semicolon.domain.enums.DateType
 import com.semicolon.domain.exception.NoInternetException
-import com.semicolon.domain.usecase.rank.FetchSchoolRankUseCase
+import com.semicolon.domain.param.user.FetchSchoolRankAndSearchParam
+import com.semicolon.domain.usecase.rank.FetchMySchoolRankUseCase
+import com.semicolon.domain.usecase.rank.FetchSchoolRankAndSearchUseCase
 import com.semicolon.walkhub.ui.hub.model.HubSchoolRankData
+import com.semicolon.walkhub.ui.hub.model.MySchoolRankData
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +20,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HubMainViewModel @Inject constructor(
-    private val fetchSchoolRankUseCase: FetchSchoolRankUseCase
+    private val fetchSchoolRankAndSearchUseCase: FetchSchoolRankAndSearchUseCase,
+    private val fetchMySchoolRankUseCase: FetchMySchoolRankUseCase
 ) : ViewModel() {
 
     private val _eventFlow = MutableEventFlow<Event>()
@@ -25,21 +30,42 @@ class HubMainViewModel @Inject constructor(
     fun fetchSchoolRank(dateType: DateType) {
         viewModelScope.launch {
             kotlin.runCatching {
-                fetchSchoolRankUseCase.execute(dateType).collect {
+                fetchSchoolRankAndSearchUseCase.execute(
+                    FetchSchoolRankAndSearchParam(
+                        null,
+                        dateType.toString()
+                    )
+                ).collect {
                     event(Event.FetchSchoolRank(it.toData()))
                 }
             }.onFailure {
                 when (it) {
-                    is NoInternetException -> event(Event.ErrorMessage("인터넷을 사용할 수 없습니다"))
-                    is NullPointerException -> event(Event.ErrorMessage("데이터가 없습니다."))
-                    else -> event(Event.ErrorMessage("알 수 없는 에러가 발생했습니다."))
+                    is NoInternetException -> event(Event.NoInternet)
+                    is NullPointerException -> event(Event.NullPoint)
+                    else -> event(Event.Unknown)
                 }
             }
         }
     }
 
-    private fun SchoolRankEntity.MySchoolRank.toData() =
-        HubSchoolRankData.MySchool(
+    fun fetchMySchool() {
+        viewModelScope.launch {
+            kotlin.runCatching {
+                fetchMySchoolRankUseCase.execute(Unit).collect {
+                    event(Event.FetchMyRank(it.toData()))
+                }
+            }.onFailure {
+                when (it) {
+                    is NoInternetException -> event(Event.NoInternet)
+                    is NullPointerException -> event(Event.NullPoint)
+                    else -> event(Event.Unknown)
+                }
+            }
+        }
+    }
+
+    private fun FetchMySchoolRankEntity.toData() =
+        MySchoolRankData(
             schoolId = schoolId,
             name = name,
             logoImageUrl = logoImageUrl,
@@ -47,19 +73,18 @@ class HubMainViewModel @Inject constructor(
             classNum = classNum
         )
 
-    private fun SchoolRankEntity.SchoolRank.toData() =
+    private fun SchoolRankAndSearchEntity.SchoolRank.toData() =
         HubSchoolRankData.OtherSchool(
             schoolId = schoolId,
-            name = name,
+            schoolName = schoolName,
             ranking = ranking,
-            studentCount = studentCount,
             logoImageUrl = logoImageUrl,
-            walkCount = walkCount
+            walkCount = walkCount,
+            userCount = userCount
         )
 
-    private fun SchoolRankEntity.toData() =
+    private fun SchoolRankAndSearchEntity.toData() =
         HubSchoolRankData(
-            mySchoolRank.toData(),
             schoolList = schoolRankList.map { it.toData() }
         )
 
@@ -70,7 +95,10 @@ class HubMainViewModel @Inject constructor(
     }
 
     sealed class Event {
+        data class FetchMyRank(val mySchoolRankData: MySchoolRankData) : Event()
         data class FetchSchoolRank(val hubSchoolRankData: HubSchoolRankData) : Event()
-        data class ErrorMessage(val message: String) : Event()
+        object NullPoint : Event()
+        object NoInternet : Event()
+        object Unknown: Event()
     }
 }

@@ -43,8 +43,7 @@ import com.semicolon.data.local.entity.user.*
         FetchUserBadgesRoomEntity::class,
         NoticeListRoomEntity::class,
         OurSchoolUserRankRoomEntity::class,
-        SchoolRankRoomEntity::class,
-        SearchSchoolRoomEntity::class,
+        SchoolRankAndSearchRoomEntity::class,
         SearchUserRoomEntity::class,
         UserRankRoomEntity::class,
         LocationRecordRoomEntity::class,
@@ -53,7 +52,8 @@ import com.semicolon.data.local.entity.user.*
         FetchDailyGoalRoomEntity::class,
         FetchInfoRoomEntity::class,
         FetchUserHealthRoomEntity::class,
-        SchoolDetailRoomEntity::class
+        SchoolDetailRoomEntity::class,
+        FetchMySchoolRankRoomEntity::class
     ], version = 1, exportSchema = false
 )
 
@@ -65,8 +65,7 @@ import com.semicolon.data.local.entity.user.*
         NewBadgeListTypeConverter::class,
         UserBadgeListTypeConverter::class,
         RankOurSchoolTypeConverter::class,
-        RankSchoolRankTypeConverter::class,
-        RankSearchSchoolTypeConverter::class,
+        RankSchoolRankAndSearchTypeConverter::class,
         RankSearchUserTypeConverter::class,
         RankUserRankTypeConverter::class,
         ChallengeParticipantTypeConverter::class

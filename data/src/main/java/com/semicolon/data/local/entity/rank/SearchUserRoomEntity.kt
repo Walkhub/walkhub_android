@@ -1,6 +1,5 @@
 package com.semicolon.data.local.entity.rank
 
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.semicolon.domain.entity.rank.SearchUserEntity
@@ -38,17 +37,21 @@ fun SearchUserRoomEntity.toEntity() =
     )
 
 fun SearchUserEntity.UserInfo.toDbEntity() =
-    SearchUserRoomEntity.UserInfo(
-        classNum = classNum,
-        grade = grade,
-        name = name,
-        profileImageUrl = profileImageUrl,
-        ranking = ranking,
-        userId = userId,
-        walkCount = walkCount
-    )
+    profileImageUrl?.let {
+        SearchUserRoomEntity.UserInfo(
+            classNum = classNum,
+            grade = grade,
+            name = name,
+            profileImageUrl = it,
+            ranking = ranking,
+            userId = userId,
+            walkCount = walkCount
+        )
+    }
 
 fun SearchUserEntity.toDbEntity() =
-    SearchUserRoomEntity(
-        userList = userList.map { it.toDbEntity() }
-    )
+    userList.map { it.toDbEntity() }?.let {
+        SearchUserRoomEntity(
+            userList = it as List<SearchUserRoomEntity.UserInfo>
+        )
+    }

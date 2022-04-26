@@ -9,14 +9,15 @@ data class ExercisingUserListResponse(
     data class User(
         @SerializedName("user_id") val userId: Int,
         @SerializedName("name") val name: String,
-        @SerializedName("profile_image_url") val profileImageUrl: String
+        @SerializedName("profile_image_url") val profileImageUrl: String?
     )
 
-    fun User.toEntity() = ExercisingUserEntity(
-        userId = userId,
-        name = name,
-        profileImageUrl = profileImageUrl
-    )
+    fun User.toEntity() =
+        ExercisingUserEntity(
+            userId = userId,
+            name = name,
+            profileImageUrl = profileImageUrl
+        )
 }
 
 fun ExercisingUserListResponse.toEntityList() =

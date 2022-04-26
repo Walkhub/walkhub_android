@@ -5,13 +5,13 @@ import com.semicolon.domain.entity.rank.*
 
 interface LocalRankDataSource {
 
-    suspend fun fetchSchoolRank(): SchoolRankEntity
+    suspend fun fetchMySchoolRank(): FetchMySchoolRankEntity
 
-    suspend fun insertSchoolRank(schoolRank: SchoolRankEntity)
+    suspend fun insertFetchMySchoolRank(fetchMySchoolRankEntity: FetchMySchoolRankEntity)
 
-    suspend fun searchSchool(): SearchSchoolEntity
+    suspend fun fetchSchoolAndSearchRank(): SchoolRankAndSearchEntity
 
-    suspend fun insertSearchSchool(searchSchool: SearchSchoolEntity)
+    suspend fun insertSchoolAndSearchRank(schoolRankAndSearch: SchoolRankAndSearchEntity)
 
     suspend fun fetchUserRank(): UserRankEntity
 

@@ -33,13 +33,17 @@ class FetchChallengeDetailUseCaseUnitTest {
             "https://testImageUrl",
             LocalDateTime.MIN,
             LocalDateTime.MAX,
-            false,
-            10,
+            1000,
+            100,
             ChallengeDetailEntity.WriterEntity(
                 10,
                 "김재원",
                 "https:/testImageUrl"
-            )
+            ),
+            true,
+            true,
+            100,
+            listOf()
         )
 
         runBlocking {

@@ -18,19 +18,28 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
 
     private val viewModel: MeasureViewModel by viewModels()
 
+    var isDistance = true
+    var firstValue = -10
+    var secondValue = -10
+
     override fun initView() {
+        binding.vm = viewModel
         setToDefaultState()
+        fetchIntentValue()
         countDownToStartMeasure()
         observeState()
         observeEvent()
+        fetchGoalFromHome()
         viewModel.receiveCheering()
     }
 
-    private fun fetchGoalFromHome() {
-        val isDistance = intent.getBooleanExtra("isDistance", true)
-        val firstValue = intent.getIntExtra("firstNumber", -10)
-        val secondValue = intent.getIntExtra("secondNumber", -10)
+    private fun fetchIntentValue() {
+        isDistance = intent.getBooleanExtra("isDistance", true)
+        firstValue = intent.getIntExtra("firstNumber", -10)
+        secondValue = intent.getIntExtra("secondNumber", -10)
+    }
 
+    private fun fetchGoalFromHome() {
         if (firstValue.didNotSetGoalFromHome()) {
             fetchMeasuringGoal()
         } else {
@@ -85,7 +94,6 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
                 if (count < 0) {
                     timer.cancel()
                     binding.measuringReadyCl.visibility = View.INVISIBLE
-                    fetchGoalFromHome()
                 }
             }
         }, 0, 1000)

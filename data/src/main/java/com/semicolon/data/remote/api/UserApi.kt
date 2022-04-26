@@ -94,7 +94,7 @@ interface UserApi {
 
     @HEAD("users/classes")
     suspend fun checkClassCode(
-        @Body code: String
+        @Query("code") code: String
     )
 
     @PATCH("users/{user-id}/independence")
@@ -113,4 +113,7 @@ interface UserApi {
 
     @GET("users/auth/info")
     suspend fun fetchAuthInfo(): FetchAuthInfoResponse
+
+    @DELETE("users/logout")
+    suspend fun deleteDeviceToken()
 }

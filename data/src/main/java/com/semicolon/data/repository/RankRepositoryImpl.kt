@@ -4,16 +4,14 @@ import com.semicolon.data.local.datasource.LocalRankDataSource
 import com.semicolon.data.remote.datasource.RemoteRankDataSource
 import com.semicolon.data.remote.response.ranks.inquiryRank.school.toEntity
 import com.semicolon.data.remote.response.ranks.inquiryRank.user.toEntity
-import com.semicolon.data.remote.response.ranks.search.school.toEntity
 import com.semicolon.data.remote.response.ranks.search.user.toEntity
 import com.semicolon.data.remote.response.ranks.toEntity
 import com.semicolon.data.util.OfflineCacheUtil
 import com.semicolon.domain.entity.rank.*
-import com.semicolon.domain.enums.DateType
 import com.semicolon.domain.param.rank.FetchOurSchoolUserRankParam
 import com.semicolon.domain.param.rank.FetchUserRankParam
-import com.semicolon.domain.param.rank.SearchSchoolParam
 import com.semicolon.domain.param.rank.SearchUserParam
+import com.semicolon.domain.param.user.FetchSchoolRankAndSearchParam
 import com.semicolon.domain.repository.RankRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -22,22 +20,23 @@ class RankRepositoryImpl @Inject constructor(
     private val localRankDataSource: LocalRankDataSource,
     private val remoteRankDataSource: RemoteRankDataSource
 ) : RankRepository {
-    override suspend fun fetchSchoolRank(dateType: DateType): Flow<SchoolRankEntity> =
-        OfflineCacheUtil<SchoolRankEntity>()
-            .remoteData { remoteRankDataSource.fetchSchoolRank(dateType.toString()).toEntity() }
-            .localData { localRankDataSource.fetchSchoolRank() }
-            .doOnNeedRefresh { localRankDataSource.insertSchoolRank(it) }
+    override suspend fun fetchMySchoolRank(): Flow<FetchMySchoolRankEntity> =
+        OfflineCacheUtil<FetchMySchoolRankEntity>()
+            .remoteData { remoteRankDataSource.fetchMySchoolRank().toEntity() }
+            .localData { localRankDataSource.fetchMySchoolRank() }
+            .doOnNeedRefresh { localRankDataSource.insertFetchMySchoolRank(it) }
             .createFlow()
 
-    override suspend fun searchSchool(name: String): Flow<SearchSchoolEntity> =
-        OfflineCacheUtil<SearchSchoolEntity>()
+    override suspend fun fetchSchoolRankAndSearch(fetchSchoolRankAndSearchParam: FetchSchoolRankAndSearchParam): Flow<SchoolRankAndSearchEntity> =
+        OfflineCacheUtil<SchoolRankAndSearchEntity>()
             .remoteData {
-                remoteRankDataSource.searchSchool(
-                    name
+                remoteRankDataSource.fetchSchoolRankAndSearch(
+                    fetchSchoolRankAndSearchParam.name!!,
+                    fetchSchoolRankAndSearchParam.schoolDateType
                 ).toEntity()
             }
-            .localData { localRankDataSource.searchSchool() }
-            .doOnNeedRefresh { localRankDataSource.insertSearchSchool(it) }
+            .localData { localRankDataSource.fetchSchoolAndSearchRank() }
+            .doOnNeedRefresh { localRankDataSource.insertSchoolAndSearchRank(it) }
             .createFlow()
 
     override suspend fun fetchUserRank(fetchUserRankParam: FetchUserRankParam): Flow<UserRankEntity> =
