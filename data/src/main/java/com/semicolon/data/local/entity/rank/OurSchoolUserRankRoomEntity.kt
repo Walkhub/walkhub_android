@@ -38,18 +38,22 @@ fun OurSchoolUserRankRoomEntity.toEntity() =
     )
 
 fun OurSchoolUserRankEntity.Ranking.toDbEntity() =
-    OurSchoolUserRankRoomEntity.Ranking(
-        name = name,
-        profileImageUrl = profileImageUrl,
-        ranking = ranking,
-        userId = userId,
-        walkCount = walkCount
-    )
+    profileImageUrl?.let {
+        OurSchoolUserRankRoomEntity.Ranking(
+            name = name,
+            profileImageUrl = it,
+            ranking = ranking,
+            userId = userId,
+            walkCount = walkCount
+        )
+    }
 
 fun OurSchoolUserRankEntity.toDbEntity() =
-    OurSchoolUserRankRoomEntity(
-        isJoinedClass = isJoinedClass,
-        myRanking = myRanking?.toDbEntity(),
-        rankingList = rankingList.map { it.toDbEntity() }
-    )
+    rankingList.map { it.toDbEntity() }?.let {
+        OurSchoolUserRankRoomEntity(
+            isJoinedClass = isJoinedClass,
+            myRanking = myRanking?.toDbEntity(),
+            rankingList = it as List<OurSchoolUserRankRoomEntity.Ranking>
+        )
+    }
 

@@ -103,11 +103,11 @@ class ChallengeViewModel @Inject constructor(
 
     sealed class Event {
 
-        data class ChallengeClick(val id: Long) : Event()
+        data class ChallengeClick(val id: Int) : Event()
     }
 
     inner class MyChallengeItemViewModel(
-        val id: Long,
+        val id: Int,
         val title: String,
         val imageUrl: String,
         val writerName: String,
@@ -124,7 +124,7 @@ class ChallengeViewModel @Inject constructor(
     }
 
     inner class ChallengeItemViewModel(
-        val id: Long,
+        val id: Int,
         val title: String,
         val writerName: String,
         val goal: String,

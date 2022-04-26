@@ -71,7 +71,7 @@ interface UserApi {
     @POST("users")
     suspend fun userSignUp(
         @Body userSignUpRequest: UserSignUpRequest
-    ): Response<UserSignUpResponse>
+    ): UserSignUpResponse
 
     @PATCH("users/goal")
     suspend fun patchDailyWalkGoal(
@@ -113,4 +113,7 @@ interface UserApi {
 
     @GET("users/auth/info")
     suspend fun fetchAuthInfo(): FetchAuthInfoResponse
+
+    @DELETE("users/logout")
+    suspend fun deleteDeviceToken()
 }

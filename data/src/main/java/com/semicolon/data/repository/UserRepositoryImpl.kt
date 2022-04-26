@@ -11,7 +11,6 @@ import com.semicolon.data.util.toMultipart
 import com.semicolon.domain.entity.users.*
 import com.semicolon.domain.param.user.*
 import com.semicolon.domain.repository.UserRepository
-import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -34,7 +33,25 @@ class UserRepositoryImpl @Inject constructor(
 
     override suspend fun postUserSignUp(
         postUserSignUpParam: PostUserSignUpParam
-    ) = remoteUserDateSource.postUserSignUp(postUserSignUpParam.toRequest())
+    ) {
+        val postUserSignInParam = PostUserSignInParam(
+            accountId = postUserSignUpParam.accountId,
+            password = postUserSignUpParam.password
+        )
+
+        val token = suspendCoroutine<String> {
+            FirebaseMessaging.getInstance().token.addOnSuccessListener { token -> it.resume(token) }
+        }
+
+        val response = remoteUserDateSource.postUserSignUp(postUserSignUpParam.toRequest(token))
+
+        saveAccount(postUserSignInParam, token)
+        saveTokenSignUp(
+            accessToken = response.accessToken,
+            refreshToken = response.refreshToken,
+            expiredAt = response.expiredAt
+        )
+    }
 
     override suspend fun postUserSignIn(
         postUserSignInParam: PostUserSignInParam
@@ -161,12 +178,31 @@ class UserRepositoryImpl @Inject constructor(
         }
     }
 
+    private suspend fun saveTokenSignUp(
+        accessToken: String,
+        refreshToken: String,
+        expiredAt: String
+    ) {
+        localUserDataSource.apply {
+            setAccessToken(accessToken)
+            setRefreshToken(refreshToken)
+            setExpiredAt(expiredAt)
+        }
+    }
+
     private suspend fun saveAccount(userSignInParam: PostUserSignInParam, deviceToken: String) {
         localUserDataSource.apply {
             setId(userSignInParam.accountId)
             setPw(userSignInParam.password)
             setDeviceToken(deviceToken)
         }
+    }
+
+    override suspend fun logout() {
+        localUserDataSource.clearId()
+        localUserDataSource.clearPw()
+        localUserDataSource.clearAccessToken()
+        localUserDataSource.clearRefreshToken()
     }
 
     override suspend fun fetchUserProfile(userId: Int): Flow<UserProfileEntity> =
@@ -206,7 +242,7 @@ class UserRepositoryImpl @Inject constructor(
             phoneNumber = phone_number
         )
 
-    fun PostUserSignUpParam.toRequest() =
+    fun PostUserSignUpParam.toRequest(token: String) =
         UserSignUpRequest(
             accountId = accountId,
             password = password,
@@ -216,7 +252,8 @@ class UserRepositoryImpl @Inject constructor(
             weight = weight,
             sex = sex,
             schoolId = schoolId,
-            authCode = authCode
+            authCode = authCode,
+            deviceToken = token
         )
 
     fun PostUserSignInParam.toRequest(deviceToken: String) =

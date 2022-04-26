@@ -3,6 +3,7 @@ package com.semicolon.walkhub.ui.register.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityAgreeBinding
@@ -13,19 +14,23 @@ class AgreeActivity : BaseActivity<ActivityAgreeBinding>(
     R.layout.activity_agree
 ) {
     override fun initView() {
-        binding.tvInstruction.setOnClickListener {
+        binding.instructionConstraint.setOnClickListener {
             val intent = Intent(this, ServiceInstructionActivity::class.java)
             startActivity(intent)
         }
 
-        binding.tvPrivacy.setOnClickListener {
+        binding.privacyConst.setOnClickListener {
             val intent = Intent(this, PrivacyActivity::class.java)
             startActivity(intent)
         }
 
         binding.btJoin.setOnClickListener {
-            val intent = Intent(this, ScanHealthInformationActivity::class.java)
-            startActivity(intent)
+            if (binding.cbAll.isChecked){
+                val intent = Intent(this, ScanHealthInformationActivity::class.java)
+                startActivity(intent)
+            } else {
+                showShortToast("모든 약관에 동의해주세요.")
+            }
         }
     }
 }

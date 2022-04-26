@@ -2,16 +2,48 @@ package com.semicolon.walkhub.ui.profile.setting.ui
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import com.gun0912.tedpermission.provider.TedPermissionProvider.context
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivitySettingBinding
+import com.semicolon.walkhub.extensions.repeatOnStarted
+import com.semicolon.walkhub.ui.HomeActivity
 import com.semicolon.walkhub.ui.base.BaseActivity
+import com.semicolon.walkhub.viewmodel.profile.setting.SettingViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.properties.Delegates
 
-
+@AndroidEntryPoint
 class SettingActivity : BaseActivity<ActivitySettingBinding>(
     R.layout.activity_setting
 ) {
+
+    private val vm: SettingViewModel by viewModels()
+    lateinit var intent2: Intent
+
+    var user by Delegates.notNull<Int>()
+
+    override fun onCreate(savedInstanceState: android.os.Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        repeatOnStarted {
+            vm.eventFlow.collect { event -> handleEvent(event) }
+        }
+    }
+
+    private fun handleEvent(event: SettingViewModel.Event) {
+        when (event) {
+            is SettingViewModel.Event.Success -> {
+                val intent = Intent(context, HomeActivity::class.java)
+                finishAffinity()
+                startActivity(intent)
+            }
+
+            is SettingViewModel.Event.Failed -> {
+                showShortToast(event.message)
+            }
+        }
+    }
 
     override fun initView() {
         binding.back.setOnClickListener {
@@ -33,6 +65,7 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>(
 
         binding.notificationSetting.setOnClickListener {
             val intent = Intent(context, NoticeSettingActivity::class.java)
+            intent2.putExtra("user_id", user)
             startActivity(intent)
         }
 
@@ -43,7 +76,7 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>(
             //TODO: 버젼정보
         }
         binding.logout.setOnClickListener {
-            //TODO: 로그아웃은 뷰모델 나오고
+            vm.logOut()
         }
     }
 }

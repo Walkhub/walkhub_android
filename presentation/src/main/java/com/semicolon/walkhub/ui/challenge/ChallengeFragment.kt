@@ -34,7 +34,7 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding>(
         }
     }
 
-    private fun startChallengeDetailActivity(id: Long) {
+    private fun startChallengeDetailActivity(id: Int) {
         val intent = Intent(requireContext(), ChallengeDetailActivity::class.java).apply {
             putExtra("challenge_id", id)
         }

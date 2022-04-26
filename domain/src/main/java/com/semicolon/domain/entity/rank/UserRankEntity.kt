@@ -7,7 +7,7 @@ data class UserRankEntity(
         val userId: Int,
         val name: String,
         val ranking: Int,
-        val profileImageUrl: String,
+        val profileImageUrl: String?,
         val walkCount: Int
     )
 }

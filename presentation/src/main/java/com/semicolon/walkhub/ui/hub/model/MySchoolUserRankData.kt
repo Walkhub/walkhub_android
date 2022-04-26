@@ -10,7 +10,7 @@ data class MySchoolUserRankData(
 
     data class Ranking(
         val name: String,
-        val profileImageUrl: String,
+        val profileImageUrl: String?,
         val ranking: Int,
         val userId: Int,
         val walkCount: Int
@@ -18,17 +18,19 @@ data class MySchoolUserRankData(
 }
 
 fun OurSchoolUserRankEntity.toData() =
-    MySchoolUserRankData(
-        isJoinedClass = isJoinedClass,
-        myRanking = myRanking?.toData(),
-        rankingList = rankingList.map { it.toData() }
-    )
+    rankingList.map { it.toData() }?.let {
+        MySchoolUserRankData(
+            isJoinedClass = isJoinedClass,
+            myRanking = myRanking?.toData(),
+            rankingList = it as List<MySchoolUserRankData.Ranking>
+        )
+    }
 
 fun OurSchoolUserRankEntity.Ranking.toData() =
-    MySchoolUserRankData.Ranking(
-        name = name,
-        profileImageUrl = profileImageUrl,
-        ranking = ranking,
-        userId = userId,
-        walkCount = walkCount
-    )
+        MySchoolUserRankData.Ranking(
+            name = name,
+            profileImageUrl = profileImageUrl,
+            ranking = ranking,
+            userId = userId,
+            walkCount = walkCount
+        )

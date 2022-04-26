@@ -32,21 +32,22 @@ class RemoteUserDataSourceUnitTest {
 
     @Test
     fun testPostUserSignUp() {
-        val request = UserSignUpRequest(
-            "13",
-            "password",
-            "김재원",
-            "010-0000-0000",
-            175.0,
-            60,
-            SexType.MALE,
-            1,
-            "asdfg"
-        )
-        runBlocking {
-            val dataSourceResult = remoteUserDataSource.postUserSignUp(request)
-            assertEquals(Unit, dataSourceResult)
-        }
+//        val request = UserSignUpRequest(
+//            "qwer123",
+//            "qwer123!",
+//            "김재원",
+//            "010-0000-0000",
+//            175.0,
+//            60,
+//            SexType.MALE,
+//            1,
+//            "asdfg",
+//            "adsvsvsdvv"
+//        )
+//        runBlocking {
+//            val dataSourceResult = remoteUserDataSource.postUserSignUp(request)
+//            assertEquals(Unit, dataSourceResult)
+//        }
     }
 
     @Test
@@ -241,7 +242,8 @@ class RemoteUserDataSourceUnitTest {
     @Test
     fun testSignUpClass() {
         runBlocking {
-            val dataSourceResult = remoteUserDataSource.signUpClass(SignUpClassRequest("대덕소프트웨어마이스터고",1))
+            val dataSourceResult =
+                remoteUserDataSource.signUpClass(SignUpClassRequest("대덕소프트웨어마이스터고", 1))
             assertEquals(Unit, dataSourceResult)
         }
     }
@@ -259,7 +261,7 @@ class RemoteUserDataSourceUnitTest {
             )
 
             val dataSourceResult = remoteUserDataSource.userReissue(refreshToken)
-            assertEquals(response , dataSourceResult)
+            assertEquals(response, dataSourceResult)
         }
     }
 }

@@ -33,12 +33,12 @@ class LocalChallengeDataSourceUnitTest {
         "ALL",
         "WALK",
         "award",
-        13L,
+        13,
         "김재원",
         "https://testImageUrl",
         participantList = listOf(
-            ChallengeParticipantEntity(
-                13L,
+            ChallengeDetailRoomEntity.ParticipantList(
+                13,
                 "김재",
                 "https://testImageUrl"
             )
@@ -53,16 +53,20 @@ class LocalChallengeDataSourceUnitTest {
     private val challengeDetailRoomEntity = ChallengeDetailRoomEntity(
         12,
         "삼천보걷기",
+        "a",
         3000,
-        "ALL",
         "ALL",
         "ALL",
         "수행평가 만점",
         false,
-        10,
+        false,
         13,
-        "김재원",
-        "https://testImageUrl"
+        100,
+        1000,
+        3,
+        "https://testImageUrl",
+        "",
+        listOf(ChallengeDetailRoomEntity.ParticipantList(1,"",""))
     )
 
     private val participantRoomEntity = ChallengeParticipantRoomEntity(
@@ -121,13 +125,18 @@ class LocalChallengeDataSourceUnitTest {
             "https://testImageUrl",
             LocalDateTime.MIN,
             LocalDateTime.MAX,
-            false,
+            100,
             10,
             ChallengeDetailEntity.WriterEntity(
                 13,
                 "김재원",
                 "https://testImageUrl"
-            )
+            ),
+            false,
+            true,
+            100,
+            listOf(ChallengeDetailEntity.ParticipantList(1,"",""))
+
         )
         val challengeId = 12
         runBlocking {
