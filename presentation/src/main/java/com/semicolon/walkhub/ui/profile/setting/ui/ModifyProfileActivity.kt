@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.gun0912.tedpermission.provider.TedPermissionProvider.context
 import com.semicolon.domain.entity.users.FetchInfoEntity
@@ -17,14 +18,24 @@ import com.semicolon.walkhub.ui.base.BaseActivity
 import com.semicolon.walkhub.util.invisible
 import com.semicolon.walkhub.util.loadCircleFromUrl
 import com.semicolon.walkhub.viewmodel.profile.setting.ModifyProfileViewModel
+import com.semicolon.walkhub.viewmodel.profile.setting.ModifyProfileViewModel.Companion.schoolId
 import dagger.hilt.android.AndroidEntryPoint
 import gun0912.tedimagepicker.builder.TedImagePicker
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 
 @AndroidEntryPoint
 class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
     R.layout.activity_modify_profile
 ) {
     private val vm: ModifyProfileViewModel by viewModels()
+
+    var schoolId: Int = 0
+    var data: Int = 0
+    var schoolname: String = ""
+    var school: String = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +44,14 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
         vm.fetchInfo()
         binding.image.setOnClickListener {
             setNormalSingleButton()
+        }
+        val name = binding.nameEt.text.toString()
+        val file = File(binding.image.toString())
+        val schoolId = "2"
+
+        binding.fixDoneBtn.setOnClickListener {
+
+            vm.updateProfile(name = name, profileImage =  file, schoolId = schoolId)
         }
 
 
@@ -70,7 +89,18 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
             }
             false
         }
+
+        /*searchSchool()
+        binding.btContinue.background = ContextCompat.getDrawable(
+            applicationContext,
+            R.drawable.register_btn
+        )*/
+
+        data = intent.getIntExtra("data", schoolId)
+        school = intent.getStringExtra("school").toString()
+        binding.mySchoolName.text = school
     }
+
     private fun setProfileInfo(fetchInfoData: FetchInfoEntity) {
         binding.mySchoolName.text = fetchInfoData.schoolName
         binding.name.text = fetchInfoData.name

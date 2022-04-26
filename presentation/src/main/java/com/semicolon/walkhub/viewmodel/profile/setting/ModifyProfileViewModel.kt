@@ -3,6 +3,7 @@ package com.semicolon.walkhub.viewmodel.profile.setting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.semicolon.domain.entity.users.FetchInfoEntity
+import com.semicolon.domain.enums.SexType
 import com.semicolon.domain.exception.BadRequestException
 import com.semicolon.domain.exception.NoInternetException
 import com.semicolon.domain.exception.NotFoundException
@@ -13,6 +14,7 @@ import com.semicolon.domain.usecase.user.FetchInfoUseCase
 import com.semicolon.domain.usecase.user.UpdateProfileUseCase
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
+import com.semicolon.walkhub.viewmodel.register.RegisterViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.io.File
@@ -24,6 +26,10 @@ class ModifyProfileViewModel @Inject constructor(
     private val updateProfileUseCase: UpdateProfileUseCase,
     private val deleteClassUseCase: DeleteClassUseCase
 ) : ViewModel() {
+
+    companion object{
+        var schoolId: Int = 0
+    }
 
     private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()
@@ -82,6 +88,10 @@ class ModifyProfileViewModel @Inject constructor(
             grade = grade,
             classNum = classNum
         )
+
+    fun setSchool(SchoolId: Int) {
+        schoolId = SchoolId
+    }
 
 
     private fun event(event: Event) {
