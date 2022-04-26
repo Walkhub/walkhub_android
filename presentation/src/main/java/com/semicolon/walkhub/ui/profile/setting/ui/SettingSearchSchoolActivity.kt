@@ -14,7 +14,9 @@ import com.semicolon.walkhub.ui.base.BaseActivity
 import com.semicolon.walkhub.ui.profile.setting.ui.adapter.ThirdSchoolAdapter
 import com.semicolon.walkhub.ui.profile.setting.ui.model.ThirdSearchSchoolData
 import com.semicolon.walkhub.viewmodel.profile.setting.SettingSearchSchoolViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SettingSearchSchoolActivity : BaseActivity<ActivitySettingSearchSchoolBinding>(
     R.layout.activity_setting_search_school
 ) {
