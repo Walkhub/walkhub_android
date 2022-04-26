@@ -2,10 +2,10 @@ package com.semicolon.walkhub.viewmodel.profile.setting
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.semicolon.domain.entity.rank.SearchSchoolEntity
+import com.semicolon.domain.entity.school.SearchSchoolEntity
 import com.semicolon.domain.exception.NoInternetException
 import com.semicolon.domain.exception.NotFoundException
-import com.semicolon.domain.usecase.rank.SearchSchoolUseCase
+import com.semicolon.domain.usecase.school.SearchSchoolUseCase
 import com.semicolon.walkhub.ui.profile.setting.ui.model.ThirdSearchSchoolData
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
