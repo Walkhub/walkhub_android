@@ -47,12 +47,14 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
     private fun fetchGoalFromHome() {
         if (isDistance) {
             val goal = if (secondValue != 0) firstValue + 1 else firstValue
-            setGoalIsForDistance(goal)
+            setGoalIsForDistance(goal.toKilometer())
         } else {
             val goal = firstValue * 1000 + secondValue * 100
             setGoalIsForWalkCount(goal)
         }
     }
+
+    private fun Int.toKilometer(): Int = this * 1000
 
     private fun Int.didNotSetGoalFromHome(): Boolean =
         this == -10

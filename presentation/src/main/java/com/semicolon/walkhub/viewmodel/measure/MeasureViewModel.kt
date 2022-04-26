@@ -16,12 +16,8 @@ import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import org.threeten.bp.Instant
-import org.threeten.bp.LocalDateTime
-import org.threeten.bp.ZoneId
 import java.io.File
 import javax.inject.Inject
-import kotlin.math.min
 
 @HiltViewModel
 class MeasureViewModel @Inject constructor(
@@ -119,7 +115,8 @@ class MeasureViewModel @Inject constructor(
 
     private fun setPercentage() {
         val currentValue =
-            if (goal.value?.goalType == GoalType.DISTANCE) distanceAsKiloMeter.value else walkCount.value
+            if (goal.value?.goalType == GoalType.DISTANCE) distanceAsKiloMeter.value ?: 1 * 1000
+            else walkCount.value
         val percentage = (currentValue!! / (goal.value?.goal ?: 1)) * 100
         _percentage.value = percentage
     }
