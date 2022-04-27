@@ -7,8 +7,6 @@ import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityChangePwBinding
 import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.base.BaseActivity
-import com.semicolon.walkhub.ui.register.ui.ServiceInstructionActivity
-import com.semicolon.walkhub.viewmodel.profile.setting.AccountInfoViewModel
 import com.semicolon.walkhub.viewmodel.profile.setting.ChangePwViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
