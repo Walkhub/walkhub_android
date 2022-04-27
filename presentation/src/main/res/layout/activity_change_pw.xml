@@ -105,6 +105,7 @@
             app:layout_constraintTop_toTopOf="@+id/view5" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/go_next_btn"
             android:layout_width="0dp"
             android:layout_height="52dp"
             android:text="계속하기"
