@@ -60,13 +60,13 @@ class AccountInfoViewModel @Inject constructor(
     }
 
     fun patchUserChangePassword(
-        accountId: String, phoneNumber: String, authcode: String, newPassword: String
+        password: String, newPassword: String
     ) {
         viewModelScope.launch {
             kotlin.runCatching {
                 patchUserChangePasswordUseCase.execute(
                     PatchUserChangePasswordParam(
-                        accountId, phoneNumber, authcode, newPassword
+                        password, newPassword
                     )
                 )
             }.onFailure {
