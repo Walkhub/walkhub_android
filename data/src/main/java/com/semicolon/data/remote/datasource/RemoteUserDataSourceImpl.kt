@@ -131,6 +131,11 @@ class RemoteUserDataSourceImpl @Inject constructor(
         .httpRequest { userApi.userChangePassword(userChangePasswordRequest) }
         .sendRequest()
 
+    override suspend fun verifyPassword(checkPasswordRequest: CheckPasswordRequest) =
+        HttpHandler<Unit>()
+            .httpRequest { userApi.verifyPassword(checkPasswordRequest) }
+            .sendRequest()
+
     override suspend fun fetchMyPage(): UserMyPageEntity =
         HttpHandler<FetchMyPageResponse>()
             .httpRequest { userApi.fetchMyPage() }
