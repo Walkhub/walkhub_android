@@ -7,6 +7,7 @@ import com.semicolon.data.util.HttpHandler
 import com.semicolon.domain.entity.users.*
 import com.semicolon.domain.exception.*
 import com.semicolon.domain.param.user.CheckPhoneNumberParam
+import com.semicolon.domain.param.user.VerifyPasswordParam
 import com.semicolon.domain.param.user.VerifyPhoneNumberSignUpParam
 import javax.inject.Inject
 
@@ -131,9 +132,9 @@ class RemoteUserDataSourceImpl @Inject constructor(
         .httpRequest { userApi.userChangePassword(userChangePasswordRequest) }
         .sendRequest()
 
-    override suspend fun verifyPassword(checkPasswordRequest: CheckPasswordRequest) =
+    override suspend fun verifyPassword(verifyPasswordParam: VerifyPasswordParam) =
         HttpHandler<Unit>()
-            .httpRequest { userApi.verifyPassword(checkPasswordRequest) }
+            .httpRequest { userApi.verifyPassword(verifyPasswordParam) }
             .sendRequest()
 
     override suspend fun fetchMyPage(): UserMyPageEntity =
