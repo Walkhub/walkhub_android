@@ -32,6 +32,8 @@ class ChangePwViewModel @Inject constructor(
                         password
                     )
                 )
+            }.onSuccess {
+                event(Event.SuccessVerify)
             }.onFailure {
                 when (it) {
                     is BadRequestException -> event(Event.ErrorMessage("현재 비밀번호가 틀렸습니다. 알맞은 비밀번호를 입력해주세요."))
@@ -51,6 +53,7 @@ class ChangePwViewModel @Inject constructor(
     }
 
     sealed class Event {
+        object SuccessVerify: Event()
         data class ErrorMessage(val message: String) : Event()
     }
 }
