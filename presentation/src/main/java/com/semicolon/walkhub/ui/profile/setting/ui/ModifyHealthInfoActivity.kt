@@ -9,13 +9,12 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.compose.ui.graphics.Color
 import androidx.core.content.ContextCompat
+import com.gun0912.tedpermission.provider.TedPermissionProvider.context
 import com.semicolon.domain.entity.users.FetchUserHealthEntity
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityModifyHealthInfoBinding
 import com.semicolon.walkhub.extensions.repeatOnStarted
-import com.semicolon.walkhub.ui.HomeActivity
 import com.semicolon.walkhub.ui.base.BaseActivity
 import com.semicolon.walkhub.util.invisible
 import com.semicolon.walkhub.util.visible
@@ -27,23 +26,19 @@ class ModifyHealthInfoActivity : BaseActivity<ActivityModifyHealthInfoBinding>(
     R.layout.activity_modify_health_info
 ) {
     private val vm: ModifyHealthInfoViewModel by viewModels()
-    private var sex = ""
+    private var sex = "X"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        vm.fetchUserHealth()
 
+        vm.fetchUserHealth()
 
         binding.modifyDone.setOnClickListener {
             val height = binding.editHeight.text.toString().toDouble()
             val weight = binding.editWeight.text.toString().toInt()
 
             vm.patchUserHealth(height = height, weight = weight, sex = sex)
-            binding.height.visible()
-            binding.weight.visible()
-            binding.editHeight.invisible()
-            binding.editWeight.invisible()
             val intent = Intent(this, ModifyHealthInfoActivity::class.java)
             finish()
             startActivity(intent)
@@ -73,8 +68,6 @@ class ModifyHealthInfoActivity : BaseActivity<ActivityModifyHealthInfoBinding>(
         binding.back.setOnClickListener {
             finish()
         }
-
-
 
         binding.editHeight.setOnTouchListener { _: View, event: MotionEvent ->
             when (event.action) {
@@ -137,9 +130,12 @@ class ModifyHealthInfoActivity : BaseActivity<ActivityModifyHealthInfoBinding>(
             }
 
             override fun afterTextChanged(p0: Editable?) {
-
+                if (binding.editWeight.text.isEmpty()) {
+                    Toast.makeText(context, "값을 모두 입력해주세요", Toast.LENGTH_LONG).show()
+                }
             }
         })
+
     }
 
     private fun setHealthInfo(fetchUserHealthData: FetchUserHealthEntity) {
