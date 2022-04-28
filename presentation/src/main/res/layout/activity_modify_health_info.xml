@@ -200,29 +200,22 @@
             app:layout_constraintStart_toEndOf="@+id/view3"
             app:layout_constraintTop_toBottomOf="@+id/click_weight" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+
+
+        <Button
             android:id="@+id/modify_done"
             android:layout_width="0dp"
-            android:layout_height="52dp"
-            android:background="@color/primary_400"
+            android:layout_height="68dp"
+            android:backgroundTint="@color/primary_400"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:gravity="center"
+            android:text="수정 완료"
+            android:layout_marginBottom="-8dp"
+            android:textColor="@color/white"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:fontFamily="@font/noto_sans_kr_regular"
-                android:gravity="center"
-                android:text="수정 완료"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
