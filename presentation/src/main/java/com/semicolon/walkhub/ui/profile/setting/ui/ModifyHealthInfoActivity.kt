@@ -3,6 +3,8 @@ package com.semicolon.walkhub.ui.profile.setting.ui
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
@@ -31,6 +33,7 @@ class ModifyHealthInfoActivity : BaseActivity<ActivityModifyHealthInfoBinding>(
         super.onCreate(savedInstanceState)
 
         vm.fetchUserHealth()
+
 
         binding.modifyDone.setOnClickListener {
             val height = binding.editHeight.text.toString().toDouble()
@@ -64,8 +67,8 @@ class ModifyHealthInfoActivity : BaseActivity<ActivityModifyHealthInfoBinding>(
 
     @SuppressLint("ClickableViewAccessibility")
     override fun initView() {
+        setTextWatcher()
 
-        binding.editHeight.setNextFocusDownId(binding.editHeight.getId())
         binding.editWeight.setNextFocusDownId(binding.editWeight.getId())
         binding.back.setOnClickListener {
             finish()
@@ -77,14 +80,6 @@ class ModifyHealthInfoActivity : BaseActivity<ActivityModifyHealthInfoBinding>(
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
                     binding.height.invisible()
-                }
-            }
-            false
-        }
-        binding.editWeight.setOnTouchListener { _: View, event: MotionEvent ->
-            when (event.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    binding.weight.invisible()
                 }
             }
             false
@@ -128,6 +123,23 @@ class ModifyHealthInfoActivity : BaseActivity<ActivityModifyHealthInfoBinding>(
             )
         }
 
+    }
+
+    private fun setTextWatcher() {
+        binding.editWeight.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            @SuppressLint("SetTextI18n")
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                binding.weight.invisible()
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+        })
     }
 
     private fun setHealthInfo(fetchUserHealthData: FetchUserHealthEntity) {
