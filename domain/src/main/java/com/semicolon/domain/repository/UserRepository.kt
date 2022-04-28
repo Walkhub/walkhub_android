@@ -9,6 +9,10 @@ interface UserRepository {
         verifyPhoneNumberSignUpParam: VerifyPhoneNumberSignUpParam
     )
 
+    suspend fun checkPhoneNumber(
+        checkPhoneNumberParam: CheckPhoneNumberParam
+    )
+
     suspend fun postUserSignUp(
         postUserSignUpParam: PostUserSignUpParam
     )
@@ -73,4 +77,6 @@ interface UserRepository {
     suspend fun fetchUserHealth(): Flow<FetchUserHealthEntity>
 
     suspend fun fetchAuthInfo(): Flow<FetchAuthInfoEntity>
+
+    suspend fun logout()
 }

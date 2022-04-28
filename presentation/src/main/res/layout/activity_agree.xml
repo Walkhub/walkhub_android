@@ -3,10 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="activity"
-            type="com.semicolon.walkhub.ui.register.agree.AgreeActivity" />
+            type="com.semicolon.walkhub.ui.register.ui.AgreeActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -52,7 +51,7 @@
         <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:src="@drawable/photo"
+            android:src="@drawable/ic_back_arrow"
             app:layout_constraintLeft_toLeftOf="@id/left_line"
             app:layout_constraintTop_toTopOf="@id/top_line" />
 
@@ -64,7 +63,6 @@
             android:text="약관 동의"
             android:textColor="#212121"
             android:textSize="24dp"
-            android:layout_marginTop="20dp"
             app:layout_constraintLeft_toLeftOf="@id/left_line"
             app:layout_constraintTop_toTopOf="@id/top_line2" />
 
@@ -99,7 +97,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.1" />
+                    app:layout_constraintGuide_percent="0.08" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/right_line2"
@@ -108,7 +106,7 @@
                     android:orientation="vertical"
                     app:layout_constraintGuide_percent="0.93" />
 
-                <CheckBox
+                <com.semicolon.walkhub.ui.register.ui.MultiLevelCheckBox
                     android:id="@+id/cb_all"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
@@ -131,6 +129,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/instructionConstraint"
                 android:layout_width="match_parent"
                 android:layout_height="54dp"
                 app:layout_constraintLeft_toLeftOf="@id/left_line"
@@ -142,7 +141,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.1" />
+                    app:layout_constraintGuide_percent="0.08" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/right_line3"
@@ -151,12 +150,13 @@
                     android:orientation="vertical"
                     app:layout_constraintGuide_percent="0.93" />
 
-                <CheckBox
+                <com.semicolon.walkhub.ui.register.ui.MultiLevelCheckBox
                     android:id="@+id/cb_use"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:background="@drawable/custom_checkbox"
                     android:button="@android:color/transparent"
+                    app:parentCheckBox="@id/cb_all"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="@id/left_line3"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -175,6 +175,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/privacyConst"
                 android:layout_width="match_parent"
                 android:layout_height="54dp"
                 app:layout_constraintLeft_toLeftOf="@id/left_line"
@@ -186,7 +187,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.1" />
+                    app:layout_constraintGuide_percent="0.08" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/right_line4"
@@ -195,12 +196,13 @@
                     android:orientation="vertical"
                     app:layout_constraintGuide_percent="0.93" />
 
-                <CheckBox
+                <com.semicolon.walkhub.ui.register.ui.MultiLevelCheckBox
                     android:id="@+id/cb_privacy"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:background="@drawable/custom_checkbox"
                     android:button="@android:color/transparent"
+                    app:parentCheckBox="@id/cb_all"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="@id/left_line4"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -230,11 +232,15 @@
             android:id="@+id/bt_join"
             android:layout_width="0dp"
             android:layout_height="52dp"
-            android:background="@drawable/mainbuttondesign"
-            android:text="회원가입 완료하기"
+            android:background="@drawable/register_btn"
+            android:text="계속하기"
+            android:textColor="#EEEEEE"
+            android:textSize="19dp"
+            android:gravity="center"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="@id/left_line"
             app:layout_constraintRight_toRightOf="@id/right_line"
-            app:layout_constraintTop_toTopOf="@id/top_line4" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="16dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

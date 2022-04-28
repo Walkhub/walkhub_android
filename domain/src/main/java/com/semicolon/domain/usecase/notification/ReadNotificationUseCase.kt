@@ -8,6 +8,6 @@ class ReadNotificationUseCase @Inject constructor(
     private val notificationRepository: NotificationRepository
 ) : UseCase<Int, Unit>() {
 
-    override suspend fun execute(notificationId: Int): Unit =
-        notificationRepository.readNotification(notificationId)
+    override suspend fun execute(data: Int): Unit =
+        notificationRepository.readNotification(data)
 }

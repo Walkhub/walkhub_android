@@ -16,7 +16,6 @@ import com.semicolon.walkhub.ui.hub.adapter.HubInfoNoticeRvAdapter
 import com.semicolon.walkhub.ui.hub.model.HubInfoNoticeRvData
 import com.semicolon.walkhub.ui.hub.model.toRvData
 import com.semicolon.walkhub.util.setRankImage
-import com.semicolon.walkhub.util.visible
 import com.semicolon.walkhub.viewmodel.hub.HubInfoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -42,7 +42,9 @@ interface LocalUserDataSource {
 
     suspend fun setId(id: String)
     suspend fun fetchId(): String
+    suspend fun clearId()
 
     suspend fun setPw(pw: String)
     suspend fun fetchPw(): String
+    suspend fun clearPw()
 }

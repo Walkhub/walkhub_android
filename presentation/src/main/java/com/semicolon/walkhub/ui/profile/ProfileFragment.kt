@@ -77,7 +77,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
         binding.badgeName.text = profileData.titleBadge.badgeName
         binding.ratingName.text = profileData.level.levelName
         profileData.schoolImageUrl.let { binding.schoolLogo.loadCircleFromUrl(it) }
-        profileData.profileImageUrl.let { binding.myPicture.loadCircleFromUrl(it) }
+        profileData.profileImageUrl.let {
+            if (it != null) {
+                binding.myPicture.loadCircleFromUrl(it)
+            }
+        }
         profileData.titleBadge.badgeImageUrl.let { binding.badgeImage.loadFromUrl(it) }
         profileData.level.levelImageUrl.let { binding.rating.loadFromUrl(it) }
     }

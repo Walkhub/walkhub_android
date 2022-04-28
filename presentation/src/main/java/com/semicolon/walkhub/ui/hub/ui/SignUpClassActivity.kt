@@ -22,8 +22,8 @@ class SignUpClassActivity : BaseActivity<ActivitySignUpClassBinding>(
     private val vm: SignUpClassViewModel by viewModels()
 
     private var page: Int = 1
-    private var classCode: String ?= null
-    private var classNum: Int ?= null
+    private var classCode: String? = null
+    private var classNum: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,10 +37,11 @@ class SignUpClassActivity : BaseActivity<ActivitySignUpClassBinding>(
 
     private fun handleEvent(event: SignUpClassViewModel.Event) = when (event) {
         is SignUpClassViewModel.Event.Success -> {
-            Toast.makeText(applicationContext, "반 가입에 성공했습니다.", Toast.LENGTH_SHORT).show()
+            showShortToast("반가입에 성공하셨습니다!")
             finish()
         }
         is SignUpClassViewModel.Event.ErrorMessage -> {
+            binding.tvError.text = event.message
             showShortToast(event.message)
         }
         is SignUpClassViewModel.Event.ClassCodeState -> {
@@ -49,7 +50,7 @@ class SignUpClassActivity : BaseActivity<ActivitySignUpClassBinding>(
     }
 
     private fun classCode(state: Boolean) {
-        if(state) {
+        if (state) {
             classCode = binding.etClassCode.text.toString()
             binding.tvError.invisible()
             movePage(++page)
@@ -71,7 +72,16 @@ class SignUpClassActivity : BaseActivity<ActivitySignUpClassBinding>(
 
         binding.etClassCode.setOnPinEnteredListener { str ->
             if (str.length <= 7) {
-                vm.checkClassCode(str.toString())
+                binding.tvNext.background = ContextCompat.getDrawable(
+                    applicationContext,
+                    R.drawable.register_btn
+                )
+
+                binding.tvNext.setOnClickListener {
+                    classCode = binding.etClassCode.text.toString()
+                    binding.tvError.invisible()
+                    movePage(++page)
+                }
             }
         }
 
@@ -79,7 +89,7 @@ class SignUpClassActivity : BaseActivity<ActivitySignUpClassBinding>(
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (p0?.length!! >= 4) {
+                if (p0?.length!! >= 1) {
                     binding.tvNext.background =
                         ContextCompat.getDrawable(applicationContext, R.drawable.bg_primary_button)
                     binding.tvSecondNext.background =
@@ -131,9 +141,14 @@ class SignUpClassActivity : BaseActivity<ActivitySignUpClassBinding>(
         binding.etClassCode.invisible()
 
         binding.etTitle.text = "번호 등록"
-        binding.etLore.text = "반에서 사용하는 번호를 입력해주세요."
+        binding.etLore.text = "반에서 사용하는 번호을 입력해주세요."
 
         binding.tvSecondNext.setOnClickListener {
+            classNum = binding.etNumber.text.toString().toInt()
+            movePage(++page)
+        }
+
+        binding.tvNext.setOnClickListener {
             classNum = binding.etNumber.text.toString().toInt()
             movePage(++page)
         }

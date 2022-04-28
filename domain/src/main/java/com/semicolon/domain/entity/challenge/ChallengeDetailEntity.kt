@@ -16,11 +16,20 @@ data class ChallengeDetailEntity(
     val imageUrl: String,
     val startAt: LocalDateTime,
     val endAt: LocalDateTime,
+    val successStandard: Int,
+    val value: Int,
+    val writerEntity: WriterEntity,
     val isMine: Boolean,
+    val isParticipated: Boolean,
     val participantCount: Int,
-    val writerEntity: WriterEntity
-) {
+    val participantList: List<ParticipantList>,
+    ) {
     data class WriterEntity(
+        val id: Int,
+        val name: String,
+        val profileImageUrl: String
+    )
+    data class ParticipantList(
         val id: Int,
         val name: String,
         val profileImageUrl: String

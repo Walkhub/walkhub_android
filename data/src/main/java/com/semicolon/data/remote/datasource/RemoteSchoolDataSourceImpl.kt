@@ -4,20 +4,18 @@ import com.semicolon.data.remote.api.SchoolApi
 import com.semicolon.data.remote.response.school.SchoolDetailResponse
 import com.semicolon.data.remote.response.school.SearchSchoolResponse
 import com.semicolon.data.remote.response.school.toEntity
-import com.semicolon.data.remote.response.school.toListEntity
 import com.semicolon.data.util.HttpHandler
 import com.semicolon.domain.entity.school.SchoolDetailEntity
-import com.semicolon.domain.entity.school.SearchSchoolEntity
 import javax.inject.Inject
 
 class RemoteSchoolDataSourceImpl @Inject constructor(
     private val schoolApi: SchoolApi
 ): RemoteSchoolDataSource {
 
-    override suspend fun searchSchool(name: String): List<SearchSchoolEntity> =
+    override suspend fun searchSchool(name: String): SearchSchoolResponse =
         HttpHandler<SearchSchoolResponse>()
             .httpRequest { schoolApi.searchSchool(name) }
-            .sendRequest().toListEntity()
+            .sendRequest()
 
     override suspend fun setSchoolLogo(imageUrl: String) =
         HttpHandler<Unit>()

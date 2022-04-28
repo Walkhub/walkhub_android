@@ -1,5 +1,6 @@
 package com.semicolon.walkhub.ui.hub.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -60,11 +61,12 @@ class HubSchoolActivity @Inject constructor(
     }
 
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun setUserRank(data: List<SearchUserData.UserInfo>) {
         rvHubUserData.clear()
 
-        for (i: Int in 0..data.size - 1) {
-            rvHubUserData.add(data[i])
+        for (element in data) {
+            rvHubUserData.add(element)
         }
 
         binding.rvSchool.adapter?.notifyDataSetChanged()
@@ -145,7 +147,7 @@ class HubSchoolActivity @Inject constructor(
             override fun onQueryTextChange(newText: String): Boolean {
 
                 if (newText.isNotEmpty()) {
-                    vm.searchUserDebounced(schoolId, newText, HubRankFragment.dateType)
+                    vm.searchUser(schoolId, newText, HubRankFragment.dateType)
                 }
 
                 return menuView(true)

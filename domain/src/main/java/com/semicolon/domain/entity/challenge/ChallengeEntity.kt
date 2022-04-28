@@ -5,7 +5,7 @@ import com.semicolon.domain.enums.ChallengeGoalType
 import org.threeten.bp.LocalDateTime
 
 data class ChallengeEntity(
-    val id: Long,
+    val id: Int,
     val name: String,
     val startAt: LocalDateTime,
     val endAt: LocalDateTime,
@@ -20,7 +20,7 @@ data class ChallengeEntity(
 ) {
 
     data class Writer(
-        val userId: Long,
+        val userId: Int,
         val name: String,
         val profileImageUrl: String
     )

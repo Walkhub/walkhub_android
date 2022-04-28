@@ -22,7 +22,9 @@ interface AuthDataStorage {
 
     fun setId(id: String)
     fun fetchId(): String
+    fun clearId()
 
     fun setPw(pw: String)
     fun fetchPw(): String
+    fun clearPw()
 }

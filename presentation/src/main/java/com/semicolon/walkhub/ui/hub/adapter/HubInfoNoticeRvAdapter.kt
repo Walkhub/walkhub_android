@@ -3,11 +3,8 @@ package com.semicolon.walkhub.ui.hub.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.semicolon.walkhub.databinding.HubUserSearchViewBinding
 import com.semicolon.walkhub.databinding.ItemHubInfoNoticeBinding
 import com.semicolon.walkhub.ui.hub.model.HubInfoNoticeRvData
-import com.semicolon.walkhub.ui.hub.model.UserRankRvData
-import com.semicolon.walkhub.util.loadFromUrl
 import kotlin.collections.ArrayList
 
 class HubInfoNoticeRvAdapter(

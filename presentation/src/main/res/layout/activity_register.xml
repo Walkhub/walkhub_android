@@ -6,7 +6,7 @@
     <data>
         <variable
             name="activity"
-            type="com.semicolon.walkhub.ui.register.Register" />
+            type="com.semicolon.walkhub.ui.register.ui.Register" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,52 +30,27 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.94" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/top_line"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.05" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/top_line2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.14"/>
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/top_line7"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.89" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/top_line8"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.96" />
-
         <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:id="@+id/ibBack"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:adjustViewBounds="true"
             android:background="@android:color/transparent"
             android:scaleType="fitCenter"
-            android:src="@drawable/photo"
+            android:src="@drawable/delete"
+            android:layout_marginTop="18.8dp"
             app:layout_constraintLeft_toLeftOf="@id/left_line"
-            app:layout_constraintTop_toTopOf="@id/top_line" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:id="@+id/linear"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_marginTop="50dp"
             app:layout_constraintLeft_toLeftOf="@id/left_line"
             app:layout_constraintRight_toRightOf="@id/right_line"
-            app:layout_constraintTop_toTopOf="@id/top_line2">
+            app:layout_constraintTop_toBottomOf="@id/ibBack">
 
             <TextView
                 android:id="@+id/tv_main"
@@ -90,7 +65,7 @@
                 android:id="@+id/tv_main2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="7dp"
                 android:fontFamily="@font/noto_sans_kr_bold"
                 android:text="친구들과 함께 걷기"
                 android:textColor="#212121"
@@ -100,7 +75,7 @@
                 android:id="@+id/tv_et"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="12dp"
                 android:fontFamily="@font/noto_sans_kr_medium"
                 android:text="먼저 본인의 이름을 입력해주세요."
                 android:textColor="#757575"
@@ -109,7 +84,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="12dp">
 
                 <EditText
                     android:id="@+id/et_name"
@@ -125,6 +100,41 @@
                     android:textSize="17dp" />
 
                 <TextView
+                    android:id="@+id/tvNull"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="14dp"
+                    android:background="@drawable/tv_register_background"
+                    android:gravity="center_vertical"
+                    android:visibility="gone"
+                    android:textColor="#212121"
+                    android:textSize="17sp"/>
+
+                <TextView
+                    android:id="@+id/tv_minute"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05"
+                    android:textColor="#57B4F1"
+                    android:textSize="15sp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/devide"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/devide"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" : "
+                    android:textColor="#57B4F1"
+                    android:textSize="15sp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/tv_second"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
                     android:id="@+id/tv_second"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -137,26 +147,8 @@
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tv_minute"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="05 : "
-                    android:textColor="#57B4F1"
-                    android:textSize="15sp"
-                    android:visibility="invisible"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintRight_toLeftOf="@id/tv_second"
-                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/top_line4"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.42"/>
 
         <TextView
             android:id="@+id/tv_warning"
@@ -192,8 +184,9 @@
             android:textColor="#EEEEEE"
             android:textSize="19dp"
             android:gravity="center"
+            android:layout_marginBottom="16dp"
             app:layout_constraintLeft_toLeftOf="@id/left_line"
             app:layout_constraintRight_toRightOf="@id/right_line"
-            app:layout_constraintTop_toTopOf="@+id/top_line7" />
+            app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

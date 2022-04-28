@@ -2,26 +2,31 @@ package com.semicolon.walkhub.ui.register
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
+import com.semicolon.domain.enums.SexType
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityScanHealthInformationBinding
+import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.MainActivity
 import com.semicolon.walkhub.ui.base.BaseActivity
+import com.semicolon.walkhub.ui.login.LoginActivity
+import com.semicolon.walkhub.viewmodel.register.RegisterViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlin.properties.Delegates
 
+@AndroidEntryPoint
 class ScanHealthInformationActivity : BaseActivity<ActivityScanHealthInformationBinding>(
     R.layout.activity_scan_health_information
 ) {
-
     private var a: Boolean = false
+    private var b by Delegates.notNull<Int>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private val vm: RegisterViewModel by viewModels()
 
     override fun initView() {
         setTextWatcher1()
@@ -39,15 +44,33 @@ class ScanHealthInformationActivity : BaseActivity<ActivityScanHealthInformation
             changeGenderWo()
         }
 
-        binding.tvLater.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
-
         binding.constraint.setOnClickListener {
             hideKeyboard()
         }
+
+        binding.tvLater.setOnClickListener {
+            vm.setBody(Height = null, Weight = null)
+            vm.register()
+        }
+
+        repeatOnStarted {
+            vm.eventFlow.collect { event -> handleEvent(event) }
+        }
     }
+
+    private fun handleEvent(event: RegisterViewModel.Event) = when (event) {
+        is RegisterViewModel.Event.SuccessRegister -> {
+            val intent = Intent(this, MainActivity::class.java)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            startActivity(intent)
+
+            showShortToast("회원가입을 성공적으로 완료하였습니다!")
+        }
+        else -> {
+
+        }
+    }
+
 
     private fun setTextWatcher1() {
         binding.etCm.addTextChangedListener(object : TextWatcher {
@@ -121,8 +144,18 @@ class ScanHealthInformationActivity : BaseActivity<ActivityScanHealthInformation
     private fun finishRegister() {
         when (a) {
             true -> {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                RegisterViewModel.sex = if (b < 1) {
+                    SexType.MALE
+                } else {
+                    SexType.FEMALE
+                }
+
+                val height = binding.etCm.text.toString().toDouble()
+                val weight = binding.etkg.text.toString().toInt()
+
+                vm.setBody(height, weight)
+
+                vm.register()
             }
 
             false -> {
@@ -133,6 +166,8 @@ class ScanHealthInformationActivity : BaseActivity<ActivityScanHealthInformation
 
     private fun changeGenderMan() {
         a = true
+        b = 0
+
         changeContinue()
         binding.btMan.background =
             ContextCompat.getDrawable(
@@ -149,6 +184,7 @@ class ScanHealthInformationActivity : BaseActivity<ActivityScanHealthInformation
 
     private fun changeGenderWo() {
         a = true
+        b = 1
         changeContinue()
         binding.btWo.background =
             ContextCompat.getDrawable(

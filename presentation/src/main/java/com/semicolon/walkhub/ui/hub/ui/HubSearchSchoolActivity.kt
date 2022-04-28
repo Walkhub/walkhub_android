@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.semicolon.domain.enums.DateType
+import com.semicolon.domain.param.user.FetchSchoolRankAndSearchParam
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityHubSearchSchoolBinding
 import com.semicolon.walkhub.extensions.repeatOnStarted
@@ -84,7 +85,7 @@ class HubSearchSchoolActivity : BaseActivity<ActivityHubSearchSchoolBinding> (
 
     private fun setTextChanged() {
         binding.etSearch.onTextChanged { s, _, _, _ ->
-            vm.searchSchoolDebounce(s.toString())
+            vm.searchSchoolDebounce(FetchSchoolRankAndSearchParam(s.toString(), dateType.toString()))
         }
     }
 }

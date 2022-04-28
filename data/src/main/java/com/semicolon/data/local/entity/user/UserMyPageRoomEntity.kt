@@ -76,16 +76,18 @@ fun UserMyPageEntity.Level.toDbEntity() =
     )
 
 fun UserMyPageEntity.toDbEntity() =
-    UserMyPageRoomEntity(
-        userId = userId,
-        name = name,
-        profileImageUrl = profileImageUrl,
-        schoolId = schoolId,
-        schoolName = schoolName,
-        schoolImageUrl = schoolImageUrl,
-        grade = grade,
-        classNum = classNum,
-        dailyWalkCountGoal = dailyWalkCountGoal,
-        titleBadge = titleBadge.toDbEntity(),
-        level = level.toDbEntity()
-    )
+    profileImageUrl?.let {
+        UserMyPageRoomEntity(
+            userId = userId,
+            name = name,
+            profileImageUrl = profileImageUrl!!,
+            schoolId = schoolId,
+            schoolName = schoolName,
+            schoolImageUrl = schoolImageUrl,
+            grade = grade,
+            classNum = classNum,
+            dailyWalkCountGoal = dailyWalkCountGoal,
+            titleBadge = titleBadge.toDbEntity(),
+            level = level.toDbEntity()
+        )
+    }

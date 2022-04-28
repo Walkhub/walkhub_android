@@ -55,6 +55,7 @@
                     tools:src="@drawable/img_cheering" />
 
                 <TextView
+                    android:id="@+id/tv_made"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -77,6 +78,7 @@
                     tools:src="@drawable/img_cheering" />
 
                 <TextView
+                    android:id="@+id/tv_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
@@ -99,6 +101,7 @@
                     tools:src="@drawable/img_cheering" />
 
                 <TextView
+                    android:id="@+id/tv_goal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
@@ -121,6 +124,7 @@
                     tools:src="@drawable/img_cheering" />
 
                 <TextView
+                    android:id="@+id/tv_reword"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
@@ -146,7 +150,7 @@
                     app:layout_constraintTop_toBottomOf="@id/iv_reword" />
 
                 <TextView
-                    android:id="@+id/tv_km"
+                    android:id="@+id/tv_now_km"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -166,7 +170,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="9dp"
                     android:layout_marginEnd="16dp"
-                    app:layout_constraintTop_toBottomOf="@id/tv_km" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_now_km" />
 
                 <TextView
                     android:id="@+id/tv_percent"
@@ -182,7 +186,7 @@
                     tools:text="88%" />
 
                 <TextView
-                    android:id="@+id/tv_goal"
+                    android:id="@+id/tv_end"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
@@ -194,6 +198,7 @@
                     tools:text="20km" />
 
                 <TextView
+                    android:id="@+id/tv_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -204,7 +209,7 @@
                     android:textSize="14sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_goal"
+                    app:layout_constraintTop_toBottomOf="@id/tv_end"
                     tools:text="대덕소프트웨어마이스터고 2학년 체육 수행평가입니다.\nㅁㅁㅁ\n \n \n \n \n \n a \n b \n c \n d \n \n \n \n end" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -248,6 +253,7 @@
                 tools:src="@drawable/img_cheering" />
 
             <TextView
+                android:id="@+id/tv_join_person"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -261,6 +267,7 @@
                 tools:text="+42" />
 
             <TextView
+                android:id="@+id/tv_join"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"

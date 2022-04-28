@@ -13,7 +13,7 @@ class LocalNotificationDataSourceImpl @Inject constructor(
     override suspend fun fetchNotificationList(): List<NotificationEntity> =
         notificationDao.fetchNotificationList().toEntity()
 
-    override suspend fun saveNotificationList(notifications: List<NotificationEntity>) =
-         notificationDao.saveNotification(notifications.toDbEntity())
+    override suspend fun saveNotificationList(list: List<NotificationEntity>) =
+         notificationDao.saveNotification(list.toDbEntity())
 
 }

@@ -8,6 +8,13 @@ import com.semicolon.data.local.entity.rank.*
 
 @Dao
 interface RankDao {
+
+    @Query("SELECT * FROM mySchoolRank")
+    suspend fun fetchMySchoolRank(): FetchMySchoolRankRoomEntity
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertFetchMySchoolRank(fetchMySchoolRankRoomEntity: FetchMySchoolRankRoomEntity)
+
     @Query("SELECT * FROM ourschoolUserRank")
     suspend fun fetchOurSchoolUserRank(): OurSchoolUserRankRoomEntity
 
@@ -20,21 +27,15 @@ interface RankDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUserRank(userRank: UserRankRoomEntity)
 
-    @Query("SELECT * FROM schoolRank")
-    suspend fun fetchSchoolRank(): SchoolRankRoomEntity
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertSchoolRank(schoolRank: SchoolRankRoomEntity)
-
     @Query("SELECT * FROM searchUser")
     suspend fun searchUser(): SearchUserRoomEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSearchUser(searchUser: SearchUserRoomEntity)
 
-    @Query("SELECT * FROM searchSchool")
-    suspend fun searchSchool(): SearchSchoolRoomEntity
+    @Query("SELECT * FROM schoolRank")
+    suspend fun fetchSchoolRankAndSearch(): SchoolRankAndSearchRoomEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertSearchSchool(searchSchool: SearchSchoolRoomEntity)
+    suspend fun insertSchoolAndSearch(schoolRankAndSearch: SchoolRankAndSearchRoomEntity)
 }

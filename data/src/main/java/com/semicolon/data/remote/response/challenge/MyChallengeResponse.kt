@@ -10,7 +10,7 @@ data class MyChallengeResponse(
     @SerializedName("challenge_list") val challengeList: List<ChallengeResponse>
 ) {
     data class ChallengeResponse(
-        @SerializedName("id") val id: Long,
+        @SerializedName("id") val id: Int,
         @SerializedName("name") val name: String,
         @SerializedName("start_at") val startAt: String,
         @SerializedName("end_at") val endAt: String,
@@ -23,7 +23,7 @@ data class MyChallengeResponse(
     )
 
     data class User(
-        @SerializedName("user_id") val userId: Long,
+        @SerializedName("user_id") val userId: Int,
         @SerializedName("name") val name: String,
         @SerializedName("profile_image_url") val profileImageUrl: String
     )

@@ -9,8 +9,8 @@ import com.semicolon.walkhub.databinding.ActivityAccountInfoBinding
 import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.HomeActivity
 import com.semicolon.walkhub.ui.base.BaseActivity
-import com.semicolon.walkhub.ui.register.agree.PrivacyActivity
-import com.semicolon.walkhub.ui.register.agree.ServiceInstructionActivity
+import com.semicolon.walkhub.ui.register.ui.PrivacyActivity
+import com.semicolon.walkhub.ui.register.ui.ServiceInstructionActivity
 import com.semicolon.walkhub.viewmodel.profile.setting.AccountInfoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

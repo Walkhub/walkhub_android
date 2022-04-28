@@ -29,12 +29,16 @@ fun ChallengeAndDetail.toEntity() =
         award = detail.award,
         imageUrl = challenge.imageUrl,
         isMine = detail.isMine,
+        isParticipated = detail.isParticipated,
         startAt = challenge.startAt.toLocalDateTime(),
         endAt = challenge.endAt.toLocalDateTime(),
+        value = detail.value,
+        successStandard = detail.successStandard,
         participantCount = detail.participantCount,
         writerEntity = ChallengeDetailEntity.WriterEntity(
             id = detail.writerId,
             name = detail.writerName,
             profileImageUrl = detail.writerImageUrl
-        )
+        ),
+        participantList = detail.participantList.map { it.toEntity() }
     )

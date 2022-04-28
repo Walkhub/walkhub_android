@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.semicolon.domain.enums.MoreDateType
 import com.semicolon.domain.enums.RankScope
 import com.semicolon.walkhub.R
@@ -18,12 +17,7 @@ import com.semicolon.walkhub.customview.ToggleSwitch
 import com.semicolon.walkhub.databinding.FragmentHubRankBinding
 import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.base.BaseFragment
-import com.semicolon.walkhub.ui.hub.adapter.HubUserRvAdapter
-import com.semicolon.walkhub.ui.hub.model.MySchoolUserRankData
-import com.semicolon.walkhub.ui.hub.model.UserRankRvData
-import com.semicolon.walkhub.ui.hub.model.toRvData
 import com.semicolon.walkhub.util.invisible
-import com.semicolon.walkhub.util.loadCircleFromUrl
 import com.semicolon.walkhub.util.visible
 import com.semicolon.walkhub.viewmodel.hub.HubUserViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,22 +29,16 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
 
     private val vm: HubUserViewModel by viewModels()
 
-    private val userRvData = arrayListOf<UserRankRvData>()
-
     companion object {
         var dateType = MoreDateType.WEEK
         var rankScope = RankScope.SCHOOL
     }
-
-    private lateinit var mAdapter: HubUserRvAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        fetchSchoolUserRank()
 
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
@@ -60,7 +48,7 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
     }
 
     private fun fetchSchoolUserRank() {
-        val schoolType = activity?.intent?.getBooleanExtra("type", false)!!
+        val schoolType = activity?.intent?.getBooleanExtra("type", true)!!
         val schoolId = activity?.intent?.getIntExtra("schoolId", 0)!!
 
         if (schoolType) {
@@ -71,79 +59,26 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
     }
 
     private fun handleEvent(event: HubUserViewModel.Event) = when (event) {
-        is HubUserViewModel.Event.FetchMySchoolUserRank -> {
-            event.mySchoolUserRankData.let { setMyRank(it) }
-            setUserRvData(event.mySchoolUserRankData.rankingList.map { it.toRvData() })
-
-            if (event.mySchoolUserRankData.isJoinedClass) {
-                binding.tvJoinClass.invisible()
-            } else {
-                binding.tvJoinClass.visible()
-            }
-        }
-        is HubUserViewModel.Event.FetchOtherSchoolUserRank -> {
-            setUserRvData(event.userRankData.rankList.map { it.toRvData() })
-        }
         is HubUserViewModel.Event.ErrorMessage -> {
             showShortToast(event.message)
         }
     }
 
-    private fun setUserRvData(school: List<UserRankRvData>) {
-        userRvData.clear()
-
-        for (i: Int in 0..school.size - 1) {
-            userRvData.add(school[i])
-        }
-
-        binding.rvRank.adapter?.notifyDataSetChanged()
-    }
-
     override fun initView() {
+        binding.vm = vm
+
         initSpinner()
         initDropDown()
-        setAdapter()
+        setScrollListener()
+
+        fetchSchoolUserRank()
 
         binding.tvJoinClass.setOnClickListener {
-            startActivity(Intent(context, SignUpClassActivity::class.java))
+            startActivity(Intent(activity, SignUpClassActivity::class.java))
         }
     }
 
-    private fun setMyRank(data: MySchoolUserRankData) {
-        binding.clMyRank.visible()
-        data.myRanking?.ranking?.plus(1)
-
-        val topWalkCount =
-            if (data.myRanking?.ranking!! <= 1) 0
-            else data.rankingList.get(data.myRanking.ranking - 2).walkCount
-        val downWalkCount =
-            if (data.myRanking.ranking >= data.rankingList.size) 0
-            else data.rankingList.get(data.myRanking.ranking).walkCount
-        val myWalkCount = data.myRanking.walkCount
-
-        binding.ivMyProfile.loadCircleFromUrl(data.myRanking.profileImageUrl)
-        binding.tvMyName.text = data.myRanking.name
-
-        val tvMyWalkCountText = "$myWalkCount 걸음"
-        binding.tvMyWalkCount.text = tvMyWalkCountText
-
-        val tvMyRankText = "${data.myRanking.ranking} 등"
-        binding.tvMyRank.text = tvMyRankText
-
-        binding.pbMy.progress =
-            (myWalkCount.toDouble() / topWalkCount.toDouble() * 100).toInt()
-        binding.tvMyRemainWalkCount.text =
-            if (topWalkCount == 0) "최고 등수를 달성했어요!" else "다음 등수까지 ${topWalkCount - myWalkCount} 걸음"
-        binding.tvNextWalkCount.text =
-            if (topWalkCount == 0) "$myWalkCount 걸음" else "$topWalkCount 걸음"
-    }
-
-    private fun setAdapter() {
-        mAdapter = HubUserRvAdapter(userRvData)
-
-        binding.rvRank.layoutManager = LinearLayoutManager(context)
-        binding.rvRank.setHasFixedSize(true)
-        binding.rvRank.adapter = mAdapter
+    private fun setScrollListener() {
 
         val mScrollViewListener =
             NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, _ ->

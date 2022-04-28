@@ -2,6 +2,8 @@ package com.semicolon.data.remote.api
 
 import com.semicolon.data.remote.request.users.*
 import com.semicolon.data.remote.response.users.*
+import com.semicolon.domain.param.user.VerifyPhoneNumberSignUpParam
+import retrofit2.Response
 import retrofit2.http.*
 
 interface UserApi {
@@ -57,8 +59,14 @@ interface UserApi {
 
     @POST("users/verification-codes")
     suspend fun verifyPhoneNumberSignUp(
-        @Body verifyPhoneNumberSignUpRequest: VerifyPhoneNumberSignUpRequest
-    )
+        @Body verifyPhoneNumberSignUpParam: VerifyPhoneNumberSignUpParam
+    ): Response<Void>
+
+    @HEAD("users/verification-codes")
+    suspend fun checkPhoneNumber(
+        @Query("phoneNumber") phoneNumber: String,
+        @Query("authCode") authCode: String
+    ): Response<Void>
 
     @POST("users")
     suspend fun userSignUp(
@@ -79,19 +87,14 @@ interface UserApi {
     @DELETE("users/classes")
     suspend fun deleteClass()
 
-    @HEAD("users/verification-codes")
-    suspend fun checkPhoneNumber(
-        @Body checkPhoneNumberRequest: CheckPhoneNumberRequest
-    )
-
     @HEAD("users/account-id")
     suspend fun checkAccountOverlap(
-        @Body account_id: String
-    )
+        @Query("accountId") accountId: String
+    ): Response<Void>
 
     @HEAD("users/classes")
     suspend fun checkClassCode(
-        @Body code: String
+        @Query("code") code: String
     )
 
     @PATCH("users/{user-id}/independence")
@@ -110,4 +113,7 @@ interface UserApi {
 
     @GET("users/auth/info")
     suspend fun fetchAuthInfo(): FetchAuthInfoResponse
+
+    @DELETE("users/logout")
+    suspend fun deleteDeviceToken()
 }
