@@ -15,11 +15,12 @@ class ChangePwActivity : BaseActivity<ActivityChangePwBinding>(
     R.layout.activity_change_pw
 ) {
     private val vm: ChangePwViewModel by viewModels()
+    private val password = binding.nowPw.text.toString()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val password = binding.nowPw.text.toString()
+
 
         binding.goNextBtn.setOnClickListener {
             vm.verifyPassword(password = password)
@@ -37,7 +38,9 @@ class ChangePwActivity : BaseActivity<ActivityChangePwBinding>(
         }
         ChangePwViewModel.Event.SuccessVerify -> {
             val intent = Intent(this, RealChangePwActivity::class.java)
+            intent.putExtra("pw", password)
             startActivity(intent)
+
         }
     }
 

@@ -20,9 +20,14 @@ class RealChangePwActivity : BaseActivity<ActivityRealChangePwBinding>(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //TODO: password 안 채우기 val password =
+
+        val intent = getIntent()
+
+        val password = intent.getStringExtra("pw")
         val newPass = binding.nowPw.text.toString()
-        //vm.patchUserChangePassword(password = password, newPassword = newPass)
+        if (password != null) {
+            vm.patchUserChangePassword(password = password, newPassword = newPass)
+        }
 
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
