@@ -12,7 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class RealChangePwActivity : BaseActivity<ActivityRealChangePwBinding>(
-    R.layout.activity_change_pw
+    R.layout.activity_real_change_pw
 ) {
 
     private val vm: RealChangePwViewModel by viewModels()
