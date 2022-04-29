@@ -64,18 +64,9 @@ class ModifyHealthInfoActivity : BaseActivity<ActivityModifyHealthInfoBinding>(
     override fun initView() {
         setTextWatcher()
 
-        binding.editWeight.setNextFocusDownId(binding.editWeight.getId())
+        binding.editWeight.nextFocusDownId = binding.editWeight.id
         binding.back.setOnClickListener {
             finish()
-        }
-
-        binding.editHeight.setOnTouchListener { _: View, event: MotionEvent ->
-            when (event.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    binding.height.invisible()
-                }
-            }
-            false
         }
 
         binding.manBtn.setOnClickListener {
@@ -116,12 +107,15 @@ class ModifyHealthInfoActivity : BaseActivity<ActivityModifyHealthInfoBinding>(
             )
         }
 
+        vm.height.observe(this) {
+            binding.height.text = it.toString()
+        }
+
     }
 
     private fun setTextWatcher() {
         binding.editWeight.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
             }
 
             @SuppressLint("SetTextI18n")
@@ -136,6 +130,21 @@ class ModifyHealthInfoActivity : BaseActivity<ActivityModifyHealthInfoBinding>(
             }
         })
 
+        binding.editHeight.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            @SuppressLint("SetTextI18n")
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                binding.height.invisible()
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                if (binding.editHeight.text.isEmpty()) {
+                    Toast.makeText(context, "값을 모두 입력해주세요", Toast.LENGTH_LONG).show()
+                }
+            }
+        })
     }
 
     private fun setHealthInfo(fetchUserHealthData: FetchUserHealthEntity) {
