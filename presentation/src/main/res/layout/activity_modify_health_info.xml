@@ -3,12 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="activity"
-            type="com.semicolon.walkhub.ui.profile.setting.ui.ModifyHealthInfoActivity" />
-    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/modify_health_info_cl"
