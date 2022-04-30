@@ -316,7 +316,7 @@
                 android:id="@+id/paused_view"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:background="@color/black_transparency"
+                android:background="@color/gray_transparency"
                 app:layout_constraintBottom_toBottomOf="@id/measuring_content_cl"
                 app:layout_constraintTop_toTopOf="@id/measuring_content_cl" />
 
