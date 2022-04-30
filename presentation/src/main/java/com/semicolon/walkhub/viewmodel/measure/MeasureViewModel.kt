@@ -217,7 +217,7 @@ class MeasureViewModel @Inject constructor(
         super.onCleared()
     }
 
-    fun sendEvent(event: Event) {
+    private fun sendEvent(event: Event) {
         viewModelScope.launch {
             _event.emit(event)
         }

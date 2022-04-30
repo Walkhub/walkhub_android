@@ -131,14 +131,6 @@
 
             </androidx.cardview.widget.CardView>
 
-            <View
-                android:id="@+id/paused_view"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:background="@color/black_transparency"
-                app:layout_constraintBottom_toBottomOf="@id/measuring_content_cl"
-                app:layout_constraintTop_toTopOf="@id/measuring_content_cl" />
-
 
             <TextView
                 android:id="@+id/measuring_walk_title_tv"
@@ -300,16 +292,6 @@
                     android:textSize="14sp" />
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="일시정지 됨"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toTopOf="@+id/measuring_first_line"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
             <View
                 android:id="@+id/measuring_first_line"
                 android:layout_width="1dp"
@@ -329,6 +311,24 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/measuring_first_line" />
+
+            <View
+                android:id="@+id/paused_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/black_transparency"
+                app:layout_constraintBottom_toBottomOf="@id/measuring_content_cl"
+                app:layout_constraintTop_toTopOf="@id/measuring_content_cl" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="일시정지 됨"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/measuring_first_line"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
