@@ -188,14 +188,17 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
                         viewModel.finishMeasureExercise()
                     }
                     MeasureViewModel.Event.RequestPhoto -> {
-                        showShortToast("측정 왈료 사진을 등록해주세요")
+                        showShortToast("측정 완료 사진을 등록해주세요")
                     }
                     MeasureViewModel.Event.StartFetchPhoto -> {
                         fetchDoneImage()
                     }
-                    MeasureViewModel.Event.StartMeasureError -> {
-                        showShortToast("운동측정을 시작할 수 없습니다.")
+                    MeasureViewModel.Event.FailStartMeasure -> {
+                        showShortToast("운동측정을 시작할 수 없습니다")
                         finish()
+                    }
+                    MeasureViewModel.Event.FailFinishMeasure -> {
+                        showShortToast("운동측정 종료를 할 수 없습니다")
                     }
                 }
             }

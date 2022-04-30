@@ -15,8 +15,10 @@ import com.semicolon.domain.enums.MeasuringState
 import com.semicolon.domain.param.exercise.FinishMeasureExerciseParam
 import com.semicolon.domain.param.exercise.StartMeasureExerciseParam
 import com.semicolon.domain.repository.ExerciseRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.withContext
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.ZoneId
 import java.lang.Exception
@@ -76,31 +78,33 @@ class ExerciseRepositoryImpl @Inject constructor(
 
     override suspend fun finishMeasureExercise(finishMeasureExerciseParam: FinishMeasureExerciseParam) {
         if (isMeasuring() == MeasuringState.PAUSED) try {
-            val exerciseId = localExerciseDataSource.fetchExerciseId()
-            pauseMeasureExercise()
-            val walkRecord = localExerciseDataSource.fetchAccumulatedRecord()
-            val locationRecord = localExerciseDataSource.fetchAccumulatedLocationRecord()
-            val pausedTime = localExerciseDataSource.fetchPausedTime()
-            val imageUrl = if (finishMeasureExerciseParam.verifyImage != null) {
-                remoteImagesDataSource.postImages(
-                    listOf(finishMeasureExerciseParam.verifyImage!!.toMultipart())
-                ).imageUrl.first()
-            } else ""
-            remoteExerciseDataSource.sendLocationRecords(
-                exerciseId,
-                locationRecord.toRequest()
-            )
-            remoteExerciseDataSource.finishMeasureExercise(
-                exerciseId,
-                FinishMeasureExerciseRequest(
-                    walkRecord.walkCount,
-                    walkRecord.traveledDistanceAsMeter * 100,
-                    walkRecord.burnedKilocalories.toInt(),
-                    imageUrl,
-                    pausedTime
+            withContext(Dispatchers.IO) {
+                val exerciseId = localExerciseDataSource.fetchExerciseId()
+                pauseMeasureExercise()
+                val walkRecord = localExerciseDataSource.fetchAccumulatedRecord()
+                val locationRecord = localExerciseDataSource.fetchAccumulatedLocationRecord()
+                val pausedTime = localExerciseDataSource.fetchPausedTime()
+                val imageUrl = if (finishMeasureExerciseParam.verifyImage != null) {
+                    remoteImagesDataSource.postImages(
+                        listOf(finishMeasureExerciseParam.verifyImage!!.toMultipart())
+                    ).imageUrl.first()
+                } else ""
+                remoteExerciseDataSource.sendLocationRecords(
+                    exerciseId,
+                    locationRecord.toRequest()
                 )
-            )
-            localExerciseDataSource.finishMeasuring()
+                remoteExerciseDataSource.finishMeasureExercise(
+                    exerciseId,
+                    FinishMeasureExerciseRequest(
+                        walkRecord.walkCount,
+                        walkRecord.traveledDistanceAsMeter * 100,
+                        walkRecord.burnedKilocalories.toInt(),
+                        imageUrl,
+                        pausedTime
+                    )
+                )
+                localExerciseDataSource.finishMeasuring()
+            }
         } catch (e: Exception) {
             throw e
         }

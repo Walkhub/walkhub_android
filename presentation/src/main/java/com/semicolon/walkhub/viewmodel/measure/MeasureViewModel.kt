@@ -91,7 +91,7 @@ class MeasureViewModel @Inject constructor(
                 startMeasureExerciseUseCase.execute(StartMeasureExerciseParam(goal, goalType))
                 fetchMeasuredData()
             }.onFailure {
-                sendEvent(Event.StartMeasureError)
+                sendEvent(Event.FailStartMeasure)
             }
         }
     }
@@ -189,8 +189,15 @@ class MeasureViewModel @Inject constructor(
             if (_finishPhotoUri != null) {
                 val imageFile = File(_finishPhotoUri!!)
                 val param = FinishMeasureExerciseParam(imageFile)
-                finishMeasureExerciseUseCase.execute(param)
-                sendEvent(Event.FinishActivity)
+                kotlin.runCatching {
+                    finishMeasureExerciseUseCase.execute(param)
+                }.onSuccess {
+                    sendEvent(Event.FinishActivity)
+                }.onFailure {
+                    sendEvent(Event.FailFinishMeasure)
+                }
+
+
             } else {
                 sendEvent(Event.RequestPhoto)
             }
@@ -230,6 +237,7 @@ class MeasureViewModel @Inject constructor(
         object FinishActivity : Event()
         object FinishMeasure : Event()
         object RequestPhoto : Event()
-        object StartMeasureError : Event()
+        object FailStartMeasure : Event()
+        object FailFinishMeasure : Event()
     }
 }
