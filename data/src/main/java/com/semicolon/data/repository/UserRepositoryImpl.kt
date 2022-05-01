@@ -66,11 +66,13 @@ class UserRepositoryImpl @Inject constructor(
 
     override suspend fun verifyPassword(
         verifyPasswordParam: VerifyPasswordParam
-    ) = remoteUserDateSource.verifyPassword(verifyPasswordParam)
+    ) = remoteUserDateSource.verifyPassword(verifyPasswordParam.toRequest())
 
     override suspend fun patchUserChangePassword(
         patchUserChangePasswordParam: PatchUserChangePasswordParam
-    ) = remoteUserDateSource.patchUserChangePassword(patchUserChangePasswordParam.toRequest())
+    ) {
+        remoteUserDateSource.patchUserChangePassword(patchUserChangePasswordParam.toRequest())
+    }
 
     override suspend fun fetchMyPage(): Flow<UserMyPageEntity> =
         OfflineCacheUtil<UserMyPageEntity>()
