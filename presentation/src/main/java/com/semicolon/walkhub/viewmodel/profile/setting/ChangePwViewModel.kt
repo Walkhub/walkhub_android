@@ -3,6 +3,7 @@ package com.semicolon.walkhub.viewmodel.profile.setting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.semicolon.domain.exception.BadRequestException
+import com.semicolon.domain.exception.ForbiddenException
 import com.semicolon.domain.exception.NoInternetException
 import com.semicolon.domain.exception.UnauthorizedException
 import com.semicolon.domain.param.user.VerifyPasswordParam
@@ -19,19 +20,14 @@ class ChangePwViewModel @Inject constructor(
     private val verifyPasswordUseCase: VerifyPasswordUseCase
 ): ViewModel() {
 
+
     private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()
 
-    fun verifyPassword(
-        password: String
-    ) {
+    fun verifyPassword(verifyPasswordParam: VerifyPasswordParam) {
         viewModelScope.launch {
             kotlin.runCatching {
-                verifyPasswordUseCase.execute(
-                    VerifyPasswordParam(
-                        password
-                    )
-                )
+                verifyPasswordUseCase.execute(verifyPasswordParam)
             }.onSuccess {
                 event(Event.SuccessVerify)
             }.onFailure {
@@ -40,6 +36,7 @@ class ChangePwViewModel @Inject constructor(
                     is UnauthorizedException -> event(Event.ErrorMessage("세션이 만료되었습니다. 다시 시도해주세요."))
                     is NoInternetException -> event(Event.ErrorMessage("인터넷에 연결되어있지 않습니다."))
                     is NullPointerException -> event(Event.ErrorMessage("현재 비밀번호를 입력해주세요."))
+                    is ForbiddenException -> event(Event.ErrorMessage("403"))
                     else -> event(Event.ErrorMessage("에러가 발생했습니다."))
                 }
             }
