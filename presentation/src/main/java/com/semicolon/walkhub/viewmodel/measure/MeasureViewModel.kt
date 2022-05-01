@@ -174,7 +174,9 @@ class MeasureViewModel @Inject constructor(
     fun resumeMeasureExercise() {
         _measuringState.value = MeasureState.ONGOING
         viewModelScope.launch {
-            resumeMeasureExerciseUseCase.execute(Unit)
+            kotlin.runCatching {
+                resumeMeasureExerciseUseCase.execute(Unit)
+            }
         }
     }
 

@@ -1,12 +1,21 @@
 package com.semicolon.walkhub.ui.measure
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
+import androidx.activity.viewModels
 import com.semicolon.walkhub.R
+import com.semicolon.walkhub.databinding.ActivityFinishMeasureBinding
+import com.semicolon.walkhub.ui.base.BaseActivity
+import com.semicolon.walkhub.viewmodel.measure.FinishMeasureViewModel
 
-class FinishMeasureActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_finish_measure)
+class FinishMeasureActivity :
+    BaseActivity<ActivityFinishMeasureBinding>(R.layout.activity_finish_measure) {
+
+    private val viewModel: FinishMeasureViewModel by viewModels()
+
+    override fun initView() {
+
+    }
+
+    private fun fetchImageFromImagePicker() {
+
     }
 }

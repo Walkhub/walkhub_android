@@ -123,6 +123,7 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
                     MeasureViewModel.MeasureState.LOCK -> {
                         setToLockState()
                     }
+                    else -> {}
                 }
             }
             time.observe(this@MeasuringActivity) {
