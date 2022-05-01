@@ -3,11 +3,13 @@ package com.semicolon.walkhub.ui.profile.setting.ui
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import com.semicolon.domain.param.user.VerifyPasswordParam
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityChangePwBinding
 import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.base.BaseActivity
 import com.semicolon.walkhub.viewmodel.profile.setting.ChangePwViewModel
+import com.semicolon.walkhub.viewmodel.register.RegisterViewModel.Companion.password
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -15,15 +17,13 @@ class ChangePwActivity : BaseActivity<ActivityChangePwBinding>(
     R.layout.activity_change_pw
 ) {
     private val vm: ChangePwViewModel by viewModels()
-    private val password = binding.nowPw.text.toString()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-
         binding.goNextBtn.setOnClickListener {
-            vm.verifyPassword(password = password)
+            val password = binding.nowPw.text.toString()
+            vm.verifyPassword(verifyPasswordParam = VerifyPasswordParam(password))
         }
 
         repeatOnStarted {
@@ -36,7 +36,7 @@ class ChangePwActivity : BaseActivity<ActivityChangePwBinding>(
         is ChangePwViewModel.Event.ErrorMessage -> {
             showShortToast(event.message)
         }
-        ChangePwViewModel.Event.SuccessVerify -> {
+        is ChangePwViewModel.Event.SuccessVerify -> {
             val intent = Intent(this, RealChangePwActivity::class.java)
             intent.putExtra("pw", password)
             startActivity(intent)
