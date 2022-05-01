@@ -43,7 +43,7 @@ interface RemoteUserDataSource {
     )
 
     suspend fun verifyPassword(
-        verifyPasswordParam: VerifyPasswordParam
+        checkPasswordRequest: CheckPasswordRequest
     )
 
     suspend fun postUserSignIn(
