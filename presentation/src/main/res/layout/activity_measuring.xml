@@ -408,6 +408,44 @@
             tools:text="한준호님이 응원하셨어요!" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/measuring_done_goal_cl"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/primary_400"
+            android:visibility="@{vm.percentage >= 100 ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintBottom_toTopOf="@id/measuring_content_cl"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/measuring_appbar">
+
+            <ImageView
+                android:id="@+id/measuring_done_iv"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/img_cheering"
+                android:visibility="@{vm.cheerUserName != null ? View.VISIBLE : View.INVISIBLE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/measuring_done_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="축하드려요! 목표를 달했어요."
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:visibility="@{vm.cheerUserName != null ? View.VISIBLE : View.INVISIBLE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/measuring_done_iv" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/measuring_ready_cl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
