@@ -55,8 +55,8 @@ interface UserApi {
 
     @POST("users/verification-password")
     suspend fun verifyPassword(
-        @Body verifyPasswordParam: VerifyPasswordParam
-    ): Response<Void>
+        @Body checkPasswordRequest: CheckPasswordRequest
+    )
 
     @POST("users/token")
     suspend fun userSignIn(
