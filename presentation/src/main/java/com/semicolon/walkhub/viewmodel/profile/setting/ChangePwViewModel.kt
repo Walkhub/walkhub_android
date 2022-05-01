@@ -32,10 +32,10 @@ class ChangePwViewModel @Inject constructor(
                 event(Event.SuccessVerify)
             }.onFailure {
                 when (it) {
-                    is BadRequestException -> event(Event.ErrorMessage("현재 비밀번호가 틀렸습니다. 알맞은 비밀번호를 입력해주세요."))
-                    is UnauthorizedException -> event(Event.ErrorMessage("세션이 만료되었습니다. 다시 시도해주세요."))
+                    is BadRequestException -> event(Event.ErrorMessage("요청 형식을 식별할 수 없습니다."))
+                    is UnauthorizedException -> event(Event.ErrorMessage("현재 비밀번호가 틀렸습니다. 알맞은 비밀번호를 입력해주세요."))
                     is NoInternetException -> event(Event.ErrorMessage("인터넷에 연결되어있지 않습니다."))
-                    is NullPointerException -> event(Event.ErrorMessage("현재 비밀번호를 입력해주세요."))
+                    is NullPointerException -> event(Event.ErrorMessage("비밀번호를 입력해주세요."))
                     is ForbiddenException -> event(Event.ErrorMessage("403"))
                     else -> event(Event.ErrorMessage("에러가 발생했습니다."))
                 }
