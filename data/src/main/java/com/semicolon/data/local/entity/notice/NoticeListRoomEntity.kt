@@ -3,40 +3,46 @@ package com.semicolon.data.local.entity.notice
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.semicolon.data.util.toLocalDateTime
 import com.semicolon.domain.entity.notice.NoticeEntity
-import java.time.LocalDateTime
 
 @Entity(tableName = "noticeList")
 data class NoticeListRoomEntity(
-    @PrimaryKey (autoGenerate = true) var id: Int = 0,
-    val noticeList: List<NoticeListValue>
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @Embedded val noticeList: List<NoticeListValue>
+
 ) {
     data class NoticeListValue(
-        val id: Int,
+        val noticeId: Int,
+        val title: String,
         val content: String,
-        val createdAt: LocalDateTime,
-        @Embedded val noticeWriter: NoticeWriter
+        val scope: String,
+        val createdAt: String,
+        val noticeWriter: NoticeWriter
     ) {
         data class NoticeWriter(
-            val id: Int,
-            val name: String,
-            val profileImageUrl: String
+            val writerId: Int,
+            val writerName: String,
+            val profileUrl: String
         )
     }
+
 
     fun NoticeListValue.toEntity() =
         NoticeEntity.NoticeValueEntity(
             id = id,
+            title = title,
             content = content,
-            createdAt = createdAt,
+            scope = scope,
+            createdAt = createdAt.toLocalDateTime(),
             noticeWriter = noticeWriter.toEntity()
         )
 
     fun NoticeListValue.NoticeWriter.toEntity() =
         NoticeEntity.NoticeValueEntity.NoticeWriterEntity(
             id = id,
-            name = name,
-            profileUrl = profileImageUrl
+            name = writerName,
+            profileUrl = profileUrl
         )
 }
 
@@ -52,15 +58,17 @@ fun NoticeEntity.toDbEntity() =
 
 fun NoticeEntity.NoticeValueEntity.toDbEntity() =
     NoticeListRoomEntity.NoticeListValue(
-        id = id,
+        noticeId = id,
+        title = title,
         content = content,
-        createdAt = createdAt,
+        scope = scope,
+        createdAt = createdAt.toString(),
         noticeWriter = noticeWriter.toDbEntity()
     )
 
 fun NoticeEntity.NoticeValueEntity.NoticeWriterEntity.toDbEntity() =
     NoticeListRoomEntity.NoticeListValue.NoticeWriter(
-        id = id,
-        name = name,
-        profileImageUrl = profileUrl
+        writerId = id,
+        writerName = name,
+        profileUrl = profileUrl
     )
