@@ -26,16 +26,14 @@ class RealChangePwViewModel @Inject constructor(
                 patchUserChangePasswordUseCase.execute(
                     patchUserChangePasswordParam
                 )
-            }.onSuccess {
-                event(Event.SuccessChange)
             }.onFailure {
                 when (it) {
-                    is ForbiddenException -> event(Event.ErrorMessage("403"))
+                    is ForbiddenException -> event(Event.ErrorMessage("권한이 없습니다."))
                     is BadRequestException -> event(Event.ErrorMessage("요청이 잘못되었습니다. 입력 값을 확인해주세요."))
                     is UnauthorizedException -> event(Event.ErrorMessage("세션이 만료되었습니다. 다시 시도해주세요."))
                     is NotFoundException -> event(Event.ErrorMessage("요청하는 대상을 확인할 수 없습니다."))
                     is NoInternetException -> event(Event.ErrorMessage("인터넷에 연결되어있지 않습니다."))
-                    else -> event(Event.ErrorMessage("에러가 발생했습니다."))
+                    else -> event(Event.SuccessChange)
                 }
             }
         }
