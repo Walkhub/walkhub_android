@@ -132,9 +132,6 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
                     measuringMinuteTv.text = it.minute.toString()
                 }
             }
-            walkCount.observe(this@MeasuringActivity) {
-                binding.measuringWalkTv.text = it.toString()
-            }
             calorie.observe(this@MeasuringActivity) {
                 binding.measuringCalorieTv.text = it.toString().substring(0..2)
             }
@@ -151,12 +148,29 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
                     setGoalViewIsWalkCount(it.goal)
                 }
             }
+            distanceAsKiloMeter.observe(this@MeasuringActivity) {
+                val distanceText = "$it km"
+                if (isDistance) {
+                    binding.measuringRemainTv.text = distanceText
+                } else {
+                    binding.measuringOtherValueTv.text = distanceText
+                }
+            }
+            walkCount.observe(this@MeasuringActivity) {
+                val walkCount = "$it 걸음"
+                if (isDistance) {
+                    binding.measuringOtherValueTv.text = walkCount
+                } else {
+                    binding.measuringRemainTv.text = walkCount
+                }
+            }
         }
     }
 
     private fun observeEvent() {
         binding.run {
             measuringPauseBtn.setOnClickListener {
+
                 if (viewModel.measuringState.value == MeasureViewModel.MeasureState.LOCK) {
                     viewModel.unLockMeasureExercise()
                 } else {
