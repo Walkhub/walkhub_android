@@ -105,12 +105,13 @@
             app:layout_constraintTop_toTopOf="@+id/view5" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/change_btn"
             android:layout_width="0dp"
             android:layout_height="52dp"
             android:text="변경하기"
             android:textSize="16sp"
             android:fontFamily="@font/noto_sans_kr_regular"
-            android:background="@drawable/bg_primary_button"
+            android:background="@drawable/registerbuttondesign"
             android:textColor="@color/white"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
