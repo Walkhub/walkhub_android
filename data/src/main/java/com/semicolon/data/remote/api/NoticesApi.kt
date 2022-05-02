@@ -7,6 +7,7 @@ import retrofit2.http.Query
 interface NoticesApi {
     @GET("notices/list")
     suspend fun fetchNoticeList(
-        @Query("scope") scope: String
+        @Query("scope") scope: String,
+        @Query("page") page: Int,
     ): NoticeListResponse
 }

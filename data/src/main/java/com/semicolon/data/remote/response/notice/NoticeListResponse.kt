@@ -1,8 +1,8 @@
 package com.semicolon.data.remote.response.notice
 
 import com.google.gson.annotations.SerializedName
+import com.semicolon.data.util.toLocalDateTime
 import com.semicolon.domain.entity.notice.NoticeEntity
-import java.time.LocalDateTime
 
 data class NoticeListResponse(
     @SerializedName("notice_list") val noticeList: List<NoticeListValue>
@@ -10,14 +10,16 @@ data class NoticeListResponse(
 ) {
     data class NoticeListValue(
         @SerializedName("id") val noticeId: Int,
-        @SerializedName("title") val content: String,
-        @SerializedName("created_at") val createdAt: LocalDateTime,
+        @SerializedName("title") val title: String,
+        @SerializedName("content") val content: String,
+        @SerializedName("scope") val scope: String,
+        @SerializedName("created_at") val createdAt: String,
         @SerializedName("writer") val noticeWriter: NoticeWriter
     ) {
         data class NoticeWriter(
             @SerializedName("id") val writerId: Int,
             @SerializedName("name") val writerName: String,
-            @SerializedName("profile_url") val profileUrl: String
+            @SerializedName("profile_image_url") val profileUrl: String
         )
     }
 }
@@ -32,8 +34,10 @@ fun NoticeListResponse.NoticeListValue.NoticeWriter.toEntity() =
 fun NoticeListResponse.NoticeListValue.toEntity() =
     NoticeEntity.NoticeValueEntity(
         id = noticeId,
+        title = title,
         content = content,
-        createdAt = createdAt,
+        scope = scope,
+        createdAt = createdAt.toLocalDateTime(),
         noticeWriter = noticeWriter.toEntity()
     )
 
