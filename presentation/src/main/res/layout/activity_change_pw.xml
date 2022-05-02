@@ -104,7 +104,7 @@
             android:text="계속하기"
             android:textSize="16sp"
             android:fontFamily="@font/noto_sans_kr_regular"
-            android:background="@drawable/bg_primary_button"
+            android:background="@drawable/registerbuttondesign"
             android:textColor="@color/white"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
