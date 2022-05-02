@@ -235,10 +235,10 @@ class LocalExerciseDataSourceImpl @Inject constructor(
         val firstStartTime = exerciseInfoDataStorage.fetchFirstStartTime()
         return flow {
             repeat(Int.MAX_VALUE) {
-                delay(10000)
                 val curTime = LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond()
                 val measuredTime = curTime - firstStartTime - fetchPausedTime()
                 emit(measuredTime)
+                delay(10000)
             }
         }
     }

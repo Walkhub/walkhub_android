@@ -149,7 +149,8 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
                 }
             }
             distanceAsKiloMeter.observe(this@MeasuringActivity) {
-                val distanceText = "$it km"
+                val distance = it.toString().substring(0..2)
+                val distanceText = "$distance km"
                 if (isDistance) {
                     binding.measuringRemainTv.text = distanceText
                 } else {

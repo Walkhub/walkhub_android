@@ -1,5 +1,6 @@
 package com.semicolon.walkhub.viewmodel.measure
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -49,7 +50,7 @@ class MeasureViewModel @Inject constructor(
     private val _speed = MutableLiveData(0F)
     val speed: LiveData<Float> = _speed
 
-    private val _time = MutableLiveData<ExercisedTime>()
+    private val _time = MutableLiveData(ExercisedTime(0, 0))
     val time: LiveData<ExercisedTime> = _time
 
     private val _percentage = MutableLiveData(0)
@@ -105,6 +106,7 @@ class MeasureViewModel @Inject constructor(
     private fun fetchMeasuredExercise() {
         viewModelScope.launch {
             fetchMeasuredExerciseRecordUseCase.execute(Unit).collect {
+                Log.d("exercise", "$it")
                 _walkCount.value = it.stepCount
                 _distanceAsKiloMeter.value = (it.traveledDistanceAsMeter / 1000.0)
                 _calorie.value = it.burnedKilocalories
@@ -126,12 +128,17 @@ class MeasureViewModel @Inject constructor(
     private fun fetchMeasuredTime() {
         viewModelScope.launch {
             fetchMeasuredTimeUseCase.execute(Unit).collect {
-                val hour = (it / 3600000).toInt()
-                val valueForCalculateMinute = if (it >= 3600000) it - 3600000 else it
-                val minute = (valueForCalculateMinute / 60000).toInt()
-                _time.value = ExercisedTime(hour, minute)
+                _time.value = it.toExercisedTime()
+                Log.d("exercise", "timeResult: ${it.toExercisedTime()}")
             }
         }
+    }
+
+    private fun Long.toExercisedTime(): ExercisedTime {
+        val hour = (this / 3600).toInt()
+        val calculateMinute = if (this >= 3600) this % 3600 else this
+        val minute = (calculateMinute / 60).toInt()
+        return ExercisedTime(hour, minute)
     }
 
     fun fetchMeasuringGoal() {
