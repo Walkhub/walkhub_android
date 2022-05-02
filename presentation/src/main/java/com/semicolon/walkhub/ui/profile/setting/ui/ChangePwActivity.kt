@@ -9,7 +9,6 @@ import com.semicolon.walkhub.databinding.ActivityChangePwBinding
 import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.base.BaseActivity
 import com.semicolon.walkhub.viewmodel.profile.setting.ChangePwViewModel
-import com.semicolon.walkhub.viewmodel.register.RegisterViewModel.Companion.password
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -38,6 +37,7 @@ class ChangePwActivity : BaseActivity<ActivityChangePwBinding>(
         }
         is ChangePwViewModel.Event.SuccessVerify -> {
             val intent = Intent(this, RealChangePwActivity::class.java)
+            val password = binding.nowPw.text.toString()
             intent.putExtra("pw", password)
             startActivity(intent)
 
