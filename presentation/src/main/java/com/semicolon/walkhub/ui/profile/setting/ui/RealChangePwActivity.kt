@@ -3,6 +3,7 @@ package com.semicolon.walkhub.ui.profile.setting.ui
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import com.semicolon.domain.param.user.PatchUserChangePasswordParam
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityRealChangePwBinding
 import com.semicolon.walkhub.extensions.repeatOnStarted
@@ -21,12 +22,14 @@ class RealChangePwActivity : BaseActivity<ActivityRealChangePwBinding>(
         super.onCreate(savedInstanceState)
 
 
-        val intent = getIntent()
+        binding.changeBtn.setOnClickListener {
 
-        val password = intent.getStringExtra("pw")
-        val newPass = binding.nowPw.text.toString()
-        if (password != null) {
-            vm.patchUserChangePassword(password = password, newPassword = newPass)
+            val intent = getIntent()
+            val password = intent.getStringExtra("pw")
+            val newPass = binding.nowPw.text.toString()
+            if (password != null) {
+                vm.patchUserChangePassword(patchUserChangePasswordParam = PatchUserChangePasswordParam(password, newPass))
+            }
         }
 
         repeatOnStarted {
