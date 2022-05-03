@@ -26,18 +26,11 @@ class ModifyHealthInfoViewModel @Inject constructor(
     private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()
 
-    private val _height = MutableLiveData(174.5)
-    val height: LiveData<Double> = _height
-
-    fun setHeight(height: Double) {
-        _height.value = height
-    }
 
     fun fetchUserHealth() {
         viewModelScope.launch {
             kotlin.runCatching {
                 fetchUserHealthUseCase.execute(Unit).collect {
-                    setHeight(it.height)
                     event(Event.FetchUserHealth(it.toData()))
                 }
             }.onFailure {
@@ -53,7 +46,7 @@ class ModifyHealthInfoViewModel @Inject constructor(
     fun patchUserHealth(height: Double, weight: Int, sex: String) {
         viewModelScope.launch {
             kotlin.runCatching {
-                patchUserHealthUseCase.execute(PatchUserHealthParam(_height.value!!, weight, sex))
+                patchUserHealthUseCase.execute(PatchUserHealthParam(height, weight, sex))
             }.onFailure {
                 when (it) {
                     is NoInternetException -> event(Event.ErrorMessage("인터넷에 연결되어있지 않습니다."))
