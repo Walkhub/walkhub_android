@@ -1,6 +1,5 @@
 package com.semicolon.walkhub.viewmodel.measure
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -106,7 +105,6 @@ class MeasureViewModel @Inject constructor(
     private fun fetchMeasuredExercise() {
         viewModelScope.launch {
             fetchMeasuredExerciseRecordUseCase.execute(Unit).collect {
-                Log.d("exercise", "$it")
                 _walkCount.value = it.stepCount
                 _distanceAsKiloMeter.value = (it.traveledDistanceAsMeter / 1000.0)
                 _calorie.value = it.burnedKilocalories
@@ -115,7 +113,7 @@ class MeasureViewModel @Inject constructor(
         }
     }
 
-    private fun setPercentage() {
+    fun setPercentage() {
         val currentValue: Int =
             if (goal.value?.goalType == GoalType.DISTANCE) (distanceAsKiloMeter.value!! * 1000).toInt()
             else walkCount.value ?: 0
@@ -129,7 +127,6 @@ class MeasureViewModel @Inject constructor(
         viewModelScope.launch {
             fetchMeasuredTimeUseCase.execute(Unit).collect {
                 _time.value = it.toExercisedTime()
-                Log.d("exercise", "timeResult: ${it.toExercisedTime()}")
             }
         }
     }
