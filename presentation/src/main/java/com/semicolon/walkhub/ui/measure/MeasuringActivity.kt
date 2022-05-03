@@ -156,6 +156,8 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
                 } else {
                     binding.measuringOtherValueTv.text = distanceText
                 }
+
+                setPercentage()
             }
             walkCount.observe(this@MeasuringActivity) {
                 val walkCount = "$it 걸음"
@@ -164,6 +166,8 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
                 } else {
                     binding.measuringRemainTv.text = walkCount
                 }
+
+                setPercentage()
             }
         }
     }
@@ -171,7 +175,6 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
     private fun observeEvent() {
         binding.run {
             measuringPauseBtn.setOnClickListener {
-
                 if (viewModel.measuringState.value == MeasureViewModel.MeasureState.LOCK) {
                     viewModel.unLockMeasureExercise()
                 } else {
