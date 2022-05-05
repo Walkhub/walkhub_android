@@ -5,12 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.MotionEvent
-import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
-import com.gun0912.tedpermission.provider.TedPermissionProvider.context
 import com.semicolon.domain.entity.users.FetchUserHealthEntity
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityModifyHealthInfoBinding
@@ -31,12 +27,13 @@ class ModifyHealthInfoActivity : BaseActivity<ActivityModifyHealthInfoBinding>(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         vm.fetchUserHealth()
+
 
         binding.modifyDone.setOnClickListener {
             val height = binding.editHeight.text.toString().toDouble()
             val weight = binding.editWeight.text.toString().toInt()
+
 
             vm.patchUserHealth(height = height, weight = weight, sex = sex)
             val intent = Intent(this, ModifyHealthInfoActivity::class.java)
@@ -44,6 +41,7 @@ class ModifyHealthInfoActivity : BaseActivity<ActivityModifyHealthInfoBinding>(
             startActivity(intent)
         }
 
+        binding.modifyDone.setClickable(false)
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
         }
@@ -107,10 +105,6 @@ class ModifyHealthInfoActivity : BaseActivity<ActivityModifyHealthInfoBinding>(
             )
         }
 
-        vm.height.observe(this) {
-            binding.height.text = it.toString()
-        }
-
     }
 
     private fun setTextWatcher() {
@@ -125,7 +119,19 @@ class ModifyHealthInfoActivity : BaseActivity<ActivityModifyHealthInfoBinding>(
 
             override fun afterTextChanged(p0: Editable?) {
                 if (binding.editWeight.text.isEmpty()) {
-                    Toast.makeText(context, "값을 모두 입력해주세요", Toast.LENGTH_LONG).show()
+                    binding.weight.visible()
+                } else if (binding.editHeight.length() > 2 && binding.editWeight.length() > 1) {
+                    binding.modifyDone.background = ContextCompat.getDrawable(
+                        applicationContext,
+                        R.drawable.bg_primary_button
+                    )
+                    binding.modifyDone.setClickable(true)
+                } else if (binding.editHeight.length() < 3 || binding.editWeight.length() < 2) {
+                    binding.modifyDone.background = ContextCompat.getDrawable(
+                        applicationContext,
+                        R.drawable.registerbuttondesign
+                    )
+                    binding.modifyDone.setClickable(false)
                 }
             }
         })
@@ -140,8 +146,20 @@ class ModifyHealthInfoActivity : BaseActivity<ActivityModifyHealthInfoBinding>(
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                if (binding.editHeight.text.isEmpty()) {
-                    Toast.makeText(context, "값을 모두 입력해주세요", Toast.LENGTH_LONG).show()
+                if (binding.editWeight.text.isEmpty()) {
+                    binding.weight.visible()
+                } else if (binding.editHeight.length() > 2 && binding.editWeight.length() > 2) {
+                    binding.modifyDone.background = ContextCompat.getDrawable(
+                        applicationContext,
+                        R.drawable.bg_primary_button
+                    )
+                    binding.modifyDone.setClickable(true)
+                } else if (binding.editHeight.length() < 1 || binding.editWeight.length() < 1) {
+                    binding.modifyDone.background = ContextCompat.getDrawable(
+                        applicationContext,
+                        R.drawable.registerbuttondesign
+                    )
+                    binding.modifyDone.setClickable(false)
                 }
             }
         })
