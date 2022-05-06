@@ -27,14 +27,18 @@ class FinishMeasureViewModel @Inject constructor(
 
     fun finishMeasure() {
         viewModelScope.launch {
-            kotlin.runCatching {
-                val imageFile = File(imageRealPath)
-                val parameter = FinishMeasureExerciseParam(imageFile)
-                finishMeasureExerciseUseCase.execute(parameter)
-            }.onSuccess {
-                sendEvent(Event.SuccessFinish)
-            }.onFailure {
-                sendEvent(Event.FailFinish)
+            if(imageRealPath.isNotBlank()) {
+                kotlin.runCatching {
+                    val imageFile = File(imageRealPath)
+                    val parameter = FinishMeasureExerciseParam(imageFile)
+                    finishMeasureExerciseUseCase.execute(parameter)
+                }.onSuccess {
+                    sendEvent(Event.SuccessFinish)
+                }.onFailure {
+                    sendEvent(Event.FailFinish)
+                }
+            } else {
+                sendEvent(Event.ImagePathIsBlank)
             }
         }
     }
@@ -48,5 +52,6 @@ class FinishMeasureViewModel @Inject constructor(
     sealed class Event {
         object SuccessFinish : Event()
         object FailFinish : Event()
+        object ImagePathIsBlank : Event()
     }
 }
