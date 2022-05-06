@@ -14,6 +14,7 @@ import com.semicolon.domain.usecase.socket.DisconnectSocketUseCase
 import com.semicolon.domain.usecase.socket.ReceiveCheeringUseCase
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
+import com.semicolon.walkhub.util.limitSize
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.io.File
@@ -195,7 +196,7 @@ class MeasureViewModel @Inject constructor(
     fun finishMeasureExercise() {
         viewModelScope.launch {
             if (_finishPhotoUri != null) {
-                val imageFile = File(_finishPhotoUri!!)
+                val imageFile = File(_finishPhotoUri!!).limitSize()
                 val param = FinishMeasureExerciseParam(imageFile)
                 kotlin.runCatching {
                     finishMeasureExerciseUseCase.execute(param)
@@ -204,8 +205,6 @@ class MeasureViewModel @Inject constructor(
                 }.onFailure {
                     sendEvent(Event.FailFinishMeasure)
                 }
-
-
             } else {
                 sendEvent(Event.RequestPhoto)
             }

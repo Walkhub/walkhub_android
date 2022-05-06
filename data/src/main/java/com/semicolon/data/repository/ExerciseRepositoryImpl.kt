@@ -138,6 +138,6 @@ class ExerciseRepositoryImpl @Inject constructor(
 
     override suspend fun fetchExercisingUserList(): Flow<List<ExercisingUserEntity>> =
         flow {
-            emit(remoteExerciseDataSource.fetchExercisingUserList().toEntityList() as List<ExercisingUserEntity>)
+            emit(remoteExerciseDataSource.fetchExercisingUserList().toEntityList())
         }
 }
