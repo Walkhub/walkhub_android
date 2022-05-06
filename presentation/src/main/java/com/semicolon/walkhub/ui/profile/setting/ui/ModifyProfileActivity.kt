@@ -2,13 +2,11 @@ package com.semicolon.walkhub.ui.profile.setting.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.view.MotionEvent
-import android.view.View
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
-import com.bumptech.glide.Glide
 import com.gun0912.tedpermission.provider.TedPermissionProvider.context
 import com.semicolon.domain.entity.users.FetchInfoEntity
 import com.semicolon.walkhub.R
@@ -17,13 +15,9 @@ import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.base.BaseActivity
 import com.semicolon.walkhub.util.invisible
 import com.semicolon.walkhub.util.loadCircleFromUrl
+import com.semicolon.walkhub.util.visible
 import com.semicolon.walkhub.viewmodel.profile.setting.ModifyProfileViewModel
-import com.semicolon.walkhub.viewmodel.profile.setting.ModifyProfileViewModel.Companion.schoolId
 import dagger.hilt.android.AndroidEntryPoint
-import gun0912.tedimagepicker.builder.TedImagePicker
-import okhttp3.MediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import java.io.File
 
 @AndroidEntryPoint
@@ -32,28 +26,24 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
 ) {
     private val vm: ModifyProfileViewModel by viewModels()
 
-    var schoolId: Int = 0
-    var data: Int = 0
-    var schoolname: String = ""
-    var school: String = ""
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         vm.fetchInfo()
+
         binding.image.setOnClickListener {
-            setNormalSingleButton()
+
         }
         val name = binding.nameEt.text.toString()
         val file = File(binding.image.toString())
-        val schoolId = "2"
+        val school = "1"
 
         binding.fixDoneBtn.setOnClickListener {
 
-            vm.updateProfile(name = name, profileImage =  file, schoolId = schoolId)
+            vm.updateProfile(name = name, profileImage = file, schoolId = school)
         }
 
+        binding.fixDoneBtn.setClickable(false)
 
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
@@ -70,8 +60,9 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
         }
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     override fun initView() {
+        setTextWatcher()
+
         binding.back.setOnClickListener {
             finish()
         }
@@ -80,25 +71,6 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
             val intent = Intent(context, SettingSearchSchoolActivity::class.java)
             startActivity(intent)
         }
-
-        binding.nameEt.setOnTouchListener { _: View, event: MotionEvent ->
-            when (event.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    binding.name.invisible()
-                }
-            }
-            false
-        }
-
-        /*searchSchool()
-        binding.btContinue.background = ContextCompat.getDrawable(
-            applicationContext,
-            R.drawable.register_btn
-        )*/
-
-        data = intent.getIntExtra("data", schoolId)
-        school = intent.getStringExtra("school").toString()
-        binding.mySchoolName.text = school
     }
 
     private fun setProfileInfo(fetchInfoData: FetchInfoEntity) {
@@ -113,18 +85,34 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
         }
     }
 
-    private fun setNormalSingleButton() {
-        binding.image.setOnClickListener {
-            TedImagePicker.with(this)
-                .start { uri -> showSingleImage(uri) }
-            binding.hsvImage.visibility = View.VISIBLE
-        }
-    }
+    private fun setTextWatcher() {
+        binding.nameEt.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
 
-    private fun showSingleImage(uri: Uri) {
-        binding.hsvImage.visibility = View.GONE
-        Glide.with(this).load(uri).into(binding.image)
+            @SuppressLint("SetTextI18n")
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                binding.name.invisible()
+            }
 
+            override fun afterTextChanged(p0: Editable?) {
+                if (binding.nameEt.text.isEmpty()) {
+                    binding.name.visible()
+                } else if (binding.nameEt.length() > 1 && binding.nameEt.length() < 11) {
+                    binding.fixDoneBtn.background = ContextCompat.getDrawable(
+                        applicationContext,
+                        R.drawable.bg_primary_button
+                    )
+                    binding.fixDoneBtn.setClickable(true)
+                } else {
+                    binding.fixDoneBtn.background = ContextCompat.getDrawable(
+                        applicationContext,
+                        R.drawable.registerbuttondesign
+                    )
+                    binding.fixDoneBtn.setClickable(false)
+                }
+            }
+        })
     }
 
 }
