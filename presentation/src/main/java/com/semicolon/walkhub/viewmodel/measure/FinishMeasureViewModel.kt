@@ -7,6 +7,7 @@ import com.semicolon.domain.usecase.exercise.FinishMeasureExerciseUseCase
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
+import id.zelory.compressor.Compressor
 import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
@@ -16,20 +17,19 @@ class FinishMeasureViewModel @Inject constructor(
     private val finishMeasureExerciseUseCase: FinishMeasureExerciseUseCase
 ) : ViewModel() {
 
-    private var imageRealPath = ""
+    private var imageFile: File? = null
 
     private val _event = MutableEventFlow<Event>()
     val event = _event.asEventFlow()
 
-    fun setImageRealPath(path: String) {
-        imageRealPath = path
+    fun setImageFile(file: File) {
+        imageFile = file
     }
 
     fun finishMeasure() {
         viewModelScope.launch {
-            if(imageRealPath.isNotBlank()) {
+            if(imageFile != null) {
                 kotlin.runCatching {
-                    val imageFile = File(imageRealPath)
                     val parameter = FinishMeasureExerciseParam(imageFile)
                     finishMeasureExerciseUseCase.execute(parameter)
                 }.onSuccess {

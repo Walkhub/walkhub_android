@@ -189,10 +189,8 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
                 viewModel.resumeMeasureExercise()
             }
 
-            val requestPhotoComment = "인증사진을 찍어주세요"
             measuringFinishBtn.setOnClickListener {
                 viewModel.fetchFinishPhoto()
-                showShortToast(requestPhotoComment)
             }
             measuringBackBtn.setOnClickListener {
                 finish()
@@ -202,21 +200,12 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.event.collect {
                     when (it) {
-                        MeasureViewModel.Event.FinishActivity -> {
-                            finish()
-                        }
-                        MeasureViewModel.Event.RequestPhoto -> {
-                            showShortToast("측정 완료 사진을 등록해주세요")
-                        }
                         MeasureViewModel.Event.StartFetchPhoto -> {
                             startFinishActivity()
                         }
                         MeasureViewModel.Event.FailStartMeasure -> {
                             showShortToast("운동측정을 시작할 수 없습니다")
                             finish()
-                        }
-                        MeasureViewModel.Event.FailFinishMeasure -> {
-                            showShortToast("운동측정 종료를 할 수 없습니다")
                         }
                     }
                 }

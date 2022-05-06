@@ -1,5 +1,6 @@
 package com.semicolon.walkhub.ui.measure
 
+import android.net.Uri
 import androidx.activity.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -11,7 +12,9 @@ import com.semicolon.walkhub.util.toRealPath
 import com.semicolon.walkhub.viewmodel.measure.FinishMeasureViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import gun0912.tedimagepicker.builder.TedImagePicker
+import id.zelory.compressor.Compressor
 import kotlinx.coroutines.launch
+import java.io.File
 
 @AndroidEntryPoint
 class FinishMeasureActivity :
@@ -95,9 +98,20 @@ class FinishMeasureActivity :
     }
 
     private fun fetchImageFromImagePicker() {
+        val requestPhotoComment = "인증사진을 찍어주세요"
+        showShortToast(requestPhotoComment)
         TedImagePicker.with(this).start { uri ->
             binding.finishMeasuringIv.setImageURI(uri)
-            viewModel.setImageRealPath(uri.toRealPath(this))
+            setImageFile(uri)
+        }
+    }
+
+    private fun setImageFile(uri: Uri) {
+        val path = uri.toRealPath(this@FinishMeasureActivity)
+        val originalFile = File(path)
+        lifecycleScope.launch {
+            val compressedFile = Compressor.compress(this@FinishMeasureActivity, originalFile)
+            viewModel.setImageFile(compressedFile)
         }
     }
 }

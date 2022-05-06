@@ -210,9 +210,6 @@ class MeasureViewModel @Inject constructor(
 
     sealed class Event {
         object StartFetchPhoto : Event()
-        object FinishActivity : Event()
-        object RequestPhoto : Event()
         object FailStartMeasure : Event()
-        object FailFinishMeasure : Event()
     }
 }
