@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="40dp"
-                android:text="@{isDistance?`남은 거리`:`남은 걸음수`}"
+                android:text="@{isDistance?`목표 거리`:`목표 걸음수`}"
                 android:textColor="@color/gray_800"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
