@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.semicolon.domain.entity.exercise.GoalEntity
 import com.semicolon.domain.enums.GoalType
-import com.semicolon.domain.param.exercise.FinishMeasureExerciseParam
 import com.semicolon.domain.param.exercise.StartMeasureExerciseParam
 import com.semicolon.domain.usecase.exercise.*
 import com.semicolon.domain.usecase.socket.ConnectSocketUseCase
@@ -14,10 +13,8 @@ import com.semicolon.domain.usecase.socket.DisconnectSocketUseCase
 import com.semicolon.domain.usecase.socket.ReceiveCheeringUseCase
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
-import com.semicolon.walkhub.util.limitSize
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,7 +26,6 @@ class MeasureViewModel @Inject constructor(
     private val pauseMeasureExerciseUseCase: PauseMeasureExerciseUseCase,
     private val resumeMeasureExerciseUseCase: ResumeMeasureExerciseUseCase,
     private val startMeasureExerciseUseCase: StartMeasureExerciseUseCase,
-    private val finishMeasureExerciseUseCase: FinishMeasureExerciseUseCase,
     private val connectSocketUseCase: ConnectSocketUseCase,
     private val disconnectSocketUseCase: DisconnectSocketUseCase,
     private val receiveCheeringUseCase: ReceiveCheeringUseCase
@@ -64,8 +60,6 @@ class MeasureViewModel @Inject constructor(
 
     private val _cheerUserName = MutableLiveData<String>()
     val cheerUserName: LiveData<String> = _cheerUserName
-
-    private var _finishPhotoUri: String? = null
 
     init {
         viewModelScope.launch {
@@ -193,31 +187,6 @@ class MeasureViewModel @Inject constructor(
         }
     }
 
-    fun finishMeasureExercise() {
-        viewModelScope.launch {
-            if (_finishPhotoUri != null) {
-                val imageFile = File(_finishPhotoUri!!).limitSize()
-                val param = FinishMeasureExerciseParam(imageFile)
-                kotlin.runCatching {
-                    finishMeasureExerciseUseCase.execute(param)
-                }.onSuccess {
-                    sendEvent(Event.FinishActivity)
-                }.onFailure {
-                    sendEvent(Event.FailFinishMeasure)
-                }
-            } else {
-                sendEvent(Event.RequestPhoto)
-            }
-        }
-    }
-
-    fun setImageUri(uri: String) {
-        this._finishPhotoUri = uri
-        viewModelScope.launch {
-            sendEvent(Event.FinishMeasure)
-        }
-    }
-
     enum class MeasureState {
         ONGOING,
         PAUSED,
@@ -242,7 +211,6 @@ class MeasureViewModel @Inject constructor(
     sealed class Event {
         object StartFetchPhoto : Event()
         object FinishActivity : Event()
-        object FinishMeasure : Event()
         object RequestPhoto : Event()
         object FailStartMeasure : Event()
         object FailFinishMeasure : Event()

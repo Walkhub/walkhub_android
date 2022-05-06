@@ -1,16 +1,17 @@
 package com.semicolon.walkhub.ui.measure
 
+import android.content.Intent
 import android.view.View
 import androidx.activity.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.semicolon.domain.enums.GoalType
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityMeasuringBinding
 import com.semicolon.walkhub.ui.base.BaseActivity
-import com.semicolon.walkhub.util.toRealPath
 import com.semicolon.walkhub.viewmodel.measure.MeasureViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import gun0912.tedimagepicker.builder.TedImagePicker
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -198,26 +199,25 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
             }
         }
         lifecycleScope.launch {
-            viewModel.event.collect {
-                when (it) {
-                    MeasureViewModel.Event.FinishActivity -> {
-                        finish()
-                    }
-                    MeasureViewModel.Event.FinishMeasure -> {
-                        viewModel.finishMeasureExercise()
-                    }
-                    MeasureViewModel.Event.RequestPhoto -> {
-                        showShortToast("측정 완료 사진을 등록해주세요")
-                    }
-                    MeasureViewModel.Event.StartFetchPhoto -> {
-                        fetchDoneImage()
-                    }
-                    MeasureViewModel.Event.FailStartMeasure -> {
-                        showShortToast("운동측정을 시작할 수 없습니다")
-                        finish()
-                    }
-                    MeasureViewModel.Event.FailFinishMeasure -> {
-                        showShortToast("운동측정 종료를 할 수 없습니다")
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.event.collect {
+                    when (it) {
+                        MeasureViewModel.Event.FinishActivity -> {
+                            finish()
+                        }
+                        MeasureViewModel.Event.RequestPhoto -> {
+                            showShortToast("측정 완료 사진을 등록해주세요")
+                        }
+                        MeasureViewModel.Event.StartFetchPhoto -> {
+                            startFinishActivity()
+                        }
+                        MeasureViewModel.Event.FailStartMeasure -> {
+                            showShortToast("운동측정을 시작할 수 없습니다")
+                            finish()
+                        }
+                        MeasureViewModel.Event.FailFinishMeasure -> {
+                            showShortToast("운동측정 종료를 할 수 없습니다")
+                        }
                     }
                 }
             }
@@ -262,9 +262,22 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
         }
     }
 
-    private fun fetchDoneImage() {
-        TedImagePicker.with(this).start {
-            viewModel.setImageUri(it.toRealPath(this))
+    private fun startFinishActivity() {
+        val intent = Intent(this, FinishMeasureActivity::class.java).apply {
+            putExtra("isDistance", isDistance)
+            putExtra("percentage", viewModel.percentage.value)
+
+            putExtra("goal", viewModel.goal.value?.goal)
+
+            putExtra("distance", viewModel.distanceAsKiloMeter.value)
+            putExtra("walk", viewModel.walkCount.value)
+
+            putExtra("kiloCalorie", viewModel.calorie.value)
+            putExtra("hour", viewModel.time.value?.hour)
+            putExtra("minute", viewModel.time.value?.minute)
         }
+        startActivity(intent)
+
+        finish()
     }
 }
