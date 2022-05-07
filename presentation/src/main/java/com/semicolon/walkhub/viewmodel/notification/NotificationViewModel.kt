@@ -1,19 +1,23 @@
 package com.semicolon.walkhub.viewmodel.notification
 
-import android.app.Notification
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.semicolon.domain.entity.notification.NotificationEntity
 import com.semicolon.domain.exception.NoInternetException
 import com.semicolon.domain.exception.NotFoundException
+import com.semicolon.domain.exception.ServerException
+import com.semicolon.domain.exception.UnknownException
 import com.semicolon.domain.usecase.notification.FetchNotificationListUseCase
 import com.semicolon.walkhub.ui.notification.model.NotificationData
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.lang.NullPointerException
+import javax.inject.Inject
 
-class NotificationViewModel (
+@HiltViewModel
+class NotificationViewModel @Inject constructor(
     private val notificationUseCase: FetchNotificationListUseCase
 ) : ViewModel() {
 
@@ -68,7 +72,7 @@ class NotificationViewModel (
     }
 
     sealed class Event {
-        data class NotificationValue(val notificationData: NotificationData?) : Event()
+        data class NotificationValue(val notificationData: NotificationData) : Event()
         data class ErrorMessage(val message: String) : Event()
     }
 }
