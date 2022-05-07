@@ -4,6 +4,7 @@ import android.app.Notification
 import com.google.gson.annotations.SerializedName
 import com.semicolon.domain.entity.notice.NoticeEntity
 import com.semicolon.domain.entity.notification.NotificationEntity
+import com.semicolon.domain.enums.NotificationReturnType
 import java.time.LocalDateTime
 
 data class NotificationListResponse(
@@ -13,7 +14,7 @@ data class NotificationListResponse(
         @SerializedName("id") val notificationId: Int,
         @SerializedName("title") val title: String,
         @SerializedName("content") val content: String,
-        @SerializedName("data") val data: Int,
+        @SerializedName("data") val data: NotificationReturnType,
         @SerializedName("type") val type: String,
         @SerializedName("create_at") val createAt: String,
         @SerializedName("is_read") val isRead: Boolean,

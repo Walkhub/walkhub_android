@@ -4,6 +4,7 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.semicolon.domain.entity.notification.NotificationEntity
+import com.semicolon.domain.enums.NotificationReturnType
 
 @Entity(tableName = "notification")
 data class NotificationRoomEntity(
@@ -15,7 +16,7 @@ data class NotificationRoomEntity(
         val title: String,
         val content: String,
         val type: String,
-        val data: Int,
+        val data: NotificationReturnType,
         val createAt: String,
         val isRead: Boolean,
         @Embedded val writer: Writer
@@ -48,7 +49,7 @@ data class NotificationRoomEntity(
 }
 
 fun NotificationRoomEntity.toEntity() =
-    notificationRoomValue?.map { it.toEntity() }?.let {
+    notificationRoomValue.map { it.toEntity() }?.let {
         NotificationEntity(
             notificationValue = it
         )

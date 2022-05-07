@@ -1,5 +1,7 @@
 package com.semicolon.walkhub.ui.notification.model
 
+import com.semicolon.domain.enums.NotificationReturnType
+
 data class NotificationData(
     val notificationValue: List<NotificationValue>
 ) {
@@ -8,7 +10,7 @@ data class NotificationData(
         val title: String,
         val content: String,
         val type: String,
-        val data: Int,
+        val data: NotificationReturnType,
         val createAt: String,
         val isRead: Boolean,
         val writer: Writer
