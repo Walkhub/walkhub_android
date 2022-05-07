@@ -3,14 +3,14 @@
     <data>
         <variable
             name="activity"
-            type="com.semicolon.walkhub.ui.notification.NotificationActivity" />
+            type="com.semicolon.walkhub.ui.notification.ui.NotificationActivity" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.notification.NotificationActivity">
+        tools:context=".ui.notification.ui.NotificationActivity">
 
         <ImageButton
             android:id="@+id/ibBack"
