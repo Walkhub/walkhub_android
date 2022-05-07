@@ -20,7 +20,7 @@
         tools:targetApi="m">
         
         <activity
-            android:name=".ui.notification.NotificationActivity"
+            android:name=".ui.notification.ui.NotificationActivity"
             android:exported="false" />
 
         <activity

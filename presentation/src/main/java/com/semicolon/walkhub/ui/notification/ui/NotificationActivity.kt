@@ -1,4 +1,4 @@
-package com.semicolon.walkhub.ui.notification
+package com.semicolon.walkhub.ui.notification.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

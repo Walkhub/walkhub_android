@@ -72,7 +72,7 @@ object RoomModule {
     @Provides
     fun provideNotificationDao(
         walkHubDataBase: WalkHubDataBase
-    ): NotificationDao = walkHubDataBase.notification()
+    ): NotificationDao = walkHubDataBase.notificationDao()
 
     @Provides
     fun provideLocationRecordDao(
