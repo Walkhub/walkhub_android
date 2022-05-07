@@ -6,7 +6,7 @@ import com.semicolon.domain.param.notifications.SwitchOnNotificationsParam
 import kotlinx.coroutines.flow.Flow
 
 interface NotificationRepository {
-    suspend fun fetchNotificationList(): Flow<List<NotificationEntity>>
+    suspend fun fetchNotificationList(): Flow<NotificationEntity>
 
     suspend fun readNotification(notificationId: Int)
 

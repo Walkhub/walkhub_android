@@ -16,11 +16,10 @@ class NotificationRepositoryImpl @Inject constructor(
     private val remoteNotificationDataSource: RemoteNotificationDataSource
 ) : NotificationRepository {
 
-    override suspend fun fetchNotificationList(): Flow<List<NotificationEntity>> =
-        OfflineCacheUtil<List<NotificationEntity>>()
+    override suspend fun fetchNotificationList(): Flow<NotificationEntity> =
+        OfflineCacheUtil<NotificationEntity>()
             .remoteData { remoteNotificationDataSource.fetchNotificationList().toEntity() }
             .localData { localNotificationDataSource.fetchNotificationList() }
-            .compareData { localData, remoteData -> localData.containsAll(remoteData) }
             .doOnNeedRefresh { localNotificationDataSource.saveNotificationList(it) }
             .createFlow()
 
@@ -29,7 +28,7 @@ class NotificationRepositoryImpl @Inject constructor(
     }
 
     override suspend fun switchOnNotification(switchOnNotificationsParam: SwitchOnNotificationsParam) {
-        remoteNotificationDataSource.switchOnNofications(switchOnNotificationsParam.userId, switchOnNotificationsParam.type.toString())
+        remoteNotificationDataSource.switchOnNotifications(switchOnNotificationsParam.userId, switchOnNotificationsParam.type.toString())
     }
 
     override suspend fun switchOffNotification(type: NotificationType) {
