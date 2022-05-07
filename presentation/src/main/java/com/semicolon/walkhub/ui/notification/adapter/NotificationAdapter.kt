@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import androidx.annotation.NonNull
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.semicolon.domain.enums.NotificationReturnType
+import com.semicolon.domain.enums.NotificationType
 import com.semicolon.walkhub.databinding.NotificationItemBinding
 import com.semicolon.walkhub.databinding.SchoolitemBinding
 import com.semicolon.walkhub.ui.notification.model.NotificationData
@@ -16,13 +18,40 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import android.content.Intent
+import com.semicolon.walkhub.ui.analysis.ActivityAnalysisActivity
+import com.semicolon.walkhub.ui.challenge.ChallengeFragment
+import com.semicolon.walkhub.ui.hub.ui.HubRankFragment
+import gun0912.tedimagepicker.util.ToastUtil.context
+
 
 class NotificationAdapter (
     private val dataList: ArrayList<NotificationData.NotificationValue>
     ) : RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
             val item = dataList[position]
+            val notificationItem = dataList[position].data
+
+            holder.itemView.setOnClickListener {
+                when(notificationItem) {
+                    NotificationReturnType.NOTICE -> {
+                        val intent = Intent(context, HubRankFragment::class.java)
+                        intent.run { context.startActivity(this) }
+                    }
+
+                    NotificationReturnType.CHALLENGE -> {
+                        val intent = Intent(context, ChallengeFragment::class.java)
+                        intent.run { context.startActivity(this) }
+                    }
+
+                    NotificationReturnType.EXERCISE -> {
+                        val intent = Intent(context, ActivityAnalysisActivity::class.java)
+                        intent.run { context.startActivity(this) }
+                    }
+                }
+            }
 
             holder.bind(item)
         }
