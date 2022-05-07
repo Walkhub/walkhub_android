@@ -16,11 +16,15 @@ import com.semicolon.walkhub.util.invisible
 import com.semicolon.walkhub.util.visible
 import com.semicolon.walkhub.viewmodel.profile.setting.ModifyHealthInfoViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.properties.Delegates
 
 @AndroidEntryPoint
 class ModifyHealthInfoActivity : BaseActivity<ActivityModifyHealthInfoBinding>(
     R.layout.activity_modify_health_info
 ) {
+
+    private var a: Boolean = false
+    private var b by Delegates.notNull<Int>()
     private val vm: ModifyHealthInfoViewModel by viewModels()
     private var sex = "X"
 
@@ -68,43 +72,12 @@ class ModifyHealthInfoActivity : BaseActivity<ActivityModifyHealthInfoBinding>(
         }
 
         binding.manBtn.setOnClickListener {
-            sex = "MALE"
-            binding.manBtn.background = ContextCompat.getDrawable(
-                applicationContext,
-                R.drawable.register_btn
-            )
-            binding.girlBtn.background = ContextCompat.getDrawable(
-                applicationContext,
-                R.drawable.girl_btn
-            )
-            binding.manBtn.setTextColor(ContextCompat.getColor(applicationContext, R.color.white))
-            binding.girlBtn.setTextColor(
-                ContextCompat.getColor(
-                    applicationContext,
-                    R.color.gray_800
-                )
-            )
+            changeGenderMan()
         }
 
         binding.girlBtn.setOnClickListener {
-            sex = "FEMALE"
-            binding.girlBtn.background = ContextCompat.getDrawable(
-                applicationContext,
-                R.drawable.register_btn
-            )
-            binding.manBtn.background = ContextCompat.getDrawable(
-                applicationContext,
-                R.drawable.girl_btn
-            )
-            binding.girlBtn.setTextColor(ContextCompat.getColor(applicationContext, R.color.white))
-            binding.manBtn.setTextColor(
-                ContextCompat.getColor(
-                    applicationContext,
-                    R.color.gray_800
-                )
-            )
+            changeGenderWo()
         }
-
     }
 
     private fun setTextWatcher() {
@@ -163,6 +136,58 @@ class ModifyHealthInfoActivity : BaseActivity<ActivityModifyHealthInfoBinding>(
                 }
             }
         })
+    }
+
+    private fun nextMethod() {
+        when (a) {
+            true -> {
+                binding.modifyDone.background = ContextCompat.getDrawable(
+                    applicationContext,
+                    R.drawable.register_btn
+                )
+            }
+
+            false -> {
+                binding.modifyDone.background = ContextCompat.getDrawable(
+                    applicationContext,
+                    R.drawable.registerbuttondesign
+                )
+            }
+        }
+    }
+
+    private fun changeGenderMan() {
+        a = true
+        b = 0
+
+        binding.manBtn.background =
+            ContextCompat.getDrawable(
+                applicationContext,
+                R.drawable.register_btn
+            )
+
+        binding.girlBtn.background =
+            ContextCompat.getDrawable(
+                applicationContext,
+                R.drawable.buttondesign
+            )
+    }
+
+    private fun changeGenderWo() {
+        a = true
+        b = 1
+
+        binding.manBtn.background =
+            ContextCompat.getDrawable(
+                applicationContext,
+                R.drawable.buttondesign
+            )
+
+        binding.girlBtn.background =
+            ContextCompat.getDrawable(
+                applicationContext,
+                R.drawable.register_btn
+            )
     }
 
     private fun setHealthInfo(fetchUserHealthData: FetchUserHealthEntity) {
