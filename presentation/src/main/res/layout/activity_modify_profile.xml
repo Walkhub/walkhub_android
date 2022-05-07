@@ -23,6 +23,7 @@
             android:layout_marginBottom="29dp"
             android:fontFamily="@font/noto_sans_kr_medium"
             android:text="대덕소프트웨어마이스터고등학교"
+            android:gravity="center"
             android:textColor="@color/gray_900"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/view3"
@@ -34,11 +35,62 @@
             android:layout_width="wrap_content"
             android:layout_height="18dp"
             android:layout_marginStart="16dp"
+            android:visibility="invisible"
             android:fontFamily="@font/noto_sans_kr_regular"
             android:text="현재 소속 중인 반이 없어요."
+            android:gravity="center"
             android:textColor="@color/gray_800"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@+id/view3"
+            app:layout_constraintTop_toBottomOf="@+id/my_school_name" />
+
+        <TextView
+            android:id="@+id/grade"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_marginStart="16dp"
+            android:gravity="center"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:text="3"
+            android:textColor="@color/gray_800"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/view3"
+            app:layout_constraintTop_toBottomOf="@+id/my_school_name"/>
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:gravity="center"
+            android:text="학년"
+            android:textColor="@color/gray_800"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/grade"
+            app:layout_constraintTop_toBottomOf="@+id/my_school_name" />
+
+
+        <TextView
+            android:id="@+id/classes"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:gravity="center"
+            android:text="9"
+            android:textColor="@color/gray_800"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/textView13"
+            app:layout_constraintTop_toBottomOf="@+id/my_school_name" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:gravity="center"
+            android:text="반"
+            android:textColor="@color/gray_800"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/classes"
             app:layout_constraintTop_toBottomOf="@+id/my_school_name" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
