@@ -9,19 +9,23 @@ import com.semicolon.walkhub.databinding.ActivitySettingBinding
 import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.HomeActivity
 import com.semicolon.walkhub.ui.base.BaseActivity
+import com.semicolon.walkhub.ui.profile.model.MyPageData
+import com.semicolon.walkhub.ui.register.model.SecondSearchSchoolData
+import com.semicolon.walkhub.viewmodel.profile.setting.NoticeSettingViewModel.Companion.userId
 import com.semicolon.walkhub.viewmodel.profile.setting.SettingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.properties.Delegates
 
 @AndroidEntryPoint
-class SettingActivity : BaseActivity<ActivitySettingBinding>(
+class SettingActivity() : BaseActivity<ActivitySettingBinding>(
     R.layout.activity_setting
 ) {
 
     private val vm: SettingViewModel by viewModels()
-    lateinit var intent2: Intent
 
-    var user by Delegates.notNull<Int>()
+    private lateinit var data: MyPageData
+
+    var id = data.userId
 
     override fun onCreate(savedInstanceState: android.os.Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +69,7 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>(
 
         binding.notificationSetting.setOnClickListener {
             val intent = Intent(context, NoticeSettingActivity::class.java)
-            intent2.putExtra("user_id", user)
+            intent.putExtra("user_id", id)
             startActivity(intent)
         }
 

@@ -13,6 +13,7 @@ import com.semicolon.walkhub.customview.ToggleSwitch
 import com.semicolon.walkhub.databinding.ActivityNoticeSettingBinding
 import com.semicolon.walkhub.ui.base.BaseActivity
 import com.semicolon.walkhub.viewmodel.profile.setting.NoticeSettingViewModel
+import com.semicolon.walkhub.viewmodel.register.RegisterViewModel
 import kotlin.properties.Delegates
 
 class NoticeSettingActivity : BaseActivity<ActivityNoticeSettingBinding>(
@@ -20,14 +21,15 @@ class NoticeSettingActivity : BaseActivity<ActivityNoticeSettingBinding>(
 ) {
 
     private val vm: NoticeSettingViewModel by viewModels()
-    private var user by Delegates.notNull<Int>()
 
+    var user: Int = 0
+    var data: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        intent.getIntExtra("user_id", user)
-
+        data = intent.getIntExtra("user_id",user)
+        NoticeSettingViewModel.userId = data
     }
 
     override fun initView() {

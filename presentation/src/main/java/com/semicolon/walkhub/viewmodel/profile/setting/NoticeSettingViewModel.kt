@@ -25,6 +25,10 @@ class NoticeSettingViewModel @Inject constructor(
     private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()
 
+    companion object {
+        var userId: Int = 0
+    }
+
 
     fun patchSwitchOn(userId: Int, type: NotificationType) {
         viewModelScope.launch {
