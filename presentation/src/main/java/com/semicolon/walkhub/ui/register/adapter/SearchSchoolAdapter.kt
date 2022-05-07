@@ -23,7 +23,7 @@ class SearchSchoolAdapter(
         holder.itemView.tag = position
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(holder.itemView?.context, Register::class.java)
+            val intent = Intent(holder.itemView.context, Register::class.java)
             intent.putExtra("data", id)
             intent.putExtra("school", school)
             intent.putExtra("movePage", true)
