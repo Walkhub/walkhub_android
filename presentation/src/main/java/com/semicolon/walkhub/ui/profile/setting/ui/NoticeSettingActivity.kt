@@ -22,14 +22,12 @@ class NoticeSettingActivity : BaseActivity<ActivityNoticeSettingBinding>(
 
     private val vm: NoticeSettingViewModel by viewModels()
 
-    var user: Int = 0
     var data: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        data = intent.getIntExtra("user_id",user)
-        NoticeSettingViewModel.userId = data
+        data = intent.getIntExtra("user_id", data)
     }
 
     override fun initView() {
@@ -63,18 +61,18 @@ class NoticeSettingActivity : BaseActivity<ActivityNoticeSettingBinding>(
         )
 
         binding.noticeSwt.setToggleSwitch(
-            onToggleOn = { vm.patchSwitchOn(userId = user, type = NotificationType.NOTICE) },
+            onToggleOn = { vm.patchSwitchOn(userId = data, type = NotificationType.NOTICE) },
             onToggleOff = { vm.patchSwitchOff(type = NotificationType.NOTICE) }
         )
 
         binding.recommendSwt.setToggleSwitch(
-            onToggleOn = { vm.patchSwitchOn(userId = user, type = NotificationType.CHALLENGE) },
+            onToggleOn = { vm.patchSwitchOn(userId = data, type = NotificationType.CHALLENGE) },
             onToggleOff = { vm.patchSwitchOff(type = NotificationType.CHALLENGE) }
         )
         binding.challengeGoalSwt.setToggleSwitch(
             onToggleOn = {
                 vm.patchSwitchOn(
-                    userId = user,
+                    userId = data,
                     type = NotificationType.CHALLENGE_SUCCESS
                 )
             },
@@ -83,7 +81,7 @@ class NoticeSettingActivity : BaseActivity<ActivityNoticeSettingBinding>(
         binding.challengeEndSwt.setToggleSwitch(
             onToggleOn = {
                 vm.patchSwitchOn(
-                    userId = user,
+                    userId = data,
                     type = NotificationType.CHALLENGE_EXPIRATION
                 )
             },

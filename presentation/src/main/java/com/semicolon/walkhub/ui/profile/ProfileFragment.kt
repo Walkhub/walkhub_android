@@ -17,12 +17,15 @@ import com.semicolon.walkhub.util.loadCircleFromUrl
 import com.semicolon.walkhub.util.loadFromUrl
 import com.semicolon.walkhub.viewmodel.profile.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.properties.Delegates
 
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(
     R.layout.fragment_profile
 ) {
     private val vm: ProfileViewModel by viewModels()
+
+    var userId by Delegates.notNull<Int>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,6 +46,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
     private fun handleEvent(event: ProfileViewModel.Event) = when (event) {
         is ProfileViewModel.Event.FetchMyPage -> {
             setProfileValue(event.myPageData)
+            userId = event.myPageData.userId
         }
 
         is ProfileViewModel.Event.FetchHome -> {
@@ -57,6 +61,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
     override fun initView() {
         binding.setting.setOnClickListener {
             val intent = Intent(activity, SettingActivity::class.java)
+            intent.putExtra("user_id", userId)
             startActivity(intent)
         }
     }

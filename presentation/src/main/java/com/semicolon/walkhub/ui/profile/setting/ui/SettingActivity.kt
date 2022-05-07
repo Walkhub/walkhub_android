@@ -9,6 +9,7 @@ import com.semicolon.walkhub.databinding.ActivitySettingBinding
 import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.HomeActivity
 import com.semicolon.walkhub.ui.base.BaseActivity
+import com.semicolon.walkhub.ui.hub.model.SearchUserData
 import com.semicolon.walkhub.ui.profile.model.MyPageData
 import com.semicolon.walkhub.ui.register.model.SecondSearchSchoolData
 import com.semicolon.walkhub.viewmodel.profile.setting.NoticeSettingViewModel.Companion.userId
@@ -23,12 +24,12 @@ class SettingActivity() : BaseActivity<ActivitySettingBinding>(
 
     private val vm: SettingViewModel by viewModels()
 
-    private lateinit var data: MyPageData
-
-    var id = data.userId
-
-    override fun onCreate(savedInstanceState: android.os.Bundle?) {
+    private var id : Int = 1
+    private var userId by Delegates.notNull<Int>()
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        userId = intent.getIntExtra("user_id", id)
 
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
@@ -69,7 +70,8 @@ class SettingActivity() : BaseActivity<ActivitySettingBinding>(
 
         binding.notificationSetting.setOnClickListener {
             val intent = Intent(context, NoticeSettingActivity::class.java)
-            intent.putExtra("user_id", id)
+            intent.putExtra("user_id", userId)
+            intent.putExtra("movePage", true)
             startActivity(intent)
         }
 
