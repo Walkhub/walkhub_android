@@ -76,6 +76,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
+        <TextView
+            android:id="@+id/textinput_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="8dp"
+            android:text="비밀번호는 8~30자리 내로\n특수문자를 1개 이상 포함하여 입력해주세요."
+            android:textColor="@color/error_red"
+            android:visibility="invisible"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view5" />
+
         <View
             android:id="@+id/view5"
             android:layout_width="0dp"

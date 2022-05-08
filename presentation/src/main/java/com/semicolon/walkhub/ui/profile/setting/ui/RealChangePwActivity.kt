@@ -12,6 +12,8 @@ import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityRealChangePwBinding
 import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.base.BaseActivity
+import com.semicolon.walkhub.util.invisible
+import com.semicolon.walkhub.util.visible
 import com.semicolon.walkhub.viewmodel.profile.setting.RealChangePwViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.regex.Pattern
@@ -92,9 +94,10 @@ class RealChangePwActivity : BaseActivity<ActivityRealChangePwBinding>(
                             applicationContext,
                             R.drawable.bg_primary_button
                         )
+                        binding.textinputError.invisible()
                         binding.changeBtn.setClickable(true)
                     } else {
-                        showShortToast("비밀번호에는의 한개 이상 숫자와 특수문자가 포함되어야합니다.")
+                        binding.textinputError.visible()
                         binding.changeBtn.background = ContextCompat.getDrawable(
                             applicationContext,
                             R.drawable.registerbuttondesign
