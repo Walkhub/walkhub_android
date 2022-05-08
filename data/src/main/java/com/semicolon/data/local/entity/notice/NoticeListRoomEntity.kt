@@ -1,6 +1,5 @@
 package com.semicolon.data.local.entity.notice
 
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.semicolon.data.util.toLocalDateTime
@@ -8,8 +7,8 @@ import com.semicolon.domain.entity.notice.NoticeEntity
 
 @Entity(tableName = "noticeList")
 data class NoticeListRoomEntity(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    @Embedded val noticeList: List<NoticeListValue>
+    @PrimaryKey(autoGenerate = true) var id: Int = 0,
+    val noticeList: List<NoticeListValue>
 
 ) {
     data class NoticeListValue(
