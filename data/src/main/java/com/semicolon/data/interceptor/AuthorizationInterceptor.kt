@@ -20,7 +20,6 @@ class AuthorizationInterceptor @Inject constructor(
             "/users/verification-codes",
             "/users/account-id",
             "/users/token",
-            "/users/password",
             "/schools/search",
             "/users/token"
         )
