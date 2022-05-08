@@ -20,8 +20,7 @@ class NoticeRepositoryImpl @Inject constructor(
         OfflineCacheUtil<NoticeEntity>()
             .remoteData {
                 remoteNoticeDataSource.fetchNoticeList(
-                    fetchNoticeListParam.scope,
-                    fetchNoticeListParam.page
+                    fetchNoticeListParam.scope
                 ).toEntity()
             }
             .localData { localNoticeDataSource.fetchNoticeList() }
