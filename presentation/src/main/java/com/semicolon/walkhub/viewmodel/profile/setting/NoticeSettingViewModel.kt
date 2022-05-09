@@ -6,6 +6,7 @@ import com.semicolon.domain.enums.NotificationType
 import com.semicolon.domain.exception.BadRequestException
 import com.semicolon.domain.exception.NoInternetException
 import com.semicolon.domain.exception.UnauthorizedException
+import com.semicolon.domain.param.notifications.SwitchOffNotificationsParam
 import com.semicolon.domain.param.notifications.SwitchOnNotificationsParam
 import com.semicolon.domain.param.user.PatchUserHealthParam
 import com.semicolon.domain.usecase.notification.PatchSwitchOffNotificationUseCase
@@ -45,10 +46,10 @@ class NoticeSettingViewModel @Inject constructor(
         }
     }
 
-    fun patchSwitchOff(type: NotificationType) {
+    fun patchSwitchOff(userId: Int, type: NotificationType) {
         viewModelScope.launch {
             kotlin.runCatching {
-                switchOffNotificationUseCase.execute(type)
+                switchOffNotificationUseCase.execute(SwitchOffNotificationsParam(userId, type))
             }.onFailure {
                 when (it) {
                     is NoInternetException -> event(Event.ErrorMessage("인터넷에 연결되어있지 않습니다."))
