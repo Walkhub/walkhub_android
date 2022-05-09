@@ -7,7 +7,6 @@ import android.text.TextWatcher
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.semicolon.walkhub.R
-import com.semicolon.walkhub.databinding.ActivitySearchSchoolBinding
 import com.semicolon.walkhub.databinding.ActivitySettingSearchSchoolBinding
 import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.base.BaseActivity
