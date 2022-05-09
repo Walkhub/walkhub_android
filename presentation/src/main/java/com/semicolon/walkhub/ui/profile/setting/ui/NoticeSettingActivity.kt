@@ -13,9 +13,9 @@ import com.semicolon.walkhub.customview.ToggleSwitch
 import com.semicolon.walkhub.databinding.ActivityNoticeSettingBinding
 import com.semicolon.walkhub.ui.base.BaseActivity
 import com.semicolon.walkhub.viewmodel.profile.setting.NoticeSettingViewModel
-import com.semicolon.walkhub.viewmodel.register.RegisterViewModel
-import kotlin.properties.Delegates
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NoticeSettingActivity : BaseActivity<ActivityNoticeSettingBinding>(
     R.layout.activity_notice_setting
 ) {
@@ -26,12 +26,11 @@ class NoticeSettingActivity : BaseActivity<ActivityNoticeSettingBinding>(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        switch()
         data = intent.getIntExtra("user_id", data)
     }
 
     override fun initView() {
-        switch()
         binding.back.setOnClickListener {
             finish()
         }
@@ -41,7 +40,7 @@ class NoticeSettingActivity : BaseActivity<ActivityNoticeSettingBinding>(
 
     fun ComposeView.setToggleSwitch(
         onToggleOn: () -> Unit,
-        onToggleOff: () -> Unit
+        onToggleOff: () -> Unit,
     ) = this.apply {
         setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
         setContent {
@@ -62,12 +61,12 @@ class NoticeSettingActivity : BaseActivity<ActivityNoticeSettingBinding>(
 
         binding.noticeSwt.setToggleSwitch(
             onToggleOn = { vm.patchSwitchOn(userId = data, type = NotificationType.NOTICE) },
-            onToggleOff = { vm.patchSwitchOff(type = NotificationType.NOTICE) }
+            onToggleOff = { vm.patchSwitchOff(userId = data, type = NotificationType.NOTICE) }
         )
 
         binding.recommendSwt.setToggleSwitch(
             onToggleOn = { vm.patchSwitchOn(userId = data, type = NotificationType.CHALLENGE) },
-            onToggleOff = { vm.patchSwitchOff(type = NotificationType.CHALLENGE) }
+            onToggleOff = { vm.patchSwitchOff(userId = data, type = NotificationType.CHALLENGE) }
         )
         binding.challengeGoalSwt.setToggleSwitch(
             onToggleOn = {
@@ -76,7 +75,10 @@ class NoticeSettingActivity : BaseActivity<ActivityNoticeSettingBinding>(
                     type = NotificationType.CHALLENGE_SUCCESS
                 )
             },
-            onToggleOff = { vm.patchSwitchOff(type = NotificationType.CHALLENGE_SUCCESS) }
+            onToggleOff = {
+                vm.patchSwitchOff(userId = data,
+                    type = NotificationType.CHALLENGE_SUCCESS)
+            }
         )
         binding.challengeEndSwt.setToggleSwitch(
             onToggleOn = {
@@ -85,7 +87,10 @@ class NoticeSettingActivity : BaseActivity<ActivityNoticeSettingBinding>(
                     type = NotificationType.CHALLENGE_EXPIRATION
                 )
             },
-            onToggleOff = { vm.patchSwitchOff(type = NotificationType.CHALLENGE_EXPIRATION) }
+            onToggleOff = {
+                vm.patchSwitchOff(userId = data,
+                    type = NotificationType.CHALLENGE_EXPIRATION)
+            }
         )
     }
 }
