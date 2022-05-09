@@ -68,9 +68,11 @@ class HubUserViewModel @Inject constructor(
                     it.myRanking?.let { data ->
                         val myRank: Int = data.ranking
 
-                        if(data != null) {
-                            val topWalkCount = if(myRank <= 1) 0 else it.rankingList[myRank - 2].walkCount
-                            val downWalkCount = if(myRank >= it.rankingList.size) 0 else it.rankingList[myRank].walkCount
+                        if (data != null) {
+                            val topWalkCount =
+                                if (myRank <= 1) 0 else it.rankingList[myRank - 2].walkCount
+                            val downWalkCount =
+                                if (myRank >= it.rankingList.size) 0 else it.rankingList[myRank].walkCount
                             val myWalkCount = data.walkCount
 
                             _myRanking.value = HubMyPageItem(
