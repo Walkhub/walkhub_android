@@ -1,9 +1,9 @@
-package com.semicolon.domain.entity.notification
+package com.semicolon.walkhub.ui.notification.model
 
 import com.semicolon.domain.enums.NotificationReturnType
 
-data class NotificationEntity(
-    val notificationValue: List<NotificationValue>
+data class NotificationData(
+    val notificationValue: List<NotificationValue>?
 ) {
     data class NotificationValue(
         val notificationId: Int,
