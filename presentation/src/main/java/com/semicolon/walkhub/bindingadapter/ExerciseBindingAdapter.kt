@@ -5,7 +5,7 @@ import androidx.databinding.BindingAdapter
 
 @BindingAdapter("goal_text")
 fun TextView.goalText(goal: Int) {
-    val goalText = "$goal 걸을"
+    val goalText = "$goal 걸음"
     text = goalText
 }
 
