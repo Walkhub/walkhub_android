@@ -65,23 +65,21 @@ class HubUserViewModel @Inject constructor(
                         )
                     }
 
-                    val myRank: Int = it.myRanking?.ranking ?: 1
+                    it.myRanking?.let { data ->
+                        val myRank: Int = data.ranking
 
-                    if (it.myRanking != null) {
-                        val topWalkCount =
-                            if (myRank <= 1) 0
-                            else it.rankingList[myRank - 2].walkCount
-                        val downWalkCount =
-                            if (myRank >= it.rankingList.size) 0
-                            else it.rankingList[myRank].walkCount
-                        val myWalkCount = it.myRanking!!.walkCount
+                        if(data != null) {
+                            val topWalkCount = if(myRank <= 1) 0 else it.rankingList[myRank - 2].walkCount
+                            val downWalkCount = if(myRank >= it.rankingList.size) 0 else it.rankingList[myRank].walkCount
+                            val myWalkCount = data.walkCount
 
-                        _myRanking.value = HubMyPageItem(
-                            topWalkCount,
-                            myWalkCount,
-                            downWalkCount,
-                            it.myRanking!!.toData()
-                        )
+                            _myRanking.value = HubMyPageItem(
+                                topWalkCount,
+                                myWalkCount,
+                                downWalkCount,
+                                data.toData()
+                            )
+                        }
                     }
 
                     _isJoinedClass.value = it.isJoinedClass
