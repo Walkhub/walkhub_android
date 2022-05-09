@@ -36,7 +36,7 @@ class NotificationActivity : BaseActivity<ActivityNotificationBinding>(
         binding.ibBack.setOnClickListener {
             finish()
         }
-        
+
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
         }
@@ -44,12 +44,9 @@ class NotificationActivity : BaseActivity<ActivityNotificationBinding>(
 
     private fun handleEvent(event: NotificationViewModel.Event) = when (event) {
         is NotificationViewModel.Event.NotificationValue -> {
-
-            if (notificationData.isEmpty()){
+            if (event.notificationData.notificationValue.isEmpty()){
                 binding.nullNotification.visibility = View.VISIBLE
-            }
-
-            else {
+            } else {
                 setNotificationData(event.notificationData)
             }
         }
