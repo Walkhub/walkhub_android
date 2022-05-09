@@ -1,6 +1,5 @@
 package com.semicolon.walkhub.viewmodel.measure
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,6 +14,9 @@ import com.semicolon.domain.usecase.socket.ReceiveCheeringUseCase
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -118,7 +120,6 @@ class MeasureViewModel @Inject constructor(
 
         val percentage: Int = ((currentValue.toDouble() / goal.toDouble()) * 100).toInt()
 
-        Log.d("percentage", "current: $currentValue goal: $goal percentage: $percentage")
         _percentage.value = percentage
     }
 
@@ -171,8 +172,9 @@ class MeasureViewModel @Inject constructor(
 
     fun pauseMeasureExercise() {
         _measuringState.value = MeasureState.PAUSED
-        viewModelScope.launch {
+        CoroutineScope(Dispatchers.IO).launch {
             pauseMeasureExerciseUseCase.execute(Unit)
+            delay(100)
         }
     }
 

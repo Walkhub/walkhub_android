@@ -1,7 +1,5 @@
 package com.semicolon.data.util
 
-
-import android.util.Log
 import com.semicolon.domain.exception.*
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
@@ -64,7 +62,6 @@ class HttpHandler<T> {
         } catch (e: NeedLoginException) {
             throw e
         } catch (e: Throwable) {
-            Log.e("exception", "$e")
             throw UnknownException()
         }
 }
