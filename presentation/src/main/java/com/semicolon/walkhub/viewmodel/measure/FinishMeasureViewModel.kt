@@ -7,7 +7,6 @@ import com.semicolon.domain.usecase.exercise.FinishMeasureExerciseUseCase
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
-import id.zelory.compressor.Compressor
 import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject

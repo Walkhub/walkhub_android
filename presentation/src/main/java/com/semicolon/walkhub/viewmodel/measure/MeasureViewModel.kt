@@ -1,5 +1,6 @@
 package com.semicolon.walkhub.viewmodel.measure
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -113,8 +114,11 @@ class MeasureViewModel @Inject constructor(
             if (goal.value?.goalType == GoalType.DISTANCE) (distanceAsKiloMeter.value!! * 1000).toInt()
             else walkCount.value ?: 0
 
-        val percentage = (currentValue / (goal.value?.goal ?: 1)) * 100
+        val goal = goal.value?.goal ?: 1
 
+        val percentage: Int = ((currentValue.toDouble() / goal.toDouble()) * 100).toInt()
+
+        Log.d("percentage", "current: $currentValue goal: $goal percentage: $percentage")
         _percentage.value = percentage
     }
 

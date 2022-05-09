@@ -420,7 +420,6 @@
                 android:layout_height="120dp"
                 android:layout_marginTop="10dp"
                 android:src="@drawable/img_cheering"
-                android:visibility="@{vm.cheerUserName != null ? View.VISIBLE : View.INVISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -433,7 +432,6 @@
                 android:text="축하드려요! 목표를 달했어요."
                 android:textColor="@color/white"
                 android:textSize="16sp"
-                android:visibility="@{vm.cheerUserName != null ? View.VISIBLE : View.INVISIBLE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

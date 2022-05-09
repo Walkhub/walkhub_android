@@ -113,6 +113,9 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
 
     private fun observeState() {
         viewModel.run {
+            goal.observe(this@MeasuringActivity) {
+                isDistance = it.goalType == GoalType.DISTANCE
+            }
             measuringState.observe(this@MeasuringActivity) { state ->
                 when (state) {
                     MeasureViewModel.MeasureState.ONGOING -> {

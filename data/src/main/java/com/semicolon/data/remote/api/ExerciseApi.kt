@@ -22,7 +22,7 @@ interface ExerciseApi {
     suspend fun finishMeasureExercise(
         @Path("exerciseId") exerciseId: Int,
         @Body finishMeasureExerciseRequest: FinishMeasureExerciseRequest
-    )
+    ): Response<Unit>
 
     @POST("exercises/locations/{exerciseId}")
     suspend fun sendLocationRecords(

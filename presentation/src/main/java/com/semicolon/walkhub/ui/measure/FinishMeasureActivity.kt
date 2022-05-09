@@ -85,6 +85,7 @@ class FinishMeasureActivity :
 
                         FinishMeasureViewModel.Event.SuccessFinish -> {
                             showShortToast("운동측정을 종료하였습니다")
+                            finish()
                         }
 
                         FinishMeasureViewModel.Event.ImagePathIsBlank -> {
