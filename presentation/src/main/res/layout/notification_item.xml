@@ -10,14 +10,14 @@
         android:layout_height="72dp"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
-        <ImageButton
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ivLogo"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="12dp"
+            android:layout_gravity="center"
+            android:src="@color/gray_300"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
