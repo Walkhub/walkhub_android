@@ -1,5 +1,7 @@
 package com.semicolon.data.remote.datasource
 
+import com.semicolon.data.remote.request.notification.OffNotiRequest
+import com.semicolon.data.remote.request.notification.OnNotiRequest
 import com.semicolon.data.remote.response.notification.NotificationListResponse
 
 interface RemoteNotificationDataSource {
@@ -7,7 +9,7 @@ interface RemoteNotificationDataSource {
 
     suspend fun patchNotificationIsRead(data: Int)
 
-    suspend fun switchOnNofications(userId: Int, type: String)
+    suspend fun switchOnNofications(onNotiRequest: OnNotiRequest)
 
-    suspend fun switchOffNotifications(type: String)
+    suspend fun switchOffNotifications(offNotiRequest: OffNotiRequest)
 }
