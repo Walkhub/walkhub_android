@@ -32,7 +32,7 @@ class NotificationAdapter (
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
             val item = dataList[position]
-            val notificationItem = dataList[position].data
+            val notificationItem = dataList[position].type
 
             holder.itemView.setOnClickListener {
                 when(notificationItem) {

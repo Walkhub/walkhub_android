@@ -14,8 +14,8 @@ data class NotificationListResponse(
         @SerializedName("id") val notificationId: Int,
         @SerializedName("title") val title: String,
         @SerializedName("content") val content: String,
-        @SerializedName("data") val data: NotificationReturnType,
-        @SerializedName("type") val type: String,
+        @SerializedName("data") val data: String,
+        @SerializedName("type") val type: NotificationReturnType,
         @SerializedName("create_at") val createAt: String,
         @SerializedName("is_read") val isRead: Boolean,
         @SerializedName("writer") val writer: Writer

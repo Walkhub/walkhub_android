@@ -9,8 +9,8 @@ data class NotificationEntity(
         val notificationId: Int,
         val title: String,
         val content: String,
-        val type: String,
-        val data: NotificationReturnType,
+        val type: NotificationReturnType,
+        val data: String,
         val createAt: String,
         val isRead: Boolean,
         val writer: Writer

@@ -15,8 +15,8 @@ data class NotificationRoomEntity(
         val notificationId: Int,
         val title: String,
         val content: String,
-        val type: String,
-        val data: NotificationReturnType,
+        val type: NotificationReturnType,
+        val data: String,
         val createAt: String,
         val isRead: Boolean,
         @Embedded val writer: Writer
