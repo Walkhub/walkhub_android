@@ -3,7 +3,7 @@ package com.semicolon.walkhub.ui.notification.model
 import com.semicolon.domain.enums.NotificationReturnType
 
 data class NotificationData(
-    val notificationValue: List<NotificationValue>
+    val notificationValue: List<NotificationValue>?
 ) {
     data class NotificationValue(
         val notificationId: Int,

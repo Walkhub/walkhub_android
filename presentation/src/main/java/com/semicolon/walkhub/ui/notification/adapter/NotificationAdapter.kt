@@ -19,130 +19,124 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import android.content.Intent
+import android.util.Log
+import android.view.View
+import com.semicolon.walkhub.databinding.ActivityNotificationBinding
+import com.semicolon.walkhub.ui.HomeActivity
+import com.semicolon.walkhub.ui.MainActivity
 import com.semicolon.walkhub.ui.analysis.ActivityAnalysisActivity
 import com.semicolon.walkhub.ui.challenge.ChallengeFragment
 import com.semicolon.walkhub.ui.hub.ui.HubRankFragment
 import gun0912.tedimagepicker.util.ToastUtil.context
 
 
-class NotificationAdapter (
+class NotificationAdapter(
     private val dataList: ArrayList<NotificationData.NotificationValue>
-    ) : RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
 
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-            val item = dataList[position]
-            val notificationItem = dataList[position].type
+        val item = dataList[position]
+        val notificationItem = dataList[position].type
 
-            holder.itemView.setOnClickListener {
-                when(notificationItem) {
-                    NotificationReturnType.NOTICE -> {
-                        val intent = Intent(context, HubRankFragment::class.java)
-                        intent.run { context.startActivity(this) }
-                    }
-
-                    NotificationReturnType.CHALLENGE -> {
-                        val intent = Intent(context, ChallengeFragment::class.java)
-                        intent.run { context.startActivity(this) }
-                    }
-
-                    NotificationReturnType.EXERCISE -> {
-                        val intent = Intent(context, ActivityAnalysisActivity::class.java)
-                        intent.run { context.startActivity(this) }
-                    }
-                }
-            }
-
-            holder.bind(item)
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            return ViewHolder.from(parent)
-        }
-
-        class ViewHolder private constructor(val binding: NotificationItemBinding) :
-            RecyclerView.ViewHolder(binding.root) {
-
-            fun bind(item: NotificationData.NotificationValue) {
-
-                binding.ivLogo.loadFromUrl(item.writer.writerImage)
-
-                if (item.content.length > 20) {
-                    val title = item.content.substring(0, 20) + "..."
-                    binding.tvContent.text = title
-                } else {
-                    binding.tvContent.text = item.content
+        holder.itemView.setOnClickListener {
+            when (notificationItem) {
+                NotificationReturnType.NOTICE -> {
+                    val intent = Intent(holder.itemView.context, MainActivity::class.java)
+                    ContextCompat.startActivity(holder.itemView.context, intent, null)
                 }
 
-                binding.tvTitle.text = item.title
-
-                showDate(item)
-                binding.executePendingBindings()
-            }
-
-            private object TIME_MAXIMUM {
-                const val SEC = 60
-                const val MIN = 60
-                const val HOUR = 24
-                const val DAY = 30
-                const val MONTH = 12
-            }
-
-            @SuppressLint("SimpleDateFormat")
-            private fun showDate(item: NotificationData.NotificationValue) {
-                val stringDate: String = item.createAt
-                val format: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-                val date: Date = format.parse(stringDate)
-                calculateTime(date)
-            }
-
-            private fun calculateTime(date: Date): String {
-                val curTime = System.currentTimeMillis()
-                val regTime: Long = date.getTime()
-                var diffTime = (curTime - regTime) / 1000
-                var msg: String? = null
-                when {
-                    diffTime < TIME_MAXIMUM.SEC -> {
-                        msg = diffTime.toString() + "초전"
-                    }
-
-                    TIME_MAXIMUM.SEC.let { diffTime /= it; diffTime } < TIME_MAXIMUM.MIN -> {
-                        msg = diffTime.toString() + "분전"
-                    }
-
-                    TIME_MAXIMUM.MIN.let { diffTime /= it; diffTime } < TIME_MAXIMUM.HOUR -> {
-                        msg = diffTime.toString() + "시간전"
-                    }
-
-                    TIME_MAXIMUM.HOUR.let { diffTime /= it; diffTime } < TIME_MAXIMUM.DAY -> {
-                        msg = diffTime.toString() + "일전"
-                    }
-
-                    TIME_MAXIMUM.DAY.let { diffTime /= it; diffTime } < TIME_MAXIMUM.MONTH -> {
-                        msg = diffTime.toString() + "달전"
-                    }
-
-                    else -> {
-                        msg = diffTime.toString() + "년전"
-                    }
+                NotificationReturnType.CHALLENGE -> {
+                    val intent = Intent(holder.itemView.context, MainActivity::class.java)
+                    ContextCompat.startActivity(holder.itemView.context, intent, null)
                 }
-                binding.tvTimeLater.text = msg
 
-                return msg
-            }
-
-            companion object {
-                fun from(parent: ViewGroup): ViewHolder {
-                    val layoutInflater = LayoutInflater.from(parent.context)
-                    val binding = NotificationItemBinding.inflate(layoutInflater, parent, false)
-
-                    return ViewHolder(binding)
+                NotificationReturnType.EXERCISE -> {
+                    val intent =
+                        Intent(holder.itemView.context, ActivityAnalysisActivity::class.java)
+                    ContextCompat.startActivity(holder.itemView.context, intent, null)
                 }
             }
         }
 
-        override fun getItemCount(): Int {
-            return dataList.size
+        holder.bind(item)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder.from(parent)
+    }
+
+    class ViewHolder private constructor(
+        val binding: NotificationItemBinding,
+        private val binding2: ActivityNotificationBinding
+    ) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(item: NotificationData.NotificationValue) {
+
+            binding.ivLogo.loadFromUrl(item.writer.writerImage)
+
+            if (item.content.length > 20) {
+                val title = item.content.substring(0, 20) + "..."
+                binding.tvContent.text = title
+            } else {
+                binding.tvContent.text = item.content
+            }
+
+            binding.tvTitle.text = item.title
+
+            // showDate(item)
+
+            binding.executePendingBindings()
+
+            if (item.notificationId < 1) {
+                binding2.nullNotification.visibility = View.VISIBLE
+            }
         }
+
+        enum class TimeValue(val value: Int,val maximum : Int, val msg : String) {
+            SEC(60,60,"분 전"),
+            MIN(60,24,"시간 전"),
+            HOUR(24,30,"일 전"),
+            DAY(30,12,"달 전"),
+            MONTH(12,Int.MAX_VALUE,"년 전")
+        }
+
+//        fun timeDiff(time : Long):String{
+//            val curTime = System.currentTimeMillis()
+//            var diffTime = (curTime- timeStamp) / 1000
+//            var msg: String? = null
+//            if(diffTime < TimeValue.SEC.value )
+//                msg= "방금 전"
+//            else {
+//                for (i in TimeValue.values()) {
+//                    diffTime /= i.value
+//                    if (diffTime < i.maximum) {
+//                        msg=i.msg
+//                        break
+//                    }
+//                }
+//            }
+//        }
+
+
+        @SuppressLint("SimpleDateFormat")
+        var curTime = System.currentTimeMillis()
+        val dateFormat = SimpleDateFormat("yyyy-mm-dd hh:mm:ss")
+        val curDate = dateFormat.format(curTime)
+
+        companion object {
+            fun from(parent: ViewGroup): ViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = NotificationItemBinding.inflate(layoutInflater, parent, false)
+                val binding2 = ActivityNotificationBinding.inflate(layoutInflater, parent, false)
+                return ViewHolder(binding, binding2)
+            }
+        }
+    }
+
+    override fun getItemCount(): Int {
+        return dataList.size
+    }
 }
 
