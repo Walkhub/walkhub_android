@@ -170,7 +170,9 @@ class LocalExerciseDataSourceImpl @Inject constructor(
                 burnedKilocalories = burnedKilocalories
             )
         )
-        locationRecordDao.addLocationRecords(locationRecord.map { it.toRoomEntity() })
+        withContext(Dispatchers.IO) {
+            locationRecordDao.addLocationRecords(locationRecord.map { it.toRoomEntity() })
+        }
     }
 
     override suspend fun finishMeasuring() {

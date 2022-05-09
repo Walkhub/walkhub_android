@@ -182,6 +182,7 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
                 if (viewModel.measuringState.value == MeasureViewModel.MeasureState.LOCK) {
                     viewModel.unLockMeasureExercise()
                 } else {
+                    measuringPauseBtn.isEnabled = false
                     viewModel.pauseMeasureExercise()
                 }
             }
@@ -206,9 +207,14 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
                         MeasureViewModel.Event.StartFetchPhoto -> {
                             startFinishActivity()
                         }
+
                         MeasureViewModel.Event.FailStartMeasure -> {
                             showShortToast("운동측정을 시작할 수 없습니다")
                             finish()
+                        }
+
+                        MeasureViewModel.Event.DonePause -> {
+                            binding.measuringPauseBtn.isEnabled = true
                         }
                     }
                 }

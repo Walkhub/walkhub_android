@@ -14,9 +14,6 @@ import com.semicolon.domain.usecase.socket.ReceiveCheeringUseCase
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -171,18 +168,18 @@ class MeasureViewModel @Inject constructor(
     }
 
     fun pauseMeasureExercise() {
-        _measuringState.value = MeasureState.PAUSED
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch {
             pauseMeasureExerciseUseCase.execute(Unit)
-            delay(100)
+            _measuringState.value = MeasureState.PAUSED
+            sendEvent(Event.DonePause)
         }
     }
 
     fun resumeMeasureExercise() {
-        _measuringState.value = MeasureState.ONGOING
         viewModelScope.launch {
             kotlin.runCatching {
                 resumeMeasureExerciseUseCase.execute(Unit)
+                _measuringState.value = MeasureState.ONGOING
             }
         }
     }
@@ -217,5 +214,6 @@ class MeasureViewModel @Inject constructor(
     sealed class Event {
         object StartFetchPhoto : Event()
         object FailStartMeasure : Event()
+        object DonePause : Event()
     }
 }
