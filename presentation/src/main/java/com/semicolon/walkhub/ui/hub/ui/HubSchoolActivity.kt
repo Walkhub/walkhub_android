@@ -2,7 +2,6 @@ package com.semicolon.walkhub.ui.hub.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels

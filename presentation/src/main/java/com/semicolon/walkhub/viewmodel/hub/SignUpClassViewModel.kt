@@ -1,6 +1,5 @@
 package com.semicolon.walkhub.viewmodel.hub
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.semicolon.domain.exception.*

@@ -93,7 +93,7 @@ class HubInfoFragment : BaseFragment<FragmentHubInfoBinding>(
     }
 
     private fun setNoticeList(noticeList: List<HubInfoNoticeRvData>) {
-        for(element in noticeList) {
+        for (element in noticeList) {
             rvNoticeData.add(element)
         }
         binding.rvHubNotice.adapter?.notifyDataSetChanged()

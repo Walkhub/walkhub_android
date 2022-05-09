@@ -11,7 +11,6 @@ import com.semicolon.domain.enums.RankScope
 import com.semicolon.domain.exception.*
 import com.semicolon.domain.param.rank.FetchOurSchoolUserRankParam
 import com.semicolon.domain.param.rank.FetchUserRankParam
-import com.semicolon.domain.usecase.exercise.FetchExercisingUserListUseCase
 import com.semicolon.domain.usecase.rank.FetchOurSchoolUserRankUseCase
 import com.semicolon.domain.usecase.rank.FetchUserRankUseCase
 import com.semicolon.domain.usecase.socket.CheeringUseCase
@@ -22,8 +21,6 @@ import com.semicolon.walkhub.ui.cheering.CheeringItemViewModel
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.zip
 import kotlinx.coroutines.launch
 import java.lang.NullPointerException
 import javax.inject.Inject
@@ -32,7 +29,6 @@ import javax.inject.Inject
 class HubUserViewModel @Inject constructor(
     private val fetchOurSchoolUserRankUseCase: FetchOurSchoolUserRankUseCase,
     private val fetchUserRankUseCase: FetchUserRankUseCase,
-    private val fetchExercisingUserListUseCase: FetchExercisingUserListUseCase,
     private val cheeringUseCase: CheeringUseCase
 ) : ViewModel() {
 
@@ -107,11 +103,6 @@ class HubUserViewModel @Inject constructor(
         val myWalkCount: Int,
         val downWalkCount: Int,
         val myPageData: HubMyPageData
-    )
-
-    data class HubMySchoolList(
-        val userRank: OurSchoolUserRankEntity,
-        val exercisingUserIdList: List<Int>
     )
 
     fun fetchSchoolUserRank(school: Int, dateType: MoreDateType) {

@@ -17,7 +17,7 @@ import com.semicolon.walkhub.viewmodel.hub.HubSearchSchoolViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HubSearchSchoolActivity : BaseActivity<ActivityHubSearchSchoolBinding> (
+class HubSearchSchoolActivity : BaseActivity<ActivityHubSearchSchoolBinding>(
     R.layout.activity_hub_search_school
 ) {
 
@@ -40,7 +40,7 @@ class HubSearchSchoolActivity : BaseActivity<ActivityHubSearchSchoolBinding> (
 
     }
 
-    private fun transferDateType(dateType: String) = when(dateType) {
+    private fun transferDateType(dateType: String) = when (dateType) {
         "MONTH" -> DateType.MONTH
         else -> DateType.WEEK
     }
@@ -66,7 +66,7 @@ class HubSearchSchoolActivity : BaseActivity<ActivityHubSearchSchoolBinding> (
     private fun setSchoolData(list: SearchSchoolData) {
         schoolRvData.clear()
 
-        for(i: Int in list.schoolList.indices) {
+        for (i: Int in list.schoolList.indices) {
             schoolRvData.add(list.schoolList[i])
         }
 
@@ -85,7 +85,12 @@ class HubSearchSchoolActivity : BaseActivity<ActivityHubSearchSchoolBinding> (
 
     private fun setTextChanged() {
         binding.etSearch.onTextChanged { s, _, _, _ ->
-            vm.searchSchoolDebounce(FetchSchoolRankAndSearchParam(s.toString(), dateType.toString()))
+            vm.searchSchoolDebounce(
+                FetchSchoolRankAndSearchParam(
+                    s.toString(),
+                    dateType.toString()
+                )
+            )
         }
     }
 }
