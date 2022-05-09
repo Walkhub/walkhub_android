@@ -1,8 +1,10 @@
 package com.semicolon.walkhub.ui.notification.ui
 
 import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -44,10 +46,19 @@ class NotificationActivity : BaseActivity<ActivityNotificationBinding>(
 
     private fun handleEvent(event: NotificationViewModel.Event) = when (event) {
         is NotificationViewModel.Event.NotificationValue -> {
-            if (event.notificationData.notificationValue.isEmpty()){
-                binding.nullNotification.visibility = View.VISIBLE
-            } else {
-                setNotificationData(event.notificationData)
+            Log.d(TAG, "handleEvent: ${event.notificationData}")
+
+            when {
+                event.notificationData.notificationValue?.isEmpty() == true -> {
+                    binding.nullNotification.visibility = View.VISIBLE
+                }
+
+                event.notificationData.notificationValue?.isNotEmpty() == true -> {
+                    setNotificationData(event.notificationData)
+                    binding.nullNotification.visibility = View.GONE
+                }
+
+                else -> {}
             }
         }
 
@@ -60,7 +71,7 @@ class NotificationActivity : BaseActivity<ActivityNotificationBinding>(
     private fun setNotificationData(list: NotificationData) {
         notificationData.clear()
 
-        for(i: Int in list.notificationValue.indices) {
+        for (i: Int in list.notificationValue?.indices!!) {
             notificationData.add(list.notificationValue[i])
         }
 
