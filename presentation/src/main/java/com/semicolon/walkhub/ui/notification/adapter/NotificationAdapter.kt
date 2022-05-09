@@ -1,34 +1,19 @@
 package com.semicolon.walkhub.ui.notification.adapter
 
-import android.annotation.SuppressLint
-import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.annotation.NonNull
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.semicolon.domain.enums.NotificationReturnType
-import com.semicolon.domain.enums.NotificationType
 import com.semicolon.walkhub.databinding.NotificationItemBinding
-import com.semicolon.walkhub.databinding.SchoolitemBinding
 import com.semicolon.walkhub.ui.notification.model.NotificationData
-import com.semicolon.walkhub.ui.register.model.SecondSearchSchoolData
-import com.semicolon.walkhub.ui.register.ui.Register
 import com.semicolon.walkhub.util.loadFromUrl
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import android.content.Intent
-import android.util.Log
-import android.view.View
-import com.semicolon.walkhub.databinding.ActivityNotificationBinding
-import com.semicolon.walkhub.ui.HomeActivity
+import android.view.LayoutInflater
 import com.semicolon.walkhub.ui.MainActivity
 import com.semicolon.walkhub.ui.analysis.ActivityAnalysisActivity
-import com.semicolon.walkhub.ui.challenge.ChallengeFragment
-import com.semicolon.walkhub.ui.hub.ui.HubRankFragment
-import gun0912.tedimagepicker.util.ToastUtil.context
-
 
 class NotificationAdapter(
     private val dataList: ArrayList<NotificationData.NotificationValue>
@@ -52,8 +37,7 @@ class NotificationAdapter(
                 }
 
                 NotificationReturnType.EXERCISE -> {
-                    val intent =
-                        Intent(holder.itemView.context, ActivityAnalysisActivity::class.java)
+                    val intent = Intent(holder.itemView.context, ActivityAnalysisActivity::class.java)
                     ContextCompat.startActivity(holder.itemView.context, intent, null)
                 }
             }
@@ -67,14 +51,13 @@ class NotificationAdapter(
     }
 
     class ViewHolder private constructor(
-        val binding: NotificationItemBinding,
-        private val binding2: ActivityNotificationBinding
+        val binding: NotificationItemBinding
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: NotificationData.NotificationValue) {
 
-            binding.ivLogo.loadFromUrl(item.writer.writerImage)
+            item.writer.writerImage?.let { binding.ivLogo.loadFromUrl(it) }
 
             if (item.content.length > 20) {
                 val title = item.content.substring(0, 20) + "..."
@@ -85,52 +68,50 @@ class NotificationAdapter(
 
             binding.tvTitle.text = item.title
 
-            // showDate(item)
-
             binding.executePendingBindings()
 
-            if (item.notificationId < 1) {
-                binding2.nullNotification.visibility = View.VISIBLE
-            }
+            timeAdapter(this, item.createAt)
         }
-
-        enum class TimeValue(val value: Int,val maximum : Int, val msg : String) {
-            SEC(60,60,"분 전"),
-            MIN(60,24,"시간 전"),
-            HOUR(24,30,"일 전"),
-            DAY(30,12,"달 전"),
-            MONTH(12,Int.MAX_VALUE,"년 전")
-        }
-
-//        fun timeDiff(time : Long):String{
-//            val curTime = System.currentTimeMillis()
-//            var diffTime = (curTime- timeStamp) / 1000
-//            var msg: String? = null
-//            if(diffTime < TimeValue.SEC.value )
-//                msg= "방금 전"
-//            else {
-//                for (i in TimeValue.values()) {
-//                    diffTime /= i.value
-//                    if (diffTime < i.maximum) {
-//                        msg=i.msg
-//                        break
-//                    }
-//                }
-//            }
-//        }
-
-
-        @SuppressLint("SimpleDateFormat")
-        var curTime = System.currentTimeMillis()
-        val dateFormat = SimpleDateFormat("yyyy-mm-dd hh:mm:ss")
-        val curDate = dateFormat.format(curTime)
 
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = NotificationItemBinding.inflate(layoutInflater, parent, false)
-                val binding2 = ActivityNotificationBinding.inflate(layoutInflater, parent, false)
-                return ViewHolder(binding, binding2)
+                return ViewHolder(binding)
+            }
+
+            private fun timeAdapter(viewHolder: ViewHolder, time: String) {
+                val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.KOREA)
+                val subTime = dateFormat.parse(time)
+                val date = Date(System.currentTimeMillis())
+                val currentTime = dateFormat.format(date)
+                val getTime = dateFormat.format(subTime)
+                val longCurrentTime = dateFormat.parse(currentTime).time
+                val longGetTime = dateFormat.parse(getTime).time
+                val diff = (longCurrentTime - longGetTime) / 1000
+                val dayDiff = (diff / 86400)
+                if (dayDiff < 0 || dayDiff >= 31) {
+                    val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.KOREA)
+                    viewHolder.binding.tvTimeLater.text = dateFormat.format(subTime)
+                } else {
+                    if (dayDiff <= 0) {
+                        when (diff) {
+                            in 0..60 ->
+                                viewHolder.binding.tvTimeLater.text = "방금"
+                            in 61..120 -> viewHolder.binding.tvTimeLater.text = "1분전"
+                            in 121..3600 ->
+                                viewHolder.binding.tvTimeLater.text = "${diff / 60}분 전"
+                            in 3601..7200 -> viewHolder.binding.tvTimeLater.text = "1시간 전"
+                            else -> viewHolder.binding.tvTimeLater.text = "${diff / 3600}시간 전"
+                        }
+                    } else {
+                        when (dayDiff) {
+                            1.toLong() -> viewHolder.binding.tvTimeLater.text = "어제"
+                            in 2..6 -> viewHolder.binding.tvTimeLater.text = "${dayDiff}일 전"
+                            else -> viewHolder.binding.tvTimeLater.text = "${dayDiff / 7}주 전"
+                        }
+                    }
+                }
             }
         }
     }
