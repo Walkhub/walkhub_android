@@ -112,10 +112,8 @@ class RemoteUserDataSourceUnitTest {
     @Test
     fun testPatchUserChangePassword() {
         val request = UserChangePasswordRequest(
-            "13",
-            "010-0000-0000",
-            "abc",
-            "newPassword"
+            "test1234!",
+            "opgg1234!"
         )
         runBlocking {
             val dataSourceResult = remoteUserDataSource.patchUserChangePassword(request)

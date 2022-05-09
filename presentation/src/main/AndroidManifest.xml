@@ -99,6 +99,14 @@
             android:name=".ui.profile.setting.ui.ModifyHealthInfoActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.profile.setting.ui.ChangePwActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.profile.setting.ui.RealChangePwActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".ui.HomeActivity"
             android:exported="false" />
 

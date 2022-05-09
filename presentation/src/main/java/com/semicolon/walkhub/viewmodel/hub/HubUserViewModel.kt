@@ -8,9 +8,7 @@ import com.semicolon.domain.entity.rank.OurSchoolUserRankEntity
 import com.semicolon.domain.entity.rank.UserRankEntity
 import com.semicolon.domain.enums.MoreDateType
 import com.semicolon.domain.enums.RankScope
-import com.semicolon.domain.exception.BadRequestException
-import com.semicolon.domain.exception.NoInternetException
-import com.semicolon.domain.exception.NotFoundException
+import com.semicolon.domain.exception.*
 import com.semicolon.domain.param.rank.FetchOurSchoolUserRankParam
 import com.semicolon.domain.param.rank.FetchUserRankParam
 import com.semicolon.domain.usecase.exercise.FetchExercisingUserListUseCase
@@ -211,10 +209,21 @@ class HubUserViewModel @Inject constructor(
 
         override fun onClick() {
             viewModelScope.launch {
-                cheeringUseCase.execute(id)
+                kotlin.runCatching {
+                    cheeringUseCase.execute(id)
+                }.onSuccess {
+                    event(Event.ErrorMessage(userName + "님을 응원하셨습니다!"))
+                }.onFailure {
+                    when(it){
+                        is NotFoundException -> event(Event.ErrorMessage("잘못된 접근입니다."))
+                        is UnauthorizedException -> event(Event.ErrorMessage("토큰이 만료 되었습니다. 로그인 후 이용해주세요."))
+                        else -> event(Event.ErrorMessage("알 수 없는 오류가 발생하였습니다."))
+                    }
+                }
             }
         }
     }
+
 
     data class UserRankItemViewModel(
         val profileUrl: String?,
