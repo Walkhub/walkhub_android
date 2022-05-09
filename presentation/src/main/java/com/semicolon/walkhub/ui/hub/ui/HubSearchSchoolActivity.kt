@@ -13,7 +13,6 @@ import com.semicolon.walkhub.ui.hub.adapter.HubSearchSchoolRvAdapter
 import com.semicolon.walkhub.ui.hub.model.SearchSchoolData
 import com.semicolon.walkhub.util.onTextChanged
 import com.semicolon.walkhub.viewmodel.hub.HubSearchSchoolViewModel
-
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
