@@ -2,6 +2,7 @@ package com.semicolon.walkhub.ui.hub.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
@@ -52,8 +53,10 @@ class HubSchoolActivity @Inject constructor(
     }
 
     private fun handleEvent(event: HubSearchUserViewModel.Event) = when (event) {
-        is HubSearchUserViewModel.Event.SearchSchool -> {
-            setUserRank(event.userData.userList.map { it })
+        is HubSearchUserViewModel.Event.SearchUser -> {
+            event.userData.userList.let {
+                setUserRank(it)
+            }
         }
         is HubSearchUserViewModel.Event.ErrorMessage -> {
             showShortToast(event.message)
@@ -147,7 +150,7 @@ class HubSchoolActivity @Inject constructor(
             override fun onQueryTextChange(newText: String): Boolean {
 
                 if (newText.isNotEmpty()) {
-                    vm.searchUser(schoolId, newText, HubRankFragment.dateType)
+                    vm.searchUserDebounce(schoolId, newText, HubRankFragment.dateType)
                 }
 
                 return menuView(true)
