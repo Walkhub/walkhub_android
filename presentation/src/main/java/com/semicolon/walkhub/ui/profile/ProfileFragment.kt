@@ -33,7 +33,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
     ): View? {
 
         vm.fetchMyPage()
-        //vm.fetchHomeValue()
+        vm.fetchHomeValue()
 
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
