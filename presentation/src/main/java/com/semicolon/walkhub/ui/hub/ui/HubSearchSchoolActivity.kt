@@ -67,7 +67,7 @@ class HubSearchSchoolActivity : BaseActivity<ActivityHubSearchSchoolBinding> (
         schoolRvData.clear()
 
         for(i: Int in list.schoolList.indices) {
-            schoolRvData.add(list.schoolList.get(i))
+            schoolRvData.add(list.schoolList[i])
         }
 
         binding.rvSchoolRank.adapter?.notifyDataSetChanged()

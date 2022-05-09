@@ -42,7 +42,7 @@ interface RankApi {
     suspend fun searchUser(
         @Path("school-id") school: Int,
         @Query("name") name: String,
-        @Query("dateType") moredateType: String
+        @Query("dateType") moreDateType: String
     ): SearchUserResponse
 
 
