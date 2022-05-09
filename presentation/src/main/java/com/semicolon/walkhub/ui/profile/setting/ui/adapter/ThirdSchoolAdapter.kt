@@ -1,18 +1,32 @@
 package com.semicolon.walkhub.ui.profile.setting.ui.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.semicolon.walkhub.databinding.ThirdshcoolitemBinding
+import com.semicolon.walkhub.ui.profile.setting.ui.ModifyProfileActivity
 import com.semicolon.walkhub.ui.profile.setting.ui.model.ThirdSearchSchoolData
 import com.semicolon.walkhub.util.loadFromUrl
 
-class ThirdSchoolAdapter (
-    private val dataList: ArrayList<ThirdSearchSchoolData.SchoolInfo>
+
+class ThirdSchoolAdapter(
+    private val dataList: ArrayList<ThirdSearchSchoolData.SchoolInfo>,
 ) : RecyclerView.Adapter<ThirdSchoolAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = dataList[position]
+        val id = dataList[position].schoolId
+        val school = dataList[position].schoolName
+        holder.itemView.tag = position
+
+        holder.itemView.setOnClickListener {
+            val intent = Intent(holder.itemView?.context, ModifyProfileActivity::class.java)
+            intent.putExtra("data", id)
+            intent.putExtra("school", school)
+            ContextCompat.startActivity(holder.itemView.context, intent, null)
+        }
 
         holder.bind(item)
     }
@@ -36,6 +50,7 @@ class ThirdSchoolAdapter (
             }
 
             binding.executePendingBindings()
+
         }
 
         companion object {
