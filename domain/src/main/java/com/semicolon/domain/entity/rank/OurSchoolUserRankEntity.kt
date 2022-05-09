@@ -10,6 +10,7 @@ data class OurSchoolUserRankEntity(
         val profileImageUrl: String?,
         val ranking: Int,
         val userId: Int,
-        val walkCount: Int
+        val walkCount: Int,
+        val isMeasuring: Boolean
     )
 }

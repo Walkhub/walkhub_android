@@ -6,6 +6,7 @@ import com.semicolon.domain.entity.notice.NoticeEntity
 import com.semicolon.domain.entity.school.SchoolDetailEntity
 import com.semicolon.domain.enums.NoticeType
 import com.semicolon.domain.exception.NoInternetException
+import com.semicolon.domain.param.notice.FetchNoticeListParam
 import com.semicolon.domain.usecase.notice.FetchNoticeListUseCase
 import com.semicolon.domain.usecase.school.FetchSchoolDetailUseCase
 import com.semicolon.walkhub.util.MutableEventFlow
@@ -41,7 +42,7 @@ class HubInfoViewModel @Inject constructor(
     fun fetchNoticeList(noticeType: NoticeType) {
         viewModelScope.launch {
             kotlin.runCatching {
-                fetchNoticeListUseCase.execute(noticeType).collect {
+                fetchNoticeListUseCase.execute(FetchNoticeListParam(noticeType.toString())).collect {
                     event(Event.FetchNoticeList(it))
                 }
             }.onFailure {
