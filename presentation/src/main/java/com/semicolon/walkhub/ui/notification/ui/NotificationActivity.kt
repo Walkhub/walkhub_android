@@ -33,6 +33,10 @@ class NotificationActivity : BaseActivity<ActivityNotificationBinding>(
 
         vm.fetchNotification()
 
+        binding.ibBack.setOnClickListener {
+            finish()
+        }
+        
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
         }
