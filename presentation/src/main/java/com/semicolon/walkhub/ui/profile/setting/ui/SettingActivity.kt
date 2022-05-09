@@ -24,12 +24,12 @@ class SettingActivity() : BaseActivity<ActivitySettingBinding>(
 
     private val vm: SettingViewModel by viewModels()
 
-    private var id : Int = 1
+    private var defaultUserId : Int = 1
     private var userId by Delegates.notNull<Int>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        userId = intent.getIntExtra("user_id", id)
+        userId = intent.getIntExtra("user_id", defaultUserId)
 
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
