@@ -29,7 +29,7 @@ class ProfileViewModel @Inject constructor(
 
     private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()
-    var user by Delegates.notNull<Int>()
+    var userId by Delegates.notNull<Int>()
 
     fun fetchMyPage() {
         viewModelScope.launch {
@@ -37,7 +37,7 @@ class ProfileViewModel @Inject constructor(
                 fetchMypageUseCase.execute(Unit)
                     .collect {
                         event(Event.FetchMyPage(it.toData()))
-                        user = it.userId
+                        userId = it.userId
                     }
             }.onSuccess {
             }.onFailure {
