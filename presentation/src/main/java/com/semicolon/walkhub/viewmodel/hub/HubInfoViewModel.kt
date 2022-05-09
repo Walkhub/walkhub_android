@@ -66,5 +66,4 @@ class HubInfoViewModel @Inject constructor(
         data class FetchSchoolDetail(val schoolDetail: SchoolDetailEntity) : Event()
         data class FetchNoticeList(val noticeList: NoticeEntity) : Event()
     }
-
 }

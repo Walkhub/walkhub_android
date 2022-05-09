@@ -56,6 +56,7 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
         if (schoolType) {
             vm.fetchMySchoolUserRank(rankScope, dateType)
         } else {
+            binding.clMyRank.invisible()
             vm.fetchSchoolUserRank(schoolId, dateType)
         }
     }

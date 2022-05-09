@@ -109,6 +109,8 @@ class HubUserViewModel @Inject constructor(
                 val fetchSchoolUserRank =
                     fetchUserRankUseCase.execute(FetchUserRankParam(school, dateType))
 
+                _isJoinedClass.value = true
+
                 fetchSchoolUserRank.collect {
                     _recyclerViewItem.value = ArrayList<RecyclerViewItem>().apply {
                         addAll(
