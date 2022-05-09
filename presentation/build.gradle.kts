@@ -116,4 +116,6 @@ dependencies {
     }
 
     implementation(Dependency.TedImagePicker.tedImagePicker)
+
+    implementation(Dependency.ImageCompressor.zeloryImageCompressor)
 }
