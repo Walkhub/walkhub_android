@@ -3,12 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="activity"
-            type="com.semicolon.walkhub.ui.profile.setting.ui.ModifyHealthInfoActivity" />
-    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/modify_health_info_cl"
@@ -81,7 +75,7 @@
                 android:layout_marginStart="20dp"
                 android:fontFamily="@font/noto_sans_kr_regular"
                 android:gravity="center"
-                android:text="180"
+                android:text=""
                 android:textColor="@color/gray_900"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -134,7 +128,7 @@
                 android:layout_marginStart="20dp"
                 android:fontFamily="@font/noto_sans_kr_regular"
                 android:gravity="center"
-                android:text="63"
+                android:text=""
                 android:textColor="@color/gray_900"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -200,29 +194,22 @@
             app:layout_constraintStart_toEndOf="@+id/view3"
             app:layout_constraintTop_toBottomOf="@+id/click_weight" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/modify_done"
             android:layout_width="0dp"
-            android:layout_height="52dp"
-            android:background="@color/primary_400"
+            android:layout_height="68dp"
+            android:layout_marginBottom="-8dp"
+            android:layout_marginStart="-8dp"
+            android:layout_marginEnd="-8dp"
+            android:background="@drawable/registerbuttondesign"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:gravity="center"
+            android:text="수정 완료"
+            android:textColor="@color/white"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:fontFamily="@font/noto_sans_kr_regular"
-                android:gravity="center"
-                android:text="수정 완료"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

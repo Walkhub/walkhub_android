@@ -8,8 +8,8 @@ import javax.inject.Inject
 
 class FetchNotificationListUseCase @Inject constructor(
     private val notificationRepository: NotificationRepository
-) : UseCase<Unit, Flow<List<NotificationEntity>>>() {
+) : UseCase<Unit, Flow<NotificationEntity>>() {
 
-    override suspend fun execute(data: Unit): Flow<List<NotificationEntity>> =
+    override suspend fun execute(data: Unit): Flow<NotificationEntity> =
         notificationRepository.fetchNotificationList()
 }

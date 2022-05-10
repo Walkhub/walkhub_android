@@ -1,15 +1,17 @@
 package com.semicolon.walkhub.ui.measure
 
+import android.content.Intent
 import android.view.View
 import androidx.activity.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.semicolon.domain.enums.GoalType
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityMeasuringBinding
 import com.semicolon.walkhub.ui.base.BaseActivity
-import com.semicolon.walkhub.util.toRealPath
 import com.semicolon.walkhub.viewmodel.measure.MeasureViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import gun0912.tedimagepicker.builder.TedImagePicker
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -18,18 +20,22 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
 
     private val viewModel: MeasureViewModel by viewModels()
 
-    var isDistance = true
-    var firstValue = -10
-    var secondValue = -10
+    private var isDistance = true
+    private var firstValue = -10
+    private var secondValue = -10
 
     override fun initView() {
         binding.vm = viewModel
         setToDefaultState()
         fetchIntentValue()
-        countDownToStartMeasure()
+        if (firstValue.didNotSetGoalFromHome()) {
+            fetchMeasuringGoal()
+        } else {
+            countDownToStartMeasure()
+            fetchGoalFromHome()
+        }
         observeState()
         observeEvent()
-        fetchGoalFromHome()
         viewModel.receiveCheering()
     }
 
@@ -40,18 +46,16 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
     }
 
     private fun fetchGoalFromHome() {
-        if (firstValue.didNotSetGoalFromHome()) {
-            fetchMeasuringGoal()
+        if (isDistance) {
+            val goal = if (secondValue != 0) firstValue + 1 else firstValue
+            setGoalIsForDistance(goal.toKilometer())
         } else {
-            if (isDistance) {
-                val goal = if (secondValue != 0) firstValue + 1 else firstValue
-                setGoalIsForDistance(goal)
-            } else {
-                val goal = firstValue * 1000 + secondValue
-                setGoalIsForWalkCount(goal)
-            }
+            val goal = firstValue * 1000 + secondValue * 100
+            setGoalIsForWalkCount(goal)
         }
     }
+
+    private fun Int.toKilometer(): Int = this * 1000
 
     private fun Int.didNotSetGoalFromHome(): Boolean =
         this == -10
@@ -61,25 +65,33 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
     }
 
     private fun setGoalIsForDistance(goalDistance: Int) {
-        val goalText = "/$goalDistance km"
+        viewModel.run {
+            setDistanceGoal(goalDistance)
+            startMeasureExercise()
+        }
+    }
+
+    private fun setGoalIsForWalkCount(goalWalkCount: Int) {
+        viewModel.run {
+            setWalkCountGoal(goalWalkCount)
+            startMeasureExercise()
+        }
+    }
+
+    private fun setGoalViewIsDistance(goal: Int) {
+        val goalText = "/$goal km"
         binding.run {
             measuringGoalTv.text = goalText
             isDistance = true
         }
-        viewModel.setDistanceGoal(goalDistance)
     }
 
-    private fun setGoalIsForWalkCount(goalWalkCount: Int) {
-        val goalText = "/$goalWalkCount 걸음"
+    private fun setGoalViewIsWalkCount(goal: Int) {
+        val goalText = "/$goal 걸음"
         binding.run {
             measuringGoalTv.text = goalText
             isDistance = false
         }
-        viewModel.setWalkCountGoal(goalWalkCount)
-    }
-
-    private fun startMeasureExercise() {
-        viewModel.startMeasureExercise()
     }
 
     private fun countDownToStartMeasure() {
@@ -101,6 +113,9 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
 
     private fun observeState() {
         viewModel.run {
+            goal.observe(this@MeasuringActivity) {
+                isDistance = it.goalType == GoalType.DISTANCE
+            }
             measuringState.observe(this@MeasuringActivity) { state ->
                 when (state) {
                     MeasureViewModel.MeasureState.ONGOING -> {
@@ -112,6 +127,7 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
                     MeasureViewModel.MeasureState.LOCK -> {
                         setToLockState()
                     }
+                    else -> {}
                 }
             }
             time.observe(this@MeasuringActivity) {
@@ -120,20 +136,42 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
                     measuringMinuteTv.text = it.minute.toString()
                 }
             }
-            walkCount.observe(this@MeasuringActivity) {
-                binding.measuringWalkTv.text = it.toString()
-            }
             calorie.observe(this@MeasuringActivity) {
-                binding.measuringCalorieTv.text = it.toString()
+                binding.measuringCalorieTv.text = it.toString().substring(0..2)
             }
             speed.observe(this@MeasuringActivity) {
-                binding.measuringSpeedTv.text = it.toString()
+                binding.measuringSpeedTv.text = it.toString().substring(0..2)
             }
             percentage.observe(this@MeasuringActivity) {
                 binding.measuringRemainPb.progress = it
             }
             goal.observe(this@MeasuringActivity) {
-                this@MeasuringActivity.startMeasureExercise()
+                if (it.goalType == GoalType.DISTANCE) {
+                    setGoalViewIsDistance(it.goal)
+                } else if (it.goalType == GoalType.WALK_COUNT) {
+                    setGoalViewIsWalkCount(it.goal)
+                }
+            }
+            distanceAsKiloMeter.observe(this@MeasuringActivity) {
+                val distance = it.toString().substring(0..2)
+                val distanceText = "$distance km"
+                if (isDistance) {
+                    binding.measuringRemainTv.text = distanceText
+                } else {
+                    binding.measuringOtherValueTv.text = distanceText
+                }
+
+                setPercentage()
+            }
+            walkCount.observe(this@MeasuringActivity) {
+                val walkCount = "$it 걸음"
+                if (isDistance) {
+                    binding.measuringOtherValueTv.text = walkCount
+                } else {
+                    binding.measuringRemainTv.text = walkCount
+                }
+
+                setPercentage()
             }
         }
     }
@@ -144,6 +182,7 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
                 if (viewModel.measuringState.value == MeasureViewModel.MeasureState.LOCK) {
                     viewModel.unLockMeasureExercise()
                 } else {
+                    measuringPauseBtn.isEnabled = false
                     viewModel.pauseMeasureExercise()
                 }
             }
@@ -154,32 +193,30 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
                 viewModel.resumeMeasureExercise()
             }
 
-            val requestPhotoComment = "인증사진을 찍어주세요"
             measuringFinishBtn.setOnClickListener {
                 viewModel.fetchFinishPhoto()
-                showShortToast(requestPhotoComment)
             }
             measuringBackBtn.setOnClickListener {
-                viewModel.fetchFinishPhoto()
-                showShortToast(requestPhotoComment)
+                finish()
             }
         }
-        viewModel.run {
-            lifecycleScope.launch {
-                fetchPhoto.collect {
-                    finishMeasure()
-                }
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.event.collect {
+                    when (it) {
+                        MeasureViewModel.Event.StartFetchPhoto -> {
+                            startFinishActivity()
+                        }
 
-                finishMeasuring.collect {
-                    viewModel.finishMeasureExercise()
-                }
+                        MeasureViewModel.Event.FailStartMeasure -> {
+                            showShortToast("운동측정을 시작할 수 없습니다")
+                            finish()
+                        }
 
-                requestPhoto.collect {
-                    showShortToast("사진을 입력해주세요")
-                }
-
-                finishActivity.collect {
-                    finish()
+                        MeasureViewModel.Event.DonePause -> {
+                            binding.measuringPauseBtn.isEnabled = true
+                        }
+                    }
                 }
             }
         }
@@ -190,7 +227,8 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
             measuringPauseBtn.setImageResource(R.drawable.ic_measuring_pause)
             measuringPauseBtn.visibility = View.VISIBLE
             measuringLockBtn.visibility = View.VISIBLE
-            measuringContentCl.setBackgroundResource(R.color.white)
+
+            pausedView.visibility = View.INVISIBLE
 
             measuringResumeBtn.visibility = View.INVISIBLE
             measuringFinishBtn.visibility = View.INVISIBLE
@@ -202,6 +240,8 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
             measuringPauseBtn.setImageResource(R.drawable.ic_measuring_un_lock)
             measuringPauseBtn.visibility = View.VISIBLE
 
+            pausedView.visibility = View.INVISIBLE
+
             measuringLockBtn.visibility = View.INVISIBLE
             measuringResumeBtn.visibility = View.INVISIBLE
             measuringFinishBtn.visibility = View.INVISIBLE
@@ -212,20 +252,30 @@ class MeasuringActivity : BaseActivity<ActivityMeasuringBinding>(R.layout.activi
         binding.run {
             measuringResumeBtn.visibility = View.VISIBLE
             measuringFinishBtn.visibility = View.VISIBLE
-            measuringContentCl.setBackgroundResource(R.color.gray_500)
+
+            pausedView.visibility = View.VISIBLE
 
             measuringLockBtn.visibility = View.INVISIBLE
             measuringPauseBtn.visibility = View.INVISIBLE
         }
     }
 
-    private fun finishMeasure() {
-        fetchDoneImage()
-    }
+    private fun startFinishActivity() {
+        val intent = Intent(this, FinishMeasureActivity::class.java).apply {
+            putExtra("isDistance", isDistance)
+            putExtra("percentage", viewModel.percentage.value)
 
-    private fun fetchDoneImage() {
-        TedImagePicker.with(this).start {
-            viewModel.setImageUri(it.toRealPath(this))
+            putExtra("goal", viewModel.goal.value?.goal)
+
+            putExtra("distance", viewModel.distanceAsKiloMeter.value)
+            putExtra("walk", viewModel.walkCount.value)
+
+            putExtra("kiloCalorie", viewModel.calorie.value)
+            putExtra("hour", viewModel.time.value?.hour)
+            putExtra("minute", viewModel.time.value?.minute)
         }
+        startActivity(intent)
+
+        finish()
     }
 }

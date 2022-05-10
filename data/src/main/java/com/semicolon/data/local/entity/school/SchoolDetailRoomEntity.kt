@@ -12,17 +12,17 @@ data class SchoolDetailRoomEntity(
     @Embedded(prefix = "month") val month: Month
 ) {
     data class Week(
-        val totalWalkCount: Int,
-        val date: String,
-        val totalUserCount: Int,
-        val ranking: Int
+        val totalWalkCount: Int?,
+        val date: String?,
+        val totalUserCount: Int?,
+        val ranking: Int?
     )
 
     data class Month(
-        val totalWalkCount: Int,
-        val date: String,
-        val totalUserCount: Int,
-        val ranking: Int
+        val totalWalkCount: Int?,
+        val date: String?,
+        val totalUserCount: Int?,
+        val ranking: Int?
     )
 }
 

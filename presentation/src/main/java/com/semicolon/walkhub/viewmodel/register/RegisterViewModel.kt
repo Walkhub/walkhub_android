@@ -73,6 +73,7 @@ class RegisterViewModel @Inject constructor(
                 when (it) {
                     is UnauthorizedException -> event(Event.ErrorMessage("토큰이 만료되었습니다. 재로그인 해주세요."))
                     is NotFoundException -> event(Event.ErrorMessage("잘못된 접근입니다.."))
+                    is ConflictException -> event(Event.ErrorMessage("이미 회원가입 완료된 전화번호입니다."))
                     else -> event(Event.ErrorMessage("알 수 없는 오류가 발생하였습니다."))
                 }
             }
@@ -90,7 +91,7 @@ class RegisterViewModel @Inject constructor(
                     is UnauthorizedException -> event(Event.ErrorMessage("인증번호가 올바르지 않습니다."))
                     is NotFoundException -> event(Event.ErrorMessage("인증번호가 올바르지 않습니다."))
                     is NullPointerException -> event(Event.ErrorMessage("Null"))
-                    else -> event(Event.ErrorMessage("알 수 없는 오류가 발생하였습니다."))
+                    else -> event(Event.ErrorMessage("이미 회원가입 완료된 전화번호입니다."))
                 }
             }
         }

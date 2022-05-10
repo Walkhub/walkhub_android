@@ -41,4 +41,5 @@ object Version {
     const val pinEntryEditText = "2.0.6"
     const val socket = "1.0.0"
     const val tedImagePicker = "1.2.7"
+    const val zeloryImageCompressor = "3.0.1"
 }

@@ -8,9 +8,10 @@ import com.semicolon.data.local.entity.notification.NotificationRoomEntity
 
 @Dao
 interface NotificationDao {
+
     @Query("SELECT * FROM notification")
-    suspend fun fetchNotificationList(): List<NotificationRoomEntity>
+    suspend fun fetchNotificationList(): NotificationRoomEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun saveNotification(notifications: List<NotificationRoomEntity>)
+    suspend fun saveNotification(notifications: NotificationRoomEntity)
 }

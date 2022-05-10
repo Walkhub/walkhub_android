@@ -6,6 +6,7 @@ import com.semicolon.domain.entity.notice.NoticeEntity
 import com.semicolon.domain.entity.school.SchoolDetailEntity
 import com.semicolon.domain.enums.NoticeType
 import com.semicolon.domain.exception.NoInternetException
+import com.semicolon.domain.param.notice.FetchNoticeListParam
 import com.semicolon.domain.usecase.notice.FetchNoticeListUseCase
 import com.semicolon.domain.usecase.school.FetchSchoolDetailUseCase
 import com.semicolon.walkhub.util.MutableEventFlow
@@ -18,7 +19,7 @@ import javax.inject.Inject
 class HubInfoViewModel @Inject constructor(
     private val fetchSchoolDetailUseCase: FetchSchoolDetailUseCase,
     private val fetchNoticeListUseCase: FetchNoticeListUseCase
-): ViewModel() {
+) : ViewModel() {
 
     private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()
@@ -41,9 +42,10 @@ class HubInfoViewModel @Inject constructor(
     fun fetchNoticeList(noticeType: NoticeType) {
         viewModelScope.launch {
             kotlin.runCatching {
-                fetchNoticeListUseCase.execute(noticeType).collect {
-                    event(Event.FetchNoticeList(it))
-                }
+                fetchNoticeListUseCase.execute(FetchNoticeListParam(noticeType.toString()))
+                    .collect {
+                        event(Event.FetchNoticeList(it))
+                    }
             }.onFailure {
                 when (it) {
                     is NoInternetException -> event(Event.ErrorMessage("인터넷을 사용할 수 없습니다"))
@@ -60,9 +62,8 @@ class HubInfoViewModel @Inject constructor(
     }
 
     sealed class Event {
-        data class ErrorMessage(val message: String): Event()
-        data class FetchSchoolDetail(val schoolDetail: SchoolDetailEntity): Event()
-        data class FetchNoticeList(val noticeList: NoticeEntity): Event()
+        data class ErrorMessage(val message: String) : Event()
+        data class FetchSchoolDetail(val schoolDetail: SchoolDetailEntity) : Event()
+        data class FetchNoticeList(val noticeList: NoticeEntity) : Event()
     }
-
 }

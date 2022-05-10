@@ -60,7 +60,8 @@ class AccountInfoActivity : BaseActivity<ActivityAccountInfoBinding>(
             startActivity(intent)
         }
         binding.changePassword.setOnClickListener {
-            //TODO: 아직 디자인이 없음....
+            val intent = Intent(this, ChangePwActivity::class.java)
+            startActivity(intent)
         }
     }
 

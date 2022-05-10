@@ -28,12 +28,11 @@ class HubSearchUserViewModel @Inject constructor(
 
     private var searchJob: Job? = null
 
-    fun searchUser(school: Int, name: String, dateType: MoreDateType) {
+    private fun searchUser(school: Int, name: String, dateType: MoreDateType) {
         viewModelScope.launch {
             kotlin.runCatching {
-                TODO("앱 발표 끝나고 무조건 바꿔야함")
-                searchUserUseCase.execute(SearchUserParam(1, name, dateType)).collect() {
-                    event(Event.SearchSchool(it.toData()))
+                searchUserUseCase.execute(SearchUserParam(school, name, dateType)).collect {
+                    event(Event.SearchUser(it.toData()))
                 }
             }.onFailure {
                 when (it) {
@@ -43,6 +42,14 @@ class HubSearchUserViewModel @Inject constructor(
                     else -> event(Event.ErrorMessage("알 수 없는 에러가 발생했습니다."))
                 }
             }
+        }
+    }
+
+    fun searchUserDebounce(school: Int, name: String, dateType: MoreDateType) {
+        searchJob?.cancel()
+        searchJob = viewModelScope.launch {
+            delay(500L)
+            searchUser(school, name, dateType)
         }
     }
 
@@ -66,7 +73,7 @@ class HubSearchUserViewModel @Inject constructor(
     }
 
     sealed class Event {
-        data class SearchSchool(val userData: SearchUserData) : Event()
+        data class SearchUser(val userData: SearchUserData) : Event()
         data class ErrorMessage(val message: String) : Event()
     }
 }

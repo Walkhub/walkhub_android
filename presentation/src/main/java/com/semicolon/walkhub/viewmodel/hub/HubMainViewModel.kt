@@ -99,6 +99,6 @@ class HubMainViewModel @Inject constructor(
         data class FetchSchoolRank(val hubSchoolRankData: HubSchoolRankData) : Event()
         object NullPoint : Event()
         object NoInternet : Event()
-        object Unknown: Event()
+        object Unknown : Event()
     }
 }

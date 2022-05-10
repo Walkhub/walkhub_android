@@ -3,7 +3,6 @@ package com.semicolon.walkhub.ui.hub.ui
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import com.semicolon.walkhub.R
