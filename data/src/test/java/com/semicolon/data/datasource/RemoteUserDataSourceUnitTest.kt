@@ -195,7 +195,7 @@ class RemoteUserDataSourceUnitTest {
         val request = UpdateProfileRequest(
             "김재원",
             "https://testImageUrl",
-            "M"
+            102301293
         )
         runBlocking {
             val dataSourceResult = remoteUserDataSource.updateProfile(request)
