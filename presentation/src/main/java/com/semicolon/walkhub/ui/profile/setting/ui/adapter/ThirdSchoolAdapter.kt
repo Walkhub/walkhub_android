@@ -25,6 +25,7 @@ class ThirdSchoolAdapter(
             val intent = Intent(holder.itemView?.context, ModifyProfileActivity::class.java)
             intent.putExtra("data", id)
             intent.putExtra("school", school)
+            intent.putExtra("next", true)
             ContextCompat.startActivity(holder.itemView.context, intent, null)
         }
 

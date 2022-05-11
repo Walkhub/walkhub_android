@@ -26,6 +26,13 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
 ) {
     private val vm: ModifyProfileViewModel by viewModels()
 
+    var schoolId: Int = 0
+    var data: Int = 0
+    var schoolname: String = ""
+    var school: String = ""
+
+    var temp = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -36,11 +43,12 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
         }
         val name = binding.nameEt.text.toString()
         val file = File(binding.image.toString())
-        val school = "1"
+        val schoolId = schoolId.toLong()
 
         binding.fixDoneBtn.setOnClickListener {
 
-            vm.updateProfile(name = name, profileImage = file, schoolId = school)
+            vm.updateProfile(name = name, profileImage = file, schoolId = schoolId)
+
         }
 
         binding.fixDoneBtn.setClickable(false)
@@ -61,6 +69,15 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
     }
 
     override fun initView() {
+        temp = intent.getBooleanExtra("next", temp)
+        if (temp) {
+            data = intent.getIntExtra("data", schoolId)
+            schoolId = data
+            school = intent.getStringExtra("school").toString()
+            binding.myChangeSchoolName.text = school
+            schoolDesign()
+            return
+        }
         setTextWatcher()
 
         binding.back.setOnClickListener {
@@ -112,7 +129,32 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
                     binding.fixDoneBtn.setClickable(false)
                 }
             }
+
         })
+    }
+
+    private fun schoolDesign() {
+        binding.myChangeSchoolName.visible()
+        binding.mySchoolName.invisible()
+        binding.grade.invisible()
+        binding.classes.invisible()
+        binding.textClass.invisible()
+        binding.textGrade.invisible()
+        binding.gradeClass.visible()
+
+        if (binding.myChangeSchoolName.text.isNotEmpty() && binding.myChangeSchoolName.text.length > 1) {
+            binding.fixDoneBtn.background = ContextCompat.getDrawable(
+                applicationContext,
+                R.drawable.bg_primary_button
+            )
+            binding.fixDoneBtn.setClickable(true)
+        } else {
+            binding.fixDoneBtn.background = ContextCompat.getDrawable(
+                applicationContext,
+                R.drawable.registerbuttondesign
+            )
+            binding.fixDoneBtn.setClickable(false)
+        }
     }
 
 }
