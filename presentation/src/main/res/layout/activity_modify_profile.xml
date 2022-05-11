@@ -24,15 +24,33 @@
             app:layout_constraintTop_toTopOf="@+id/view3" />
 
         <TextView
+            android:id="@+id/my_change_school_name"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginBottom="29dp"
+            android:gravity="center"
+            android:visibility="invisible"
+            android:fontFamily="@font/noto_sans_kr_medium"
+            android:text=""
+            android:textColor="@color/gray_900"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/view3"
+            app:layout_constraintStart_toStartOf="@+id/view3"
+            app:layout_constraintTop_toTopOf="@+id/view3" />
+
+        <TextView
             android:id="@+id/grade_class"
             android:layout_width="wrap_content"
             android:layout_height="18dp"
             android:layout_marginStart="16dp"
             android:fontFamily="@font/noto_sans_kr_regular"
             android:text="현재 소속 중인 반이 없어요."
-            android:visibility="invisible"
             android:textColor="@color/gray_800"
             android:textSize="12sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/view3"
             app:layout_constraintStart_toStartOf="@+id/view3"
             app:layout_constraintTop_toBottomOf="@+id/my_school_name" />
 
@@ -50,7 +68,7 @@
             app:layout_constraintTop_toBottomOf="@+id/my_school_name"/>
 
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/text_grade"
             android:layout_width="wrap_content"
             android:layout_height="18dp"
             android:fontFamily="@font/noto_sans_kr_regular"
@@ -71,10 +89,11 @@
             android:text=""
             android:textColor="@color/gray_800"
             android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@+id/textView13"
+            app:layout_constraintStart_toEndOf="@+id/text_grade"
             app:layout_constraintTop_toBottomOf="@+id/my_school_name" />
 
         <TextView
+            android:id="@+id/text_class"
             android:layout_width="wrap_content"
             android:layout_height="18dp"
             android:fontFamily="@font/noto_sans_kr_regular"
