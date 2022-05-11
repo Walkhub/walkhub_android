@@ -68,7 +68,8 @@ import com.semicolon.data.local.entity.user.*
         RankSchoolRankAndSearchTypeConverter::class,
         RankSearchUserTypeConverter::class,
         RankUserRankTypeConverter::class,
-        ChallengeParticipantTypeConverter::class
+        ChallengeParticipantTypeConverter::class,
+        NotificationTypeConverter::class
     ]
 
 )
@@ -76,7 +77,7 @@ import com.semicolon.data.local.entity.user.*
 abstract class WalkHubDataBase : RoomDatabase() {
     abstract fun challengeDao(): ChallengeDao
     abstract fun userDao(): UserDao
-    abstract fun notification(): NotificationDao
+    abstract fun notificationDao(): NotificationDao
     abstract fun noticeDao(): NoticeDao
     abstract fun badgeDao(): BadgeDao
     abstract fun rankDao(): RankDao

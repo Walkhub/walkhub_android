@@ -1,5 +1,6 @@
 package com.semicolon.walkhub.ui.profile.setting.ui
 
+<<<<<<< HEAD
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
@@ -8,17 +9,26 @@ import android.text.TextWatcher
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import com.gun0912.tedpermission.provider.TedPermissionProvider.context
+=======
+import android.os.Bundle
+import androidx.activity.viewModels
+>>>>>>> develop
 import com.semicolon.domain.entity.users.FetchInfoEntity
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityModifyProfileBinding
 import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.base.BaseActivity
+<<<<<<< HEAD
 import com.semicolon.walkhub.util.invisible
 import com.semicolon.walkhub.util.loadCircleFromUrl
 import com.semicolon.walkhub.util.visible
 import com.semicolon.walkhub.viewmodel.profile.setting.ModifyProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
+=======
+import com.semicolon.walkhub.util.loadCircleFromUrl
+import com.semicolon.walkhub.viewmodel.profile.setting.ModifyProfileViewModel
+>>>>>>> develop
 
 @AndroidEntryPoint
 class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
@@ -26,6 +36,7 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
 ) {
     private val vm: ModifyProfileViewModel by viewModels()
 
+<<<<<<< HEAD
     var schoolId: Int = 0
     var data: Int = 0
     var schoolName: String = ""
@@ -33,11 +44,14 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
 
     private var temp = false
 
+=======
+>>>>>>> develop
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         vm.fetchInfo()
 
+<<<<<<< HEAD
         binding.image.setOnClickListener {
 
         }
@@ -54,6 +68,8 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
 
         binding.fixDoneBtn.isClickable = false
 
+=======
+>>>>>>> develop
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
         }
@@ -61,13 +77,21 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
 
     private fun handleEvent(event: ModifyProfileViewModel.Event) = when (event) {
         is ModifyProfileViewModel.Event.FetchInfo -> {
+<<<<<<< HEAD
             setProfileInfo(event.fetchInfoData)
+=======
+            setInfo(event.fetchInfoData)
+>>>>>>> develop
         }
 
         is ModifyProfileViewModel.Event.ErrorMessage -> {
             showShortToast(event.message)
         }
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> develop
 
     override fun initView() {
         temp = intent.getBooleanExtra("next", temp)
@@ -91,6 +115,7 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
         }
     }
 
+<<<<<<< HEAD
     private fun setProfileInfo(fetchInfoData: FetchInfoEntity) {
         binding.mySchoolName.text = fetchInfoData.schoolName
         binding.name.text = fetchInfoData.name
@@ -162,4 +187,12 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
         }
     }
 
+=======
+    private fun setInfo(fetchInfoData: FetchInfoEntity){
+        fetchInfoData.profileImageUrl.let { binding.image.loadCircleFromUrl(it) }
+        binding.grade.text = fetchInfoData.grade.toString()
+        binding.classes.text = fetchInfoData.classNum.toString()
+        binding.mySchoolName.text = fetchInfoData.schoolName
+    }
+>>>>>>> develop
 }

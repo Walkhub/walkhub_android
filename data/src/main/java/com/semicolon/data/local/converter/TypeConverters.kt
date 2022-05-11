@@ -7,6 +7,7 @@ import com.semicolon.data.local.entity.badge.FetchNewBadgesRoomEntity
 import com.semicolon.data.local.entity.badge.FetchUserBadgesRoomEntity
 import com.semicolon.data.local.entity.challenge.ChallengeDetailRoomEntity
 import com.semicolon.data.local.entity.notice.NoticeListRoomEntity
+import com.semicolon.data.local.entity.notification.NotificationRoomEntity
 import com.semicolon.data.local.entity.rank.*
 import com.semicolon.data.local.entity.user.FetchCaloriesLevelRoomEntity
 import com.semicolon.domain.entity.challenge.ChallengeParticipantEntity
@@ -255,8 +256,12 @@ class ChallengeParticipantTypeConverter(
 
     @TypeConverter
     fun fromString(value: String): List<ChallengeDetailRoomEntity.ParticipantList>? {
-        val listType = Types.newParameterizedType(List::class.java, ChallengeDetailRoomEntity.ParticipantList::class.java)
-        val adapter: JsonAdapter<List<ChallengeDetailRoomEntity.ParticipantList>> = moshi.adapter(listType)
+        val listType = Types.newParameterizedType(
+            List::class.java,
+            ChallengeDetailRoomEntity.ParticipantList::class.java
+        )
+        val adapter: JsonAdapter<List<ChallengeDetailRoomEntity.ParticipantList>> =
+            moshi.adapter(listType)
         return adapter.fromJson(value)
     }
 
@@ -266,7 +271,36 @@ class ChallengeParticipantTypeConverter(
             List::class.java,
             ChallengeDetailRoomEntity.ParticipantList::class.java
         )
-        val adapter: JsonAdapter<List<ChallengeDetailRoomEntity.ParticipantList>> = moshi.adapter(listType)
+        val adapter: JsonAdapter<List<ChallengeDetailRoomEntity.ParticipantList>> =
+            moshi.adapter(listType)
+        return adapter.toJson(type)
+    }
+
+}
+
+@ProvidedTypeConverter
+class NotificationTypeConverter(
+    private val moshi: Moshi
+) {
+    @TypeConverter
+    fun fromString(value: String): List<NotificationRoomEntity.NotificationRoomValue>? {
+        val listType = Types.newParameterizedType(
+            List::class.java,
+            NotificationRoomEntity.NotificationRoomValue::class.java
+        )
+        val adapter: JsonAdapter<List<NotificationRoomEntity.NotificationRoomValue>> =
+            moshi.adapter(listType)
+        return adapter.fromJson(value)
+    }
+
+    @TypeConverter
+    fun fromList(type: List<NotificationRoomEntity.NotificationRoomValue>): String {
+        val listType = Types.newParameterizedType(
+            List::class.java,
+            NotificationRoomEntity.NotificationRoomValue::class.java
+        )
+        val adapter: JsonAdapter<List<NotificationRoomEntity.NotificationRoomValue>> =
+            moshi.adapter(listType)
         return adapter.toJson(type)
     }
 

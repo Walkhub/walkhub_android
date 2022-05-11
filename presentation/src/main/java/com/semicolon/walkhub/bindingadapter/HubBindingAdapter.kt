@@ -22,15 +22,22 @@ fun TextView.walkText(walkCount: Int) {
 
 @BindingAdapter("walk_percent")
 fun ProgressBar.walkPercent(item: HubUserViewModel.HubMyPageItem?) {
-    progress = if(item != null) {
-        ((item.myWalkCount - item.downWalkCount).toDouble() / (item.topWalkCount - item.downWalkCount).toDouble() * 100).toInt()
-    } else { 0 }
+    progress = if (item != null) {
+        if (item.topWalkCount == 0) {
+            100
+        } else {
+            ((item.myWalkCount - item.downWalkCount).toDouble() / (item.topWalkCount - item.downWalkCount).toDouble() * 100).toInt()
+        }
+    } else {
+        0
+    }
 }
 
 @BindingAdapter("need_walk_text")
 fun TextView.needWalkText(item: HubUserViewModel.HubMyPageItem?) {
     text = if (item?.myPageData != null) {
-        "다음 등수까지 ${item.topWalkCount - item.myWalkCount} 걸음"
+        if (item.topWalkCount == 0) "최고 등수를 달성했어요!"
+        else "다음 등수까지 ${item.topWalkCount - item.myWalkCount} 걸음"
     } else {
         "현재 소속되어 있는 반이 없어요."
     }

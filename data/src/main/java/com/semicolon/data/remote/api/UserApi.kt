@@ -2,6 +2,7 @@ package com.semicolon.data.remote.api
 
 import com.semicolon.data.remote.request.users.*
 import com.semicolon.data.remote.response.users.*
+import com.semicolon.domain.param.user.VerifyPasswordParam
 import com.semicolon.domain.param.user.VerifyPhoneNumberSignUpParam
 import retrofit2.Response
 import retrofit2.http.*
@@ -50,6 +51,11 @@ interface UserApi {
     @PATCH("users/password")
     suspend fun userChangePassword(
         @Body userChangePasswordRequest: UserChangePasswordRequest
+    )
+
+    @POST("users/verification-password")
+    suspend fun verifyPassword(
+        @Body checkPasswordRequest: CheckPasswordRequest
     )
 
     @POST("users/token")

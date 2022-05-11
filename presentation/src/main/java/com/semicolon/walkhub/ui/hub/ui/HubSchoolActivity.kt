@@ -52,8 +52,10 @@ class HubSchoolActivity @Inject constructor(
     }
 
     private fun handleEvent(event: HubSearchUserViewModel.Event) = when (event) {
-        is HubSearchUserViewModel.Event.SearchSchool -> {
-            setUserRank(event.userData.userList.map { it })
+        is HubSearchUserViewModel.Event.SearchUser -> {
+            event.userData.userList.let {
+                setUserRank(it)
+            }
         }
         is HubSearchUserViewModel.Event.ErrorMessage -> {
             showShortToast(event.message)
@@ -115,7 +117,6 @@ class HubSchoolActivity @Inject constructor(
         }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-
         menuInflater.inflate(R.menu.menu_hub_search, menu)
 
         val mSearch = menu.findItem(R.id.action_search)
@@ -142,12 +143,24 @@ class HubSchoolActivity @Inject constructor(
         mSearchView.background = null
 
         mSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean = menuView(false)
+            override fun onQueryTextSubmit(query: String): Boolean {
+                if (query.isNotEmpty()) {
+                    vm.searchUserDebounce(schoolId, query, HubRankFragment.dateType)
+                } else {
+                    rvHubUserData.clear()
+                    binding.rvSchool.adapter?.notifyDataSetChanged()
+                }
+
+                return menuView(true)
+            }
 
             override fun onQueryTextChange(newText: String): Boolean {
 
                 if (newText.isNotEmpty()) {
-                    vm.searchUser(schoolId, newText, HubRankFragment.dateType)
+                    vm.searchUserDebounce(schoolId, newText, HubRankFragment.dateType)
+                } else {
+                    rvHubUserData.clear()
+                    binding.rvSchool.adapter?.notifyDataSetChanged()
                 }
 
                 return menuView(true)
@@ -163,9 +176,11 @@ class HubSchoolActivity @Inject constructor(
             if (state) {
                 searchBlack.visible()
                 rvSchool.visible()
+                tbHub.invisible()
             } else {
                 searchBlack.invisible()
                 rvSchool.invisible()
+                tbHub.visible()
             }
 
             return false

@@ -34,6 +34,7 @@ class HubFragment @Inject constructor(
 
     private val vm: HubMainViewModel by viewModels()
 
+    private var schoolId = 0
     private var moreDateType = MoreDateType.WEEK
 
     private var schoolRvData = arrayListOf<HubSchoolRankData.OtherSchool>()
@@ -84,6 +85,7 @@ class HubFragment @Inject constructor(
 
         binding.clMySchool.setOnClickListener {
             val intent = Intent(context, HubSchoolActivity::class.java)
+            intent.putExtra("schoolId", schoolId)
             intent.putExtra("type", true)
             intent.putExtra("name", binding.tvMySchoolName.text)
             startActivity(intent)
@@ -134,6 +136,7 @@ class HubFragment @Inject constructor(
     }
 
     private fun setMySchool(school: MySchoolRankData) {
+        schoolId = school.schoolId
         binding.ivMySchool.loadCircleFromUrl(school.logoImageUrl)
         binding.tvMySchoolName.text = school.name
         val tvMySchoolInfo = "${school.grade}학년 ${school.classNum}반"
@@ -143,8 +146,8 @@ class HubFragment @Inject constructor(
     @SuppressLint("NotifyDataSetChanged")
     private fun setSchoolRank(school: List<HubSchoolRankData.OtherSchool>) {
         schoolRvData.clear()
-        for (i: Int in 0..school.size - 1) {
-            schoolRvData.add(school[i])
+        for (element in school) {
+            schoolRvData.add(element)
         }
         binding.rvHubRank.adapter?.notifyDataSetChanged()
     }

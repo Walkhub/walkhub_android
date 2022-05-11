@@ -64,9 +64,15 @@ class UserRepositoryImpl @Inject constructor(
         saveToken(response)
     }
 
+    override suspend fun verifyPassword(
+        verifyPasswordParam: VerifyPasswordParam
+    ) = remoteUserDateSource.verifyPassword(verifyPasswordParam.toRequest())
+
     override suspend fun patchUserChangePassword(
         patchUserChangePasswordParam: PatchUserChangePasswordParam
-    ) = remoteUserDateSource.patchUserChangePassword(patchUserChangePasswordParam.toRequest())
+    ) {
+        remoteUserDateSource.patchUserChangePassword(patchUserChangePasswordParam.toRequest())
+    }
 
     override suspend fun fetchMyPage(): Flow<UserMyPageEntity> =
         OfflineCacheUtil<UserMyPageEntity>()
@@ -242,6 +248,11 @@ class UserRepositoryImpl @Inject constructor(
             phoneNumber = phone_number
         )
 
+    fun VerifyPasswordParam.toRequest() =
+        CheckPasswordRequest(
+            password = password
+        )
+
     fun PostUserSignUpParam.toRequest(token: String) =
         UserSignUpRequest(
             accountId = accountId,
@@ -265,9 +276,7 @@ class UserRepositoryImpl @Inject constructor(
 
     fun PatchUserChangePasswordParam.toRequest() =
         UserChangePasswordRequest(
-            accountId = accountId,
-            phoneNumber = phoneNumber,
-            authCode = authCode,
+            password = password,
             newPassword = newPassword
         )
 }

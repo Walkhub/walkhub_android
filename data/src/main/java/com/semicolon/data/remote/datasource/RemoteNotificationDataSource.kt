@@ -7,7 +7,7 @@ interface RemoteNotificationDataSource {
 
     suspend fun patchNotificationIsRead(data: Int)
 
-    suspend fun switchOnNofications(userId: Int, type: String)
+    suspend fun switchOnNotifications(userId: Int, type: String)
 
     suspend fun switchOffNotifications(type: String)
 }

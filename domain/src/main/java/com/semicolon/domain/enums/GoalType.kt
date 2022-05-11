@@ -7,6 +7,6 @@ enum class GoalType(val value: String) {
 
 fun String.toMeasureGoalType() =
     when(this) {
-        "D" -> GoalType.DISTANCE
+        "DISTANCE" -> GoalType.DISTANCE
         else -> GoalType.WALK_COUNT
     }
