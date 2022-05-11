@@ -27,10 +27,6 @@ class ModifyProfileViewModel @Inject constructor(
     private val deleteClassUseCase: DeleteClassUseCase
 ) : ViewModel() {
 
-    companion object{
-        var schoolId: Int = 0
-    }
-
     private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()
 
@@ -50,7 +46,7 @@ class ModifyProfileViewModel @Inject constructor(
         }
     }
 
-    fun updateProfile(name: String, profileImage: File?, schoolId: String) {
+    fun updateProfile(name: String, profileImage: File?, schoolId: Long) {
         viewModelScope.launch {
             kotlin.runCatching {
                 updateProfileUseCase.execute(UpdateProfileParam(name, profileImage, schoolId))
@@ -89,9 +85,6 @@ class ModifyProfileViewModel @Inject constructor(
             classNum = classNum
         )
 
-    fun setSchool(SchoolId: Int) {
-        schoolId = SchoolId
-    }
 
 
     private fun event(event: Event) {

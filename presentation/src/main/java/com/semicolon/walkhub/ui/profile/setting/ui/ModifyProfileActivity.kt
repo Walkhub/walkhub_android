@@ -28,10 +28,10 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
 
     var schoolId: Int = 0
     var data: Int = 0
-    var schoolname: String = ""
+    var schoolName: String = ""
     var school: String = ""
 
-    var temp = false
+    private var temp = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,17 +41,18 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
         binding.image.setOnClickListener {
 
         }
+
         val name = binding.nameEt.text.toString()
         val file = File(binding.image.toString())
         val schoolId = schoolId.toLong()
 
         binding.fixDoneBtn.setOnClickListener {
 
-            vm.updateProfile(name = name, profileImage = file, schoolId = schoolId)
+            vm.updateProfile(name = name, profileImage =    file, schoolId = schoolId)
 
         }
 
-        binding.fixDoneBtn.setClickable(false)
+        binding.fixDoneBtn.isClickable = false
 
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
@@ -113,20 +114,24 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                if (binding.nameEt.text.isEmpty()) {
-                    binding.name.visible()
-                } else if (binding.nameEt.length() > 1 && binding.nameEt.length() < 11) {
-                    binding.fixDoneBtn.background = ContextCompat.getDrawable(
-                        applicationContext,
-                        R.drawable.bg_primary_button
-                    )
-                    binding.fixDoneBtn.setClickable(true)
-                } else {
-                    binding.fixDoneBtn.background = ContextCompat.getDrawable(
-                        applicationContext,
-                        R.drawable.registerbuttondesign
-                    )
-                    binding.fixDoneBtn.setClickable(false)
+                when {
+                    binding.nameEt.text.isEmpty() -> {
+                        binding.name.visible()
+                    }
+                    binding.nameEt.length() in 2..10 -> {
+                        binding.fixDoneBtn.background = ContextCompat.getDrawable(
+                            applicationContext,
+                            R.drawable.bg_primary_button
+                        )
+                        binding.fixDoneBtn.isClickable = true
+                    }
+                    else -> {
+                        binding.fixDoneBtn.background = ContextCompat.getDrawable(
+                            applicationContext,
+                            R.drawable.registerbuttondesign
+                        )
+                        binding.fixDoneBtn.isClickable = false
+                    }
                 }
             }
 
@@ -147,13 +152,13 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
                 applicationContext,
                 R.drawable.bg_primary_button
             )
-            binding.fixDoneBtn.setClickable(true)
+            binding.fixDoneBtn.isClickable = true
         } else {
             binding.fixDoneBtn.background = ContextCompat.getDrawable(
                 applicationContext,
                 R.drawable.registerbuttondesign
             )
-            binding.fixDoneBtn.setClickable(false)
+            binding.fixDoneBtn.isClickable = false
         }
     }
 
