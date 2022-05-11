@@ -7,8 +7,6 @@
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".di.WalkHubApplication"
@@ -20,12 +18,6 @@
         android:theme="@style/Theme.Walkhub"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity
-            android:name=".ui.measure.FinishMeasureActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.notification.ui.NotificationActivity"
-            android:exported="false" />
         <activity
             android:name=".ui.challenge.ChallengeDetailActivity"
             android:exported="false" />
@@ -86,24 +78,20 @@
         <activity
             android:name=".ui.profile.setting.ui.SettingActivity"
             android:exported="false" />
+
         <activity
             android:name=".ui.profile.setting.ui.NoticeSettingActivity"
             android:exported="false" />
         <activity
             android:name=".ui.profile.setting.ui.ModifyProfileActivity"
             android:exported="false" />
+
         <activity
             android:name=".ui.profile.setting.ui.AccountInfoActivity"
             android:exported="false" />
-        <activity
-            android:name=".ui.profile.setting.ui.ModifyHealthInfoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.profile.setting.ui.ChangePwActivity"
-            android:exported="false" />
 
         <activity
-            android:name=".ui.profile.setting.ui.RealChangePwActivity"
+            android:name=".ui.profile.setting.ui.ModifyHealthInfoActivity"
             android:exported="false" />
 
         <activity

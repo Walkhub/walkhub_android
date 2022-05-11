@@ -9,7 +9,6 @@ import com.semicolon.walkhub.util.loadFromUrl
 import android.content.Intent
 import androidx.core.content.ContextCompat
 import com.semicolon.walkhub.ui.register.ui.Register
-import com.semicolon.walkhub.util.loadCircleFromUrl
 import gun0912.tedimagepicker.util.ToastUtil.context
 
 
@@ -24,7 +23,7 @@ class SearchSchoolAdapter(
         holder.itemView.tag = position
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(holder.itemView.context, Register::class.java)
+            val intent = Intent(holder.itemView?.context, Register::class.java)
             intent.putExtra("data", id)
             intent.putExtra("school", school)
             intent.putExtra("movePage", true)
@@ -38,12 +37,12 @@ class SearchSchoolAdapter(
         return ViewHolder.from(parent)
     }
 
-    class ViewHolder(val binding: SchoolitemBinding) :
+    class ViewHolder private constructor(val binding: SchoolitemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: SecondSearchSchoolData.SchoolInfo) {
 
-            item.logoImageUrl?.let { binding.ivSchool.loadFromUrl(it) }
+            binding.ivSchool.loadFromUrl(item.logoImageUrl)
 
             if (item.schoolName.length > 16) {
                 val schoolName = item.schoolName.substring(0, 16) + "..."

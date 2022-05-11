@@ -13,8 +13,7 @@ data class OurSchoolUserRankResponse(
         @SerializedName("profile_image_url") val profileImageUrl: String?,
         @SerializedName("ranking") val ranking: Int,
         @SerializedName("user_id") val userId: Int,
-        @SerializedName("walk_count") val walkCount: Int,
-        @SerializedName("is_measuring") val isMeasuring: Boolean
+        @SerializedName("walk_count") val walkCount: Int
     )
 }
 
@@ -24,8 +23,7 @@ fun OurSchoolUserRankResponse.Ranking.toEntity() =
         profileImageUrl = profileImageUrl,
         ranking = ranking,
         userId = userId,
-        walkCount = walkCount,
-        isMeasuring = isMeasuring
+        walkCount = walkCount
     )
 
 fun OurSchoolUserRankResponse.toEntity() =

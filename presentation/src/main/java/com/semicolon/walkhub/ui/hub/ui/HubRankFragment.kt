@@ -1,9 +1,7 @@
 package com.semicolon.walkhub.ui.hub.ui
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,7 +54,6 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
         if (schoolType) {
             vm.fetchMySchoolUserRank(rankScope, dateType)
         } else {
-            binding.clMyRank.invisible()
             vm.fetchSchoolUserRank(schoolId, dateType)
         }
     }
@@ -111,8 +108,8 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 ToggleSwitch(
-                    onToggleOn = { setRankScope(RankScope.CLASS) },
-                    onToggleOff = { setRankScope(RankScope.SCHOOL) }
+                    onToggleOn = { setRankScope(RankScope.SCHOOL) },
+                    onToggleOff = { setRankScope(RankScope.CLASS) }
                 )
             }
         }

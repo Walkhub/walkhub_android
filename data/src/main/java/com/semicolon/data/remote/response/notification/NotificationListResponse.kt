@@ -1,54 +1,30 @@
 package com.semicolon.data.remote.response.notification
 
-import android.app.Notification
 import com.google.gson.annotations.SerializedName
-import com.semicolon.domain.entity.notice.NoticeEntity
 import com.semicolon.domain.entity.notification.NotificationEntity
-import com.semicolon.domain.enums.NotificationReturnType
-import java.time.LocalDateTime
 
 data class NotificationListResponse(
     @SerializedName("notification_list") val notificationList: List<NotificationList>
-) {
+){
     data class NotificationList(
         @SerializedName("id") val notificationId: Int,
         @SerializedName("title") val title: String,
         @SerializedName("content") val content: String,
-        @SerializedName("data") val data: String,
-        @SerializedName("type") val type: NotificationReturnType,
-        @SerializedName("created_at") val createAt: String,
-        @SerializedName("is_read") val isRead: Boolean,
-        @SerializedName("writer") val writer: Writer
-    ) {
-        data class Writer(
-            @SerializedName("id") val writerId: Int,
-            @SerializedName("name") val writerName: String,
-            @SerializedName("profile_image_url") val writerImage: String
-        )
-    }
+        @SerializedName("type") val type: String,
+        @SerializedName("value") val notificationCount: Int,
+        @SerializedName("is_read") val isRead: Boolean
+    )
 
-    fun NotificationList.toEntity(): NotificationEntity.NotificationValue =
-        NotificationEntity.NotificationValue(
+    fun NotificationList.toEntity(): NotificationEntity =
+        NotificationEntity(
             notificationId = notificationId,
             title = title,
             content = content,
-            data = data,
             type = type,
-            createAt = createAt,
-            isRead = isRead,
-            writer = writer.toEntity()
-        )
-
-    fun NotificationList.Writer.toEntity(): NotificationEntity.NotificationValue.Writer =
-        NotificationEntity.NotificationValue.Writer(
-            writerId = writerId,
-            writerName = writerName,
-            writerImage = writerImage
+            notificationCount = notificationCount,
+            isRead = isRead
         )
 }
 
-fun NotificationListResponse.toEntity() =
-    NotificationEntity(
-        notificationValue = notificationList.map { it.toEntity() }
-    )
-
+fun NotificationListResponse.toEntity(): List<NotificationEntity> =
+    notificationList.map { it.toEntity() }

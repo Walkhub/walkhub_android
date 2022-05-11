@@ -127,8 +127,4 @@ object Dependency {
     object TedImagePicker {
         const val tedImagePicker = "io.github.ParkSangGwon:tedimagepicker:${Version.tedImagePicker}"
     }
-
-    object ImageCompressor {
-        const val zeloryImageCompressor = "id.zelory:compressor:${Version.zeloryImageCompressor}"
-    }
 }

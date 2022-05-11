@@ -9,9 +9,9 @@ class RemoteNoticeDataSourceImpl @Inject constructor(
     private val noticesApi: NoticesApi
 ): RemoteNoticeDataSource {
     override suspend fun fetchNoticeList(
-        scope: String
+        noticeType: String
     ): NoticeListResponse =
         HttpHandler<NoticeListResponse>()
-            .httpRequest { noticesApi.fetchNoticeList(scope) }
+            .httpRequest { noticesApi.fetchNoticeList(noticeType) }
             .sendRequest()
 }

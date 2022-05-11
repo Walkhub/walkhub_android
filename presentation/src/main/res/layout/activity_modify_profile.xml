@@ -16,7 +16,6 @@
             android:layout_marginBottom="29dp"
             android:gravity="center"
             android:fontFamily="@font/noto_sans_kr_medium"
-<<<<<<< HEAD
             android:text=""
             android:textColor="@color/gray_900"
             android:textSize="16sp"
@@ -35,10 +34,6 @@
             android:visibility="invisible"
             android:fontFamily="@font/noto_sans_kr_medium"
             android:text=""
-=======
-            android:text="대덕소프트웨어마이스터고등학교"
-            android:gravity="center"
->>>>>>> develop
             android:textColor="@color/gray_900"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/view3"
@@ -50,23 +45,8 @@
             android:layout_width="wrap_content"
             android:layout_height="18dp"
             android:layout_marginStart="16dp"
-            android:visibility="invisible"
             android:fontFamily="@font/noto_sans_kr_regular"
             android:text="현재 소속 중인 반이 없어요."
-            android:gravity="center"
-            android:textColor="@color/gray_800"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@+id/view3"
-            app:layout_constraintTop_toBottomOf="@+id/my_school_name" />
-
-        <TextView
-            android:id="@+id/grade"
-            android:layout_width="wrap_content"
-            android:layout_height="18dp"
-            android:layout_marginStart="16dp"
-            android:gravity="center"
-            android:fontFamily="@font/noto_sans_kr_regular"
-            android:text="3"
             android:textColor="@color/gray_800"
             android:textSize="12sp"
             android:visibility="invisible"
@@ -88,11 +68,7 @@
             app:layout_constraintTop_toBottomOf="@+id/my_school_name"/>
 
         <TextView
-<<<<<<< HEAD
             android:id="@+id/text_grade"
-=======
-            android:id="@+id/textView13"
->>>>>>> develop
             android:layout_width="wrap_content"
             android:layout_height="18dp"
             android:fontFamily="@font/noto_sans_kr_regular"
@@ -110,7 +86,6 @@
             android:layout_height="18dp"
             android:fontFamily="@font/noto_sans_kr_regular"
             android:gravity="center"
-<<<<<<< HEAD
             android:text=""
             android:textColor="@color/gray_800"
             android:textSize="12sp"
@@ -119,15 +94,6 @@
 
         <TextView
             android:id="@+id/text_class"
-=======
-            android:text="9"
-            android:textColor="@color/gray_800"
-            android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@+id/textView13"
-            app:layout_constraintTop_toBottomOf="@+id/my_school_name" />
-
-        <TextView
->>>>>>> develop
             android:layout_width="wrap_content"
             android:layout_height="18dp"
             android:fontFamily="@font/noto_sans_kr_regular"

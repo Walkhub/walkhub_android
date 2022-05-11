@@ -17,8 +17,7 @@ data class OurSchoolUserRankRoomEntity(
         val profileImageUrl: String,
         val ranking: Int,
         val userId: Int,
-        val walkCount: Int,
-        val isMeasuring: Boolean
+        val walkCount: Int
     )
 
     fun Ranking.toEntity() =
@@ -27,8 +26,7 @@ data class OurSchoolUserRankRoomEntity(
             profileImageUrl = profileImageUrl,
             ranking = ranking,
             userId = userId,
-            walkCount = walkCount,
-            isMeasuring = isMeasuring
+            walkCount = walkCount
         )
 }
 
@@ -46,8 +44,7 @@ fun OurSchoolUserRankEntity.Ranking.toDbEntity() =
             profileImageUrl = it,
             ranking = ranking,
             userId = userId,
-            walkCount = walkCount,
-            isMeasuring = isMeasuring
+            walkCount = walkCount
         )
     }
 

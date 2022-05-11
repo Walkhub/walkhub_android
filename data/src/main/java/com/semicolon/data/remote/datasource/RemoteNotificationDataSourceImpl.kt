@@ -19,7 +19,7 @@ class RemoteNotificationDataSourceImpl @Inject constructor(
             .httpRequest { notificationApi.sendReadNotification(data) }
             .sendRequest()
 
-    override suspend fun switchOnNotifications(userId: Int, type: String) =
+    override suspend fun switchOnNofications(userId: Int, type: String) =
         HttpHandler<Unit>()
             .httpRequest { notificationApi.onNotifications(userId, type) }
             .sendRequest()

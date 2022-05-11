@@ -83,8 +83,10 @@ class UserRepositoryUnitTest {
     @Test
     fun tesPatchUserChangePassword() {
         val patchUserChangePasswordParam = PatchUserChangePasswordParam(
-            "test1234!",
-            "opgg1234!"
+            "accountId",
+            "010-2100-2936",
+            "auth_code",
+            "alswns",
         )
         runBlocking {
             val repositoryResult =

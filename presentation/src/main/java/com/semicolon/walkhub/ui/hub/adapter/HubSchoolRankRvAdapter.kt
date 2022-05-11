@@ -35,7 +35,6 @@ class HubSchoolRankRvAdapter(
                 val intent = Intent(context, HubSchoolActivity::class.java)
                 intent.putExtra("type", false)
                 intent.putExtra("name", item.schoolName)
-                intent.putExtra("schoolId", item.schoolId)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 context.startActivity(intent)
             }

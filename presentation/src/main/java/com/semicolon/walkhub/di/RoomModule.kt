@@ -42,7 +42,6 @@ object RoomModule {
         .addTypeConverter(RankSearchUserTypeConverter(moshi))
         .addTypeConverter(RankUserRankTypeConverter(moshi))
         .addTypeConverter(ChallengeParticipantTypeConverter(moshi))
-        .addTypeConverter(NotificationTypeConverter(moshi))
         .build()
 
     @Provides
@@ -73,7 +72,7 @@ object RoomModule {
     @Provides
     fun provideNotificationDao(
         walkHubDataBase: WalkHubDataBase
-    ): NotificationDao = walkHubDataBase.notificationDao()
+    ): NotificationDao = walkHubDataBase.notification()
 
     @Provides
     fun provideLocationRecordDao(

@@ -8,9 +8,12 @@ import com.semicolon.domain.entity.rank.OurSchoolUserRankEntity
 import com.semicolon.domain.entity.rank.UserRankEntity
 import com.semicolon.domain.enums.MoreDateType
 import com.semicolon.domain.enums.RankScope
-import com.semicolon.domain.exception.*
+import com.semicolon.domain.exception.BadRequestException
+import com.semicolon.domain.exception.NoInternetException
+import com.semicolon.domain.exception.NotFoundException
 import com.semicolon.domain.param.rank.FetchOurSchoolUserRankParam
 import com.semicolon.domain.param.rank.FetchUserRankParam
+import com.semicolon.domain.usecase.exercise.FetchExercisingUserListUseCase
 import com.semicolon.domain.usecase.rank.FetchOurSchoolUserRankUseCase
 import com.semicolon.domain.usecase.rank.FetchUserRankUseCase
 import com.semicolon.domain.usecase.socket.CheeringUseCase
@@ -21,6 +24,8 @@ import com.semicolon.walkhub.ui.cheering.CheeringItemViewModel
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.zip
 import kotlinx.coroutines.launch
 import java.lang.NullPointerException
 import javax.inject.Inject
@@ -29,6 +34,7 @@ import javax.inject.Inject
 class HubUserViewModel @Inject constructor(
     private val fetchOurSchoolUserRankUseCase: FetchOurSchoolUserRankUseCase,
     private val fetchUserRankUseCase: FetchUserRankUseCase,
+    private val fetchExercisingUserListUseCase: FetchExercisingUserListUseCase,
     private val cheeringUseCase: CheeringUseCase
 ) : ViewModel() {
 
@@ -47,16 +53,25 @@ class HubUserViewModel @Inject constructor(
     fun fetchMySchoolUserRank(scope: RankScope, dateType: MoreDateType) {
         viewModelScope.launch {
             kotlin.runCatching {
-                fetchOurSchoolUserRankUseCase.execute(
+                val fetchMySchoolUserRank = fetchOurSchoolUserRankUseCase.execute(
                     FetchOurSchoolUserRankParam(
                         scope,
                         dateType
                     )
-                ).collect {
+                )
+
+                val fetchExercisingUserList =
+                    fetchExercisingUserListUseCase.execute(Unit)
+
+                fetchMySchoolUserRank.zip(fetchExercisingUserList) { rankingList, exercisingList ->
+                    HubMySchoolList(
+                        userRank = rankingList,
+                        exercisingUserIdList = exercisingList.map { it.userId })
+                }.collect {
                     _recyclerViewItem.value = ArrayList<RecyclerViewItem>().apply {
                         addAll(
-                            it.rankingList.map { data ->
-                                if (data.isMeasuring) {
+                            it.userRank.rankingList.map { data ->
+                                if (it.exercisingUserIdList.contains(data.userId)) {
                                     data.toCheeringRecyclerviewItem()
                                 } else {
                                     data.toRecyclerviewItem()
@@ -65,26 +80,26 @@ class HubUserViewModel @Inject constructor(
                         )
                     }
 
-                    it.myRanking?.let { data ->
-                        val myRank: Int = data.ranking
+                    val myRank: Int = it.userRank.myRanking?.ranking ?: 1
 
-                        if (data != null) {
-                            val topWalkCount =
-                                if (myRank <= 1) 0 else it.rankingList[myRank - 2].walkCount
-                            val downWalkCount =
-                                if (myRank >= it.rankingList.size) 0 else it.rankingList[myRank].walkCount
-                            val myWalkCount = data.walkCount
+                    if (it.userRank.myRanking != null) {
+                        val topWalkCount =
+                            if (myRank <= 1) 0
+                            else it.userRank.rankingList[myRank - 2].walkCount
+                        val downWalkCount =
+                            if (myRank >= it.userRank.rankingList.size) 0
+                            else it.userRank.rankingList[myRank].walkCount
+                        val myWalkCount = it.userRank.myRanking!!.walkCount
 
-                            _myRanking.value = HubMyPageItem(
-                                topWalkCount,
-                                myWalkCount,
-                                downWalkCount,
-                                data.toData()
-                            )
-                        }
+                        _myRanking.value = HubMyPageItem(
+                            topWalkCount,
+                            myWalkCount,
+                            downWalkCount,
+                            it.userRank.myRanking!!.toData()
+                        )
                     }
 
-                    _isJoinedClass.value = it.isJoinedClass
+                    _isJoinedClass.value = it.userRank.isJoinedClass
                 }
             }.onFailure {
                 when (it) {
@@ -105,13 +120,16 @@ class HubUserViewModel @Inject constructor(
         val myPageData: HubMyPageData
     )
 
+    data class HubMySchoolList(
+        val userRank: OurSchoolUserRankEntity,
+        val exercisingUserIdList: List<Int>
+    )
+
     fun fetchSchoolUserRank(school: Int, dateType: MoreDateType) {
         viewModelScope.launch {
             kotlin.runCatching {
                 val fetchSchoolUserRank =
                     fetchUserRankUseCase.execute(FetchUserRankParam(school, dateType))
-
-                _isJoinedClass.value = true
 
                 fetchSchoolUserRank.collect {
                     _recyclerViewItem.value = ArrayList<RecyclerViewItem>().apply {
@@ -172,11 +190,11 @@ class HubUserViewModel @Inject constructor(
 
 
     private fun OurSchoolUserRankEntity.Ranking.toCheeringItemViewModel() =
-        HubCheeringItemViewModel(
-            id = userId,
-            userName = name,
-            imageUrl = profileImageUrl
-        )
+            HubCheeringItemViewModel(
+                id = userId,
+                userName = name,
+                imageUrl = profileImageUrl
+            )
 
     private fun event(event: Event) {
         viewModelScope.launch {
@@ -193,21 +211,10 @@ class HubUserViewModel @Inject constructor(
 
         override fun onClick() {
             viewModelScope.launch {
-                kotlin.runCatching {
-                    cheeringUseCase.execute(id)
-                }.onSuccess {
-                    event(Event.ErrorMessage(userName + "님을 응원하셨습니다!"))
-                }.onFailure {
-                    when (it) {
-                        is NotFoundException -> event(Event.ErrorMessage("잘못된 접근입니다."))
-                        is UnauthorizedException -> event(Event.ErrorMessage("토큰이 만료 되었습니다. 로그인 후 이용해주세요."))
-                        else -> event(Event.ErrorMessage("알 수 없는 오류가 발생하였습니다."))
-                    }
-                }
+                cheeringUseCase.execute(id)
             }
         }
     }
-
 
     data class UserRankItemViewModel(
         val profileUrl: String?,

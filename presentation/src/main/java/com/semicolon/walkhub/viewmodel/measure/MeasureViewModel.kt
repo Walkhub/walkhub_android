@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.semicolon.domain.entity.exercise.GoalEntity
 import com.semicolon.domain.enums.GoalType
+import com.semicolon.domain.param.exercise.FinishMeasureExerciseParam
 import com.semicolon.domain.param.exercise.StartMeasureExerciseParam
 import com.semicolon.domain.usecase.exercise.*
 import com.semicolon.domain.usecase.socket.ConnectSocketUseCase
@@ -15,6 +16,11 @@ import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import org.threeten.bp.Instant
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.ZoneId
+import java.io.File
+import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,6 +32,7 @@ class MeasureViewModel @Inject constructor(
     private val pauseMeasureExerciseUseCase: PauseMeasureExerciseUseCase,
     private val resumeMeasureExerciseUseCase: ResumeMeasureExerciseUseCase,
     private val startMeasureExerciseUseCase: StartMeasureExerciseUseCase,
+    private val finishMeasureExerciseUseCase: FinishMeasureExerciseUseCase,
     private val connectSocketUseCase: ConnectSocketUseCase,
     private val disconnectSocketUseCase: DisconnectSocketUseCase,
     private val receiveCheeringUseCase: ReceiveCheeringUseCase
@@ -34,8 +41,8 @@ class MeasureViewModel @Inject constructor(
     private val _walkCount = MutableLiveData(0)
     val walkCount: LiveData<Int> = _walkCount
 
-    private val _distanceAsKiloMeter = MutableLiveData(0.0)
-    val distanceAsKiloMeter: LiveData<Double> = _distanceAsKiloMeter
+    private val _distanceAsMeter = MutableLiveData(0)
+    val distanceAsMeter: LiveData<Int> = _distanceAsMeter
 
     private val _goal = MutableLiveData<GoalEntity>()
     val goal: LiveData<GoalEntity> = _goal
@@ -46,8 +53,8 @@ class MeasureViewModel @Inject constructor(
     private val _speed = MutableLiveData(0F)
     val speed: LiveData<Float> = _speed
 
-    private val _time = MutableLiveData(ExercisedTime(0, 0))
-    val time: LiveData<ExercisedTime> = _time
+    private val _time = MutableLiveData<LocalDateTime>()
+    val time: LiveData<LocalDateTime> = _time
 
     private val _percentage = MutableLiveData(0)
     val percentage: LiveData<Int> = _percentage
@@ -55,11 +62,22 @@ class MeasureViewModel @Inject constructor(
     private val _measuringState = MutableLiveData(MeasureState.ONGOING)
     val measuringState: LiveData<MeasureState> = _measuringState
 
-    private val _event = MutableEventFlow<Event>()
-    val event = _event.asEventFlow()
+    private val _fetchPhoto = MutableEventFlow<Unit>()
+    val fetchPhoto = _fetchPhoto.asEventFlow()
+
+    private val _finishMeasuring = MutableEventFlow<Unit>()
+    val finishMeasuring = _finishMeasuring.asEventFlow()
+
+    private val _requestPhoto = MutableEventFlow<Unit>()
+    val requestPhoto = _requestPhoto.asEventFlow()
+
+    private val _finishActivity = MutableEventFlow<Unit>()
+    val finishActivity = _finishActivity.asEventFlow()
 
     private val _cheerUserName = MutableLiveData<String>()
     val cheerUserName: LiveData<String> = _cheerUserName
+
+    private var _finishPhotoUri: String? = null
 
     init {
         viewModelScope.launch {
@@ -82,64 +100,48 @@ class MeasureViewModel @Inject constructor(
         val goalType = goal.value?.goalType ?: GoalType.WALK_COUNT
         val goal = goal.value?.goal ?: 0
         viewModelScope.launch {
-            kotlin.runCatching {
+            try {
                 startMeasureExerciseUseCase.execute(StartMeasureExerciseParam(goal, goalType))
-                fetchMeasuredData()
-            }.onFailure {
-                sendEvent(Event.FailStartMeasure)
+                fetchMeasuredExercise()
+                fetchMeasuredTime()
+                fetchCurrentSpeed()
+            } catch (e: Exception) {
+
             }
         }
-    }
-
-    private fun fetchMeasuredData() {
-        fetchMeasuredExercise()
-        fetchMeasuredTime()
-        fetchCurrentSpeed()
     }
 
     private fun fetchMeasuredExercise() {
         viewModelScope.launch {
             fetchMeasuredExerciseRecordUseCase.execute(Unit).collect {
                 _walkCount.value = it.stepCount
-                _distanceAsKiloMeter.value = (it.traveledDistanceAsMeter / 1000.0)
+                _distanceAsMeter.value = it.traveledDistanceAsMeter
                 _calorie.value = it.burnedKilocalories
                 setPercentage()
             }
         }
     }
 
-    fun setPercentage() {
-        val currentValue: Int =
-            if (goal.value?.goalType == GoalType.DISTANCE) (distanceAsKiloMeter.value!! * 1000).toInt()
-            else walkCount.value ?: 0
-
-        val goal = goal.value?.goal ?: 1
-
-        val percentage: Int = ((currentValue.toDouble() / goal.toDouble()) * 100).toInt()
-
+    private fun setPercentage() {
+        val currentValue =
+            if (goal.value?.goalType == GoalType.DISTANCE) distanceAsMeter.value else walkCount.value
+        val percentage = (currentValue!! / (goal.value?.goal ?: 1)) * 100
         _percentage.value = percentage
     }
 
     private fun fetchMeasuredTime() {
         viewModelScope.launch {
             fetchMeasuredTimeUseCase.execute(Unit).collect {
-                _time.value = it.toExercisedTime()
+                _time.value =
+                    LocalDateTime.ofInstant(Instant.ofEpochSecond(it), ZoneId.systemDefault())
             }
         }
-    }
-
-    private fun Long.toExercisedTime(): ExercisedTime {
-        val hour = (this / 3600).toInt()
-        val calculateMinute = if (this >= 3600) this % 3600 else this
-        val minute = (calculateMinute / 60).toInt()
-        return ExercisedTime(hour, minute)
     }
 
     fun fetchMeasuringGoal() {
         viewModelScope.launch {
             val goalResult = fetchGoalUseCase.execute(Unit)
             _goal.value = goalResult
-            fetchMeasuredData()
         }
     }
 
@@ -168,25 +170,42 @@ class MeasureViewModel @Inject constructor(
     }
 
     fun pauseMeasureExercise() {
+        _measuringState.value = MeasureState.PAUSED
         viewModelScope.launch {
             pauseMeasureExerciseUseCase.execute(Unit)
-            _measuringState.value = MeasureState.PAUSED
-            sendEvent(Event.DonePause)
         }
     }
 
     fun resumeMeasureExercise() {
+        _measuringState.value = MeasureState.ONGOING
         viewModelScope.launch {
-            kotlin.runCatching {
-                resumeMeasureExerciseUseCase.execute(Unit)
-                _measuringState.value = MeasureState.ONGOING
-            }
+            resumeMeasureExerciseUseCase.execute(Unit)
         }
     }
 
     fun fetchFinishPhoto() {
         viewModelScope.launch {
-            sendEvent(Event.StartFetchPhoto)
+            _fetchPhoto.emit(Unit)
+        }
+    }
+
+    fun finishMeasureExercise() {
+        viewModelScope.launch {
+            if (_finishPhotoUri != null) {
+                val imageFile = File(_finishPhotoUri!!)
+                val param = FinishMeasureExerciseParam(imageFile)
+                finishMeasureExerciseUseCase.execute(param)
+                _finishActivity.emit(Unit)
+            } else {
+                _requestPhoto.emit(Unit)
+            }
+        }
+    }
+
+    fun setImageUri(uri: String) {
+        this._finishPhotoUri = uri
+        viewModelScope.launch {
+            _finishMeasuring.emit(Unit)
         }
     }
 
@@ -203,17 +222,4 @@ class MeasureViewModel @Inject constructor(
         super.onCleared()
     }
 
-    private fun sendEvent(event: Event) {
-        viewModelScope.launch {
-            _event.emit(event)
-        }
-    }
-
-    data class ExercisedTime(val hour: Int, val minute: Int)
-
-    sealed class Event {
-        object StartFetchPhoto : Event()
-        object FailStartMeasure : Event()
-        object DonePause : Event()
-    }
 }

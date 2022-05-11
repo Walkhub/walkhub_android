@@ -15,7 +15,7 @@ class HubSearchSchoolRvAdapter(
 ) : RecyclerView.Adapter<HubSearchSchoolRvAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = data[position]
+        val item = data.get(position)
 
         holder.bind(item)
     }
@@ -33,7 +33,6 @@ class HubSearchSchoolRvAdapter(
                 val intent = Intent(context, HubSchoolActivity::class.java)
                 intent.putExtra("type", false)
                 intent.putExtra("name", item.schoolName)
-                intent.putExtra("schoolId", item.schoolId)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 context.startActivity(intent)
             }

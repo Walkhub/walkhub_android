@@ -4,7 +4,6 @@ import com.semicolon.data.remote.request.users.*
 import com.semicolon.data.remote.response.users.*
 import com.semicolon.domain.entity.users.*
 import com.semicolon.domain.param.user.CheckPhoneNumberParam
-import com.semicolon.domain.param.user.VerifyPasswordParam
 import com.semicolon.domain.param.user.VerifyPhoneNumberSignUpParam
 
 interface RemoteUserDataSource {
@@ -40,10 +39,6 @@ interface RemoteUserDataSource {
 
     suspend fun patchUserChangePassword(
         userChangePasswordRequest: UserChangePasswordRequest
-    )
-
-    suspend fun verifyPassword(
-        checkPasswordRequest: CheckPasswordRequest
     )
 
     suspend fun postUserSignIn(

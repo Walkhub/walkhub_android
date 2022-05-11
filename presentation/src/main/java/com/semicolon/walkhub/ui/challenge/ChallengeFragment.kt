@@ -24,10 +24,6 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding>(
             vm.event.collect { event -> handleEvent(event) }
         }
 
-        binding.challengeRv.recycledViewPool.run {
-            setMaxRecycledViews(R.layout.item_challenge_title, 1)
-            setMaxRecycledViews(R.layout.item_challenge_empty, 1)
-        }
     }
 
     private fun handleEvent(event: ChallengeViewModel.Event) {

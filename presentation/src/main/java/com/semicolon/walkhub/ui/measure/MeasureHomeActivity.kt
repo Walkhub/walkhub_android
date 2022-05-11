@@ -54,7 +54,6 @@ class MeasureHomeActivity :
             putExtra("secondNumber", binding.measureSecondNp.value)
         }
         startActivity(intent)
-        finish()
     }
 
     private fun setMeasurementUi(isDistance: Boolean) {

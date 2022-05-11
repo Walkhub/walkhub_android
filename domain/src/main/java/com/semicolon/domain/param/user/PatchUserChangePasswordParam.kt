@@ -1,6 +1,8 @@
 package com.semicolon.domain.param.user
 
 data class PatchUserChangePasswordParam(
-    val password: String,
+    val accountId: String,
+    val phoneNumber: String,
+    val authCode: String,
     val newPassword: String
 )

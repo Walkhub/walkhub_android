@@ -25,10 +25,6 @@ interface UserRepository {
         patchUserChangePasswordParam: PatchUserChangePasswordParam
     )
 
-    suspend fun verifyPassword(
-        verifyPasswordParam: VerifyPasswordParam
-    )
-
     suspend fun fetchUserProfile(
         userId: Int
     ) : Flow<UserProfileEntity>

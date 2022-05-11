@@ -76,24 +76,24 @@ class HubInfoFragment : BaseFragment<FragmentHubInfoBinding>(
         binding.run {
             data.week.run {
                 tvWeekDate.text = date
-                tvWeekRank.text = ranking.toString() + " 등"
-                tvWeekUserCount.text = totalUserCount.toString() + " 명"
-                tvWeekWalkCount.text = totalWalkCount.toString() + " 걸음"
-                ranking?.let { ivWeekRank.setRankImage(it) }
+                tvWeekRank.text = ranking.toString()
+                tvWeekUserCount.text = totalUserCount.toString()
+                tvWeekWalkCount.text = totalWalkCount.toString()
+                ivWeekRank.setRankImage(ranking)
 
             }
             data.month.run {
                 tvMonthDate.text = date
-                tvMonthRank.text = ranking.toString() + " 등"
-                tvMonthUserCount.text = totalUserCount.toString() + " 명"
-                tvMonthWalkCount.text = totalWalkCount.toString() + " 걸음"
-                ranking?.let { ivWeekRank.setRankImage(it) }
+                tvMonthRank.text = ranking.toString()
+                tvMonthUserCount.text = totalUserCount.toString()
+                tvMonthWalkCount.text = totalWalkCount.toString()
+                ivMonthRank.setRankImage(ranking)
             }
         }
     }
 
     private fun setNoticeList(noticeList: List<HubInfoNoticeRvData>) {
-        for (element in noticeList) {
+        for(element in noticeList) {
             rvNoticeData.add(element)
         }
         binding.rvHubNotice.adapter?.notifyDataSetChanged()
