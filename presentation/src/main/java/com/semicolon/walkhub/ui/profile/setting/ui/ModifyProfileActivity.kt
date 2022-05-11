@@ -2,22 +2,28 @@ package com.semicolon.walkhub.ui.profile.setting.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
+import androidx.core.net.toFile
+import com.bumptech.glide.Glide
 import com.gun0912.tedpermission.provider.TedPermissionProvider.context
 import com.semicolon.domain.entity.users.FetchInfoEntity
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityModifyProfileBinding
+import com.semicolon.walkhub.extensions.fetchImage
 import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.base.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 import com.semicolon.walkhub.util.invisible
 import com.semicolon.walkhub.util.loadCircleFromUrl
 import com.semicolon.walkhub.util.visible
 import com.semicolon.walkhub.viewmodel.profile.setting.ModifyProfileViewModel
-import dagger.hilt.android.AndroidEntryPoint
+import gun0912.tedimagepicker.builder.TedImagePicker
 import java.io.File
 
 @AndroidEntryPoint
@@ -26,12 +32,14 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
 ) {
     private val vm: ModifyProfileViewModel by viewModels()
 
-    var schoolId: Int = 0
+    var schoolId: Long = 0
     var data: Int = 0
     var schoolName: String = ""
     var school: String = ""
 
     private var temp = false
+
+    private var ivProfile: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,17 +47,15 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
         vm.fetchInfo()
 
         binding.image.setOnClickListener {
-
+            setNormalSingleButton()
         }
 
-        val name = binding.nameEt.text.toString()
-        val file = File(binding.image.toString())
-        val schoolId = schoolId.toLong()
-
         binding.fixDoneBtn.setOnClickListener {
+            val name = binding.nameEt.text.toString()
+            val schoolId: Long = schoolId
+            val ivProfile2: String = ivProfile
 
-            vm.updateProfile(name = name, profileImage =    file, schoolId = schoolId)
-
+            vm.updateProfile(name = name, profileImage = ivProfile2, schoolId = schoolId)
         }
 
         binding.fixDoneBtn.isClickable = false
@@ -69,17 +75,21 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        setTextWatcher()
+    }
+
     override fun initView() {
         temp = intent.getBooleanExtra("next", temp)
         if (temp) {
-            data = intent.getIntExtra("data", schoolId)
-            schoolId = data
+            schoolId = intent.getLongExtra("data", schoolId)
             school = intent.getStringExtra("school").toString()
             binding.myChangeSchoolName.text = school
             schoolDesign()
             return
         }
-        setTextWatcher()
 
         binding.back.setOnClickListener {
             finish()
@@ -89,6 +99,19 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
             val intent = Intent(context, SettingSearchSchoolActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    private fun setNormalSingleButton() {
+        TedImagePicker.with(this)
+            .start { uri -> showSingleImage(uri) }
+    }
+
+    private fun showSingleImage(uri: Uri) {
+        Glide.with(this).load(uri).into(binding.image)
+
+        suspend { fetchImage(context).let { uri.toFile().toString() } }
+
+        ivProfile = uri.toString()
     }
 
     private fun setProfileInfo(fetchInfoData: FetchInfoEntity) {
@@ -161,5 +184,4 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
             binding.fixDoneBtn.isClickable = false
         }
     }
-
 }
