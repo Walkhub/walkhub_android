@@ -46,7 +46,7 @@ class ModifyProfileViewModel @Inject constructor(
         }
     }
 
-    fun updateProfile(name: String, profileImage: File?, schoolId: Long) {
+    fun updateProfile(name: String, profileImage: String, schoolId: Long) {
         viewModelScope.launch {
             kotlin.runCatching {
                 updateProfileUseCase.execute(UpdateProfileParam(name, profileImage, schoolId))
