@@ -55,12 +55,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
         }
 
         is HomeViewModel.Event.FetchHomeValue -> {
-            val image = if (levelList.isNotEmpty())
-                levelList.last { it.calories <= event.homeData.burnedKilocalories }.foodImageUrl else ""
-            if (image != foodImage)
+            val levelList = if (levelList.isNotEmpty())
+                levelList.last { it.calories <= event.homeData.burnedKilocalories } else null
+            val image = levelList?.foodImageUrl ?: ""
+            if (image != foodImage) {
                 Glide.with(this)
                     .load(image)
                     .into(binding.iv)
+                levelList?.let { vm.patchMaxLevel(it.levelId) }
+            }
             setHomeValue(event.homeData)
         }
 
