@@ -39,34 +39,17 @@ fun ActivityAnalysis(onBackButtonClick: () -> Unit, viewModel: ActivityAnalysisV
     var graphState by remember { mutableStateOf(GraphType.WEEKLY) }
     var analysisResult by remember {
         mutableStateOf(
-            ExerciseAnalysisResultEntity(
-                0,
-                listOf(1..28).flatten(),
-                0,
-                0,
-                0,
-                0f,
-                0
-            )
+            ExerciseAnalysisResultEntity(0, listOf(1..28).flatten(), 0, 0, 0, 0f, 0)
         )
     }
-    var dailyExercise by remember {
-        mutableStateOf(
-            DailyExerciseEntity(
-                0, 0, 0, 0f
-            )
-        )
-    }
+    var dailyExercise by remember { mutableStateOf(DailyExerciseEntity(0, 0, 0, 0f)) }
     var cardList by remember { mutableStateOf(listOf<LevelEntity>()) }
-    var card by remember {
-        mutableStateOf(
-            LevelEntity(
-                0, "", "", 0, "", 0, ""
-            )
-        )
-    }
+    var card by remember { mutableStateOf(LevelEntity(0, "", "", 0, "", 0, "")) }
+    var nextCard by remember { mutableStateOf(LevelEntity(0, "", "", 0, "", 0, "")) }
     card = if (cardList.isNotEmpty())
         cardList.last { it.calories <= dailyExercise.burnedKilocalories } else card
+    nextCard = if (cardList.filter { it.calories > dailyExercise.burnedKilocalories }.count() != 0)
+        cardList.first { it.calories > dailyExercise.burnedKilocalories } else nextCard
     val composableScope = rememberCoroutineScope()
     LaunchedEffect(analysisResult, dailyExercise) {
         composableScope.launch {
@@ -140,21 +123,23 @@ fun ActivityAnalysis(onBackButtonClick: () -> Unit, viewModel: ActivityAnalysisV
                 onBackButtonClick()
             }
             Spacer(modifier = Modifier.size(12.dp))
-            LevelCard(card)
+            LevelCard(card, nextCard, dailyExercise.burnedKilocalories)
         }
     }
 }
 
 @Composable
-fun LevelCard(card: LevelEntity) {
+fun LevelCard(card: LevelEntity, nextCard: LevelEntity, calorie: Float) {
+    val progress = if (nextCard.calories == 0) 1f
+    else (calorie - card.calories) / nextCard.calories
     CaloriesLevelCard(
-        imageUrl = "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/43380b84-6dc9-44fc-8b51-6aef4d9f1faf/커피icon.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220303%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220303T005859Z&X-Amz-Expires=86400&X-Amz-Signature=50863010f7f84127f4b0dfdbaa0d59b8da48e5c0b994ad2bfed0a0c3d2594ddd&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25EC%25BB%25A4%25ED%2594%25BCicon.png%22&x-id=GetObject",
-        name = "카페 라떼",
-        calories = 180,
-        size = "355ml",
-        level = 7,
-        progress = 0.5f,
-        message = "커피 한 잔 어때요~?"
+        imageUrl = card.foodImageUrl,
+        name = card.foodName,
+        calories = card.calories,
+        size = card.size,
+        level = card.level,
+        progress = progress,
+        message = card.message
     )
 }
 
