@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
+import com.semicolon.domain.entity.level.LevelEntity
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.FragmentHomeBinding
 import com.semicolon.walkhub.extensions.repeatOnStarted
@@ -28,6 +29,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
 ) {
 
     private val vm: HomeViewModel by viewModels()
+    private val levelList = mutableListOf<LevelEntity>()
+    private val foodImage = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,7 +39,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     ): View? {
 
         vm.fetchHomeValue()
-
+        vm.fetchLevelList()
 
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
@@ -45,7 +48,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     }
 
     private fun handleEvent(event: HomeViewModel.Event) = when (event) {
+        is HomeViewModel.Event.LevelList -> {
+            levelList.clear()
+            levelList.addAll(event.levelList)
+            Unit
+        }
+
         is HomeViewModel.Event.FetchHomeValue -> {
+            val levelList = if (levelList.isNotEmpty())
+                levelList.last { it.calories <= event.homeData.burnedKilocalories } else null
+            val image = levelList?.foodImageUrl ?: ""
+            if (image != foodImage) {
+                Glide.with(this)
+                    .load(image)
+                    .into(binding.iv)
+                levelList?.let { vm.patchMaxLevel(it.levelId) }
+            }
             setHomeValue(event.homeData)
         }
 
@@ -83,9 +101,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
             startActivity(intent)
         }
 
-        Glide.with(this)
-            .load("https://s3.us-west-2.amazonaws.com/secure.notion-static.com/43380b84-6dc9-44fc-8b51-6aef4d9f1faf/커피icon.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220303%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220303T005859Z&X-Amz-Expires=86400&X-Amz-Signature=50863010f7f84127f4b0dfdbaa0d59b8da48e5c0b994ad2bfed0a0c3d2594ddd&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25EC%25BB%25A4%25ED%2594%25BCicon.png%22&x-id=GetObject")
-            .into(binding.iv)
+
     }
 
     private fun setHomeValue(homeData: HomeData) {

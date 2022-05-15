@@ -3,6 +3,7 @@ package com.semicolon.walkhub.viewmodel.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.semicolon.domain.entity.exercise.DailyExerciseEntity
+import com.semicolon.domain.entity.level.LevelEntity
 import com.semicolon.domain.entity.rank.OurSchoolUserRankEntity
 import com.semicolon.domain.enums.MeasuringState
 import com.semicolon.domain.enums.MoreDateType
@@ -12,6 +13,8 @@ import com.semicolon.domain.param.rank.FetchOurSchoolUserRankParam
 import com.semicolon.domain.usecase.exercise.FetchDailyExerciseRecordUseCase
 import com.semicolon.domain.usecase.exercise.IsMeasuringUseCase
 import com.semicolon.domain.usecase.exercise.StartRecordExerciseUseCase
+import com.semicolon.domain.usecase.level.FetchLevelListUseCase
+import com.semicolon.domain.usecase.level.PatchMaxLevelUseCase
 import com.semicolon.domain.usecase.rank.FetchOurSchoolUserRankUseCase
 import com.semicolon.walkhub.ui.home.model.HomeData
 import com.semicolon.walkhub.ui.home.model.RankData
@@ -23,6 +26,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
+    private val fetchLevelListUseCase: FetchLevelListUseCase,
+    private val patchMaxLevelUseCase: PatchMaxLevelUseCase,
     private val fetchDailyExerciseRecordUseCase: FetchDailyExerciseRecordUseCase,
     private val startRecordExerciseUseCase: StartRecordExerciseUseCase,
     private val fetchOurSchoolUserRankUseCase: FetchOurSchoolUserRankUseCase,
@@ -31,6 +36,16 @@ class HomeViewModel @Inject constructor(
 
     private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()
+
+    fun fetchLevelList() =
+        viewModelScope.launch {
+            kotlin.runCatching {
+                fetchLevelListUseCase.execute(Unit).collect { event(Event.LevelList(it)) }
+            }
+        }
+
+    fun patchMaxLevel(levelId: Int) =
+        viewModelScope.launch { kotlin.runCatching { patchMaxLevelUseCase.execute(levelId) } }
 
     fun fetchHomeValue() {
         viewModelScope.launch {
@@ -108,6 +123,7 @@ class HomeViewModel @Inject constructor(
     }
 
     sealed class Event {
+        data class LevelList(val levelList: List<LevelEntity>) : Event()
         data class FetchSchoolRank(val rankData: List<RankData>) : Event()
         data class FetchHomeValue(val homeData: HomeData) : Event()
         data class ErrorMessage(val message: String) : Event()
