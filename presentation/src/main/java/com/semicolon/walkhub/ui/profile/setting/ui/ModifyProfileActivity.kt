@@ -1,17 +1,11 @@
 package com.semicolon.walkhub.ui.profile.setting.ui
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.View
-import android.widget.Button
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.core.net.toFile
@@ -21,6 +15,7 @@ import com.gun0912.tedpermission.provider.TedPermissionProvider.context
 import com.semicolon.domain.entity.users.FetchInfoEntity
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityModifyProfileBinding
+import com.semicolon.walkhub.extensions.UrlConverter
 import com.semicolon.walkhub.extensions.fetchImage
 import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.base.BaseActivity
@@ -30,6 +25,10 @@ import com.semicolon.walkhub.util.loadCircleFromUrl
 import com.semicolon.walkhub.util.visible
 import com.semicolon.walkhub.viewmodel.profile.setting.ModifyProfileViewModel
 import gun0912.tedimagepicker.builder.TedImagePicker
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
@@ -51,6 +50,9 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
 
     private var ivProfile: String = ""
 
+    @Inject
+    lateinit var urlConverter: UrlConverter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -59,20 +61,8 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
         profileImage = intent.getStringExtra("profile_image")
         oldSchoolId = intent.getLongExtra("school_id", oldSchoolId)
 
-        val DialogView = LayoutInflater.from(this).inflate(R.layout.change_class_dialog, null)
-        val Builder = AlertDialog.Builder(this)
-            .setView(DialogView)
-
-        val  AlertDialog = Builder.show()
-
-        val okButton = DialogView.findViewById<Button>(R.id.change_btn)
-        okButton.setOnClickListener {
-
-        }
-
-        val noButton = DialogView.findViewById<Button>(R.id.no_btn)
-        noButton.setOnClickListener {
-            AlertDialog.dismiss()
+        CoroutineScope(Dispatchers.IO).launch {
+            profileImage?.let { urlConverter.convert(it) }
         }
 
         binding.image.setOnClickListener {
