@@ -1,15 +1,21 @@
 package com.semicolon.walkhub.ui.profile.setting.ui
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
+import android.view.LayoutInflater
+import android.view.MotionEvent
+import android.view.View
+import android.widget.Button
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.core.net.toFile
+import androidx.core.net.toUri
 import com.bumptech.glide.Glide
 import com.gun0912.tedpermission.provider.TedPermissionProvider.context
 import com.semicolon.domain.entity.users.FetchInfoEntity
@@ -24,7 +30,6 @@ import com.semicolon.walkhub.util.loadCircleFromUrl
 import com.semicolon.walkhub.util.visible
 import com.semicolon.walkhub.viewmodel.profile.setting.ModifyProfileViewModel
 import gun0912.tedimagepicker.builder.TedImagePicker
-import java.io.File
 
 @AndroidEntryPoint
 class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
@@ -36,6 +41,11 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
     var data: Int = 0
     var schoolName: String = ""
     var school: String = ""
+    var name: String = ""
+
+    private var profileImage: String? = ""
+
+    private var oldSchoolId: Long = 0
 
     private var temp = false
 
@@ -46,19 +56,85 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
 
         vm.fetchInfo()
 
+        profileImage = intent.getStringExtra("profile_image")
+        oldSchoolId = intent.getLongExtra("school_id", oldSchoolId)
+
+        val DialogView = LayoutInflater.from(this).inflate(R.layout.change_class_dialog, null)
+        val Builder = AlertDialog.Builder(this)
+            .setView(DialogView)
+
+        val  AlertDialog = Builder.show()
+
+        val okButton = DialogView.findViewById<Button>(R.id.change_btn)
+        okButton.setOnClickListener {
+
+        }
+
+        val noButton = DialogView.findViewById<Button>(R.id.no_btn)
+        noButton.setOnClickListener {
+            AlertDialog.dismiss()
+        }
+
         binding.image.setOnClickListener {
             setNormalSingleButton()
         }
 
         binding.fixDoneBtn.setOnClickListener {
-            val name = binding.nameEt.text.toString()
-            val schoolId: Long = schoolId
-            val ivProfile2: String = ivProfile
+            when {
+                //학교만 보낼때
+                binding.nameEt.length() < 1 && ivProfile == null && binding.myChangeSchoolName.length() > 1 -> {
+                    val name = binding.name.text.toString()
+                    vm.updateProfile(name = name,
+                        profileImage = profileImage?.toUri()?.toFile().toString(),
+                        schoolId = schoolId)
+                    vm.deleteClass()
+                }
+                //이름만 보낼 때
+                binding.nameEt.length() > 1 && ivProfile == null && binding.myChangeSchoolName.length() < 1 -> {
+                    val name = binding.nameEt.text.toString()
+                    vm.updateProfile(name = name,
+                        profileImage = profileImage?.toUri()?.toFile().toString(),
+                        schoolId = oldSchoolId)
+                }
+                //프사만 보낼 때
+                binding.nameEt.length() < 1 && binding.myChangeSchoolName.length() < 1 && ivProfile != null -> {
+                    val name = binding.name.text.toString()
+                    vm.updateProfile(name = name, profileImage = ivProfile, schoolId = oldSchoolId)
+                }
+                //이름, 학교 보낼 때
+                binding.nameEt.length() > 1 && binding.myChangeSchoolName.length() > 1 && ivProfile == null -> {
+                    val name = binding.nameEt.text.toString()
+                    vm.updateProfile(name = name,
+                        profileImage = profileImage?.toUri()?.toFile().toString(),
+                        schoolId = schoolId)
+                    vm.deleteClass()
+                }
+                //이름, 프사 보낼 때
+                binding.nameEt.length() > 1 && binding.myChangeSchoolName.length() < 1 && ivProfile != null -> {
+                    val name = binding.nameEt.text.toString()
+                    vm.updateProfile(name = name, profileImage = ivProfile, schoolId = oldSchoolId)
+                }
+                //학교, 프사 보낼 때
+                binding.nameEt.length() < 1 && binding.myChangeSchoolName.length() > 1 && ivProfile != null -> {
+                    val name = binding.name.text.toString()
+                    vm.updateProfile(name = name, profileImage = ivProfile, schoolId = schoolId)
+                    vm.deleteClass()
+                }
+                //모두 보낼 때
+                binding.nameEt.length() > 1 && binding.myChangeSchoolName.length() > 1 && ivProfile != null -> {
+                    val name = binding.nameEt.text.toString()
+                    val schoolId: Long = schoolId
+                    val ivProfile2: String = ivProfile
 
-            vm.updateProfile(name = name, profileImage = ivProfile2, schoolId = schoolId)
+                    vm.updateProfile(name = name, schoolId = schoolId, profileImage = ivProfile2)
+                    vm.deleteClass()
+                }
+            }
         }
 
-        binding.fixDoneBtn.isClickable = false
+        btnBackFalse()
+
+
 
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
@@ -82,13 +158,19 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
     }
 
     override fun initView() {
+        binding.back.setOnClickListener {
+            finish()
+        }
+
         temp = intent.getBooleanExtra("next", temp)
         if (temp) {
             schoolId = intent.getLongExtra("data", schoolId)
             school = intent.getStringExtra("school").toString()
             binding.myChangeSchoolName.text = school
             schoolDesign()
+            doneBtnEvent()
             return
+
         }
 
         binding.back.setOnClickListener {
@@ -115,13 +197,32 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
     }
 
     private fun setProfileInfo(fetchInfoData: FetchInfoEntity) {
-        binding.mySchoolName.text = fetchInfoData.schoolName
+        fetchInfoData.schoolName.let {
+            binding.mySchoolName.text = "학교에 가입해주세요."
+            if (it != null) {
+                binding.mySchoolName.text
+            }
+        }
         binding.name.text = fetchInfoData.name
-        binding.classes.text = fetchInfoData.classNum.toString()
-        binding.grade.text = fetchInfoData.grade.toString()
+        fetchInfoData.classNum.toString().let {
+            binding.gradeClass.visible()
+            binding.classes.invisible()
+            binding.textClass.invisible()
+            if (it != null) {
+                binding.classes.text
+            }
+
+        }
         fetchInfoData.profileImageUrl.let {
             if (it != null) {
                 binding.image.loadCircleFromUrl(it)
+            }
+        }
+        fetchInfoData.grade.toString().let {
+            binding.textGrade.invisible()
+            binding.grade.invisible()
+            if (it != null) {
+                binding.grade.text
             }
         }
     }
@@ -137,25 +238,10 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                when {
-                    binding.nameEt.text.isEmpty() -> {
-                        binding.name.visible()
-                    }
-                    binding.nameEt.length() in 2..10 -> {
-                        binding.fixDoneBtn.background = ContextCompat.getDrawable(
-                            applicationContext,
-                            R.drawable.bg_primary_button
-                        )
-                        binding.fixDoneBtn.isClickable = true
-                    }
-                    else -> {
-                        binding.fixDoneBtn.background = ContextCompat.getDrawable(
-                            applicationContext,
-                            R.drawable.registerbuttondesign
-                        )
-                        binding.fixDoneBtn.isClickable = false
-                    }
+                if (binding.nameEt.text.isEmpty()) {
+                    binding.name.visible()
                 }
+                doneBtnEvent()
             }
 
         })
@@ -169,19 +255,36 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
         binding.textClass.invisible()
         binding.textGrade.invisible()
         binding.gradeClass.visible()
+    }
 
-        if (binding.myChangeSchoolName.text.isNotEmpty() && binding.myChangeSchoolName.text.length > 1) {
-            binding.fixDoneBtn.background = ContextCompat.getDrawable(
-                applicationContext,
-                R.drawable.bg_primary_button
-            )
-            binding.fixDoneBtn.isClickable = true
-        } else {
-            binding.fixDoneBtn.background = ContextCompat.getDrawable(
-                applicationContext,
-                R.drawable.registerbuttondesign
-            )
-            binding.fixDoneBtn.isClickable = false
+    private fun btnBackTrue() {
+        binding.fixDoneBtn.background = ContextCompat.getDrawable(
+            applicationContext,
+            R.drawable.bg_primary_button
+        )
+        binding.fixDoneBtn.isClickable = true
+    }
+
+    private fun btnBackFalse() {
+        binding.fixDoneBtn.background = ContextCompat.getDrawable(
+            applicationContext,
+            R.drawable.registerbuttondesign
+        )
+        binding.fixDoneBtn.isClickable = false
+    }
+
+    private fun doneBtnEvent() {
+        when {
+            binding.myChangeSchoolName.length() > 1 -> {
+                btnBackTrue()
+            }
+            binding.nameEt.length() > 1 -> {
+                btnBackTrue()
+            }
+            else -> {
+                btnBackFalse()
+            }
         }
     }
+
 }
