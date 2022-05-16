@@ -65,16 +65,16 @@ class FitnessDataStorageImpl @Inject constructor(
                 var calories: Float
                 data.addOnSuccessListener {
                     steps = it.buckets.firstOrNull()
-                        ?.getDataSet(DataType.AGGREGATE_STEP_COUNT_DELTA)!!.dataPoints.firstOrNull()
+                        ?.getDataSet(DataType.AGGREGATE_STEP_COUNT_DELTA)?.dataPoints?.firstOrNull()
                         ?.getValue(Field.FIELD_STEPS)?.asInt() ?: 0
                     minutes = it.buckets.firstOrNull()
-                        ?.getDataSet(DataType.AGGREGATE_MOVE_MINUTES)!!.dataPoints.firstOrNull()
+                        ?.getDataSet(DataType.AGGREGATE_MOVE_MINUTES)?.dataPoints?.firstOrNull()
                         ?.getValue(Field.FIELD_DURATION)?.asInt() ?: 0
                     distance = it.buckets.firstOrNull()
-                        ?.getDataSet(DataType.AGGREGATE_DISTANCE_DELTA)!!.dataPoints.firstOrNull()
+                        ?.getDataSet(DataType.AGGREGATE_DISTANCE_DELTA)?.dataPoints?.firstOrNull()
                         ?.getValue(Field.FIELD_DISTANCE)?.asFloat()?.toInt() ?: 0
                     calories = it.buckets.firstOrNull()
-                        ?.getDataSet(DataType.AGGREGATE_CALORIES_EXPENDED)!!.dataPoints.firstOrNull()
+                        ?.getDataSet(DataType.AGGREGATE_CALORIES_EXPENDED)?.dataPoints?.firstOrNull()
                         ?.getValue(Field.FIELD_CALORIES)?.asFloat() ?: 0f
 
                     trySend(
@@ -137,13 +137,13 @@ class FitnessDataStorageImpl @Inject constructor(
         return suspendCoroutine {
             data.addOnSuccessListener { response ->
                 val steps = response.buckets.firstOrNull()
-                    ?.getDataSet(DataType.AGGREGATE_STEP_COUNT_DELTA)!!.dataPoints.firstOrNull()
+                    ?.getDataSet(DataType.AGGREGATE_STEP_COUNT_DELTA)?.dataPoints?.firstOrNull()
                     ?.getValue(Field.FIELD_STEPS)?.asInt() ?: 0
                 val distance = response.buckets.firstOrNull()
-                    ?.getDataSet(DataType.AGGREGATE_DISTANCE_DELTA)!!.dataPoints.firstOrNull()
+                    ?.getDataSet(DataType.AGGREGATE_DISTANCE_DELTA)?.dataPoints?.firstOrNull()
                     ?.getValue(Field.FIELD_DISTANCE)?.asFloat()?.toInt() ?: 0
                 val calories = response.buckets.firstOrNull()
-                    ?.getDataSet(DataType.AGGREGATE_CALORIES_EXPENDED)!!.dataPoints.firstOrNull()
+                    ?.getDataSet(DataType.AGGREGATE_CALORIES_EXPENDED)?.dataPoints?.firstOrNull()
                     ?.getValue(Field.FIELD_CALORIES)?.asFloat() ?: 0f
 
                 it.resume(
