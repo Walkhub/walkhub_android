@@ -30,7 +30,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
 
     private val vm: HomeViewModel by viewModels()
     private val levelList = mutableListOf<LevelEntity>()
-    private val foodImage = ""
+    private var foodImage = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,6 +63,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
                     .load(image)
                     .into(binding.iv)
                 levelList?.let { vm.patchMaxLevel(it.levelId) }
+                foodImage = image
             }
             setHomeValue(event.homeData)
         }
