@@ -7,7 +7,7 @@ data class FetchMyPageResponse(
     @SerializedName("user_id") val userId: Int,
     @SerializedName("name") val name: String,
     @SerializedName("profile_image_url") val profileImageUrl: String,
-    @SerializedName("school_id") val schoolId: Int,
+    @SerializedName("school_id") val schoolId: Long,
     @SerializedName("school_name") val schoolName: String,
     @SerializedName("school_image_url") val schoolImageUrl: String,
     @SerializedName("grade") val grade: Int,
