@@ -1,6 +1,7 @@
 package com.semicolon.data.util
 
 
+import android.media.Image
 import com.semicolon.domain.exception.*
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
@@ -14,6 +15,7 @@ class HttpHandler<T> {
     private var onForbidden: (message: String) -> Throwable = { ForbiddenException() }
     private var onNotFound: (message: String) -> Throwable = { NotFoundException() }
     private var onConflict: (message: String) -> Throwable = { ConflictException() }
+    private var onImageConverter: (message: String) -> Throwable = { ImageConverterException() }
     private var onServerError: (code: Int) -> Throwable = { ServerException() }
     private var onOtherHttpStatusCode: (code: Int, message: String) -> Throwable = { _, _ -> UnknownException() }
 
@@ -34,6 +36,9 @@ class HttpHandler<T> {
 
     fun onConflict(onConflict: (message: String) -> Throwable) =
         this.apply { this.onConflict = onConflict }
+
+    fun onImageConverter(onImageConverter: (message: String) -> Throwable) =
+        this.apply { this.onImageConverter = onImageConverter }
 
     fun onServerError(onServerError: (code: Int) -> Throwable) =
         this.apply { this.onServerError = onServerError }
@@ -61,6 +66,8 @@ class HttpHandler<T> {
         } catch (e: SocketTimeoutException) {
             throw TimeoutException()
         } catch (e: NeedLoginException) {
+            throw e
+        } catch (e: ImageConverterException) {
             throw e
         } catch (e: Throwable) {
             throw UnknownException()
