@@ -36,10 +36,14 @@ class LocalExerciseDataSourceImpl @Inject constructor(
         fitnessDataStorage.fetchDailyExerciseRecord()
 
     override suspend fun fetchLocationRecord(periodParam: PeriodParam): List<LocationRecordEntity> =
-        fitnessDataStorage.fetchLocationRecord(periodParam)
+        if (periodParam.endTimeAsSecond > periodParam.startTimeAsSecond)
+            fitnessDataStorage.fetchLocationRecord(periodParam)
+        else listOf()
 
     override suspend fun fetchWalkRecord(periodParam: PeriodParam): WalkRecordEntity =
-        fitnessDataStorage.fetchWalkRecord(periodParam)
+        if (periodParam.endTimeAsSecond > periodParam.startTimeAsSecond)
+            fitnessDataStorage.fetchWalkRecord(periodParam)
+        else WalkRecordEntity(0, 0, 0f)
 
     override suspend fun startRecordExercise() {
         fitnessDataStorage.startRecordExercise(
@@ -115,17 +119,18 @@ class LocalExerciseDataSourceImpl @Inject constructor(
                 delay(1000)
                 val startTime = fetchStartTime()
                 val endTime = LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond()
-                val data = fitnessDataStorage.fetchWalkRecord(
-                    PeriodParam(startTimeAsSecond = startTime, endTimeAsSecond = endTime)
-                )
-                trySend(
-                    ExerciseEntity(
-                        data.walkCount + accumulatedHistory.walkCount,
-                        data.traveledDistanceAsMeter + accumulatedHistory.traveledDistanceAsMeter,
-                        data.burnedKilocalories + accumulatedHistory.burnedKilocalories
+                if (endTime > startTime) {
+                    val data = fitnessDataStorage.fetchWalkRecord(
+                        PeriodParam(startTimeAsSecond = startTime, endTimeAsSecond = endTime)
                     )
-                )
-
+                    trySend(
+                        ExerciseEntity(
+                            data.walkCount + accumulatedHistory.walkCount,
+                            data.traveledDistanceAsMeter + accumulatedHistory.traveledDistanceAsMeter,
+                            data.burnedKilocalories + accumulatedHistory.burnedKilocalories
+                        )
+                    )
+                }
                 delay(2000)
             }
             awaitClose {}
