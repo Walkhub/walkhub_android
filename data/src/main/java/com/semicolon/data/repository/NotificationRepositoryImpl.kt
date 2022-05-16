@@ -7,6 +7,7 @@ import com.semicolon.data.remote.request.notification.OnNotiRequest
 import com.semicolon.data.remote.response.notification.toEntity
 import com.semicolon.data.util.OfflineCacheUtil
 import com.semicolon.domain.entity.notification.NotificationEntity
+import com.semicolon.domain.entity.notification.NotificationStatusEntity
 import com.semicolon.domain.param.notifications.SwitchOffNotificationsParam
 import com.semicolon.domain.param.notifications.SwitchOnNotificationsParam
 import com.semicolon.domain.repository.NotificationRepository
@@ -35,6 +36,13 @@ class NotificationRepositoryImpl @Inject constructor(
 
     override suspend fun switchOffNotification(switchOffNotificationsParam: SwitchOffNotificationsParam) =
         remoteNotificationDataSource.switchOffNotifications(switchOffNotificationsParam.toRequest())
+
+    override suspend fun notificationStatus(): Flow<NotificationStatusEntity> =
+        OfflineCacheUtil<NotificationStatusEntity>()
+            .remoteData { remoteNotificationDataSource.notificationStatus().toEntity() }
+            .localData { localNotificationDataSource.fetchNotificationStatus() }
+            .doOnNeedRefresh { localNotificationDataSource.saveNotificationStatus(it) }
+            .createFlow()
 
     fun SwitchOffNotificationsParam.toRequest() =
         OffNotiRequest(
