@@ -109,7 +109,7 @@ dependencies {
     implementation(Dependency.CircleImageView.circleImage)
 
     implementation(Dependency.Glide.glideCore)
-    annotationProcessor(Dependency.Glide.glideCompiler)
+    kapt(Dependency.Glide.glideCompiler)
 
     implementation(Dependency.Socket.socketIo) {
         exclude(group = "org.json", module = "json")
