@@ -3,7 +3,6 @@ package com.semicolon.walkhub.viewmodel.profile.setting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.semicolon.domain.entity.users.FetchInfoEntity
-import com.semicolon.domain.enums.SexType
 import com.semicolon.domain.exception.BadRequestException
 import com.semicolon.domain.exception.NoInternetException
 import com.semicolon.domain.exception.NotFoundException
@@ -14,17 +13,15 @@ import com.semicolon.domain.usecase.user.FetchInfoUseCase
 import com.semicolon.domain.usecase.user.UpdateProfileUseCase
 import com.semicolon.walkhub.util.MutableEventFlow
 import com.semicolon.walkhub.util.asEventFlow
-import com.semicolon.walkhub.viewmodel.register.RegisterViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
 class ModifyProfileViewModel @Inject constructor(
     private val fetchInfoUseCase: FetchInfoUseCase,
     private val updateProfileUseCase: UpdateProfileUseCase,
-    private val deleteClassUseCase: DeleteClassUseCase
+    private val deleteClassUseCase: DeleteClassUseCase,
 ) : ViewModel() {
 
     private val _eventFlow = MutableEventFlow<Event>()
@@ -49,7 +46,10 @@ class ModifyProfileViewModel @Inject constructor(
     fun updateProfile(name: String, profileImage: String, schoolId: Long) {
         viewModelScope.launch {
             kotlin.runCatching {
-                updateProfileUseCase.execute(UpdateProfileParam(name, profileImage, schoolId))
+                updateProfileUseCase.execute(UpdateProfileParam(
+                    name = name,
+                    profileImage = profileImage,
+                    schoolId = schoolId))
             }.onFailure {
                 when (it) {
                     is UnauthorizedException -> event(Event.ErrorMessage("세션이 만료되었습니다. 다시 시도해주세요."))
@@ -84,7 +84,6 @@ class ModifyProfileViewModel @Inject constructor(
             grade = grade,
             classNum = classNum
         )
-
 
 
     private fun event(event: Event) {
