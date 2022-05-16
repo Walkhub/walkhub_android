@@ -17,3 +17,5 @@ class TimeoutException : RuntimeException()
 class UnauthorizedException : RuntimeException()
 
 class UnknownException : RuntimeException()
+
+class ImageConverterException : RuntimeException()
