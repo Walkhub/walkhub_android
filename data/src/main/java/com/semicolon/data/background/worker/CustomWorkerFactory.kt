@@ -36,14 +36,4 @@ class CustomWorkerFactory @Inject constructor(
             }
             else -> throw IllegalArgumentException()
         }
-//        println("qwerty ${SynchronizeExerciseWorker::class.qualifiedName}")
-//        println("Asdadsd $workerClassName")
-//        println(SynchronizeExerciseWorker::class.qualifiedName == workerClassName)
-//        return SynchronizeExerciseWorker(
-//            appContext,
-//            workerParameters,
-//            localExerciseDataSource,
-//            remoteExerciseDataSource
-//        )
-
 }
