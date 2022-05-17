@@ -30,8 +30,7 @@ interface LocalExerciseDataSource {
     suspend fun pauseMeasuring(
         steps: Int,
         distanceAsMeter: Int,
-        burnedKilocalories: Float,
-        locationRecord: List<LocationRecordEntity>
+        burnedKilocalories: Float
     )
 
     suspend fun finishMeasuring()

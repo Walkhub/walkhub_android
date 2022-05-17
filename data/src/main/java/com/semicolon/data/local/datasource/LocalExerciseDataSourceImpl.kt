@@ -78,8 +78,7 @@ class LocalExerciseDataSourceImpl @Inject constructor(
     override suspend fun pauseMeasuring(
         steps: Int,
         distanceAsMeter: Int,
-        burnedKilocalories: Float,
-        locationRecord: List<LocationRecordEntity>
+        burnedKilocalories: Float
     ) {
         val curTime = LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond()
         exerciseInfoDataStorage.setPausedTime(curTime)
@@ -91,9 +90,6 @@ class LocalExerciseDataSourceImpl @Inject constructor(
                 burnedKilocalories = burnedKilocalories
             )
         )
-        withContext(Dispatchers.IO) {
-            locationRecordDao.addLocationRecords(locationRecord.map { it.toRoomEntity() })
-        }
     }
 
     override suspend fun finishMeasuring() {
