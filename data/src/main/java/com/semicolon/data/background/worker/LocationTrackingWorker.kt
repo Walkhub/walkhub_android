@@ -56,14 +56,11 @@ class LocationTrackingWorker @AssistedInject constructor(
         if (checkPermission()) {
             var listener: LocationListener? = null
             listener = LocationListener {
-                if (isStopped) {
-                    locationManager.removeUpdates(listener!!)
-                }
+                if (isStopped) locationManager.removeUpdates(listener!!)
                 val location = LocationRecordEntity(
                     latitude = it.latitude,
                     longitude = it.longitude
                 )
-                println(location)
                 CoroutineScope(Dispatchers.IO).launch {
                     localExerciseDataSource.addLocationRecord(location)
                 }
@@ -102,9 +99,7 @@ class LocationTrackingWorker @AssistedInject constructor(
             .setOngoing(true)
             .build()
         notificationManager.notify(NOTIFICATION_ID, notification)
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
-            ForegroundInfo(NOTIFICATION_ID, notification, FOREGROUND_SERVICE_TYPE_LOCATION)
-        else ForegroundInfo(NOTIFICATION_ID, notification)
+        return ForegroundInfo(NOTIFICATION_ID, notification)
     }
 
     companion object {
