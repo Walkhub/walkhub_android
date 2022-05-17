@@ -26,6 +26,7 @@ import com.semicolon.data.local.entity.level.LevelRoomEntity
 import com.semicolon.data.local.entity.notice.NoticeListRoomEntity
 import com.semicolon.data.local.entity.rank.*
 import com.semicolon.data.local.entity.notification.NotificationRoomEntity
+import com.semicolon.data.local.entity.notification.NotificationStatusRoomEntity
 import com.semicolon.data.local.entity.school.SchoolDetailRoomEntity
 import com.semicolon.data.local.entity.user.*
 
@@ -42,6 +43,7 @@ import com.semicolon.data.local.entity.user.*
         FetchNewBadgesRoomEntity::class,
         FetchUserBadgesRoomEntity::class,
         NoticeListRoomEntity::class,
+        NotificationStatusRoomEntity::class,
         OurSchoolUserRankRoomEntity::class,
         SchoolRankAndSearchRoomEntity::class,
         SearchUserRoomEntity::class,
@@ -69,7 +71,8 @@ import com.semicolon.data.local.entity.user.*
         RankSearchUserTypeConverter::class,
         RankUserRankTypeConverter::class,
         ChallengeParticipantTypeConverter::class,
-        NotificationTypeConverter::class
+        NotificationTypeConverter::class,
+        NotificationStatusListTypeConverter::class
     ]
 
 )
