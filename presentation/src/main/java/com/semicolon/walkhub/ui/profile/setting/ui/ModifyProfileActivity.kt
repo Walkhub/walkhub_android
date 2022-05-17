@@ -70,11 +70,6 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
             profileImage?.let { urlConverter.convert(it) }
         }
 
-        val noButton = DialogView.findViewById<Button>(R.id.no_btn)
-        noButton.setOnClickListener {
-            AlertDialog.dismiss()
-        }
-
         binding.image.setOnClickListener {
             setNormalSingleButton()
         }
@@ -198,12 +193,7 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
     }
 
     private fun setProfileInfo(fetchInfoData: FetchInfoEntity) {
-        fetchInfoData.schoolName.let {
-            binding.mySchoolName.text = "학교에 가입해주세요."
-            if (it != null) {
-                binding.mySchoolName.text
-            }
-        }
+        binding.mySchoolName.text = fetchInfoData.schoolName
         binding.name.text = fetchInfoData.name
         fetchInfoData.classNum.toString().let {
             binding.gradeClass.visible()

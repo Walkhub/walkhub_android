@@ -11,7 +11,7 @@ data class FetchInfoRoomEntity(
     val profileImageUrl: String,
     val schoolName: String,
     val grade: Int,
-    val classNum: Int
+    val classNum: Int,
 )
 
 fun FetchInfoRoomEntity.toEntity() =
@@ -25,17 +25,16 @@ fun FetchInfoRoomEntity.toEntity() =
 
 fun FetchInfoEntity.toDbEntity() =
     profileImageUrl?.let {
-        schoolName?.let {
-            classNum?.let {
-                grade?.let {
-                    FetchInfoRoomEntity(
-                        name = name,
-                        profileImageUrl = profileImageUrl!!,
-                        schoolName = schoolName!!,
-                        grade = grade!!,
-                        classNum = classNum!!
-                    )
-                }
+        classNum?.let {
+            grade?.let {
+                FetchInfoRoomEntity(
+                    name = name,
+                    profileImageUrl = profileImageUrl!!,
+                    schoolName = schoolName,
+                    grade = grade!!,
+                    classNum = classNum!!
+                )
             }
         }
+
     }
