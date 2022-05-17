@@ -34,7 +34,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
         savedInstanceState: Bundle?
     ): View? {
 
-        vm.fetchHomeValue()
+        //vm.fetchHomeValue()
 
 
         repeatOnStarted {

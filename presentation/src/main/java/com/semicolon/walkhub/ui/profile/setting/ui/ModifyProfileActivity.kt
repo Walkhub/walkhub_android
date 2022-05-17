@@ -6,6 +6,11 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.LayoutInflater
+import android.view.MotionEvent
+import android.view.View
+import android.widget.Button
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.core.net.toFile
@@ -65,6 +70,11 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
             profileImage?.let { urlConverter.convert(it) }
         }
 
+        val noButton = DialogView.findViewById<Button>(R.id.no_btn)
+        noButton.setOnClickListener {
+            AlertDialog.dismiss()
+        }
+
         binding.image.setOnClickListener {
             setNormalSingleButton()
         }
@@ -74,10 +84,11 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
                 //학교만 보낼때
                 binding.nameEt.length() < 1 && ivProfile == null && binding.myChangeSchoolName.length() > 1 -> {
                     val name = binding.name.text.toString()
-                    vm.updateProfile(name = name,
-                        profileImage = profileImage?.toUri()?.toFile().toString(),
-                        schoolId = schoolId)
-                    vm.deleteClass()
+                        vm.updateProfile(name = name,
+                            profileImage = profileImage?.toUri()?.toFile().toString(),
+                            schoolId = schoolId)
+                        vm.deleteClass()
+
                 }
                 //이름만 보낼 때
                 binding.nameEt.length() > 1 && ivProfile == null && binding.myChangeSchoolName.length() < 1 -> {
@@ -94,10 +105,10 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
                 //이름, 학교 보낼 때
                 binding.nameEt.length() > 1 && binding.myChangeSchoolName.length() > 1 && ivProfile == null -> {
                     val name = binding.nameEt.text.toString()
-                    vm.updateProfile(name = name,
-                        profileImage = profileImage?.toUri()?.toFile().toString(),
-                        schoolId = schoolId)
-                    vm.deleteClass()
+                        vm.updateProfile(name = name,
+                            profileImage = profileImage?.toUri()?.toFile().toString(),
+                            schoolId = schoolId)
+                        vm.deleteClass()
                 }
                 //이름, 프사 보낼 때
                 binding.nameEt.length() > 1 && binding.myChangeSchoolName.length() < 1 && ivProfile != null -> {
