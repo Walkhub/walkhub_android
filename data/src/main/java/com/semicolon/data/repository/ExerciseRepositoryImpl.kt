@@ -49,22 +49,22 @@ class ExerciseRepositoryImpl @Inject constructor(
                 LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond(),
                 result.exerciseId
             )
+            exerciseBackgroundTask.startRecordLocation()
         } catch (e: Exception) {
             throw e
         }
 
     override suspend fun pauseMeasureExercise() {
+        exerciseBackgroundTask.stopRecordLocation()
         val period = PeriodParam(
             localExerciseDataSource.fetchStartTime(),
             LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond()
         )
         val walkRecord = localExerciseDataSource.fetchWalkRecord(period)
-        val locationRecord = localExerciseDataSource.fetchLocationRecord(period)
         localExerciseDataSource.pauseMeasuring(
             walkRecord.walkCount,
             walkRecord.traveledDistanceAsMeter,
-            walkRecord.burnedKilocalories,
-            locationRecord
+            walkRecord.burnedKilocalories
         )
     }
 
@@ -74,6 +74,7 @@ class ExerciseRepositoryImpl @Inject constructor(
             LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond(),
             exerciseId
         )
+        exerciseBackgroundTask.startRecordLocation()
     }
 
     override suspend fun finishMeasureExercise(finishMeasureExerciseParam: FinishMeasureExerciseParam) {

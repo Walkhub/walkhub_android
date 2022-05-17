@@ -13,6 +13,9 @@ interface LocationRecordDao {
     fun fetchLocationRecords(): List<LocationRecordRoomEntity>
 
     @Insert
+    fun addLocationRecord(locationRecord: LocationRecordRoomEntity)
+
+    @Insert
     fun addLocationRecords(locationRecords: List<LocationRecordRoomEntity>)
 
     @Query("DELETE FROM LocationRecordRoomEntity")
