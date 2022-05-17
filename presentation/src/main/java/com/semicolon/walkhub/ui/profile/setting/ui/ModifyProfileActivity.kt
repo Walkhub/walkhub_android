@@ -6,11 +6,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.View
-import android.widget.Button
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.core.net.toFile
@@ -75,57 +70,7 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
         }
 
         binding.fixDoneBtn.setOnClickListener {
-            when {
-                //학교만 보낼때
-                binding.nameEt.length() < 1 && ivProfile == null && binding.myChangeSchoolName.length() > 1 -> {
-                    val name = binding.name.text.toString()
-                        vm.updateProfile(name = name,
-                            profileImage = profileImage?.toUri()?.toFile().toString(),
-                            schoolId = schoolId)
-                        vm.deleteClass()
-
-                }
-                //이름만 보낼 때
-                binding.nameEt.length() > 1 && ivProfile == null && binding.myChangeSchoolName.length() < 1 -> {
-                    val name = binding.nameEt.text.toString()
-                    vm.updateProfile(name = name,
-                        profileImage = profileImage?.toUri()?.toFile().toString(),
-                        schoolId = oldSchoolId)
-                }
-                //프사만 보낼 때
-                binding.nameEt.length() < 1 && binding.myChangeSchoolName.length() < 1 && ivProfile != null -> {
-                    val name = binding.name.text.toString()
-                    vm.updateProfile(name = name, profileImage = ivProfile, schoolId = oldSchoolId)
-                }
-                //이름, 학교 보낼 때
-                binding.nameEt.length() > 1 && binding.myChangeSchoolName.length() > 1 && ivProfile == null -> {
-                    val name = binding.nameEt.text.toString()
-                        vm.updateProfile(name = name,
-                            profileImage = profileImage?.toUri()?.toFile().toString(),
-                            schoolId = schoolId)
-                        vm.deleteClass()
-                }
-                //이름, 프사 보낼 때
-                binding.nameEt.length() > 1 && binding.myChangeSchoolName.length() < 1 && ivProfile != null -> {
-                    val name = binding.nameEt.text.toString()
-                    vm.updateProfile(name = name, profileImage = ivProfile, schoolId = oldSchoolId)
-                }
-                //학교, 프사 보낼 때
-                binding.nameEt.length() < 1 && binding.myChangeSchoolName.length() > 1 && ivProfile != null -> {
-                    val name = binding.name.text.toString()
-                    vm.updateProfile(name = name, profileImage = ivProfile, schoolId = schoolId)
-                    vm.deleteClass()
-                }
-                //모두 보낼 때
-                binding.nameEt.length() > 1 && binding.myChangeSchoolName.length() > 1 && ivProfile != null -> {
-                    val name = binding.nameEt.text.toString()
-                    val schoolId: Long = schoolId
-                    val ivProfile2: String = ivProfile
-
-                    vm.updateProfile(name = name, schoolId = schoolId, profileImage = ivProfile2)
-                    vm.deleteClass()
-                }
-            }
+            patchProfileInfo()
         }
 
         btnBackFalse()
@@ -274,6 +219,60 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
             }
             else -> {
                 btnBackFalse()
+            }
+        }
+    }
+
+    private fun patchProfileInfo() {
+        when {
+            //학교만 보낼때
+            binding.nameEt.length() < 1 && ivProfile == null && binding.myChangeSchoolName.length() > 1 -> {
+                val name = binding.name.text.toString()
+                vm.updateProfile(name = name,
+                    profileImage = profileImage?.toUri()?.toFile().toString(),
+                    schoolId = schoolId)
+                vm.deleteClass()
+
+            }
+            //이름만 보낼 때
+            binding.nameEt.length() > 1 && ivProfile == null && binding.myChangeSchoolName.length() < 1 -> {
+                val name = binding.nameEt.text.toString()
+                vm.updateProfile(name = name,
+                    profileImage = profileImage?.toUri()?.toFile().toString(),
+                    schoolId = oldSchoolId)
+            }
+            //프사만 보낼 때
+            binding.nameEt.length() < 1 && binding.myChangeSchoolName.length() < 1 && ivProfile != null -> {
+                val name = binding.name.text.toString()
+                vm.updateProfile(name = name, profileImage = ivProfile, schoolId = oldSchoolId)
+            }
+            //이름, 학교 보낼 때
+            binding.nameEt.length() > 1 && binding.myChangeSchoolName.length() > 1 && ivProfile == null -> {
+                val name = binding.nameEt.text.toString()
+                vm.updateProfile(name = name,
+                    profileImage = profileImage?.toUri()?.toFile().toString(),
+                    schoolId = schoolId)
+                vm.deleteClass()
+            }
+            //이름, 프사 보낼 때
+            binding.nameEt.length() > 1 && binding.myChangeSchoolName.length() < 1 && ivProfile != null -> {
+                val name = binding.nameEt.text.toString()
+                vm.updateProfile(name = name, profileImage = ivProfile, schoolId = oldSchoolId)
+            }
+            //학교, 프사 보낼 때
+            binding.nameEt.length() < 1 && binding.myChangeSchoolName.length() > 1 && ivProfile != null -> {
+                val name = binding.name.text.toString()
+                vm.updateProfile(name = name, profileImage = ivProfile, schoolId = schoolId)
+                vm.deleteClass()
+            }
+            //모두 보낼 때
+            binding.nameEt.length() > 1 && binding.myChangeSchoolName.length() > 1 && ivProfile != null -> {
+                val name = binding.nameEt.text.toString()
+                val schoolId: Long = schoolId
+                val ivProfile2: String = ivProfile
+
+                vm.updateProfile(name = name, schoolId = schoolId, profileImage = ivProfile2)
+                vm.deleteClass()
             }
         }
     }
