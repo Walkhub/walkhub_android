@@ -120,7 +120,7 @@
 
         <service
             android:name="androidx.work.impl.foreground.SystemForegroundService"
-            android:foregroundServiceType="location|microphone"
+            android:foregroundServiceType="location"
             tools:node="merge" />
 
         <provider
