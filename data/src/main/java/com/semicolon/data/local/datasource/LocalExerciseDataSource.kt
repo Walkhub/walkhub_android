@@ -51,4 +51,6 @@ interface LocalExerciseDataSource {
     suspend fun setGoal(goalEntity: GoalEntity)
 
     suspend fun fetchGoal(): GoalEntity
+
+    suspend fun addLocationRecord(locationRecordEntity: LocationRecordEntity)
 }

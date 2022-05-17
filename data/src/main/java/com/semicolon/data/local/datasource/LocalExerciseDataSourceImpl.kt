@@ -157,4 +157,6 @@ class LocalExerciseDataSourceImpl @Inject constructor(
     override suspend fun fetchGoal(): GoalEntity =
         exerciseInfoDataStorage.fetchGoal()
 
+    override suspend fun addLocationRecord(locationRecordEntity: LocationRecordEntity) =
+        locationRecordDao.addLocationRecord(locationRecordEntity.toRoomEntity())
 }
