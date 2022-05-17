@@ -56,6 +56,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
     private fun handleEvent(event: ProfileViewModel.Event) = when (event) {
         is ProfileViewModel.Event.FetchMyPage -> {
             setProfileValue(event.myPageData)
+            schoolId = event.myPageData.schoolId
         }
 
         is ProfileViewModel.Event.FetchHome -> {

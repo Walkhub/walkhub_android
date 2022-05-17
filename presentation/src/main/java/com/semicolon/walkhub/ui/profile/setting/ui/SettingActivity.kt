@@ -24,9 +24,13 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>(
 
     private var profile: String = ""
     private var school: Long = 0
+    private var schoolId by Delegates.notNull<Long>()
 
     override fun onCreate(savedInstanceState: android.os.Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+        schoolId = intent.getLongExtra("school_id", school)
 
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
@@ -53,8 +57,7 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>(
         }
         binding.modifyProfileInfo.setOnClickListener {
             val intent = Intent(context, ModifyProfileActivity::class.java)
-            val profileImage = intent.getStringExtra("profile_image").toString()
-            val schoolId = intent.getLongExtra("school_id", school)
+            val profileImage = intent.getStringExtra("profile_image")
             intent.putExtra("profile_image", profileImage)
             intent.putExtra("school_id", schoolId)
             startActivity(intent)
