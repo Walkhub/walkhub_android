@@ -105,11 +105,12 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
 
         temp = intent.getBooleanExtra("next", temp)
         if (temp) {
+
             schoolId = intent.getLongExtra("data", schoolId)
             school = intent.getStringExtra("school").toString()
             binding.myChangeSchoolName.text = school
             schoolDesign()
-            doneBtnEvent()
+            btnBackTrue()
             return
 
         }
@@ -176,8 +177,10 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
             override fun afterTextChanged(p0: Editable?) {
                 if (binding.nameEt.text.isEmpty()) {
                     binding.name.visible()
+                } else if (binding.nameEt.length() > 1) {
+                    btnBackTrue()
                 }
-                doneBtnEvent()
+
             }
 
         })
@@ -209,21 +212,8 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
         binding.fixDoneBtn.isClickable = false
     }
 
-    private fun doneBtnEvent() {
-        when {
-            binding.myChangeSchoolName.length() > 1 -> {
-                btnBackTrue()
-            }
-            binding.nameEt.length() > 1 -> {
-                btnBackTrue()
-            }
-            else -> {
-                btnBackFalse()
-            }
-        }
-    }
-
     private fun patchProfileInfo() {
+        val dialog: CustomDialog
         when {
             //학교만 보낼때
             binding.nameEt.length() < 1 && ivProfile == null && binding.myChangeSchoolName.length() > 1 -> {
@@ -262,6 +252,7 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
             //학교, 프사 보낼 때
             binding.nameEt.length() < 1 && binding.myChangeSchoolName.length() > 1 && ivProfile != null -> {
                 val name = binding.name.text.toString()
+
                 vm.updateProfile(name = name, profileImage = ivProfile, schoolId = schoolId)
                 vm.deleteClass()
             }
@@ -274,7 +265,8 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
                 vm.updateProfile(name = name, schoolId = schoolId, profileImage = ivProfile2)
                 vm.deleteClass()
             }
+
+
         }
     }
-
 }
