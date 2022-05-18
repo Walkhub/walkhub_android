@@ -1,10 +1,9 @@
 package com.semicolon.data.local.entity.notification
 
-import androidx.lifecycle.Transformations.map
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.semicolon.domain.entity.notification.NotificationEntity
 import com.semicolon.domain.entity.notification.NotificationStatusEntity
+import com.semicolon.domain.enums.NotificationType
 
 @Entity(tableName = "notificationStatus")
 data class NotificationStatusRoomEntity(
@@ -13,7 +12,7 @@ data class NotificationStatusRoomEntity(
 )  {
     data class TopicWhether(
         val isSubscribe: Boolean,
-        val title: String,
+        val title: NotificationType,
         val topicId: Int
     )
 
