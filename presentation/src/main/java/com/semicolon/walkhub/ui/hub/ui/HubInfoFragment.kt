@@ -14,6 +14,7 @@ import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.base.BaseFragment
 import com.semicolon.walkhub.ui.hub.adapter.HubInfoNoticeRvAdapter
 import com.semicolon.walkhub.ui.hub.model.HubInfoNoticeRvData
+import com.semicolon.walkhub.util.HubIntentKey
 import com.semicolon.walkhub.ui.hub.model.toRvData
 import com.semicolon.walkhub.util.setRankImage
 import com.semicolon.walkhub.viewmodel.hub.HubInfoViewModel
@@ -34,7 +35,7 @@ class HubInfoFragment : BaseFragment<FragmentHubInfoBinding>(
         savedInstanceState: Bundle?
     ): View? {
 
-        val schoolId = activity?.intent?.getIntExtra("schoolId", 0)!!
+        val schoolId = activity?.intent?.getIntExtra(HubIntentKey.SCHOOL_ID.key, 0)!!
 
         vm.fetchNoticeList(NoticeType.SCHOOL)
         vm.fetchSchoolDetail(schoolId)
@@ -75,18 +76,26 @@ class HubInfoFragment : BaseFragment<FragmentHubInfoBinding>(
     private fun setHubInfo(data: SchoolDetailEntity) {
         binding.run {
             data.week.run {
+                val weekRankText = "$ranking 등"
+                val weekUserCountText = "$totalUserCount 명"
+                val weekWalkCountText ="$totalWalkCount 걸음"
+
                 tvWeekDate.text = date
-                tvWeekRank.text = ranking.toString() + " 등"
-                tvWeekUserCount.text = totalUserCount.toString() + " 명"
-                tvWeekWalkCount.text = totalWalkCount.toString() + " 걸음"
+                tvWeekRank.text = weekRankText
+                tvWeekUserCount.text = weekUserCountText
+                tvWeekWalkCount.text = weekWalkCountText
                 ranking?.let { ivWeekRank.setRankImage(it) }
 
             }
             data.month.run {
+                val monthRankText = "$ranking 등"
+                val monthUserCountText = "$totalUserCount 명"
+                val monthWalkCountText ="$totalWalkCount 걸음"
+
                 tvMonthDate.text = date
-                tvMonthRank.text = ranking.toString() + " 등"
-                tvMonthUserCount.text = totalUserCount.toString() + " 명"
-                tvMonthWalkCount.text = totalWalkCount.toString() + " 걸음"
+                tvMonthRank.text = monthRankText
+                tvMonthUserCount.text = monthUserCountText
+                tvMonthWalkCount.text = monthWalkCountText
                 ranking?.let { ivWeekRank.setRankImage(it) }
             }
         }
