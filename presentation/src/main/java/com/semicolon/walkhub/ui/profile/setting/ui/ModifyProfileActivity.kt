@@ -73,13 +73,15 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
             patchProfileInfo()
         }
 
-        btnBackFalse()
-
-
-
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        name = intent.getStringExtra("name").toString()
+        ivProfile = intent.getStringExtra("profile").toString()
     }
 
     private fun handleEvent(event: ModifyProfileViewModel.Event) = when (event) {
@@ -125,7 +127,10 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
         }
 
         binding.view3.setOnClickListener {
-            val intent = Intent(context, SettingSearchSchoolActivity::class.java)
+            val intent = Intent(context, SettingSearchSchoolActivity::class.java).apply {
+                putExtra("name", name)
+                putExtra("profile", ivProfile)
+            }
             startActivity(intent)
         }
     }
