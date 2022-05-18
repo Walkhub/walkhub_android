@@ -67,8 +67,8 @@ class HttpHandler<T> {
             throw TimeoutException()
         } catch (e: NeedLoginException) {
             throw e
-        } catch (e: ImageConverterException) {
-            throw e
+        } catch (e: KotlinNullPointerException) {
+            Unit as T
         } catch (e: Throwable) {
             throw UnknownException()
         }
