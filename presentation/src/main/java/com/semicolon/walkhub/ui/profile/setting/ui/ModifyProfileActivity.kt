@@ -90,6 +90,11 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
         is ModifyProfileViewModel.Event.ErrorMessage -> {
             showShortToast(event.message)
         }
+
+        is ModifyProfileViewModel.Event.Success -> {
+            showShortToast("프로필 수정을 완료하였습니다!")
+            finish()
+        }
     }
 
     override fun onResume() {
@@ -213,7 +218,6 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
     }
 
     private fun patchProfileInfo() {
-        val dialog: CustomDialog
         when {
             //학교만 보낼때
             binding.nameEt.length() < 1 && ivProfile == null && binding.myChangeSchoolName.length() > 1 -> {
