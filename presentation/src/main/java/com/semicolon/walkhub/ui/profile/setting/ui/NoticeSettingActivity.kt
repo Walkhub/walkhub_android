@@ -27,12 +27,18 @@ class NoticeSettingActivity : BaseActivity<ActivityNoticeSettingBinding>(
 
     var data: Int = 0
 
+    private var noticeToggleState = ToggleState.TOGGLE_OFF
+    private var expirationToggleState = ToggleState.TOGGLE_OFF
+    private var successToggleState = ToggleState.TOGGLE_OFF
+    private var challengeToggleState = ToggleState.TOGGLE_OFF
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         switch()
         data = intent.getIntExtra("user_id", data)
 
         vm.notificationStatus()
+
 
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
@@ -41,7 +47,40 @@ class NoticeSettingActivity : BaseActivity<ActivityNoticeSettingBinding>(
 
     private fun handleEvent(event: NoticeSettingViewModel.Event) = when (event) {
         is NoticeSettingViewModel.Event.WhetherNotification -> {
-            showShortToast(event.notificationStatusEntity.toString())
+            val data = event.notificationStatusEntity
+
+            for(topicWhether in data.topicWhetherList) {
+                when(topicWhether.title){
+                    NotificationType.NOTICE -> {
+                        noticeToggleState = if(topicWhether.isSubscribe) {
+                            ToggleState.TOGGLE_ON
+                        } else {
+                            ToggleState.TOGGLE_OFF
+                        }
+                    }
+                    NotificationType.CHALLENGE_EXPIRATION -> {
+                        expirationToggleState = if(topicWhether.isSubscribe) {
+                            ToggleState.TOGGLE_ON
+                        } else {
+                            ToggleState.TOGGLE_OFF
+                        }
+                    }
+                    NotificationType.CHALLENGE_SUCCESS -> {
+                        successToggleState = if(topicWhether.isSubscribe) {
+                            ToggleState.TOGGLE_ON
+                        } else {
+                            ToggleState.TOGGLE_OFF
+                        }
+                    }
+                    NotificationType.CHALLENGE -> {
+                        challengeToggleState = if(topicWhether.isSubscribe) {
+                            ToggleState.TOGGLE_ON
+                        } else {
+                            ToggleState.TOGGLE_OFF
+                        }
+                    }
+                }
+            }
         }
 
         is NoticeSettingViewModel.Event.ErrorMessage -> {
@@ -76,21 +115,21 @@ class NoticeSettingActivity : BaseActivity<ActivityNoticeSettingBinding>(
 
     private fun switch() {
         binding.cheerupSwt.setToggleSwitch(
-            onToggleOn = { },
-            onToggleOff = { },
+            onToggleOn = {},
+            onToggleOff = {},
             defaultState = ToggleState.TOGGLE_ON
         )
 
         binding.noticeSwt.setToggleSwitch(
             onToggleOn = { vm.patchSwitchOn(userId = data, type = NotificationType.NOTICE) },
             onToggleOff = { vm.patchSwitchOff(userId = data, type = NotificationType.NOTICE) },
-            defaultState = ToggleState.TOGGLE_OFF
+            defaultState = noticeToggleState
         )
 
         binding.recommendSwt.setToggleSwitch(
             onToggleOn = { vm.patchSwitchOn(userId = data, type = NotificationType.CHALLENGE) },
             onToggleOff = { vm.patchSwitchOff(userId = data, type = NotificationType.CHALLENGE) },
-            defaultState = ToggleState.TOGGLE_ON
+            defaultState = challengeToggleState
         )
         binding.challengeGoalSwt.setToggleSwitch(
             onToggleOn = {
@@ -103,7 +142,7 @@ class NoticeSettingActivity : BaseActivity<ActivityNoticeSettingBinding>(
                 vm.patchSwitchOff(userId = data,
                     type = NotificationType.CHALLENGE_SUCCESS)
             },
-            defaultState = ToggleState.TOGGLE_OFF
+            defaultState = successToggleState
         )
         binding.challengeEndSwt.setToggleSwitch(
             onToggleOn = {
@@ -116,7 +155,7 @@ class NoticeSettingActivity : BaseActivity<ActivityNoticeSettingBinding>(
                 vm.patchSwitchOff(userId = data,
                     type = NotificationType.CHALLENGE_EXPIRATION)
             },
-            defaultState = ToggleState.TOGGLE_OFF
+            defaultState = expirationToggleState
         )
     }
 }
