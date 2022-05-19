@@ -55,6 +55,8 @@ class ModifyProfileViewModel @Inject constructor(
                     is KotlinNullPointerException -> event(Event.Success)
                     else -> event(Event.ErrorMessage("에러가 발생했습니다."))
                 }
+            }.onSuccess {
+                event(Event.Success)
             }
         }
     }
