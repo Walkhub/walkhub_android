@@ -1,15 +1,12 @@
 package com.semicolon.walkhub.ui.hub.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.semicolon.walkhub.databinding.ItemHubSearchUserBinding
-import com.semicolon.walkhub.databinding.ItemHubUserRankBinding
 import com.semicolon.walkhub.ui.hub.model.SearchUserData
 import com.semicolon.walkhub.util.loadFromUrl
 import kotlin.collections.ArrayList
-import kotlin.math.log
 
 class HubSearchUserRvAdapter(
     private val dataList: ArrayList<SearchUserData.UserInfo>

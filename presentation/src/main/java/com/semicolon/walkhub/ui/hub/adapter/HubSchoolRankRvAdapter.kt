@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gun0912.tedpermission.provider.TedPermissionProvider.context
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.HubSchoolRankViewBinding
+import com.semicolon.walkhub.util.HubIntentKey
 import com.semicolon.walkhub.ui.hub.model.HubSchoolRankData.OtherSchool
 import com.semicolon.walkhub.ui.hub.ui.HubSchoolActivity
 import com.semicolon.walkhub.util.loadFromUrl
@@ -32,11 +33,12 @@ class HubSchoolRankRvAdapter(
         fun bind(item: OtherSchool) {
 
             itemView.setOnClickListener {
-                val intent = Intent(context, HubSchoolActivity::class.java)
-                intent.putExtra("type", false)
-                intent.putExtra("name", item.schoolName)
-                intent.putExtra("schoolId", item.schoolId)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                val intent = Intent(context, HubSchoolActivity::class.java).apply {
+                    putExtra(HubIntentKey.SCHOOL_TYPE.key, false)
+                    putExtra(HubIntentKey.SCHOOL_NAME.key, item.schoolName)
+                    putExtra(HubIntentKey.SCHOOL_ID.key, item.schoolId)
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                }
                 context.startActivity(intent)
             }
 
@@ -50,8 +52,9 @@ class HubSchoolRankRvAdapter(
             }
 
             val tvWalkCountText = "총 ${item.walkCount} 걸음 / 총 ${item.userCount} 명"
-            binding.tvWalkCount.text = tvWalkCountText
             val rankingText = "${item.ranking}등"
+
+            binding.tvWalkCount.text = tvWalkCountText
             binding.tvRate.text = rankingText
 
             when (item.ranking) {
