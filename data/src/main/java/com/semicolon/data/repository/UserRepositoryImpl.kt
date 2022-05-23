@@ -20,19 +20,19 @@ import kotlin.coroutines.suspendCoroutine
 class UserRepositoryImpl @Inject constructor(
     private val remoteImagesDataSource: RemoteImagesDataSource,
     private val localUserDataSource: LocalUserDataSource,
-    private val remoteUserDateSource: RemoteUserDataSource
+    private val remoteUserDateSource: RemoteUserDataSource,
 ) : UserRepository {
 
     override suspend fun verifyUserPhoneNumber(
-        verifyPhoneNumberSignUpParam: VerifyPhoneNumberSignUpParam
+        verifyPhoneNumberSignUpParam: VerifyPhoneNumberSignUpParam,
     ) = remoteUserDateSource.verifyUserPhoneNumber(verifyPhoneNumberSignUpParam)
 
     override suspend fun checkPhoneNumber(
-        checkPhoneNumberParam: CheckPhoneNumberParam
+        checkPhoneNumberParam: CheckPhoneNumberParam,
     ) = remoteUserDateSource.checkPhoneNumber(checkPhoneNumberParam)
 
     override suspend fun postUserSignUp(
-        postUserSignUpParam: PostUserSignUpParam
+        postUserSignUpParam: PostUserSignUpParam,
     ) {
         val postUserSignInParam = PostUserSignInParam(
             accountId = postUserSignUpParam.accountId,
@@ -54,7 +54,7 @@ class UserRepositoryImpl @Inject constructor(
     }
 
     override suspend fun postUserSignIn(
-        postUserSignInParam: PostUserSignInParam
+        postUserSignInParam: PostUserSignInParam,
     ) {
         val token = suspendCoroutine<String> {
             FirebaseMessaging.getInstance().token.addOnSuccessListener { token -> it.resume(token) }
@@ -65,7 +65,7 @@ class UserRepositoryImpl @Inject constructor(
     }
 
     override suspend fun patchUserChangePassword(
-        patchUserChangePasswordParam: PatchUserChangePasswordParam
+        patchUserChangePasswordParam: PatchUserChangePasswordParam,
     ) = remoteUserDateSource.patchUserChangePassword(patchUserChangePasswordParam.toRequest())
 
     override suspend fun fetchMyPage(): Flow<UserMyPageEntity> =
@@ -75,11 +75,14 @@ class UserRepositoryImpl @Inject constructor(
             .doOnNeedRefresh { localUserDataSource.insertUserMyPage(it) }
             .createFlow()
 
-    override suspend fun updateProfile(updateProfileParam: UpdateProfileParam) =
+    override suspend fun updateProfile(updateProfileParam: UpdateProfileParam) {
+        val profileImageUrl = updateProfileParam.profileImage?.let {
+            remoteImagesDataSource.postImages(listOf(it.toMultipart())).imageUrl[0]
+        } ?: ""
         remoteUserDateSource.updateProfile(
-            updateProfileParam.toRequest(updateProfileParam.profileImage)
+            updateProfileParam.toRequest(profileImageUrl)
         )
-
+    }
 
     override suspend fun findUserAccount(phoneNumber: String): Flow<FindUserAccountEntity> =
         flow {
@@ -177,7 +180,7 @@ class UserRepositoryImpl @Inject constructor(
     private suspend fun saveTokenSignUp(
         accessToken: String,
         refreshToken: String,
-        expiredAt: String
+        expiredAt: String,
     ) {
         localUserDataSource.apply {
             setAccessToken(accessToken)

@@ -17,7 +17,7 @@ import kotlin.coroutines.suspendCoroutine
 
 class UrlConverter @Inject constructor(@ApplicationContext private val context: Context) {
 
-    suspend fun convert(url: String): File {
+    suspend fun convert(url: String): File? {
         return suspendCoroutine {
             GlideApp.with(context)
                 .asBitmap()
@@ -36,11 +36,11 @@ class UrlConverter @Inject constructor(@ApplicationContext private val context: 
                     }
 
                     override fun onLoadFailed(errorDrawable: Drawable?) {
-                        it.resumeWithException(ImageConverterException())
+                        it.resume(null)
                     }
 
                     override fun onLoadCleared(placeholder: Drawable?) {
-                        it.resumeWithException(ImageConverterException())
+                        it.resume(null)
                     }
                 })
         }
