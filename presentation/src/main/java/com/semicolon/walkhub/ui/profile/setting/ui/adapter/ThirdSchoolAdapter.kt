@@ -22,10 +22,11 @@ class ThirdSchoolAdapter(
         holder.itemView.tag = position
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(holder.itemView?.context, ModifyProfileActivity::class.java)
+            val intent = Intent(holder.itemView.context, ModifyProfileActivity::class.java)
             intent.putExtra("data", id)
             intent.putExtra("school", school)
             intent.putExtra("next", true)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             ContextCompat.startActivity(holder.itemView.context, intent, null)
         }
 
