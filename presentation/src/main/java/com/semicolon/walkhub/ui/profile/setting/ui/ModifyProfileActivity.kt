@@ -6,11 +6,9 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.core.net.toFile
-import androidx.core.net.toUri
 import com.bumptech.glide.Glide
 import com.gun0912.tedpermission.provider.TedPermissionProvider.context
 import com.semicolon.domain.entity.users.FetchInfoEntity
@@ -23,7 +21,6 @@ import com.semicolon.walkhub.ui.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import com.semicolon.walkhub.util.invisible
 import com.semicolon.walkhub.util.loadCircleFromUrl
-import com.semicolon.walkhub.util.toRealPath
 import com.semicolon.walkhub.util.visible
 import com.semicolon.walkhub.viewmodel.profile.setting.ModifyProfileViewModel
 import gun0912.tedimagepicker.builder.TedImagePicker
@@ -52,10 +49,6 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
 
     private var temp = false
 
-    private var change = false
-
-    private var ivProfile: String = ""
-
     @Inject
     lateinit var urlConverter: UrlConverter
 
@@ -79,6 +72,8 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
             patchProfileInfo()
         }
 
+
+
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
         }
@@ -88,7 +83,6 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
         super.onStart()
 
         name = intent.getStringExtra("name").toString()
-        ivProfile = intent.getStringExtra("profile").toString()
     }
 
     private fun handleEvent(event: ModifyProfileViewModel.Event) = when (event) {
@@ -108,10 +102,6 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
 
     override fun onResume() {
         super.onResume()
-
-        if (ivProfile != "null") {
-            btnBackTrue()
-        }
 
         setTextWatcher()
     }
@@ -140,7 +130,6 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
         binding.view3.setOnClickListener {
             val intent = Intent(context, SettingSearchSchoolActivity::class.java).apply {
                 putExtra("name", name)
-                putExtra("profile", ivProfile)
                 putExtra("image", profileImage)
             }
             startActivity(intent)
@@ -160,8 +149,6 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
         Glide.with(this).load(uri).into(binding.image)
 
         suspend { fetchImage(context).let { uri.toFile().toString() } }
-
-        ivProfile = uri.toString()
     }
 
     private fun setProfileInfo(fetchInfoData: FetchInfoEntity) {
@@ -239,15 +226,18 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
     }
 
     private fun patchProfileInfo() {
-        val dialog = CustomDialog()
         when {
             //학교만 보낼때
             binding.nameEt.length() < 1 && profileImage == null && binding.myChangeSchoolName.length() > 1 -> {
                 val name = binding.name.text.toString()
-                vm.updateProfile(name = name,
-                    profileImage = profileImage,
-                    schoolId = schoolId)
-                vm.deleteClass()
+
+                SchoolDialog(this, onYesClick = {
+                    vm.updateProfile(name = name,
+                        profileImage = profileImage,
+                        schoolId = schoolId)
+                    vm.deleteClass()
+                }).callDialog()
+
                 showShortToast("학교")
             }
             //이름만 보낼 때
@@ -266,10 +256,12 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
             //이름, 학교 보낼 때
             binding.nameEt.length() > 1 && binding.myChangeSchoolName.length() > 1 && profileImage == null -> {
                 val name = binding.nameEt.text.toString()
-                vm.updateProfile(name = name,
-                    profileImage = profileImage,
-                    schoolId = schoolId)
-                vm.deleteClass()
+                SchoolDialog(this, onYesClick = {
+                    vm.updateProfile(name = name,
+                        profileImage = profileImage,
+                        schoolId = schoolId)
+                    vm.deleteClass()
+                }).callDialog()
                 showShortToast("이름, 학교")
             }
             //이름, 프사 보낼 때
@@ -281,19 +273,22 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
             //학교, 프사 보낼 때
             binding.nameEt.length() < 1 && binding.myChangeSchoolName.length() > 1 && profileImage != null -> {
                 val name = binding.name.text.toString()
+                SchoolDialog(this, onYesClick = {
+                    vm.updateProfile(name = name, profileImage = profileImage, schoolId = schoolId)
+                    vm.deleteClass()
+                }).callDialog()
 
-                vm.updateProfile(name = name, profileImage = profileImage, schoolId = schoolId)
-                vm.deleteClass()
                 showShortToast("학교, 프사")
             }
             //모두 보낼 때
             binding.nameEt.length() > 1 && binding.myChangeSchoolName.length() > 1 && profileImage != null -> {
                 val name = binding.nameEt.text.toString()
                 val schoolId: Long = schoolId
-                val ivProfile2: String = ivProfile
+                SchoolDialog(this, onYesClick = {
+                    vm.updateProfile(name = name, schoolId = schoolId, profileImage = profileImage)
+                    vm.deleteClass()
+                }).callDialog()
 
-                vm.updateProfile(name = name, schoolId = schoolId, profileImage = profileImage)
-                vm.deleteClass()
                 showShortToast("모두 보냄")
             }
 
