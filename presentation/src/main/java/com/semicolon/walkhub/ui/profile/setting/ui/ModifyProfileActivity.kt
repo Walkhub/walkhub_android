@@ -45,6 +45,8 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
 
     private var profileImage: File? = null
 
+    private var ivProfile: File? = null
+
     private var oldSchoolId: Long = 0
 
     private var temp = false
@@ -141,7 +143,7 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
             .mediaType(MediaType.IMAGE)
             .start { uri ->
                 showSingleImage(uri)
-                profileImage = uri.toFile()
+                ivProfile = uri.toFile()
             }
     }
 
@@ -226,6 +228,7 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
     }
 
     private fun patchProfileInfo() {
+
         when {
             //학교만 보낼때
             binding.nameEt.length() < 1 && profileImage == null && binding.myChangeSchoolName.length() > 1 -> {
@@ -250,14 +253,15 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
             //프사만 보낼 때
             binding.nameEt.length() < 1 && binding.myChangeSchoolName.length() < 1 && profileImage != null -> {
                 val name = binding.name.text.toString()
-                vm.updateProfile(name = name, profileImage = profileImage, schoolId = oldSchoolId)
+                vm.updateProfile(name = name, profileImage = ivProfile, schoolId = oldSchoolId)
                 showShortToast("프사")
             }
             //이름, 학교 보낼 때
             binding.nameEt.length() > 1 && binding.myChangeSchoolName.length() > 1 && profileImage == null -> {
                 val name = binding.nameEt.text.toString()
                 SchoolDialog(this, onYesClick = {
-                    vm.updateProfile(name = name,
+                    vm.updateProfile(
+                        name = name,
                         profileImage = profileImage,
                         schoolId = schoolId)
                     vm.deleteClass()
@@ -267,14 +271,14 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
             //이름, 프사 보낼 때
             binding.nameEt.length() > 1 && binding.myChangeSchoolName.length() < 1 && profileImage != null -> {
                 val name = binding.nameEt.text.toString()
-                vm.updateProfile(name = name, profileImage = profileImage, schoolId = oldSchoolId)
+                vm.updateProfile(name = name, profileImage = ivProfile, schoolId = oldSchoolId)
                 showShortToast("이름, 프사")
             }
             //학교, 프사 보낼 때
             binding.nameEt.length() < 1 && binding.myChangeSchoolName.length() > 1 && profileImage != null -> {
                 val name = binding.name.text.toString()
                 SchoolDialog(this, onYesClick = {
-                    vm.updateProfile(name = name, profileImage = profileImage, schoolId = schoolId)
+                    vm.updateProfile(name = name, profileImage = ivProfile, schoolId = schoolId)
                     vm.deleteClass()
                 }).callDialog()
 
@@ -285,7 +289,7 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
                 val name = binding.nameEt.text.toString()
                 val schoolId: Long = schoolId
                 SchoolDialog(this, onYesClick = {
-                    vm.updateProfile(name = name, schoolId = schoolId, profileImage = profileImage)
+                    vm.updateProfile(name = name, schoolId = schoolId, profileImage = ivProfile)
                     vm.deleteClass()
                 }).callDialog()
 
