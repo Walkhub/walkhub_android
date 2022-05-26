@@ -150,7 +150,7 @@ class FitnessDataStorageImpl @Inject constructor(
                     WalkRecordEntity(
                         traveledDistanceAsMeter = distance,
                         walkCount = steps,
-                        burnedKilocalories = calories / 1000
+                        burnedKilocalories = calories
                     )
                 )
             }
