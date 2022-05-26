@@ -41,7 +41,6 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
     var data: Int = 0
     var schoolName: String = ""
     var school: String = ""
-    var name: String = ""
 
     private var profileImage: File? = null
 
@@ -64,6 +63,7 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
                 UrlConverter(applicationContext).convert(it)
             }
         }
+        println("onCreate")
         oldSchoolId = intent.getLongExtra("school_id", oldSchoolId)
 
         binding.image.setOnClickListener {
@@ -74,17 +74,10 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
             patchProfileInfo()
         }
 
-
-
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
         }
-    }
 
-    override fun onStart() {
-        super.onStart()
-
-        name = intent.getStringExtra("name").toString()
     }
 
     private fun handleEvent(event: ModifyProfileViewModel.Event) = when (event) {
@@ -125,15 +118,8 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
 
         }
 
-        binding.back.setOnClickListener {
-            finish()
-        }
-
         binding.view3.setOnClickListener {
-            val intent = Intent(context, SettingSearchSchoolActivity::class.java).apply {
-                putExtra("name", name)
-                putExtra("image", profileImage)
-            }
+            val intent = Intent(context, SettingSearchSchoolActivity::class.java)
             startActivity(intent)
         }
     }
@@ -149,7 +135,6 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
 
     private fun showSingleImage(uri: Uri) {
         Glide.with(this).load(uri).into(binding.image)
-
         suspend { fetchImage(context).let { uri.toFile().toString() } }
     }
 
@@ -161,7 +146,10 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
             binding.classes.invisible()
             binding.textClass.invisible()
             if (it != null) {
-                binding.classes.text
+                binding.classes.text = fetchInfoData.classNum.toString()
+                binding.gradeClass.invisible()
+                binding.classes.visible()
+                binding.textClass.visible()
             }
 
         }
@@ -170,11 +158,14 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
                 binding.image.loadCircleFromUrl(it)
             }
         }
+
         fetchInfoData.grade.toString().let {
             binding.textGrade.invisible()
             binding.grade.invisible()
             if (it != null) {
-                binding.grade.text
+                binding.grade.text = fetchInfoData.grade.toString()
+                binding.grade.visible()
+                binding.textGrade.visible()
             }
         }
     }
@@ -195,7 +186,6 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
                 } else if (binding.nameEt.length() > 1) {
                     btnBackTrue()
                 }
-
             }
 
         })
@@ -236,12 +226,10 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
 
                 SchoolDialog(this, onYesClick = {
                     vm.updateProfile(name = name,
-                        profileImage = profileImage,
+                        profileImage = ivProfile,
                         schoolId = schoolId)
                     vm.deleteClass()
                 }).callDialog()
-
-                showShortToast("학교")
             }
             //이름만 보낼 때
             binding.nameEt.length() > 1 && profileImage == null && binding.myChangeSchoolName.length() < 1 -> {
@@ -254,7 +242,6 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
             binding.nameEt.length() < 1 && binding.myChangeSchoolName.length() < 1 && profileImage != null -> {
                 val name = binding.name.text.toString()
                 vm.updateProfile(name = name, profileImage = ivProfile, schoolId = oldSchoolId)
-                showShortToast("프사")
             }
             //이름, 학교 보낼 때
             binding.nameEt.length() > 1 && binding.myChangeSchoolName.length() > 1 && profileImage == null -> {
@@ -262,17 +249,15 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
                 SchoolDialog(this, onYesClick = {
                     vm.updateProfile(
                         name = name,
-                        profileImage = profileImage,
+                        profileImage = ivProfile,
                         schoolId = schoolId)
                     vm.deleteClass()
                 }).callDialog()
-                showShortToast("이름, 학교")
             }
             //이름, 프사 보낼 때
             binding.nameEt.length() > 1 && binding.myChangeSchoolName.length() < 1 && profileImage != null -> {
                 val name = binding.nameEt.text.toString()
-                vm.updateProfile(name = name, profileImage = ivProfile, schoolId = oldSchoolId)
-                showShortToast("이름, 프사")
+                vm.updateProfile(name = name, profileImage = profileImage, schoolId = oldSchoolId)
             }
             //학교, 프사 보낼 때
             binding.nameEt.length() < 1 && binding.myChangeSchoolName.length() > 1 && profileImage != null -> {
@@ -281,8 +266,6 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
                     vm.updateProfile(name = name, profileImage = ivProfile, schoolId = schoolId)
                     vm.deleteClass()
                 }).callDialog()
-
-                showShortToast("학교, 프사")
             }
             //모두 보낼 때
             binding.nameEt.length() > 1 && binding.myChangeSchoolName.length() > 1 && profileImage != null -> {
@@ -292,11 +275,7 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
                     vm.updateProfile(name = name, schoolId = schoolId, profileImage = ivProfile)
                     vm.deleteClass()
                 }).callDialog()
-
-                showShortToast("모두 보냄")
             }
-
-
         }
     }
 }
