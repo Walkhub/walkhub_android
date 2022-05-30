@@ -48,6 +48,8 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
 
     private var oldSchoolId: Long = 0
 
+    private var name: String? = null
+
     private var temp = false
 
     @Inject
@@ -63,7 +65,7 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
                 UrlConverter(applicationContext).convert(it)
             }
         }
-        println("onCreate")
+
         oldSchoolId = intent.getLongExtra("school_id", oldSchoolId)
 
         binding.image.setOnClickListener {
@@ -99,6 +101,7 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
         super.onResume()
 
         setTextWatcher()
+
     }
 
     override fun initView() {
@@ -140,12 +143,13 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
 
     private fun setProfileInfo(fetchInfoData: FetchInfoEntity) {
         binding.mySchoolName.text = fetchInfoData.schoolName
-        binding.name.text = fetchInfoData.name
+        name = fetchInfoData.name
+        binding.name.text = name
         fetchInfoData.classNum.toString().let {
             binding.gradeClass.visible()
             binding.classes.invisible()
             binding.textClass.invisible()
-            if (it != null) {
+            if (it != "0") {
                 binding.classes.text = fetchInfoData.classNum.toString()
                 binding.gradeClass.invisible()
                 binding.classes.visible()
@@ -162,7 +166,7 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
         fetchInfoData.grade.toString().let {
             binding.textGrade.invisible()
             binding.grade.invisible()
-            if (it != null) {
+            if (it != "0") {
                 binding.grade.text = fetchInfoData.grade.toString()
                 binding.grade.visible()
                 binding.textGrade.visible()
@@ -218,37 +222,35 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
     }
 
     private fun patchProfileInfo() {
-
         when {
-            //학교만 보낼때
+            //학교만 보낼
             binding.nameEt.length() < 1 && profileImage == null && binding.myChangeSchoolName.length() > 1 -> {
-                val name = binding.name.text.toString()
-
                 SchoolDialog(this, onYesClick = {
-                    vm.updateProfile(name = name,
-                        profileImage = ivProfile,
+                    vm.updateProfile(name = name.toString(),
+                        profileImage = profileImage,
                         schoolId = schoolId)
                     vm.deleteClass()
                 }).callDialog()
             }
             //이름만 보낼 때
-            binding.nameEt.length() > 1 && profileImage == null && binding.myChangeSchoolName.length() < 1 -> {
-                val name = binding.nameEt.text.toString()
-                vm.updateProfile(name = name,
+            binding.nameEt.length() > 1 && ivProfile == null && binding.myChangeSchoolName.length() < 1 -> {
+                name = binding.nameEt.text.toString()
+                vm.updateProfile(name = name.toString(),
                     profileImage = profileImage,
                     schoolId = oldSchoolId)
             }
             //프사만 보낼 때
             binding.nameEt.length() < 1 && binding.myChangeSchoolName.length() < 1 && profileImage != null -> {
-                val name = binding.name.text.toString()
-                vm.updateProfile(name = name, profileImage = ivProfile, schoolId = oldSchoolId)
+                vm.updateProfile(name = name.toString(),
+                    profileImage = ivProfile,
+                    schoolId = oldSchoolId)
             }
             //이름, 학교 보낼 때
             binding.nameEt.length() > 1 && binding.myChangeSchoolName.length() > 1 && profileImage == null -> {
-                val name = binding.nameEt.text.toString()
+                name = binding.nameEt.text.toString()
                 SchoolDialog(this, onYesClick = {
                     vm.updateProfile(
-                        name = name,
+                        name = name.toString(),
                         profileImage = ivProfile,
                         schoolId = schoolId)
                     vm.deleteClass()
@@ -256,23 +258,28 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
             }
             //이름, 프사 보낼 때
             binding.nameEt.length() > 1 && binding.myChangeSchoolName.length() < 1 && profileImage != null -> {
-                val name = binding.nameEt.text.toString()
-                vm.updateProfile(name = name, profileImage = profileImage, schoolId = oldSchoolId)
+                name = binding.nameEt.text.toString()
+                vm.updateProfile(name = name.toString(),
+                    profileImage = ivProfile,
+                    schoolId = oldSchoolId)
             }
             //학교, 프사 보낼 때
-            binding.nameEt.length() < 1 && binding.myChangeSchoolName.length() > 1 && profileImage != null -> {
-                val name = binding.name.text.toString()
+            binding.nameEt.length() < 1 && binding.myChangeSchoolName.length() > 1 && ivProfile != null -> {
                 SchoolDialog(this, onYesClick = {
-                    vm.updateProfile(name = name, profileImage = ivProfile, schoolId = schoolId)
+                    vm.updateProfile(name = name.toString(),
+                        profileImage = ivProfile,
+                        schoolId = schoolId)
                     vm.deleteClass()
                 }).callDialog()
             }
             //모두 보낼 때
             binding.nameEt.length() > 1 && binding.myChangeSchoolName.length() > 1 && profileImage != null -> {
-                val name = binding.nameEt.text.toString()
+                name = binding.nameEt.text.toString()
                 val schoolId: Long = schoolId
                 SchoolDialog(this, onYesClick = {
-                    vm.updateProfile(name = name, schoolId = schoolId, profileImage = ivProfile)
+                    vm.updateProfile(name = name.toString(),
+                        schoolId = schoolId,
+                        profileImage = ivProfile)
                     vm.deleteClass()
                 }).callDialog()
             }
