@@ -25,7 +25,7 @@ class SearchSchoolUseCaseUnitTest {
             SearchSchoolEntity(
                 schoolList = listOf(
                     SearchSchoolEntity.SchoolInfo(
-                        schoolId,
+                        schoolId.toLong(),
                         image,
                         schoolName
                     )
