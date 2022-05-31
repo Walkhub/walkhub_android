@@ -35,6 +35,10 @@ import javax.inject.Inject
 class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
     R.layout.activity_modify_profile
 ) {
+    companion object {
+        var destroyProfileImage: File? = null
+    }
+
     private val vm: ModifyProfileViewModel by viewModels()
 
     var schoolId: Long = 0
@@ -101,7 +105,12 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
         super.onResume()
 
         setTextWatcher()
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+
+        destroyProfileImage = profileImage
     }
 
     override fun initView() {
@@ -227,7 +236,7 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
             binding.nameEt.length() < 1 && profileImage == null && binding.myChangeSchoolName.length() > 1 -> {
                 SchoolDialog(this, onYesClick = {
                     vm.updateProfile(name = name.toString(),
-                        profileImage = profileImage,
+                        profileImage = destroyProfileImage,
                         schoolId = schoolId)
                     vm.deleteClass()
                 }).callDialog()
@@ -251,7 +260,7 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
                 SchoolDialog(this, onYesClick = {
                     vm.updateProfile(
                         name = name.toString(),
-                        profileImage = ivProfile,
+                        profileImage = destroyProfileImage,
                         schoolId = schoolId)
                     vm.deleteClass()
                 }).callDialog()
@@ -279,7 +288,7 @@ class ModifyProfileActivity : BaseActivity<ActivityModifyProfileBinding>(
                 SchoolDialog(this, onYesClick = {
                     vm.updateProfile(name = name.toString(),
                         schoolId = schoolId,
-                        profileImage = ivProfile)
+                        profileImage = destroyProfileImage)
                     vm.deleteClass()
                 }).callDialog()
             }
