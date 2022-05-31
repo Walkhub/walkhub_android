@@ -18,8 +18,10 @@ import com.semicolon.walkhub.ui.base.BaseFragment
 import com.semicolon.walkhub.ui.home.model.HomeData
 import com.semicolon.walkhub.ui.profile.model.MyPageData
 import com.semicolon.walkhub.ui.profile.setting.ui.SettingActivity
+import com.semicolon.walkhub.util.invisible
 import com.semicolon.walkhub.util.loadCircleFromUrl
 import com.semicolon.walkhub.util.loadFromUrl
+import com.semicolon.walkhub.util.visible
 import com.semicolon.walkhub.viewmodel.profile.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -40,7 +42,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
 
         vm.fetchMyPage()
@@ -76,6 +78,19 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
             intent.putExtra("school_id", schoolId)
             startActivity(intent)
 
+        }
+        if (binding.grade.text == "0" && binding.classes.text == "0") {
+            binding.gradeClass.visible()
+            binding.grade.invisible()
+            binding.classes.invisible()
+            binding.gradeText.invisible()
+            binding.classText.invisible()
+        } else {
+            binding.gradeClass.invisible()
+            binding.grade.visible()
+            binding.classes.visible()
+            binding.gradeText.visible()
+            binding.classText.visible()
         }
     }
 

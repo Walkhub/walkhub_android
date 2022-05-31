@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.compose.ui.res.stringResource
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.semicolon.domain.enums.DateType
@@ -19,6 +20,7 @@ import com.semicolon.walkhub.databinding.FragmentHubBinding
 import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.base.BaseFragment
 import com.semicolon.walkhub.ui.hub.adapter.HubSchoolRankRvAdapter
+import com.semicolon.walkhub.util.HubIntentKey
 import com.semicolon.walkhub.ui.hub.model.HubSchoolRankData
 import com.semicolon.walkhub.ui.hub.model.MySchoolRankData
 import com.semicolon.walkhub.util.loadCircleFromUrl
@@ -62,7 +64,7 @@ class HubFragment @Inject constructor(
         }
 
         is Event.NullPoint -> {
-
+            showShortToast("데이터가 없습니다.")
         }
 
         is Event.Unknown -> {
@@ -83,15 +85,18 @@ class HubFragment @Inject constructor(
         initDropDown()
 
         binding.clMySchool.setOnClickListener {
-            val intent = Intent(context, HubSchoolActivity::class.java)
-            intent.putExtra("type", true)
-            intent.putExtra("name", binding.tvMySchoolName.text)
+            val intent = Intent(context, HubSchoolActivity::class.java).apply {
+                putExtra(HubIntentKey.SCHOOL_ID.key, schoolId)
+                putExtra(HubIntentKey.SCHOOL_TYPE.key, true)
+                putExtra(HubIntentKey.SCHOOL_NAME.key, binding.tvMySchoolName.text)
+            }
             startActivity(intent)
         }
 
         binding.etSearchSchool.setOnClickListener {
-            val intent = Intent(context, HubSearchSchoolActivity::class.java)
-            intent.putExtra("dateType", moreDateType.toString())
+            val intent = Intent(context, HubSearchSchoolActivity::class.java).apply {
+                putExtra(HubIntentKey.SCHOOL_DATE_TYPE.key, moreDateType.toString())
+            }
             startActivity(intent)
         }
     }
@@ -102,7 +107,10 @@ class HubFragment @Inject constructor(
             setContent {
                 Dropdown(
                     menuDirection = MenuDirection.LEFT,
-                    items = arrayOf("지난주", "지난달"),
+                    items = arrayOf(
+                        stringResource(id = R.string.last_week),
+                        stringResource(id = R.string.last_month)
+                    ),
                     defaultItemIndex = 0,
                     onItemSelected = { index, _ -> dropDownItemSelect(index) }
                 )
@@ -136,7 +144,9 @@ class HubFragment @Inject constructor(
     private fun setMySchool(school: MySchoolRankData) {
         binding.ivMySchool.loadCircleFromUrl(school.logoImageUrl)
         binding.tvMySchoolName.text = school.name
-        val tvMySchoolInfo = "${school.grade}학년 ${school.classNum}반"
+        val tvMySchoolInfo =
+            if (school.grade == null || school.classNum == null) "현재 소속 중인 반이 없어요."
+            else "${school.grade}학년 ${school.classNum}반"
         binding.tvMySchoolInfo.text = tvMySchoolInfo
     }
 

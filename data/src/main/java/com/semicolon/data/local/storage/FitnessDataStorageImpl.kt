@@ -5,13 +5,24 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.fitness.Fitness
 import com.google.android.gms.fitness.FitnessOptions
 import com.google.android.gms.fitness.data.DataType
+import com.google.android.gms.fitness.data.Field
 import com.google.android.gms.fitness.request.DataReadRequest
-import com.google.android.gms.fitness.result.DataReadResponse
-import com.google.android.gms.tasks.Task
+import com.semicolon.data.local.entity.exercise.LocationRecordEntity
+import com.semicolon.data.local.entity.exercise.WalkRecordEntity
 import com.semicolon.data.local.param.PeriodParam
+import com.semicolon.domain.entity.exercise.DailyExerciseEntity
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
+import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.ZoneId
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 class FitnessDataStorageImpl @Inject constructor(
     @ApplicationContext private val context: Context
@@ -27,25 +38,61 @@ class FitnessDataStorageImpl @Inject constructor(
             .build()
     }
 
-    override suspend fun fetchExerciseRecord(periodParam: PeriodParam): Task<DataReadResponse> =
-        Fitness.getHistoryClient(context, getGoogleAccount())
-            .readData(
-                DataReadRequest.Builder()
-                    .aggregate(DataType.AGGREGATE_STEP_COUNT_DELTA)
-                    .aggregate(DataType.AGGREGATE_MOVE_MINUTES)
-                    .aggregate(DataType.AGGREGATE_DISTANCE_DELTA)
-                    .aggregate(DataType.AGGREGATE_CALORIES_EXPENDED)
-                    .setTimeRange(
-                        periodParam.startTimeAsSecond,
-                        periodParam.endTimeAsSecond,
-                        TimeUnit.SECONDS
+    override suspend fun fetchDailyExerciseRecord(): Flow<DailyExerciseEntity> =
+        callbackFlow {
+            repeat(Int.MAX_VALUE) {
+                val startTime =
+                    LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toEpochSecond()
+                val endTime = LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond()
+                val data = Fitness.getHistoryClient(context, getGoogleAccount())
+                    .readData(
+                        DataReadRequest.Builder()
+                            .aggregate(DataType.AGGREGATE_STEP_COUNT_DELTA)
+                            .aggregate(DataType.AGGREGATE_MOVE_MINUTES)
+                            .aggregate(DataType.AGGREGATE_DISTANCE_DELTA)
+                            .aggregate(DataType.AGGREGATE_CALORIES_EXPENDED)
+                            .setTimeRange(
+                                startTime,
+                                endTime,
+                                TimeUnit.SECONDS
+                            )
+                            .bucketByTime(1, TimeUnit.DAYS)
+                            .build()
                     )
-                    .bucketByTime(1, TimeUnit.DAYS)
-                    .build()
-            )
+                var steps: Int
+                var minutes: Int
+                var distance: Int
+                var calories: Float
+                data.addOnSuccessListener {
+                    steps = it.buckets.firstOrNull()
+                        ?.getDataSet(DataType.AGGREGATE_STEP_COUNT_DELTA)?.dataPoints?.firstOrNull()
+                        ?.getValue(Field.FIELD_STEPS)?.asInt() ?: 0
+                    minutes = it.buckets.firstOrNull()
+                        ?.getDataSet(DataType.AGGREGATE_MOVE_MINUTES)?.dataPoints?.firstOrNull()
+                        ?.getValue(Field.FIELD_DURATION)?.asInt() ?: 0
+                    distance = it.buckets.firstOrNull()
+                        ?.getDataSet(DataType.AGGREGATE_DISTANCE_DELTA)?.dataPoints?.firstOrNull()
+                        ?.getValue(Field.FIELD_DISTANCE)?.asFloat()?.toInt() ?: 0
+                    calories = it.buckets.firstOrNull()
+                        ?.getDataSet(DataType.AGGREGATE_CALORIES_EXPENDED)?.dataPoints?.firstOrNull()
+                        ?.getValue(Field.FIELD_CALORIES)?.asFloat() ?: 0f
 
-    override suspend fun fetchLocationRecord(periodParam: PeriodParam): Task<DataReadResponse> =
-        Fitness.getHistoryClient(context, getGoogleAccount())
+                    trySend(
+                        DailyExerciseEntity(
+                            steps,
+                            minutes.toLong() * 60000,
+                            distance,
+                            calories
+                        )
+                    )
+                }
+                delay(1000)
+            }
+            awaitClose {}
+        }
+
+    override suspend fun fetchLocationRecord(periodParam: PeriodParam): List<LocationRecordEntity> {
+        val data = Fitness.getHistoryClient(context, getGoogleAccount())
             .readData(
                 DataReadRequest.Builder()
                     .aggregate(DataType.TYPE_LOCATION_SAMPLE)
@@ -57,9 +104,24 @@ class FitnessDataStorageImpl @Inject constructor(
                     .bucketByTime(5, TimeUnit.MINUTES)
                     .build()
             )
+        return suspendCoroutine {
+            data.addOnSuccessListener { response ->
+                val result = response.buckets
+                    .mapNotNull { bucket -> bucket.getDataSet(DataType.TYPE_LOCATION_SAMPLE)?.dataPoints?.firstOrNull() }
+                    .map { dataPoint ->
+                        val latitude =
+                            dataPoint.getValue(Field.FIELD_LATITUDE).asString().toDouble()
+                        val longitude =
+                            dataPoint.getValue(Field.FIELD_LONGITUDE).asString().toDouble()
+                        LocationRecordEntity(latitude = latitude, longitude = longitude)
+                    }
+                it.resume(result)
+            }
+        }
+    }
 
-    override suspend fun fetchWalkRecord(periodParam: PeriodParam): Task<DataReadResponse> =
-        Fitness.getHistoryClient(context, getGoogleAccount())
+    override suspend fun fetchWalkRecord(periodParam: PeriodParam): WalkRecordEntity {
+        val data = Fitness.getHistoryClient(context, getGoogleAccount())
             .readData(
                 DataReadRequest.Builder()
                     .aggregate(DataType.AGGREGATE_STEP_COUNT_DELTA)
@@ -72,6 +134,28 @@ class FitnessDataStorageImpl @Inject constructor(
                     .bucketByTime(1, TimeUnit.DAYS)
                     .build()
             )
+        return suspendCoroutine {
+            data.addOnSuccessListener { response ->
+                val steps = response.buckets.firstOrNull()
+                    ?.getDataSet(DataType.AGGREGATE_STEP_COUNT_DELTA)?.dataPoints?.firstOrNull()
+                    ?.getValue(Field.FIELD_STEPS)?.asInt() ?: 0
+                val distance = response.buckets.firstOrNull()
+                    ?.getDataSet(DataType.AGGREGATE_DISTANCE_DELTA)?.dataPoints?.firstOrNull()
+                    ?.getValue(Field.FIELD_DISTANCE)?.asFloat()?.toInt() ?: 0
+                val calories = response.buckets.firstOrNull()
+                    ?.getDataSet(DataType.AGGREGATE_CALORIES_EXPENDED)?.dataPoints?.firstOrNull()
+                    ?.getValue(Field.FIELD_CALORIES)?.asFloat() ?: 0f
+
+                it.resume(
+                    WalkRecordEntity(
+                        traveledDistanceAsMeter = distance,
+                        walkCount = steps,
+                        burnedKilocalories = calories
+                    )
+                )
+            }
+        }
+    }
 
     override suspend fun startRecordExercise(
         onSuccess: (DataType) -> Unit,
