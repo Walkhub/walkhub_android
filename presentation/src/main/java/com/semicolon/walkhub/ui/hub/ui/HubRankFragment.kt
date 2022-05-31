@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ViewCompositionStrategy
-import androidx.compose.ui.res.stringResource
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.viewModels
 import com.semicolon.domain.enums.MoreDateType
@@ -18,7 +17,6 @@ import com.semicolon.walkhub.customview.ToggleSwitch
 import com.semicolon.walkhub.databinding.FragmentHubRankBinding
 import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.base.BaseFragment
-import com.semicolon.walkhub.util.HubIntentKey
 import com.semicolon.walkhub.util.invisible
 import com.semicolon.walkhub.util.visible
 import com.semicolon.walkhub.viewmodel.hub.HubUserViewModel
@@ -50,8 +48,8 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
     }
 
     private fun fetchSchoolUserRank() {
-        val schoolType = activity?.intent?.getBooleanExtra(HubIntentKey.SCHOOL_TYPE.key, HubIntentKey.SCHOOL_TYPE.default as Boolean)!!
-        val schoolId = activity?.intent?.getIntExtra(HubIntentKey.SCHOOL_ID.key, HubIntentKey.SCHOOL_ID.default as Int)!!
+        val schoolType = activity?.intent?.getBooleanExtra("type", true)!!
+        val schoolId = activity?.intent?.getIntExtra("schoolId", 0)!!
 
         if (schoolType) {
             vm.fetchMySchoolUserRank(rankScope, dateType)
@@ -122,11 +120,7 @@ class HubRankFragment : BaseFragment<FragmentHubRankBinding>(
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 Dropdown(
-                    items = arrayOf(
-                        stringResource(id = R.string.yesterday),
-                        stringResource(id = R.string.last_week),
-                        stringResource(id = R.string.last_month)
-                    ),
+                    items = arrayOf("어제", "지난주", "지난달"),
                     defaultItemIndex = 1,
                     menuDirection = MenuDirection.LEFT,
                     onItemSelected = { index, _ -> dropDownItemSelect(index) }

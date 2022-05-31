@@ -26,7 +26,7 @@ class AuthDataStorageImpl @Inject constructor(
     }
 
     override fun fetchAccessToken(): String =
-        getSharedPreference().getString(ACCESS_TOKEN, "")!!
+        getSharedPreference().getString(ACCESS_TOKEN, "empty")!!
 
     override fun clearAccessToken() {
         getSharedPreference().edit().let {
@@ -37,13 +37,13 @@ class AuthDataStorageImpl @Inject constructor(
 
     override fun setRefreshToken(token: String) {
         getSharedPreference().edit().let {
-            it.putString(REFRESH_TOKEN, "")
+            it.putString(REFRESH_TOKEN, "empty")
             it.apply()
         }
     }
 
     override fun fetchRefreshToken(): String =
-        getSharedPreference().getString(REFRESH_TOKEN, "")!!
+        getSharedPreference().getString(REFRESH_TOKEN, "empty")!!
 
     override fun clearRefreshToken() {
         getSharedPreference().edit().let {
@@ -70,7 +70,7 @@ class AuthDataStorageImpl @Inject constructor(
     }
 
     override fun fetchDeviceToken(): String =
-        getSharedPreference().getString(DEVICE_TOKEN, "")!!
+        getSharedPreference().getString(DEVICE_TOKEN, "empty")!!
 
 
     override fun setId(id: String) {
@@ -81,7 +81,7 @@ class AuthDataStorageImpl @Inject constructor(
     }
 
     override fun fetchId(): String =
-        getSharedPreference().getString(ACCOUNT_ID, "")!!
+        getSharedPreference().getString(ACCOUNT_ID, "empty")!!
 
     override fun clearId() {
         getSharedPreference().edit().let {
@@ -98,7 +98,7 @@ class AuthDataStorageImpl @Inject constructor(
     }
 
     override fun fetchPw(): String =
-        getSharedPreference().getString(ACCOUNT_PASSWORD, "")!!
+        getSharedPreference().getString(ACCOUNT_PASSWORD, "empty")!!
 
     override fun clearPw() {
         getSharedPreference().edit().let {

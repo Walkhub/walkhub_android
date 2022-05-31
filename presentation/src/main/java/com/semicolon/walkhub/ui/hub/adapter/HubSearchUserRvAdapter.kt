@@ -3,7 +3,7 @@ package com.semicolon.walkhub.ui.hub.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.semicolon.walkhub.databinding.ItemHubSearchUserBinding
+import com.semicolon.walkhub.databinding.ItemHubUserRankBinding
 import com.semicolon.walkhub.ui.hub.model.SearchUserData
 import com.semicolon.walkhub.util.loadFromUrl
 import kotlin.collections.ArrayList

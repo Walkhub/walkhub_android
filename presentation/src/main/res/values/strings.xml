@@ -1,34 +1,13 @@
 <resources>
     <string name="app_name">Walkhub</string>
-
+    <string name="no_school_message">현재 소속 중인 반이 없어요.</string>
     <string name="hub">허브</string>
     <string name="search_school">학교 검색</string>
     <string name="my_school">내 학교</string>
+    <string name="no_data">데이터가 없습니다</string>
     <string name="walkcount_top_100">걸음수 Top 100</string>
     <string name="finish">완료하기</string>
+    <string name="error_number">올바른 번호를 입력해주세요.</string>
     <string name="rank">랭킹</string>
     <string name="info">정보</string>
-
-    <!--    guide message-->
-    <string name="join_class_and_check_rank">반 친구들과 함께 걷고\n내 랭킹 확인하기</string>
-    <string name="input_class_code">반 가입코드를 입력해주세요.</string>
-    <string name="registration_number">번호 등록</string>
-    <string name="input_class_number">반에서 사용하는 번호을 입력해주세요.</string>
-
-    <!--    error message-->
-    <string name="no_school_message">현재 소속 중인 반이 없어요.</string>
-    <string name="error_number">올바른 번호를 입력해주세요.</string>
-    <string name="no_data">데이터가 없습니다</string>
-    <string name="error_input_name">이름으로 검색하세요</string>
-    <string name="error_join_class">"반을 찾을 수 없어요. 가입코드를 다시 확인해주세요."</string>
-
-    <!--    success message-->
-    <string name="success_join_class">반가입에 성공하셨습니다!</string>
-
-    <!--    date_type-->
-    <string name="yesterday">어제</string>
-    <string name="last_week">지난주</string>
-    <string name="last_month">지난달</string>
-
-    <string name="month">MONTH</string>
 </resources>

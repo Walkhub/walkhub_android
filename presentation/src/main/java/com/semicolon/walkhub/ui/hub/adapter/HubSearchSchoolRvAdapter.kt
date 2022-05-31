@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gun0912.tedpermission.provider.TedPermissionProvider.context
 import com.semicolon.walkhub.databinding.HubSchoolRankViewBinding
-import com.semicolon.walkhub.util.HubIntentKey
 import com.semicolon.walkhub.ui.hub.model.SearchSchoolData
 import com.semicolon.walkhub.ui.hub.ui.HubSchoolActivity
 import com.semicolon.walkhub.util.loadFromUrl
@@ -31,12 +30,10 @@ class HubSearchSchoolRvAdapter(
         fun bind(item: SearchSchoolData.SchoolInfo) {
 
             itemView.setOnClickListener {
-                val intent = Intent(context, HubSchoolActivity::class.java).apply {
-                    putExtra(HubIntentKey.SCHOOL_TYPE.key, false)
-                    putExtra(HubIntentKey.SCHOOL_NAME.key, item.schoolName)
-                    putExtra(HubIntentKey.SCHOOL_ID.key, item.schoolId)
-                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                }
+                val intent = Intent(context, HubSchoolActivity::class.java)
+                intent.putExtra("type", false)
+                intent.putExtra("name", item.schoolName)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 context.startActivity(intent)
             }
 

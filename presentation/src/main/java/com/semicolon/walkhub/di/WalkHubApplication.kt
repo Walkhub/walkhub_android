@@ -1,10 +1,9 @@
 package com.semicolon.walkhub.di
 
 import android.app.Application
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.work.Configuration
 import com.jakewharton.threetenabp.AndroidThreeTen
-import com.semicolon.data.background.worker.CustomWorkerFactory
+import com.semicolon.data.background.worker.SynchronizeExerciseWorkerFactory
 import com.semicolon.walkhub.util.WalkhubExceptionHandler
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
@@ -13,7 +12,7 @@ import javax.inject.Inject
 class WalkHubApplication : Application(), Configuration.Provider {
 
     @Inject
-    lateinit var workerFactory: CustomWorkerFactory
+    lateinit var workerFactory: SynchronizeExerciseWorkerFactory
 
     override fun getWorkManagerConfiguration(): Configuration =
         Configuration.Builder()
@@ -23,7 +22,6 @@ class WalkHubApplication : Application(), Configuration.Provider {
     override fun onCreate() {
         super.onCreate()
         AndroidThreeTen.init(this)
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         setCrashHandler()
     }
 

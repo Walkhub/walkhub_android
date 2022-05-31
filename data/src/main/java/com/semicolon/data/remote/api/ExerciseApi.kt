@@ -35,7 +35,7 @@ interface ExerciseApi {
         @Body saveDailyExerciseRequest: SaveDailyExerciseRequest
     ): Response<Unit>
 
-    @GET("exercises/lists")
+    @GET("exercises/list")
     suspend fun fetchExerciseRecordList(): ExerciseRecordListResponse
 
     @GET("exercises/analysis")

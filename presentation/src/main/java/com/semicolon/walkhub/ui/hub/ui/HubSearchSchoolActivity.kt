@@ -10,7 +10,6 @@ import com.semicolon.walkhub.databinding.ActivityHubSearchSchoolBinding
 import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.base.BaseActivity
 import com.semicolon.walkhub.ui.hub.adapter.HubSearchSchoolRvAdapter
-import com.semicolon.walkhub.util.HubIntentKey
 import com.semicolon.walkhub.ui.hub.model.SearchSchoolData
 import com.semicolon.walkhub.util.onTextChanged
 import com.semicolon.walkhub.viewmodel.hub.HubSearchSchoolViewModel
@@ -33,7 +32,7 @@ class HubSearchSchoolActivity : BaseActivity<ActivityHubSearchSchoolBinding> (
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        dateType = transferDateType(intent.getStringExtra(HubIntentKey.SCHOOL_DATE_TYPE.key)!!)
+        dateType = transferDateType(intent.getStringExtra("dateType")!!)
 
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
@@ -41,8 +40,8 @@ class HubSearchSchoolActivity : BaseActivity<ActivityHubSearchSchoolBinding> (
 
     }
 
-    private fun transferDateType(dateType: String) = when (dateType) {
-        DateType.MONTH.toString() -> DateType.MONTH
+    private fun transferDateType(dateType: String) = when(dateType) {
+        "MONTH" -> DateType.MONTH
         else -> DateType.WEEK
     }
 

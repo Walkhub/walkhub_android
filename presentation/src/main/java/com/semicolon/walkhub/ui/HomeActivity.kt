@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.fitness.FitnessOptions
@@ -15,6 +14,7 @@ import com.gun0912.tedpermission.normal.TedPermission
 import com.semicolon.walkhub.R
 import com.semicolon.walkhub.databinding.ActivityHomeBinding
 import com.semicolon.walkhub.ui.login.LoginActivity
+import com.semicolon.walkhub.ui.register.SearchSchoolActivity
 import com.semicolon.walkhub.ui.register.ui.Register
 
 class HomeActivity : AppCompatActivity() {
@@ -25,23 +25,13 @@ class HomeActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
 
         binding.tvLogin.setOnClickListener {
-            if (hasPermission()) {
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
-            } else {
-                showPermissionToast()
-                fitSignIn()
-            }
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
         }
 
         binding.btJoin.setOnClickListener {
-            if (hasPermission()) {
-                val intent = Intent(this, Register::class.java)
-                startActivity(intent)
-            } else {
-                showPermissionToast()
-                fitSignIn()
-            }
+            val intent = Intent(this, Register::class.java)
+            startActivity(intent)
         }
 
         requestPermissions()
@@ -63,7 +53,6 @@ class HomeActivity : AppCompatActivity() {
             }
 
             override fun onPermissionDenied(deniedPermissions: List<String>) {
-                showPermissionToast()
                 finish()
             }
         }
@@ -93,13 +82,4 @@ class HomeActivity : AppCompatActivity() {
             fitnessOptions
         )
     }
-
-    private fun hasPermission() =
-        GoogleSignIn.hasPermissions(
-            GoogleSignIn.getAccountForExtension(this, fitnessOptions),
-            fitnessOptions
-        )
-
-    private fun showPermissionToast() =
-        Toast.makeText(this, "모든 권한을 허용해주세요", Toast.LENGTH_SHORT).show()
 }

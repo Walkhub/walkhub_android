@@ -14,7 +14,6 @@ import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.base.BaseActivity
 import com.semicolon.walkhub.ui.hub.adapter.HubSearchUserRvAdapter
 import com.semicolon.walkhub.ui.hub.adapter.HubViewPagerAdapter
-import com.semicolon.walkhub.util.HubIntentKey
 import com.semicolon.walkhub.ui.hub.model.SearchUserData
 import com.semicolon.walkhub.util.invisible
 import com.semicolon.walkhub.util.visible
@@ -39,7 +38,7 @@ class HubSchoolActivity @Inject constructor(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        schoolId = intent.getIntExtra(HubIntentKey.SCHOOL_ID.key, HubIntentKey.SCHOOL_ID.default as Int)
+        schoolId = intent.getIntExtra("schoolId", 0)
 
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
@@ -74,7 +73,7 @@ class HubSchoolActivity @Inject constructor(
     }
 
     private fun setToolbar() {
-        schoolName = intent.getStringExtra(HubIntentKey.SCHOOL_NAME.key).toString()
+        schoolName = intent.getStringExtra("name").toString()
 
         binding.toolbarTitle.text = schoolName
 
@@ -89,9 +88,7 @@ class HubSchoolActivity @Inject constructor(
     private fun setTab() {
         binding.vpHub.adapter = HubViewPagerAdapter(this)
 
-        val tabTitles = listOf(
-            resources.getString(R.string.rank), resources.getString(R.string.info)
-        )
+        val tabTitles = listOf("랭킹", "정보")
 
         TabLayoutMediator(binding.tbHub, binding.vpHub) { tab, position ->
             tab.text = tabTitles[position]
@@ -124,7 +121,7 @@ class HubSchoolActivity @Inject constructor(
         val mSearch = menu.findItem(R.id.action_search)
         val mSearchView = mSearch.actionView as SearchView
 
-        mSearchView.queryHint = resources.getString(R.string.error_input_name)
+        mSearchView.queryHint = "이름으로 검색하세요"
 
         mSearch.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
             override fun onMenuItemActionExpand(p0: MenuItem?): Boolean {
@@ -161,6 +158,7 @@ class HubSchoolActivity @Inject constructor(
     }
 
     private fun menuView(state: Boolean): Boolean {
+
         binding.apply {
             if (state) {
                 searchBlack.visible()
