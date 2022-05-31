@@ -114,7 +114,7 @@ class UserRepositoryUnitTest {
         val upDateProfileParam = UpdateProfileParam(
             "최민준",
             File("https://testImageUrl"),
-            "male"
+            1
         )
         runBlocking {
             val imagesResponse = ImagesResponse(listOf("http://test.image"))
