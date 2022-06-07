@@ -1,7 +1,6 @@
 package com.semicolon.walkhub.ui.profile.setting.ui
 
 import android.content.Intent
-import android.os.Bundle
 import androidx.activity.viewModels
 import com.gun0912.tedpermission.provider.TedPermissionProvider.context
 import com.semicolon.walkhub.R
@@ -23,8 +22,15 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>(
 
     var user by Delegates.notNull<Int>()
 
+    private var profileImage: String? = ""
+    private var school: Long = 0
+    private var schoolId by Delegates.notNull<Long>()
+
     override fun onCreate(savedInstanceState: android.os.Bundle?) {
         super.onCreate(savedInstanceState)
+
+        profileImage = intent.getStringExtra("profile_image")
+        schoolId = intent.getLongExtra("school_id", school)
 
         repeatOnStarted {
             vm.eventFlow.collect { event -> handleEvent(event) }
@@ -51,6 +57,9 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>(
         }
         binding.modifyProfileInfo.setOnClickListener {
             val intent = Intent(context, ModifyProfileActivity::class.java)
+
+            intent.putExtra("profile_image", profileImage)
+            intent.putExtra("school_id", schoolId)
             startActivity(intent)
         }
 
