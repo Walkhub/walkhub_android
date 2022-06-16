@@ -42,4 +42,5 @@ object Version {
     const val socket = "1.0.0"
     const val tedImagePicker = "1.2.7"
     const val zeloryImageCompressor = "3.0.1"
+    const val paging = "3.1.1"
 }

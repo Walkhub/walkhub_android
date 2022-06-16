@@ -118,4 +118,6 @@ dependencies {
     implementation(Dependency.TedImagePicker.tedImagePicker)
 
     implementation(Dependency.ImageCompressor.zeloryImageCompressor)
+
+    implementation(Dependency.UI.paging)
 }

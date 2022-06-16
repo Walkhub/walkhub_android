@@ -23,6 +23,7 @@ object Dependency {
             "io.coil-kt:coil-compose:${Version.coilCompose}"
         const val pinEntryEditText =
             "com.alimuzaffar.lib:pinentryedittext:${Version.pinEntryEditText}"
+        const val paging = "androidx.paging:paging-runtime:${Version.paging}"
     }
 
     object GradlePlugin {
