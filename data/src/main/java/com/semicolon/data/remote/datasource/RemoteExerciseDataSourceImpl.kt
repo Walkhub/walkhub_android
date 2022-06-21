@@ -42,9 +42,9 @@ class RemoteExerciseDataSourceImpl @Inject constructor(
         .httpRequest { exerciseApi.saveDailyExercise(saveDailyExerciseRequest) }
         .sendRequest()
 
-    override suspend fun fetchExerciseRecordList(): ExerciseRecordListResponse =
+    override suspend fun fetchExerciseRecordList(page: Int): ExerciseRecordListResponse =
         HttpHandler<ExerciseRecordListResponse>()
-            .httpRequest { exerciseApi.fetchExerciseRecordList() }
+            .httpRequest { exerciseApi.fetchExerciseRecordList(page) }
             .sendRequest()
 
     override suspend fun fetchExerciseAnalysisResult(): ExerciseAnalysisResultResponse =

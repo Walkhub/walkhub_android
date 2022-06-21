@@ -36,7 +36,9 @@ interface ExerciseApi {
     ): Response<Unit>
 
     @GET("exercises/lists")
-    suspend fun fetchExerciseRecordList(): ExerciseRecordListResponse
+    suspend fun fetchExerciseRecordList(
+        @Query("page") page: Int
+    ): ExerciseRecordListResponse
 
     @GET("exercises/analysis")
     suspend fun fetchExerciseAnalysisResult(): ExerciseAnalysisResultResponse

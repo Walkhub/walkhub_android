@@ -29,7 +29,7 @@ interface RemoteExerciseDataSource {
         saveDailyExerciseRequest: SaveDailyExerciseRequest
     )
 
-    suspend fun fetchExerciseRecordList(): ExerciseRecordListResponse
+    suspend fun fetchExerciseRecordList(page: Int): ExerciseRecordListResponse
 
     suspend fun fetchExerciseAnalysisResult(): ExerciseAnalysisResultResponse
 
