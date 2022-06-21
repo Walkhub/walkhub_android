@@ -3,10 +3,7 @@ package com.semicolon.walkhub.viewmodel.profile.setting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.semicolon.domain.entity.users.FetchInfoEntity
-import com.semicolon.domain.exception.BadRequestException
-import com.semicolon.domain.exception.NoInternetException
-import com.semicolon.domain.exception.NotFoundException
-import com.semicolon.domain.exception.UnauthorizedException
+import com.semicolon.domain.exception.*
 import com.semicolon.domain.param.user.UpdateProfileParam
 import com.semicolon.domain.usecase.user.DeleteClassUseCase
 import com.semicolon.domain.usecase.user.FetchInfoUseCase
@@ -22,7 +19,7 @@ import javax.inject.Inject
 class ModifyProfileViewModel @Inject constructor(
     private val fetchInfoUseCase: FetchInfoUseCase,
     private val updateProfileUseCase: UpdateProfileUseCase,
-    private val deleteClassUseCase: DeleteClassUseCase
+    private val deleteClassUseCase: DeleteClassUseCase,
 ) : ViewModel() {
 
     private val _eventFlow = MutableEventFlow<Event>()
@@ -44,17 +41,23 @@ class ModifyProfileViewModel @Inject constructor(
         }
     }
 
-    fun updateProfile(name: String, profileImage: File?, schoolId: String) {
+    fun updateProfile(name: String, profileImage: File?, schoolId: Long) {
         viewModelScope.launch {
             kotlin.runCatching {
-                updateProfileUseCase.execute(UpdateProfileParam(name, profileImage, schoolId))
+                updateProfileUseCase.execute(UpdateProfileParam(
+                    name = name,
+                    profileImage = profileImage,
+                    schoolId = schoolId))
             }.onFailure {
                 when (it) {
                     is UnauthorizedException -> event(Event.ErrorMessage("세션이 만료되었습니다. 다시 시도해주세요."))
                     is BadRequestException -> event(Event.ErrorMessage("요청 형식을 식별할 수 없습니다."))
                     is NoInternetException -> event(Event.ErrorMessage("인터넷에 연결되어있지 않습니다."))
+                    is KotlinNullPointerException -> event(Event.Success)
                     else -> event(Event.ErrorMessage("에러가 발생했습니다."))
                 }
+            }.onSuccess {
+                event(Event.Success)
             }
         }
     }
@@ -91,6 +94,7 @@ class ModifyProfileViewModel @Inject constructor(
     }
 
     sealed class Event {
+        object Success: Event()
         data class FetchInfo(val fetchInfoData: FetchInfoEntity) : Event()
         data class ErrorMessage(val message: String) : Event()
     }

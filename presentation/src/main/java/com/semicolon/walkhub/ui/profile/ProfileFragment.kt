@@ -19,6 +19,7 @@ import com.semicolon.walkhub.util.loadFromUrl
 import com.semicolon.walkhub.util.visible
 import com.semicolon.walkhub.viewmodel.profile.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.properties.Delegates
 
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(
@@ -26,10 +27,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
 ) {
     private val vm: ProfileViewModel by viewModels()
 
+    private lateinit var profileImage: String
+    private var schoolId by Delegates.notNull<Long>()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View? {
 
         vm.fetchMyPage()
@@ -45,10 +49,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
     private fun handleEvent(event: ProfileViewModel.Event) = when (event) {
         is ProfileViewModel.Event.FetchMyPage -> {
             setProfileValue(event.myPageData)
+            schoolId = event.myPageData.schoolId
         }
 
         is ProfileViewModel.Event.FetchHome -> {
             setHomeValue(event.homeData)
+
         }
 
         is ProfileViewModel.Event.ErrorMessage -> {
@@ -59,8 +65,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
     override fun initView() {
         binding.setting.setOnClickListener {
             val intent = Intent(activity, SettingActivity::class.java)
+            intent.putExtra("profile_image", profileImage)
+            intent.putExtra("school_id", schoolId)
             startActivity(intent)
         }
+
         if (binding.grade.text == "0" && binding.classes.text == "0") {
             binding.gradeClass.visible()
             binding.grade.invisible()
@@ -94,6 +103,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
         profileData.schoolImageUrl.let { binding.schoolLogo.loadCircleFromUrl(it) }
         profileData.profileImageUrl.let {
             if (it != null) {
+                profileImage = profileData.profileImageUrl.toString()
                 binding.myPicture.loadCircleFromUrl(it)
             }
         }

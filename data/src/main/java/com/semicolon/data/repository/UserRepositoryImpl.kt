@@ -83,13 +83,12 @@ class UserRepositoryImpl @Inject constructor(
             .createFlow()
 
     override suspend fun updateProfile(updateProfileParam: UpdateProfileParam) {
-        val imageUrl = if (updateProfileParam.profileImage != null) {
-            remoteImagesDataSource.postImages(
-                listOf(updateProfileParam.profileImage!!.toMultipart())
-            ).imageUrl.first()
-        } else ""
-
-        remoteUserDateSource.updateProfile(updateProfileParam.toRequest(imageUrl))
+        val profileImageUrl = updateProfileParam.profileImage?.let {
+            remoteImagesDataSource.postImages(listOf(it.toMultipart())).imageUrl[0]
+        } ?: ""
+        remoteUserDateSource.updateProfile(
+            updateProfileParam.toRequest(profileImageUrl)
+        )
     }
 
     override suspend fun findUserAccount(phoneNumber: String): Flow<FindUserAccountEntity> =

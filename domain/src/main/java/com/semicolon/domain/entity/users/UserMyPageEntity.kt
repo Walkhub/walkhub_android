@@ -4,7 +4,7 @@ data class UserMyPageEntity(
     val userId: Int,
     val name: String,
     val profileImageUrl: String?,
-    val schoolId: Int,
+    val schoolId: Long,
     val schoolName: String,
     val schoolImageUrl: String,
     val grade: Int,

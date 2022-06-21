@@ -45,7 +45,7 @@ class LocalUserDataSourceImpl @Inject constructor(
         userDao.fetchInfo().toEntity()
 
     override suspend fun insertInfo(fetchInfoEntity: FetchInfoEntity) {
-        userDao.insertInfo(fetchInfoEntity.toDbEntity())
+        fetchInfoEntity.toDbEntity()?.let { userDao.insertInfo(it) }
     }
 
     override suspend fun fetchUserHealth(): FetchUserHealthEntity =

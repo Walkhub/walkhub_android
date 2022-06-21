@@ -8,14 +8,12 @@ import com.semicolon.data.local.datasource.LocalUserDataSource
 import com.semicolon.data.remote.datasource.RemoteImagesDataSource
 import com.semicolon.data.remote.datasource.RemoteUserDataSource
 import com.semicolon.data.remote.request.users.UserSignInRequest
-import com.semicolon.data.remote.request.users.VerifyPhoneNumberSignUpRequest
 import com.semicolon.data.remote.response.image.ImagesResponse
 import com.semicolon.data.remote.response.users.UserSignInResponse
 import com.semicolon.domain.entity.users.FetchCaloriesLevelEntity
 import com.semicolon.domain.entity.users.FindUserAccountEntity
 import com.semicolon.domain.entity.users.UserMyPageEntity
 import com.semicolon.domain.entity.users.UserProfileEntity
-import com.semicolon.domain.enums.SexType
 import com.semicolon.domain.param.user.*
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -112,7 +110,7 @@ class UserRepositoryUnitTest {
         val upDateProfileParam = UpdateProfileParam(
             "최민준",
             File("https://testImageUrl"),
-            "male"
+            1
         )
         runBlocking {
             val imagesResponse = ImagesResponse(listOf("http://test.image"))

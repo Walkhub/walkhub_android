@@ -5,5 +5,5 @@ import java.io.File
 data class UpdateProfileParam(
     val name: String,
     val profileImage: File?,
-    val schoolId: String
+    val schoolId: Long
 )

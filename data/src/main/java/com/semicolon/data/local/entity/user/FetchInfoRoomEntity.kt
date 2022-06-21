@@ -24,10 +24,16 @@ fun FetchInfoRoomEntity.toEntity() =
     )
 
 fun FetchInfoEntity.toDbEntity() =
-    FetchInfoRoomEntity(
-        name = name,
-        profileImageUrl = profileImageUrl,
-        schoolName = schoolName,
-        grade = grade,
-        classNum = classNum
-    )
+    profileImageUrl?.let {
+        grade?.let {
+            classNum?.let {
+                FetchInfoRoomEntity(
+                    name = name,
+                    profileImageUrl = profileImageUrl!!,
+                    schoolName = schoolName,
+                    grade = grade!!,
+                    classNum = classNum!!
+                )
+            }
+        }
+    }
