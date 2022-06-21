@@ -70,4 +70,6 @@ dependencies {
     implementation(Dependency.Socket.socketIo){
         exclude (group = "org.json", module = "json")
     }
+
+    implementation(Dependency.UI.paging)
 }
