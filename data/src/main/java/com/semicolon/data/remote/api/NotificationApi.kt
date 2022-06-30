@@ -26,6 +26,6 @@ interface NotificationApi {
         @Body offNotiRequest: OffNotiRequest,
     )
 
-    @GET("notificatoins/status")
+    @GET("notifications/status")
     suspend fun notificationStatus(): WhetherNotificationResponse
 }
