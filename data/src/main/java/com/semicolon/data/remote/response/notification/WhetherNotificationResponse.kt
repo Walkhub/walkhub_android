@@ -5,7 +5,7 @@ import com.semicolon.domain.entity.notification.NotificationStatusEntity
 import com.semicolon.domain.enums.NotificationType
 
 data class WhetherNotificationResponse(
-    @SerializedName("topic_whether_list") val topicWhetherList: List<TopicWhether>
+    @SerializedName("status_response_list") val topicWhetherList: List<TopicWhether>
 ) {
     data class TopicWhether(
         @SerializedName("is_subscribe") val isSubscribe: Boolean,
@@ -15,7 +15,7 @@ data class WhetherNotificationResponse(
 }
 
 fun WhetherNotificationResponse.TopicWhether.toEntity(): NotificationStatusEntity.TopicWhether =
-    com.semicolon.domain.entity.notification.NotificationStatusEntity.TopicWhether(
+    NotificationStatusEntity.TopicWhether(
         isSubscribe = isSubscribe,
         title = title,
         topicId = topicId
