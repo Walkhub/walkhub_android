@@ -7,6 +7,8 @@ import android.provider.MediaStore
 import androidx.loader.content.CursorLoader
 
 fun Uri.toRealPath(context: Context): String {
+    println("aaa $this")
+    println("aaa $context")
     val proj = arrayOf(MediaStore.Images.Media.DATA)
     val loader = CursorLoader(context, this, proj, null, null, null)
     val cursor: Cursor = loader.loadInBackground()!!

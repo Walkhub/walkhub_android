@@ -9,6 +9,7 @@ import com.semicolon.data.remote.response.users.UserSignInResponse
 import com.semicolon.data.util.OfflineCacheUtil
 import com.semicolon.data.util.toMultipart
 import com.semicolon.domain.entity.users.*
+import com.semicolon.domain.exception.NoInternetException
 import com.semicolon.domain.param.user.*
 import com.semicolon.domain.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
@@ -82,13 +83,12 @@ class UserRepositoryImpl @Inject constructor(
             .createFlow()
 
     override suspend fun updateProfile(updateProfileParam: UpdateProfileParam) {
-        val imageUrl = if (updateProfileParam.profileImage != null) {
-            remoteImagesDataSource.postImages(
-                listOf(updateProfileParam.profileImage!!.toMultipart())
-            ).imageUrl.first()
-        } else ""
-
-        remoteUserDateSource.updateProfile(updateProfileParam.toRequest(imageUrl))
+        val profileImageUrl = updateProfileParam.profileImage?.let {
+            remoteImagesDataSource.postImages(listOf(it.toMultipart())).imageUrl[0]
+        } ?: ""
+        remoteUserDateSource.updateProfile(
+            updateProfileParam.toRequest(profileImageUrl)
+        )
     }
 
     override suspend fun findUserAccount(phoneNumber: String): Flow<FindUserAccountEntity> =
@@ -108,13 +108,14 @@ class UserRepositoryImpl @Inject constructor(
         remoteUserDateSource.patchSchool(schoolId)
 
     override suspend fun autoLogin() {
-        remoteUserDateSource.postUserSignIn(
-            UserSignInRequest(
-                localUserDataSource.fetchId(),
-                localUserDataSource.fetchPw(),
-                localUserDataSource.fetchDeviceToken()
-            )
-        )
+        val id = localUserDataSource.fetchId()
+        val password = localUserDataSource.fetchPw()
+        val deviceToken = localUserDataSource.fetchDeviceToken()
+        try {
+            remoteUserDateSource.postUserSignIn(UserSignInRequest(id, password, deviceToken))
+        } catch (e: NoInternetException) {
+            if (id.isEmpty() && password.isEmpty()) throw e
+        }
     }
 
     override suspend fun patchDailyWalkGoal(patchDailyWalkGoalParam: PatchDailyWalkGoalParam) {

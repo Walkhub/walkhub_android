@@ -1,6 +1,6 @@
-package com.semicolon.domain.entity.school
+package com.semicolon.walkhub.ui.profile.setting.ui.model
 
-data class SearchSchoolEntity(
+data class ThirdSearchSchoolData(
     val schoolList: List<SchoolInfo>
 ) {
     data class SchoolInfo(

@@ -13,8 +13,10 @@ import com.semicolon.walkhub.ui.base.BaseFragment
 import com.semicolon.walkhub.ui.home.model.HomeData
 import com.semicolon.walkhub.ui.profile.model.MyPageData
 import com.semicolon.walkhub.ui.profile.setting.ui.SettingActivity
+import com.semicolon.walkhub.util.invisible
 import com.semicolon.walkhub.util.loadCircleFromUrl
 import com.semicolon.walkhub.util.loadFromUrl
+import com.semicolon.walkhub.util.visible
 import com.semicolon.walkhub.viewmodel.profile.ProfileViewModel
 import com.semicolon.walkhub.viewmodel.profile.setting.SettingViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,6 +27,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
     R.layout.fragment_profile
 ) {
     private val vm: ProfileViewModel by viewModels()
+
+    private lateinit var profileImage: String
+    private var schoolId by Delegates.notNull<Long>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,10 +51,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
         is ProfileViewModel.Event.FetchMyPage -> {
             setProfileValue(event.myPageData)
             vm.userId = event.myPageData.userId
+            schoolId = event.myPageData.schoolId
         }
 
         is ProfileViewModel.Event.FetchHome -> {
             setHomeValue(event.homeData)
+
         }
 
         is ProfileViewModel.Event.ErrorMessage -> {
@@ -61,7 +68,23 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
         binding.setting.setOnClickListener {
             val intent = Intent(activity, SettingActivity::class.java)
             intent.putExtra("user_id", vm.userId)
+            intent.putExtra("profile_image", profileImage)
+            intent.putExtra("school_id", schoolId)
             startActivity(intent)
+        }
+
+        if (binding.grade.text == "0" && binding.classes.text == "0") {
+            binding.gradeClass.visible()
+            binding.grade.invisible()
+            binding.classes.invisible()
+            binding.gradeText.invisible()
+            binding.classText.invisible()
+        } else {
+            binding.gradeClass.invisible()
+            binding.grade.visible()
+            binding.classes.visible()
+            binding.gradeText.visible()
+            binding.classText.visible()
         }
     }
 
@@ -83,6 +106,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
         profileData.schoolImageUrl.let { binding.schoolLogo.loadCircleFromUrl(it) }
         profileData.profileImageUrl.let {
             if (it != null) {
+                profileImage = profileData.profileImageUrl.toString()
                 binding.myPicture.loadCircleFromUrl(it)
             }
         }

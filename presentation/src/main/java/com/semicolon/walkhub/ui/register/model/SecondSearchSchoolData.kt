@@ -4,7 +4,7 @@ data class SecondSearchSchoolData(
     val schoolList: List<SchoolInfo>
 ) {
     data class SchoolInfo(
-        val schoolId: Int,
+        val schoolId: Long,
         val logoImageUrl: String,
         val schoolName: String
     )

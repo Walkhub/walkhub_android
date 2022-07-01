@@ -1,6 +1,7 @@
 package com.semicolon.walkhub.di
 
 import android.app.Application
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.work.Configuration
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.semicolon.data.background.worker.CustomWorkerFactory
@@ -22,6 +23,7 @@ class WalkHubApplication : Application(), Configuration.Provider {
     override fun onCreate() {
         super.onCreate()
         AndroidThreeTen.init(this)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         setCrashHandler()
     }
 

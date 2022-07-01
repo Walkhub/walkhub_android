@@ -3,14 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="fragment"
-            type="com.semicolon.walkhub.ui.profile.setting.ui.ModifyProfileActivity" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/all"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -21,9 +15,26 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="11dp"
             android:layout_marginBottom="29dp"
-            android:fontFamily="@font/noto_sans_kr_medium"
-            android:text="대덕소프트웨어마이스터고등학교"
             android:gravity="center"
+            android:fontFamily="@font/noto_sans_kr_medium"
+            android:text=""
+            android:textColor="@color/gray_900"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/view3"
+            app:layout_constraintStart_toStartOf="@+id/view3"
+            app:layout_constraintTop_toTopOf="@+id/view3" />
+
+        <TextView
+            android:id="@+id/my_change_school_name"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginBottom="29dp"
+            android:gravity="center"
+            android:visibility="invisible"
+            android:fontFamily="@font/noto_sans_kr_medium"
+            android:text=""
             android:textColor="@color/gray_900"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/view3"
@@ -35,12 +46,12 @@
             android:layout_width="wrap_content"
             android:layout_height="18dp"
             android:layout_marginStart="16dp"
-            android:visibility="invisible"
             android:fontFamily="@font/noto_sans_kr_regular"
             android:text="현재 소속 중인 반이 없어요."
-            android:gravity="center"
             android:textColor="@color/gray_800"
             android:textSize="12sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/view3"
             app:layout_constraintStart_toStartOf="@+id/view3"
             app:layout_constraintTop_toBottomOf="@+id/my_school_name" />
 
@@ -51,14 +62,14 @@
             android:layout_marginStart="16dp"
             android:gravity="center"
             android:fontFamily="@font/noto_sans_kr_regular"
-            android:text="3"
+            android:text=""
             android:textColor="@color/gray_800"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@+id/view3"
             app:layout_constraintTop_toBottomOf="@+id/my_school_name"/>
 
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/text_grade"
             android:layout_width="wrap_content"
             android:layout_height="18dp"
             android:fontFamily="@font/noto_sans_kr_regular"
@@ -76,13 +87,14 @@
             android:layout_height="18dp"
             android:fontFamily="@font/noto_sans_kr_regular"
             android:gravity="center"
-            android:text="9"
+            android:text=""
             android:textColor="@color/gray_800"
             android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@+id/textView13"
+            app:layout_constraintStart_toEndOf="@+id/text_grade"
             app:layout_constraintTop_toBottomOf="@+id/my_school_name" />
 
         <TextView
+            android:id="@+id/text_class"
             android:layout_width="wrap_content"
             android:layout_height="18dp"
             android:fontFamily="@font/noto_sans_kr_regular"
@@ -140,6 +152,7 @@
             android:id="@+id/imageView4"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:src="@drawable/camera"
             app:layout_constraintBottom_toBottomOf="@+id/image"
             app:layout_constraintEnd_toEndOf="@+id/image"
             app:layout_constraintStart_toStartOf="@+id/image"
@@ -158,15 +171,27 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/image">
 
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="14sp"
+                android:textColor="@color/gray_900"
+                android:fontFamily="@font/noto_sans_kr_regular"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/nameEt"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <EditText
                 android:id="@+id/nameEt"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
                 android:fontFamily="@font/noto_sans_kr_regular"
-                android:layout_marginStart="16dp"
-                android:hint="변경할 이름을 입력해주세요"
+                android:layout_marginStart="20dp"
                 android:inputType="text"
+                android:maxLength="10"
                 android:textColor="@color/gray_900"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -178,6 +203,7 @@
             android:id="@+id/imageView"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:src="@drawable/pen"
             android:layout_marginEnd="16dp"
             app:layout_constraintBottom_toBottomOf="@+id/nametil"
             app:layout_constraintEnd_toEndOf="@+id/nametil"
@@ -199,16 +225,19 @@
             android:id="@+id/imageView3"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:src="@drawable/pen"
             android:layout_marginEnd="16dp"
             app:layout_constraintBottom_toBottomOf="@+id/view3"
             app:layout_constraintEnd_toEndOf="@+id/view3"
             app:layout_constraintTop_toTopOf="@+id/view3" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/fix_btn"
-            android:layout_width="0dp"
+            android:id="@+id/fix_done_btn"
+            android:layout_width="match_parent"
+            android:layout_marginStart="-16dp"
+            android:layout_marginEnd="-16dp"
             android:layout_height="56dp"
-            android:background="#E0E0E0"
+            android:background="@drawable/registerbuttondesign"
             android:fontFamily="@font/noto_sans_kr_regular"
             android:text="수정 완료"
             android:textColor="@color/white"
@@ -217,19 +246,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/fix_done_btn"
-            android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:background="@color/primary_400"
-            android:fontFamily="@font/noto_sans_kr_regular"
-            android:text="수정 완료"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

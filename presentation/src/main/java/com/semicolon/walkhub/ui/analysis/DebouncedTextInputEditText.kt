@@ -20,7 +20,7 @@ class DebouncedTextInputEditText @JvmOverloads constructor(
     defStyleAttr: Int = R.attr.editTextStyle
 ) : TextInputEditText(context, attributeSet, defStyleAttr) {
 
-    private val delay = 300L
+    private val delay = 100L
     private var job: Job? = null
 
     @FlowPreview

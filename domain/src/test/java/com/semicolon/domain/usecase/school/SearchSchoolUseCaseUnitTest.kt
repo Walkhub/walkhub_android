@@ -18,7 +18,7 @@ class SearchSchoolUseCaseUnitTest {
     @Test
     fun testSearchSchoolUseCase() {
         val schoolName = "my school"
-        val schoolId = 1
+        val schoolId: Long = 1
         val image = "image"
         
         val searchSchoolResponse =
