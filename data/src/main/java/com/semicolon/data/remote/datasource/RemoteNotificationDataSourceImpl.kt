@@ -1,7 +1,10 @@
 package com.semicolon.data.remote.datasource
 
 import com.semicolon.data.remote.api.NotificationApi
+import com.semicolon.data.remote.request.notification.OffNotiRequest
+import com.semicolon.data.remote.request.notification.OnNotiRequest
 import com.semicolon.data.remote.response.notification.NotificationListResponse
+import com.semicolon.data.remote.response.notification.WhetherNotificationResponse
 import com.semicolon.data.util.HttpHandler
 import javax.inject.Inject
 
@@ -19,14 +22,20 @@ class RemoteNotificationDataSourceImpl @Inject constructor(
             .httpRequest { notificationApi.sendReadNotification(data) }
             .sendRequest()
 
-    override suspend fun switchOnNotifications(userId: Int, type: String) =
+    override suspend fun switchOnNofications(onNotiRequest: OnNotiRequest) =
         HttpHandler<Unit>()
-            .httpRequest { notificationApi.onNotifications(userId, type) }
+            .httpRequest { notificationApi.onNotifications(onNotiRequest) }
             .sendRequest()
 
-    override suspend fun switchOffNotifications(type: String) =
+
+    override suspend fun switchOffNotifications(offNotiRequest: OffNotiRequest) =
         HttpHandler<Unit>()
-            .httpRequest { notificationApi.offNotifications(type) }
+            .httpRequest { notificationApi.offNotifications(offNotiRequest) }
+            .sendRequest()
+
+    override suspend fun notificationStatus(): WhetherNotificationResponse =
+        HttpHandler<WhetherNotificationResponse>()
+            .httpRequest { notificationApi.notificationStatus() }
             .sendRequest()
 
 }

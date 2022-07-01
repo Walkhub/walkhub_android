@@ -2,10 +2,13 @@ package com.semicolon.data.repository
 
 import com.semicolon.data.local.datasource.LocalNotificationDataSource
 import com.semicolon.data.remote.datasource.RemoteNotificationDataSource
+import com.semicolon.data.remote.request.notification.OffNotiRequest
+import com.semicolon.data.remote.request.notification.OnNotiRequest
 import com.semicolon.data.remote.response.notification.toEntity
 import com.semicolon.data.util.OfflineCacheUtil
 import com.semicolon.domain.entity.notification.NotificationEntity
-import com.semicolon.domain.enums.NotificationType
+import com.semicolon.domain.entity.notification.NotificationStatusEntity
+import com.semicolon.domain.param.notifications.SwitchOffNotificationsParam
 import com.semicolon.domain.param.notifications.SwitchOnNotificationsParam
 import com.semicolon.domain.repository.NotificationRepository
 import kotlinx.coroutines.flow.Flow
@@ -28,10 +31,32 @@ class NotificationRepositoryImpl @Inject constructor(
     }
 
     override suspend fun switchOnNotification(switchOnNotificationsParam: SwitchOnNotificationsParam) {
-        remoteNotificationDataSource.switchOnNotifications(switchOnNotificationsParam.userId, switchOnNotificationsParam.type.toString())
+        remoteNotificationDataSource.switchOnNofications(switchOnNotificationsParam.toRequest())
     }
 
-    override suspend fun switchOffNotification(type: NotificationType) {
-        remoteNotificationDataSource.switchOffNotifications(type.toString())
-    }
+    override suspend fun switchOffNotification(switchOffNotificationsParam: SwitchOffNotificationsParam) =
+        remoteNotificationDataSource.switchOffNotifications(switchOffNotificationsParam.toRequest())
+
+    override suspend fun notificationStatus(): Flow<NotificationStatusEntity> =
+        OfflineCacheUtil<NotificationStatusEntity>()
+            .remoteData { remoteNotificationDataSource.notificationStatus().toEntity() }
+            .localData { localNotificationDataSource.fetchNotificationStatus() }
+            .doOnNeedRefresh { localNotificationDataSource.saveNotificationStatus(it) }
+            .createFlow()
+
+    fun SwitchOffNotificationsParam.toRequest() =
+        OffNotiRequest(
+            type = type,
+            userIdList = listOf(userId)
+        )
+
+    fun SwitchOnNotificationsParam.toRequest() =
+        OnNotiRequest(
+            type = type,
+            userIdList = listOf(userId)
+
+        )
+
 }
+
+

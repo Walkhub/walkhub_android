@@ -18,6 +18,7 @@ import com.semicolon.walkhub.util.loadCircleFromUrl
 import com.semicolon.walkhub.util.loadFromUrl
 import com.semicolon.walkhub.util.visible
 import com.semicolon.walkhub.viewmodel.profile.ProfileViewModel
+import com.semicolon.walkhub.viewmodel.profile.setting.SettingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.properties.Delegates
 
@@ -49,6 +50,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
     private fun handleEvent(event: ProfileViewModel.Event) = when (event) {
         is ProfileViewModel.Event.FetchMyPage -> {
             setProfileValue(event.myPageData)
+            vm.userId = event.myPageData.userId
             schoolId = event.myPageData.schoolId
         }
 
@@ -65,6 +67,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
     override fun initView() {
         binding.setting.setOnClickListener {
             val intent = Intent(activity, SettingActivity::class.java)
+            intent.putExtra("user_id", vm.userId)
             intent.putExtra("profile_image", profileImage)
             intent.putExtra("school_id", schoolId)
             startActivity(intent)

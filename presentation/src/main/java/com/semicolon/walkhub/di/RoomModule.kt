@@ -43,6 +43,7 @@ object RoomModule {
         .addTypeConverter(RankUserRankTypeConverter(moshi))
         .addTypeConverter(ChallengeParticipantTypeConverter(moshi))
         .addTypeConverter(NotificationTypeConverter(moshi))
+        .addTypeConverter(NotificationStatusListTypeConverter(moshi))
         .build()
 
     @Provides

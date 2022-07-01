@@ -8,27 +8,33 @@ import com.semicolon.walkhub.databinding.ActivitySettingBinding
 import com.semicolon.walkhub.extensions.repeatOnStarted
 import com.semicolon.walkhub.ui.HomeActivity
 import com.semicolon.walkhub.ui.base.BaseActivity
+import com.semicolon.walkhub.ui.hub.model.SearchUserData
+import com.semicolon.walkhub.ui.profile.model.MyPageData
+import com.semicolon.walkhub.ui.register.model.SecondSearchSchoolData
+import com.semicolon.walkhub.viewmodel.profile.setting.NoticeSettingViewModel.Companion.userId
 import com.semicolon.walkhub.viewmodel.profile.setting.SettingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.properties.Delegates
 
 @AndroidEntryPoint
-class SettingActivity : BaseActivity<ActivitySettingBinding>(
+class SettingActivity() : BaseActivity<ActivitySettingBinding>(
     R.layout.activity_setting
 ) {
 
     private val vm: SettingViewModel by viewModels()
-    lateinit var intent2: Intent
 
     var user by Delegates.notNull<Int>()
-
+    private var defaultUserId : Int = 1
+    private var userId by Delegates.notNull<Int>()
+   
     private var profileImage: String? = ""
     private var school: Long = 0
     private var schoolId by Delegates.notNull<Long>()
 
     override fun onCreate(savedInstanceState: android.os.Bundle?) {
         super.onCreate(savedInstanceState)
-
+        
+        userId = intent.getIntExtra("user_id", defaultUserId)
         profileImage = intent.getStringExtra("profile_image")
         schoolId = intent.getLongExtra("school_id", school)
 
@@ -74,7 +80,8 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>(
 
         binding.notificationSetting.setOnClickListener {
             val intent = Intent(context, NoticeSettingActivity::class.java)
-            intent2.putExtra("user_id", user)
+            intent.putExtra("user_id", userId)
+            intent.putExtra("movePage", true)
             startActivity(intent)
         }
 
