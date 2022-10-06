@@ -8,16 +8,16 @@ import com.semicolon.data.local.entity.badge.FetchUserBadgesRoomEntity
 import com.semicolon.data.local.entity.challenge.ChallengeDetailRoomEntity
 import com.semicolon.data.local.entity.notice.NoticeListRoomEntity
 import com.semicolon.data.local.entity.notification.NotificationRoomEntity
+import com.semicolon.data.local.entity.notification.NotificationStatusRoomEntity
 import com.semicolon.data.local.entity.rank.*
 import com.semicolon.data.local.entity.user.FetchCaloriesLevelRoomEntity
-import com.semicolon.domain.entity.challenge.ChallengeParticipantEntity
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 
 @ProvidedTypeConverter
 class CaloriesListTypeConverter(
-    private val moshi: Moshi
+    private val moshi: Moshi,
 ) {
 
     @TypeConverter
@@ -45,7 +45,7 @@ class CaloriesListTypeConverter(
 
 @ProvidedTypeConverter
 class MyBadgeListTypeConverter(
-    private val moshi: Moshi
+    private val moshi: Moshi,
 ) {
 
     @TypeConverter
@@ -67,7 +67,7 @@ class MyBadgeListTypeConverter(
 
 @ProvidedTypeConverter
 class NewBadgeListTypeConverter(
-    private val moshi: Moshi
+    private val moshi: Moshi,
 ) {
 
     @TypeConverter
@@ -89,7 +89,7 @@ class NewBadgeListTypeConverter(
 
 @ProvidedTypeConverter
 class NoticeListTypeConverter(
-    private val moshi: Moshi
+    private val moshi: Moshi,
 ) {
 
     @TypeConverter
@@ -118,8 +118,35 @@ class NoticeListTypeConverter(
 }
 
 @ProvidedTypeConverter
+class NotificationStatusListTypeConverter(
+    private val moshi: Moshi,
+) {
+    @TypeConverter
+    fun fromString(value: String): List<NotificationStatusRoomEntity.TopicWhether>? {
+        val listType = Types.newParameterizedType(
+            List::class.java,
+            NotificationStatusRoomEntity.TopicWhether::class.java
+        )
+        val adapter: JsonAdapter<List<NotificationStatusRoomEntity.TopicWhether>> =
+            moshi.adapter(listType)
+        return adapter.fromJson(value)
+    }
+
+    @TypeConverter
+    fun fromList(type: List<NotificationStatusRoomEntity.TopicWhether>): String {
+        val listType = Types.newParameterizedType(
+            List::class.java,
+            NotificationStatusRoomEntity.TopicWhether::class.java
+        )
+        val adapter: JsonAdapter<List<NotificationStatusRoomEntity.TopicWhether>> =
+            moshi.adapter(listType)
+        return adapter.toJson(type)
+    }
+}
+
+@ProvidedTypeConverter
 class UserBadgeListTypeConverter(
-    private val moshi: Moshi
+    private val moshi: Moshi,
 ) {
 
     @TypeConverter
@@ -145,7 +172,7 @@ class UserBadgeListTypeConverter(
 
 @ProvidedTypeConverter
 class RankOurSchoolTypeConverter(
-    private val moshi: Moshi
+    private val moshi: Moshi,
 ) {
 
     @TypeConverter
@@ -173,7 +200,7 @@ class RankOurSchoolTypeConverter(
 
 @ProvidedTypeConverter
 class RankSchoolRankAndSearchTypeConverter(
-    private val moshi: Moshi
+    private val moshi: Moshi,
 ) {
 
     @TypeConverter
@@ -201,7 +228,7 @@ class RankSchoolRankAndSearchTypeConverter(
 
 @ProvidedTypeConverter
 class RankSearchUserTypeConverter(
-    private val moshi: Moshi
+    private val moshi: Moshi,
 ) {
 
     @TypeConverter
@@ -226,7 +253,7 @@ class RankSearchUserTypeConverter(
 
 @ProvidedTypeConverter
 class RankUserRankTypeConverter(
-    private val moshi: Moshi
+    private val moshi: Moshi,
 ) {
 
     @TypeConverter
@@ -251,7 +278,7 @@ class RankUserRankTypeConverter(
 
 @ProvidedTypeConverter
 class ChallengeParticipantTypeConverter(
-    private val moshi: Moshi
+    private val moshi: Moshi,
 ) {
 
     @TypeConverter
@@ -280,7 +307,7 @@ class ChallengeParticipantTypeConverter(
 
 @ProvidedTypeConverter
 class NotificationTypeConverter(
-    private val moshi: Moshi
+    private val moshi: Moshi,
 ) {
     @TypeConverter
     fun fromString(value: String): List<NotificationRoomEntity.NotificationRoomValue>? {

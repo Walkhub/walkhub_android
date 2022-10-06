@@ -18,6 +18,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.lang.NullPointerException
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
@@ -28,7 +29,7 @@ class ProfileViewModel @Inject constructor(
 
     private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()
-
+    var userId by Delegates.notNull<Int>()
 
     fun fetchMyPage() {
         viewModelScope.launch {
@@ -36,7 +37,9 @@ class ProfileViewModel @Inject constructor(
                 fetchMypageUseCase.execute(Unit)
                     .collect {
                         event(Event.FetchMyPage(it.toData()))
+                        userId = it.userId
                     }
+            }.onSuccess {
             }.onFailure {
                 when (it) {
                     is NullPointerException -> event(Event.ErrorMessage("반에 소속되어있지 않습니다. 반에 가입해주세요"))
